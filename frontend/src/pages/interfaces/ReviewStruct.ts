@@ -1,7 +1,12 @@
 export interface ReviewStruct {
-  _id: number;
+  _id: string;
   guest: string;
   opinion: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
+
+export type SimpleReviewStruct = {
+  guest: string;
+  opinion: string;
+};

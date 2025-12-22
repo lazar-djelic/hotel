@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import api from "../../lib/axios";
+import type { ReservationType } from "../interfaces/ReservationType";
 
 export const useReservations = () => {
-  const [loading, setLoading] = useState(true);
-  const [reservations, setReservations] = useState([]);
-
-  useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        // const res = await api.get("/reservations");
-        // console.log(res.data);
-        // setReservations(res.data);
-      } catch (error) {
-        console.log("Error fetching reservations");
-        toast.error("Failed to load reservations");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReservations();
-  }, []);
-
-  return { loading, reservations };
+  return useQuery<ReservationType[], Error>({
+    queryKey: ["reservations"],
+    queryFn: async () => {
+      const res = await api.get("/reservations");
+      return res.data;
+    },
+  });
 };

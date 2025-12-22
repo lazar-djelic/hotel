@@ -1,10 +1,9 @@
 import Navbar from "../../components/Navbar";
-import type { ReviewStruct } from "../interfaces/ReviewStruct";
 import ReviewCard from "./ReviewCard";
 import { useReviews } from "./useReviews";
 
 const ReviewsPage = () => {
-  const { loading, reviews, setReviews } = useReviews();
+  const { reviews, loading, removeReview } = useReviews();
 
   return (
     <div className="min-h-screen">
@@ -17,7 +16,7 @@ const ReviewsPage = () => {
           </div>
         )}
 
-        {reviews.length === 0 && (
+        {!loading && reviews.length === 0 && (
           <div className="text-center text-primary py-10">
             There are no reviews yet.
           </div>
@@ -25,11 +24,11 @@ const ReviewsPage = () => {
 
         {reviews.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            {reviews.map((review: ReviewStruct) => (
+            {reviews.map((review) => (
               <ReviewCard
                 key={review._id}
                 review={review}
-                setReviews={setReviews}
+                onDelete={removeReview}
               />
             ))}
           </div>

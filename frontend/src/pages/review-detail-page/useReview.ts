@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import api from "../../lib/axios";
+import { useQuery } from "@tanstack/react-query";
 import type { ReviewStruct } from "../interfaces/ReviewStruct";
+import { fetchReview } from "../api/reviews.api";
+import { reviewSchema } from "../../schemas/review.response.schema";
 
 export const useReview = (id: string) => {
-  const [review, setReview] = useState<ReviewStruct | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data: review, isLoading } = useQuery<ReviewStruct>({
+    queryKey: ["review", id],
+    queryFn: async () => {
+      const raw = await fetchReview(id);
+      const parsed = reviewSchema.safeParse(raw);
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        if (id) {
-          const res = await api.get(`/reviews/${id}`);
-          setReview(res.data);
-        }
-      } catch (error) {
-        console.log("Error in fetchReview", error);
-        toast.error("Failed to fetch the review!");
-      } finally {
-        setLoading(false);
+      if (!parsed.success) {
+        console.error("Invalid review data from API", parsed.error);
+        throw new Error("Invalid review data");
       }
-    };
 
-    fetchReview();
-  }, [id]);
+      return parsed.data;
+    },
+    enabled: !!id,
+  });
 
-  return { loading, review, setReview };
+  return { review, loading: isLoading };
 };
