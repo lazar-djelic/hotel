@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { ZodError, type ZodType } from "zod";
-import Review from "../../models/Review.ts";
+import Review from "../../../models/Review.ts";
 
 export const validateCreateReview =
   (schema: ZodType<unknown>) =>

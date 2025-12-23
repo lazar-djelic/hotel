@@ -1,4 +1,4 @@
-import Review from "../../models/Review.ts";
+import Review from "../../../models/Review.ts";
 import { type Request, type Response } from "express";
 
 export async function deleteReview(req: Request, res: Response) {
