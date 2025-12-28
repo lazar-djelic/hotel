@@ -1,5 +1,5 @@
-import { reviewSchema } from "../../schemas/review.response.schema";
-import { fetchReview } from "../api/reviews.api";
+import { reviewSchema } from "../../../../schemas/review.response.schema";
+import { fetchReview } from "../reviews.api";
 
 export const fetchReviewQueryFn = async (id: string) => {
   const raw = await fetchReview(id);

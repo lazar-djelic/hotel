@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ReviewStruct } from "../interfaces/ReviewStruct";
-import { QUERY_KEYS } from "../../config/query-keys";
+import type { ReviewStruct } from "../ReviewStruct";
+import { QUERY_KEYS } from "../../../../config/query-keys";
 import { fetchReviewQueryFn } from "./fetchReviewQueryFn";
 
 export const useReview = (id: string) => {

@@ -1,6 +1,7 @@
 import "react-date-range/dist/styles.css";
 import type { Dispatch, FC, SetStateAction } from "react";
 import "react-date-range/dist/theme/default.css";
+import "./DoubleCalendar.css";
 import {
   DateRangePicker,
   createStaticRanges,
@@ -33,8 +34,6 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
   setDateRange,
 }) => {
   const handleChange = async (range: RangeKeyDict) => {
-    console.log(range);
-
     const mappedRange: RangeType[] = [
       {
         startDate: range.selection.startDate || new Date(),
@@ -45,14 +44,15 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
 
     setDateRange(mappedRange);
 
-    const msInADay = 1000 * 60 * 60 * 24;
-    const razlika =
-      range.selection.endDate && range.selection.startDate
-        ? (range.selection.endDate.getTime() -
-            range.selection.startDate.getTime()) /
-          msInADay
-        : 0;
-    console.log("Broj dana izmedju dva datuma je: ", razlika);
+    // console.log(range);
+    // const msInADay = 1000 * 60 * 60 * 24;
+    // const razlika =
+    //   range.selection.endDate && range.selection.startDate
+    //     ? (range.selection.endDate.getTime() -
+    //         range.selection.startDate.getTime()) /
+    //       msInADay
+    //     : 0;
+    // console.log("Broj dana izmedju dva datuma je: ", razlika);
   };
 
   const customRanges = createStaticRanges([
@@ -124,14 +124,18 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
   const allStaticRanges = [...customRanges];
 
   return (
-    <DateRangePicker
-      ranges={dateRange}
-      onChange={handleChange}
-      weekStartsOn={1}
-      months={2}
-      staticRanges={allStaticRanges}
-      locale={srLatn}
-    />
+    <div className="inline-block rounded-x2 border-2 border-slate p-2">
+      <div className="custom-date-range">
+        <DateRangePicker
+          ranges={dateRange}
+          onChange={handleChange}
+          weekStartsOn={1}
+          months={2}
+          staticRanges={allStaticRanges}
+          locale={srLatn}
+        />
+      </div>
+    </div>
   );
 };
 

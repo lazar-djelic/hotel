@@ -1,15 +1,15 @@
 import express from "express";
+import { validateRequest } from "../middlewares/validateRequest.ts";
 import { getAllReviews } from "../controllers/review-conrollers/getReviews/getAllReviews.ts";
 import { getReviewById } from "../controllers/review-conrollers/getReview/getReviewById.ts";
 import { createReview } from "../controllers/review-conrollers/createReview/createReview.ts";
 import { updateReview } from "../controllers/review-conrollers/updateReview/updateReview.ts";
 import { deleteReview } from "../controllers/review-conrollers/deleteReview/deleteReview.ts";
-import { validateRequest } from "../middlewares/validateRequest.ts";
 import { GetReviewsRequestSchema } from "../controllers/review-conrollers/getReviews/types.ts";
-import { GetReviewRequestSchema } from "../controllers/review-conrollers/getReview/type.ts";
-import { CreateReviewRequestSchema } from "../controllers/review-conrollers/createReview/type.ts";
-import { UpdateReviewRequestSchema } from "../controllers/review-conrollers/updateReview/type.ts";
-import { DeleteReviewRequestSchema } from "../controllers/review-conrollers/deleteReview/type.ts";
+import { GetReviewRequestSchema } from "../controllers/review-conrollers/getReview/types.ts";
+import { CreateReviewRequestSchema } from "../controllers/review-conrollers/createReview/types.ts";
+import { UpdateReviewRequestSchema } from "../controllers/review-conrollers/updateReview/types.ts";
+import { DeleteReviewRequestSchema } from "../controllers/review-conrollers/deleteReview/types.ts";
 
 const router = express.Router();
 

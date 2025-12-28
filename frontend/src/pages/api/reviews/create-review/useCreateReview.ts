@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { QUERY_KEYS } from "../../config/query-keys";
+import { QUERY_KEYS } from "../../../../config/query-keys";
 import { createMutationFn } from "./createMutationFn";
 
 export const useCreateReview = (navigate: (path: string) => void) => {

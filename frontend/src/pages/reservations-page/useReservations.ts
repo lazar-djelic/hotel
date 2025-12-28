@@ -1,11 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ReservationType } from "../interfaces/ReservationType";
 import { QUERY_KEYS } from "../../config/query-keys";
-import { getQueryFn } from "./getQueryFn";
+import { fetchReservationsQueryFn } from "./fetchReservationsQueryFn";
+import type { ReservationStruct } from "../api/reservations/ReservationStruct";
+import type { RangeType } from "../interfaces/RangeType";
 
-export const useReservations = () => {
-  return useQuery<ReservationType[], Error>({
-    queryKey: [QUERY_KEYS.RESERVATION.RESERVATIONS],
-    queryFn: () => getQueryFn(),
+export const useReservations = (dateRange: RangeType) => {
+  const { data: reservations = [], isLoading } = useQuery<ReservationStruct[]>({
+    queryKey: [QUERY_KEYS.RESERVATION.RESERVATIONS, dateRange],
+    queryFn: () => fetchReservationsQueryFn(dateRange),
   });
+
+  return {
+    reservations,
+    isLoading: isLoading,
+  };
 };

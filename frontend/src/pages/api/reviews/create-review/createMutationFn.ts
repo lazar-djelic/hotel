@@ -1,8 +1,8 @@
-import api from "../../lib/axios";
+import api from "../../../../lib/axios";
 import {
   reviewSimpleSchema,
   type reviewSimpleSchemaType,
-} from "../../schemas/review.response.schema";
+} from "../../../../schemas/review.response.schema";
 
 export const createMutationFn = async (data: reviewSimpleSchemaType) => {
   const payload = reviewSimpleSchema.parse(data);

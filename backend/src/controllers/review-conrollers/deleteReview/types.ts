@@ -8,3 +8,10 @@ export const DeleteReviewRequestSchema = {
     id: z.string(),
   }),
 };
+
+export type DeleteReviewRequest = Request<
+  z.infer<typeof DeleteReviewRequestSchema.params>,
+  {},
+  z.infer<typeof DeleteReviewRequestSchema.body>,
+  z.infer<typeof DeleteReviewRequestSchema.query>
+>;

@@ -1,9 +1,10 @@
 import Review from "../../../models/Review.ts";
-import { type Request, type Response, type NextFunction } from "express";
+import { type Response, type NextFunction } from "express";
 import { reviewArraySchema } from "../../../schemas/review.response.schema.ts";
+import type { GetReviewsRequst } from "./types.ts";
 
 export async function getAllReviews(
-  _req: Request,
+  _req: GetReviewsRequst,
   res: Response,
   next: NextFunction
 ) {

@@ -1,7 +1,7 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateReview } from "./useCreateReview";
+import { useCreateReview } from "../api/reviews/create-review/useCreateReview";
 import toast from "react-hot-toast";
 import { reviewSimpleSchema } from "../../schemas/review.response.schema";
 

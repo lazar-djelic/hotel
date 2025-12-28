@@ -13,6 +13,12 @@ const Navbar: FC = () => {
           <label className="swap swap-rotate">
             <input
               type="checkbox"
+              onChange={(e) => {
+                document.documentElement.setAttribute(
+                  "data-theme",
+                  e.target.checked ? "pastel" : "night"
+                );
+              }}
               className="theme-controller"
               value="pastel"
             />

@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import type { ReviewStruct } from "../interfaces/ReviewStruct";
-import { deleteReview } from "../api/reviews.api";
-import { QUERY_KEYS } from "../../config/query-keys";
+import type { ReviewStruct } from "../ReviewStruct";
+import { deleteReview } from "../reviews.api";
+import { QUERY_KEYS } from "../../../../config/query-keys";
 import { fetchReviewsQueryFn } from "./fetchReviewsQueryFn";
 
 export const useReviews = () => {

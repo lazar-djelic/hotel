@@ -1,7 +1,8 @@
 import Review from "../../../models/Review.ts";
-import { type Request, type Response } from "express";
+import { type Response } from "express";
+import type { DeleteReviewRequest } from "./types.ts";
 
-export async function deleteReview(req: Request, res: Response) {
+export async function deleteReview(req: DeleteReviewRequest, res: Response) {
   try {
     const deletedReview = await Review.findByIdAndDelete(req.params.id);
     if (!deletedReview)

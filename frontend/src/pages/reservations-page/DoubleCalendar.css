@@ -1,0 +1,90 @@
+/* wrapper */
+.custom-date-range {
+  background-color: transparent;
+}
+
+/* main container */
+.custom-date-range .rdrCalendarWrapper {
+  background-color: transparent !important;
+  color: #e5e7eb;
+}
+
+/* months */
+.custom-date-range .rdrMonth {
+  background-color: transparent !important;
+}
+
+/* weekdays header */
+.custom-date-range .rdrWeekDays,
+.custom-date-range .rdrWeekDay {
+  background-color: transparent !important;
+  color: #94a3b8;
+}
+
+/* day numbers */
+[data-theme="night"] .custom-date-range .rdrDayNumber span {
+  color: #c8cbd0 !important;
+}
+
+[data-theme="pastel"] .custom-date-range .rdrDayNumber span {
+  color: #000000 !important;
+}
+
+/* outside month days */
+[data-theme="night"] .custom-date-range .rdrDayPassive span {
+  color: #475569 !important;
+}
+
+/* outside month days */
+[data-theme="pastel"] .custom-date-range .rdrDayPassive span {
+  color: #475569 !important;
+}
+
+/* static ranges sidebar */
+.custom-date-range .rdrDefinedRangesWrapper {
+  background-color: transparent !important;
+}
+
+[data-theme="night"] .custom-date-range .rdrStaticRange {
+  background-color: transparent !important;
+  color: #c8cbd0 !important;
+}
+
+[data-theme="pastel"] .custom-date-range .rdrStaticRange {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+
+[data-theme="night"] .custom-date-range .rdrStaticRange:hover,
+[data-theme="night"] .custom-date-range .rdrStaticRangeSelected {
+  background-color: #020617 !important;
+}
+
+[data-theme="pastel"] .custom-date-range .rdrStaticRange:hover,
+[data-theme="pastel"] .custom-date-range .rdrStaticRangeSelected {
+  background-color: #fbf3d2 !important;
+}
+
+/* selected range */
+.custom-date-range .rdrDaySelected,
+.custom-date-range .rdrDayStartOfRange,
+.custom-date-range .rdrDayEndOfRange {
+  background-color: #3b82f6 !important;
+}
+
+/* Change text color on hover */
+.custom-date-range .rdrStaticRange:hover .rdrStaticRangeLabel {
+  color: #020617 !important;
+}
+
+.custom-date-range .rdrDateDisplayWrapper {
+  background-color: transparent !important;
+}
+
+.custom-date-range .rdrDateInput {
+  background-color: transparent !important;
+}
+
+.custom-date-range .rdrNextPrevButton {
+  background-color: transparent !important;
+}

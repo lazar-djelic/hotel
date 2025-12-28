@@ -11,3 +11,10 @@ export const UpdateReviewRequestSchema = {
     id: z.string(),
   }),
 };
+
+export type UpdateReviewRequest = Request<
+  z.infer<typeof UpdateReviewRequestSchema.params>,
+  {},
+  z.infer<typeof UpdateReviewRequestSchema.body>,
+  z.infer<typeof UpdateReviewRequestSchema.query>
+>;

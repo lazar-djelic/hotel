@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "MongoDB": {
+      "command": "npx",
+      "args": ["-y", "mongodb-mcp-server@latest", "--readOnly"],
+      "env": {
+        "MDB_MCP_CONNECTION_STRING": "mongodb+srv://lazardjelic_db_user:VIyLly6Z83CMf0o9@cluster0.2mxdbsj.mongodb.net/hotel_db?appName=Cluster0"
+        //"MDB_MCP_API_CLIENT_ID": "your-atlas-service-accounts-client-id",
+        //"MDB_MCP_API_CLIENT_SECRET": "your-atlas-service-accounts-client-secret"
+      },
+      "type": "stdio"
+    }
+  }
+}

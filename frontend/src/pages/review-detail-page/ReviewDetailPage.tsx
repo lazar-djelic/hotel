@@ -1,11 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
-import { useReview } from "./useReview";
-import { useUpdateReview } from "./useUpdateReview";
-import { useDeleteReview } from "./useDeleteReview";
-import type { ReviewStruct } from "../interfaces/ReviewStruct";
+import { useReview } from "../api/reviews/review-detail/useReview";
+import type { ReviewStruct } from "../api/reviews/ReviewStruct";
 import { reviewSimpleSchema } from "../../schemas/review.response.schema";
+import { useUpdateReview } from "../api/reviews/review-detail/useUpdateReview";
+import { useDeleteReview } from "../api/reviews/review-detail/useDeleteReview";
 
 const ReviewDetailPage = () => {
   const { id } = useParams<{ id: string }>();

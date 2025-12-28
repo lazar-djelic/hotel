@@ -2,7 +2,7 @@ import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { formatDate } from "../../lib/utils";
 import { Link } from "react-router";
 import type { FC } from "react";
-import type { ReviewStruct } from "../interfaces/ReviewStruct";
+import type { ReviewStruct } from "../api/reviews/ReviewStruct";
 
 type ReviewCardArgs = {
   review: ReviewStruct;

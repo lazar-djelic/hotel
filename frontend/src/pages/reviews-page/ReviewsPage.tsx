@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import ReviewCard from "./ReviewCard";
-import { useReviews } from "./useReviews";
+import { useReviews } from "../api/reviews/all-reviews/useReviews";
 
 const ReviewsPage = () => {
   const { reviews, loading, removeReview } = useReviews();
