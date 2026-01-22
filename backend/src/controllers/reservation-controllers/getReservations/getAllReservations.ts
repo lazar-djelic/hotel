@@ -13,7 +13,7 @@ export async function getAllReservations(
     // const reservations = await Reservation.find()
     //   .sort({ createdAt: -1 })
     //   .lean();
-    // // test
+    // // test 11223344556677889900 and 999888777666555444333222111000
 
     const startDate = new Date(_req.query.startDate);
     startDate.setUTCHours(0, 0, 0, 0);
