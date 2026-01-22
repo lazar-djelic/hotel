@@ -6,13 +6,14 @@ import type { GetReservationsRequest } from "./types.ts";
 export async function getAllReservations(
   _req: GetReservationsRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     // all
     // const reservations = await Reservation.find()
     //   .sort({ createdAt: -1 })
     //   .lean();
+    // // test
 
     const startDate = new Date(_req.query.startDate);
     startDate.setUTCHours(0, 0, 0, 0);
