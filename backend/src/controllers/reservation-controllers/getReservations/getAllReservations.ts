@@ -9,21 +9,14 @@ export async function getAllReservations(
   next: NextFunction,
 ) {
   try {
-    // all
-    // const reservations = await Reservation.find()
-    //   .sort({ createdAt: -1 })
-    //   .lean();
-    // // test 11223344556677889900 and 999888777666555444333222111000
+    const startD = new Date(_req.query.startDate);
+    startD.setUTCHours(0, 0, 0, 0);
+    const endD = new Date(_req.query.endDate);
+    endD.setUTCHours(23, 59, 59, 999);
 
-    const startDate = new Date(_req.query.startDate);
-    startDate.setUTCHours(0, 0, 0, 0);
-    const endDate = new Date(_req.query.endDate);
-    endDate.setUTCHours(23, 59, 59, 999);
-
-    // samo striktne u rangu
     const reservations = await Reservation.find({
-      startDate: { $gte: startDate },
-      endDate: { $lte: endDate },
+      startDate: { $lte: endD },
+      endDate: { $gte: startD },
     })
       .sort({ createdAt: -1 })
       .lean();

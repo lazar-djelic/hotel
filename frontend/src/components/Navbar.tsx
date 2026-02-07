@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { MoonIcon, PlusIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import type { FC } from "react";
 
 const Navbar: FC = () => {
@@ -16,7 +16,7 @@ const Navbar: FC = () => {
               onChange={(e) => {
                 document.documentElement.setAttribute(
                   "data-theme",
-                  e.target.checked ? "pastel" : "night"
+                  e.target.checked ? "pastel" : "night",
                 );
               }}
               className="theme-controller"
@@ -34,12 +34,6 @@ const Navbar: FC = () => {
           <li>
             <Link to={"/reviews"}>
               <span>Reviews</span>
-            </Link>
-          </li>
-          <li>
-            <Link to={"/createreview"}>
-              <PlusIcon className="size-5" />
-              <span>New review</span>
             </Link>
           </li>
         </ul>

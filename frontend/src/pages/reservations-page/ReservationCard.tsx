@@ -24,7 +24,10 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
           End date: {formatDate(reservation.endDate)}
         </p>
         <p className="text-base-content/70 line-clamp-3">
-          Room: {reservation.room}
+          Room type: {reservation.roomType}
+        </p>
+        <p className="text-base-content/70 line-clamp-3">
+          Number of beds: {reservation.bedNum}
         </p>
       </div>
     </Link>

@@ -4,7 +4,8 @@ export interface ReservationStruct {
   lName: string;
   startDate: string;
   endDate: string;
-  room: number;
+  roomType: string;
+  bedNum: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,5 +15,6 @@ export type SimpleReservationStruct = {
   lName: string;
   startDate: string;
   endDate: string;
-  room: number;
+  roomType: string;
+  bedNum: string;
 };

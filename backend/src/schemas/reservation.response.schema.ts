@@ -6,7 +6,8 @@ export const reservationSchema = z.object({
   lName: z.string(),
   startDate: z.date(),
   endDate: z.date(),
-  room: z.number(),
+  roomType: z.string(),
+  bedNum: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -18,5 +19,6 @@ export const reservationSimpleSchema = z.object({
   lName: z.string(),
   startDate: z.date(),
   endDate: z.date(),
-  room: z.number(),
+  roomType: z.string(),
+  bedNum: z.string(),
 });

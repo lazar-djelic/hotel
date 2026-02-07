@@ -1,4 +1,4 @@
-import { fetchHotelConfig } from "../api/proba/useProba";
+import { fetchHotelConfig } from "../api/hotel-config/useConfig";
 
 const Test = () => {
   const { conf } = fetchHotelConfig();

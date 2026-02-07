@@ -18,14 +18,21 @@ const reservationMongooseSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    room: {
-      type: Number,
+    roomType: {
+      type: String,
+      required: true,
+    },
+    bedNum: {
+      type: String,
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Reservation = mongoose.model("reservations", reservationMongooseSchema);
+const Reservation = mongoose.model(
+  "room_reservations",
+  reservationMongooseSchema,
+);
 
 export default Reservation;

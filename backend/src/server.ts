@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import reviewsRoutes from "./routes/reviewsRoutes.ts";
 import { connectDB } from "./config/db.ts";
 import apiLogger from "./middlewares/apiLogger.ts";
-import configRoutes from "./proba/configRoutes.ts";
+import configRoutes from "./hotel-config/configRoutes.ts";
 import reservationsRoutes from "./routes/reservationsRoutes.ts";
 
 dotenv.config();

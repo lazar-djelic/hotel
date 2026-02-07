@@ -6,7 +6,8 @@ export const reservationSchema = z.object({
   lName: z.string(),
   startDate: z.string(),
   endDate: z.string(),
-  room: z.number(),
+  roomType: z.string(),
+  bedNum: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -30,10 +31,14 @@ export const reservationSimpleSchema = z.object({
     .string()
     .min(1, "End date is required")
     .max(25, "End date must be less than 25 characters"),
-  room: z
-    .number()
-    .min(1, "Room number is required")
-    .max(4, "Room number must be less than 4 characters"),
+  roomType: z
+    .string()
+    .min(1, "Room type is required")
+    .max(10, "Room type must be less than 10 characters"),
+  bedNum: z
+    .string()
+    .min(1, "Number of beds is required")
+    .max(10, "Number of beds must be less than 10 characters"),
 });
 
 export type reservationSimpleSchemaType = z.infer<

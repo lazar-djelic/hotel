@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchConfQueryFn } from "../api/proba/configQueryFn";
+import { fetchConfQueryFn } from "../api/hotel-config/configQueryFn";
 
 export const HomePage = () => {
   const [name, setName] = React.useState("");

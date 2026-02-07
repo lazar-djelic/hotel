@@ -2,7 +2,14 @@ import { reservationArraySchema } from "../../schemas/reservation.response.schem
 import { fetchReservations } from "../api/reservations/reservations.api";
 import type { RangeType } from "../interfaces/RangeType";
 
-export const fetchReservationsQueryFn = async (dateRange: RangeType) => {
+export const fetchReservationsQueryFn = async (
+  dateRange: RangeType,
+  option: string,
+) => {
+  if (option !== "room") {
+    return [];
+  }
+
   const rawReservations = await fetchReservations(dateRange);
   const parsed = reservationArraySchema.safeParse(rawReservations);
   if (!parsed.success) {

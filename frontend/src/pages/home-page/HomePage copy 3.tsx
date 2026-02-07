@@ -1,5 +1,5 @@
 import Navbar from "../../components/Navbar";
-import { fetchHotelConfig } from "../api/proba/useProba";
+import { fetchHotelConfig } from "../api/hotel-config/useConfig";
 import Test from "./Test";
 
 const HomePage = () => {
