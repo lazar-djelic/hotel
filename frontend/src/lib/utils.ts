@@ -1,6 +1,7 @@
-export function formatDate(dateS: string) {
-  const date = new Date(dateS);
-  return new Date(date).toLocaleDateString("en-UK", {
+export function formatDate(dateS: string, language: string) {
+  const locale = language.startsWith("sr") ? "sr-Latn-RS" : "en-GB";
+
+  return new Date(dateS).toLocaleDateString(locale, {
     day: "numeric",
     month: "short",
     year: "numeric",

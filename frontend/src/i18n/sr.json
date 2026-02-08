@@ -1,0 +1,60 @@
+{
+  "welcome": "Dobro došli",
+  "navbar": {
+    "reservations": "Rezervacije",
+    "reviews": "Knjiga utisaka",
+    "configuration": "Konfiguracija"
+  },
+  "loading": "Učitavanje...",
+  "back": "Nazad",
+  "config": {
+    "room": "Soba",
+    "levels": "Spratova",
+    "conference": "Konferencijska sala",
+    "spa": "Spa",
+    "pool": "Bazen",
+    "restaurant": "Restoran",
+    "gym": "Teretana"
+  },
+  "create": {
+    "review": {
+      "title": "Kreirajte novi utisak",
+      "name": "Ime",
+      "plhname": "Unesite Vaše ime",
+      "review": "Vaš utisak",
+      "plhreview": "Napišite utisak",
+      "loadbtn": "Kreiranje...",
+      "button": "Kreirajte utisak"
+    }
+  },
+  "dcalendar": {
+    "yesterday": "Juče",
+    "today": "Danas",
+    "tomorrow": "Sutra",
+    "lastweek": "Prošla nedelja",
+    "thisweek": "Ova nedelja",
+    "nextweek": "Sledeća nedelja",
+    "lastmonth": "Prošli mesec",
+    "thismonth": "Ovaj mesec",
+    "nextmonth": "Sledeći mesec",
+    "dutt": "dana do danas",
+    "dst": "dana od danas"
+  },
+  "rescard": {
+    "startd": "Početak rezervacije",
+    "endd": "Završetak rezervacije",
+    "rtype": "Tip sobe",
+    "bednum": "Broj kreveta"
+  },
+  "newres": "Kreirajte rezervaciju",
+  "nores": "Trenutno nema rezervacija za izabrani period.",
+  "review": {
+    "delrev": "Obrišite utisak",
+    "name": "Ime",
+    "review": "Vaš utisak",
+    "loadsavebtn": "Sačuvavanje...",
+    "savebtn": "Sačuvajte promene",
+    "new": "Novi utisak",
+    "norev": "Trenutno nema utisaka."
+  }
+}

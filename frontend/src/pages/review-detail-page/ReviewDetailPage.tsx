@@ -6,8 +6,11 @@ import type { ReviewStruct } from "../api/reviews/ReviewStruct";
 import { reviewSimpleSchema } from "../../schemas/review.response.schema";
 import { useUpdateReview } from "../api/reviews/review-detail/useUpdateReview";
 import { useDeleteReview } from "../api/reviews/review-detail/useDeleteReview";
+import { useTranslation } from "react-i18next";
+import Navbar from "../../components/Navbar";
 
 const ReviewDetailPage = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -40,70 +43,74 @@ const ReviewDetailPage = () => {
   const current = form ?? review;
 
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <Link to="/reviews" className="btn btn-ghost mb-6">
-              <ArrowLeftIcon className="size-5" />
-              Back
-            </Link>
+    <>
+      <Navbar />
 
-            <button
-              className="btn btn-error btn-outline"
-              onClick={() => {
-                if (window.confirm("Are you sure?")) {
-                  deleteReview(id!);
-                }
-              }}
-            >
-              <Trash2Icon className="size-5" />
-              Delete review
-            </button>
-          </div>
+      <div className="bg-base-200">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-2xl mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <Link to="/reviews" className="btn btn-ghost mb-6">
+                <ArrowLeftIcon className="size-5" />
+                {t("back")}
+              </Link>
 
-          <div className="card bg-base-100">
-            <div className="card-body">
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Name</span>
-                </label>
-                <input
-                  className="input input-bordered"
-                  value={current.guest}
-                  onChange={(e) =>
-                    setForm({ ...current, guest: e.target.value })
+              <button
+                className="btn btn-error btn-outline"
+                onClick={() => {
+                  if (window.confirm("Are you sure?")) {
+                    deleteReview(id!);
                   }
-                />
-              </div>
+                }}
+              >
+                <Trash2Icon className="size-5" />
+                {t("review.delrev")}
+              </button>
+            </div>
 
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Your review</span>
-                </label>
-                <textarea
-                  className="textarea textarea-bordered h-36"
-                  value={current.opinion}
-                  onChange={(e) =>
-                    setForm({ ...current, opinion: e.target.value })
-                  }
-                />
-              </div>
+            <div className="card bg-base-100">
+              <div className="card-body">
+                <div className="form-control mb-4">
+                  <label className="label">
+                    <span className="label-text">{t("review.name")}</span>
+                  </label>
+                  <input
+                    className="input input-bordered"
+                    value={current.guest}
+                    onChange={(e) =>
+                      setForm({ ...current, guest: e.target.value })
+                    }
+                  />
+                </div>
 
-              <div className="card-actions justify-end">
-                <button
-                  className="btn btn-primary"
-                  disabled={saving}
-                  onClick={handleSave}
-                >
-                  {saving ? "Saving..." : "Save changes"}
-                </button>
+                <div className="form-control mb-4">
+                  <label className="label">
+                    <span className="label-text">{t("review.review")}</span>
+                  </label>
+                  <textarea
+                    className="textarea textarea-bordered h-36"
+                    value={current.opinion}
+                    onChange={(e) =>
+                      setForm({ ...current, opinion: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="card-actions justify-end">
+                  <button
+                    className="btn btn-primary"
+                    disabled={saving}
+                    onClick={handleSave}
+                  >
+                    {saving ? t("review.loadsavebtn") : t("review.savebtn")}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

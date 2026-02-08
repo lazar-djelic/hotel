@@ -3,6 +3,7 @@ import { formatDate } from "../../lib/utils";
 import { Link } from "react-router";
 import type { FC } from "react";
 import type { ReviewStruct } from "../api/reviews/ReviewStruct";
+import { useTranslation } from "react-i18next";
 
 type ReviewCardArgs = {
   review: ReviewStruct;
@@ -10,6 +11,8 @@ type ReviewCardArgs = {
 };
 
 const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
+  const { i18n } = useTranslation();
+
   const handleDelete = (id: string) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
     onDelete(id);
@@ -23,7 +26,7 @@ const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
 
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">
-            {formatDate(review.createdAt)}
+            {formatDate(review.createdAt, i18n.language)}
           </span>
 
           <div className="flex items-center gap-1">

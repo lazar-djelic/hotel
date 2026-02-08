@@ -1,8 +1,12 @@
 import { Link } from "react-router";
 import { MoonIcon, SunIcon } from "lucide-react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const Navbar: FC = () => {
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="navbar bg-base-100">
       <h1 className="flex-1 text-3xl font-bold font-mono tracking-tight px-20">
@@ -10,6 +14,18 @@ const Navbar: FC = () => {
       </h1>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-20">
+          <label className="swap swap-rotate">
+            <input
+              type="checkbox"
+              checked={i18n.language === "en"}
+              onChange={(e) =>
+                i18n.changeLanguage(e.target.checked ? "en" : "sr")
+              }
+            />
+            <span className="fi fi-rs swap-on px-8 text-xl" />
+            <span className="fi fi-gb swap-off px-8 text-xl" />
+          </label>
+
           <label className="swap swap-rotate">
             <input
               type="checkbox"
@@ -28,12 +44,17 @@ const Navbar: FC = () => {
 
           <li>
             <Link to={"/reservations"}>
-              <span>Reservations</span>
+              <span>{t("navbar.reservations")}</span>
             </Link>
           </li>
           <li>
             <Link to={"/reviews"}>
-              <span>Reviews</span>
+              <span>{t("navbar.reviews")}</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={"/config"}>
+              <span>{t("navbar.configuration")}</span>
             </Link>
           </li>
         </ul>

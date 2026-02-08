@@ -3,19 +3,22 @@ import Navbar from "../../components/Navbar";
 import DoubleCalendar from "./DoubleCalendar";
 import { useReservations } from "./useReservations";
 import ReservationCard from "./ReservationCard";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { PlusIcon } from "lucide-react";
 import { useConfig } from "../api/hotel-config/useConfig";
+import { useTranslation } from "react-i18next";
 
 const ReservationsPage = () => {
+  const { t } = useTranslation();
   const [dateRange, setDateRange] = useState([
     { startDate: new Date(), endDate: new Date(), key: "selection" },
   ]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const { conf } = useConfig();
+
   const reservationOptions = Object.keys(conf || {}).filter(
     (key) => (conf as Record<string, any>)?.[key] === true,
   );
-
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
     undefined,
   );
@@ -23,6 +26,7 @@ const ReservationsPage = () => {
   const { reservations, isLoading } = useReservations(
     dateRange[0],
     selectedOption ?? reservationOptions[0] ?? "",
+    setSearchParams,
   );
 
   return (
@@ -46,22 +50,20 @@ const ReservationsPage = () => {
             >
               {reservationOptions.map((option: string, index: number) => (
                 <option key={index} value={option}>
-                  {option}
+                  {t("config." + option)}
                 </option>
               ))}
             </select>
 
             <Link to="/createreservation" className="btn btn-outline text-lg">
               <PlusIcon className="size-8" />
-              New reservation
+              {t("newres")}
             </Link>
           </div>
         </div>
 
         {isLoading && (
-          <div className="text-center text-primary py-10">
-            Loading reservations...
-          </div>
+          <div className="text-center text-primary py-10">{t("loading")}</div>
         )}
 
         {!isLoading && reservations.length === 0 && (
@@ -69,7 +71,7 @@ const ReservationsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
               <div className="order-1 md:order-1 lg:order-1">
                 <div className="text-center text-primary py-10">
-                  There are no reservations for selected period yet.
+                  {t("nores")}
                 </div>
               </div>
 

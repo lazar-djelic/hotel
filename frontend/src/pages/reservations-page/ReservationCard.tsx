@@ -2,12 +2,15 @@ import type { FC } from "react";
 import type { ReservationStruct } from "../api/reservations/ReservationStruct";
 import { Link } from "react-router";
 import { formatDate } from "../../lib/utils";
+import { useTranslation } from "react-i18next";
 
 type ReservationCardArgs = {
   reservation: ReservationStruct;
 };
 
 const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
+  const { t } = useTranslation();
+
   return (
     <Link
       to={`/reservations/${reservation._id}`}
@@ -18,16 +21,16 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
           {reservation.fName} {reservation.lName}
         </h4>
         <p className="text-base-content/70 line-clamp-3">
-          Start date: {formatDate(reservation.startDate)}
+          {t("rescard.startd")}: {formatDate(reservation.startDate)}
         </p>
         <p className="text-base-content/70 line-clamp-3">
-          End date: {formatDate(reservation.endDate)}
+          {t("rescard.endd")}: {formatDate(reservation.endDate)}
         </p>
         <p className="text-base-content/70 line-clamp-3">
-          Room type: {reservation.roomType}
+          {t("rescard.rtype")}: {reservation.roomType}
         </p>
         <p className="text-base-content/70 line-clamp-3">
-          Number of beds: {reservation.bedNum}
+          {t("rescard.bednum")}: {reservation.bedNum}
         </p>
       </div>
     </Link>

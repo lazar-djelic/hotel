@@ -1,0 +1,60 @@
+{
+  "welcome": "Welcome to the home page",
+  "navbar": {
+    "reservations": "Reservations",
+    "reviews": "Reviews",
+    "configuration": "Configuration"
+  },
+  "loading": "Loading...",
+  "back": "Back",
+  "config": {
+    "room": "Room",
+    "levels": "Levels",
+    "conference": "Conference room",
+    "spa": "Spa",
+    "pool": "Pool",
+    "restaurant": "Restaurant",
+    "gym": "Gym"
+  },
+  "create": {
+    "review": {
+      "title": "Create new review",
+      "name": "Name",
+      "plhname": "Enter your name",
+      "review": "Your review",
+      "plhreview": "Write a review",
+      "loadbtn": "Creating...",
+      "button": "Create a review"
+    }
+  },
+  "dcalendar": {
+    "yesterday": "Yesterday",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "lastweek": "Last Week",
+    "thisweek": "This Week",
+    "nextweek": "Next Week",
+    "lastmonth": "Last Month",
+    "thismonth": "This Month",
+    "nextmonth": "Next Month",
+    "dutt": "days up to today",
+    "dst": "days starting today"
+  },
+  "rescard": {
+    "startd": "Start date",
+    "endd": "End date",
+    "rtype": "Room type",
+    "bednum": "Number of beds"
+  },
+  "newres": "New reservation",
+  "nores": "There are no reservations for selected period yet.",
+  "review": {
+    "delrev": "Delete review",
+    "name": "Name",
+    "review": "Your review",
+    "loadsavebtn": "Saving...",
+    "savebtn": "Save changes",
+    "new": "New review",
+    "norev": "There are no reviews yet."
+  }
+}

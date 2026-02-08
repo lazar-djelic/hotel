@@ -5,9 +5,11 @@ import "./DoubleCalendar.css";
 import {
   DateRangePicker,
   createStaticRanges,
+  defaultInputRanges,
   type RangeKeyDict,
 } from "react-date-range";
 import srLatn from "date-fns/locale/sr-Latn";
+import enGB from "date-fns/locale/en-GB";
 import {
   addMonths,
   endOfDay,
@@ -23,6 +25,7 @@ import {
   subMonths,
 } from "date-fns";
 import type { RangeType } from "../interfaces/RangeType";
+import { useTranslation } from "react-i18next";
 
 type DoubleCalendarArguments = {
   dateRange: RangeType[];
@@ -33,6 +36,10 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
   dateRange,
   setDateRange,
 }) => {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const locale = i18n.language === "sr" ? srLatn : enGB;
+
   const handleChange = async (range: RangeKeyDict) => {
     const mappedRange: RangeType[] = [
       {
@@ -53,73 +60,84 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
     //       msInADay
     //     : 0;
     // console.log("Broj dana izmedju dva datuma je: ", razlika);
+    // this is checkpoint
   };
 
   const customRanges = createStaticRanges([
     {
-      label: "Yesterday",
+      label: t("dcalendar.yesterday"),
       range: () => ({
         startDate: subDays(new Date(), 1),
         endDate: subDays(new Date(), 1),
       }),
     },
     {
-      label: "Today",
+      label: t("dcalendar.today"),
       range: () => ({
         startDate: startOfDay(new Date()),
         endDate: endOfDay(new Date()),
       }),
     },
     {
-      label: "Tomorrow",
+      label: t("dcalendar.tomorrow"),
       range: () => ({
         startDate: addDays(new Date(), 1),
         endDate: addDays(new Date(), 1),
       }),
     },
     {
-      label: "Last Week",
+      label: t("dcalendar.lastweek"),
       range: () => ({
         startDate: startOfWeek(subWeeks(new Date(), 1), { weekStartsOn: 1 }),
         endDate: endOfWeek(subWeeks(new Date(), 1), { weekStartsOn: 1 }),
       }),
     },
     {
-      label: "This Week",
+      label: t("dcalendar.thisweek"),
       range: () => ({
         startDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
         endDate: endOfWeek(new Date(), { weekStartsOn: 1 }),
       }),
     },
     {
-      label: "Next Week",
+      label: t("dcalendar.nextweek"),
       range: () => ({
         startDate: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
         endDate: endOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
       }),
     },
     {
-      label: "Last Month",
+      label: t("dcalendar.lastmonth"),
       range: () => ({
         startDate: startOfMonth(subMonths(new Date(), 1)),
         endDate: endOfMonth(subMonths(new Date(), 1)),
       }),
     },
     {
-      label: "This Month",
+      label: t("dcalendar.thismonth"),
       range: () => ({
         startDate: startOfMonth(new Date()),
         endDate: endOfMonth(new Date()),
       }),
     },
     {
-      label: "Next Month",
+      label: t("dcalendar.nextmonth"),
       range: () => ({
         startDate: startOfMonth(addMonths(new Date(), 1)),
         endDate: endOfMonth(addMonths(new Date(), 1)),
       }),
     },
   ]);
+
+  const customInputRanges = defaultInputRanges.map((range) => ({
+    ...range,
+    label:
+      range.label === "days up to today"
+        ? t("dcalendar.dutt")
+        : range.label === "days starting today"
+          ? t("dcalendar.dst")
+          : range.label,
+  }));
 
   const allStaticRanges = [...customRanges];
 
@@ -132,7 +150,8 @@ const DoubleCalendar: FC<DoubleCalendarArguments> = ({
           weekStartsOn={1}
           months={2}
           staticRanges={allStaticRanges}
-          locale={srLatn}
+          inputRanges={customInputRanges}
+          locale={locale}
         />
       </div>
     </div>
