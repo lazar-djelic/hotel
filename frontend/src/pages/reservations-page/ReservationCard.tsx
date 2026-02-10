@@ -10,6 +10,7 @@ type ReservationCardArgs = {
 
 const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
 
   return (
     <Link
@@ -21,10 +22,11 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
           {reservation.fName} {reservation.lName}
         </h4>
         <p className="text-base-content/70 line-clamp-3">
-          {t("rescard.startd")}: {formatDate(reservation.startDate)}
+          {t("rescard.startd")}:{" "}
+          {formatDate(reservation.startDate, i18n.language)}
         </p>
         <p className="text-base-content/70 line-clamp-3">
-          {t("rescard.endd")}: {formatDate(reservation.endDate)}
+          {t("rescard.endd")}: {formatDate(reservation.endDate, i18n.language)}
         </p>
         <p className="text-base-content/70 line-clamp-3">
           {t("rescard.rtype")}: {reservation.roomType}

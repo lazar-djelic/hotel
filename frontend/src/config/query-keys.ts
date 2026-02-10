@@ -9,4 +9,8 @@ export const QUERY_KEYS = {
   RESERVATION: {
     RESERVATIONS: "reservations",
   },
+  ROOM: {
+    ROOM: "room",
+    ROOMS: "rooms",
+  },
 };

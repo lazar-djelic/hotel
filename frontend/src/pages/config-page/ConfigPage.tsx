@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useConfig } from "../api/hotel-config/useConfig";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router";
@@ -32,6 +32,14 @@ const ConfigPage = () => {
 
             <div className="card bg-base-100">
               <div className="card-body">
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginLeft: "auto" }}>
+                    <Link to="/rooms" className="btn btn-outline text-lg">
+                      {t("config.rooms.rooms")}
+                    </Link>
+                  </div>
+                </div>
+
                 <div className="form-control mb-4">
                   <label className="label">
                     <span className="label-text">{t("config.levels")}</span>

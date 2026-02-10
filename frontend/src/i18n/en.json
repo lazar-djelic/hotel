@@ -7,6 +7,8 @@
   },
   "loading": "Loading...",
   "back": "Back",
+  "yes": "Yes",
+  "no": "No",
   "config": {
     "room": "Room",
     "levels": "Levels",
@@ -14,7 +16,10 @@
     "spa": "Spa",
     "pool": "Pool",
     "restaurant": "Restaurant",
-    "gym": "Gym"
+    "gym": "Gym",
+    "rooms": {
+      "rooms": "Rooms"
+    }
   },
   "create": {
     "review": {
@@ -25,6 +30,61 @@
       "plhreview": "Write a review",
       "loadbtn": "Creating...",
       "button": "Create a review"
+    },
+    "room": {
+      "new": "New room",
+      "title": "Create new room",
+      "floor": "Floor number",
+      "roomnum": "Room number",
+      "type": "Room type",
+      "bednum": "Number of beds",
+      "smoking": "Is smoking allowed",
+      "accessibility": "Is accessibility friendly",
+      "view": "Does a room have a view",
+      "balcony": "Does a room have a balcony",
+      "status": "Room status",
+      "housekeeping": "Housekeeping status",
+      "lastcleaned": "Last time cleaned",
+      "linkedroom": "Does a room have another connecting room",
+      "pets": "Are pets allowed in the room",
+      "loadbtn": "Creating...",
+      "button": "Create a room",
+      "typeoptions": {
+        "standard": "Standard",
+        "deluxe": "Deluxe",
+        "suite": "Suite",
+        "penthouse": "Penthouse"
+      },
+      "bedoptions": {
+        "single": "Single",
+        "double": "Double",
+        "twin": "Twin"
+      },
+      "viewoptions": {
+        "none": "None",
+        "sea": "Sea",
+        "city": "City",
+        "garden": "Garden"
+      },
+      "statusoptions": {
+        "available": "Available",
+        "occupied": "Occupied",
+        "reserved": "Reserved",
+        "outofservice": "Out of service"
+      },
+      "housekeepingoptions": {
+        "clean": "Clean",
+        "dirty": "Dirty",
+        "inspected": "Inspected"
+      }
+    }
+  },
+  "edit": {
+    "room": {
+      "title": "Edit room",
+      "loadbtn": "Editing...",
+      "button": "Edit room",
+      "delete": "Delete room"
     }
   },
   "dcalendar": {
@@ -56,5 +116,8 @@
     "savebtn": "Save changes",
     "new": "New review",
     "norev": "There are no reviews yet."
+  },
+  "room": {
+    "norooms": "There are no rooms."
   }
 }

@@ -6,6 +6,7 @@ import { connectDB } from "./config/db.ts";
 import apiLogger from "./middlewares/apiLogger.ts";
 import configRoutes from "./hotel-config/configRoutes.ts";
 import reservationsRoutes from "./routes/reservationsRoutes.ts";
+import roomsRoutes from "./routes/roomsRoutes.ts";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(apiLogger);
 
 app.use("/api/config", configRoutes);
+app.use("/api/rooms", roomsRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/reservations", reservationsRoutes);
 

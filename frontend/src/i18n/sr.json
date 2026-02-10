@@ -7,6 +7,8 @@
   },
   "loading": "Učitavanje...",
   "back": "Nazad",
+  "yes": "Da",
+  "no": "Ne",
   "config": {
     "room": "Soba",
     "levels": "Spratova",
@@ -14,7 +16,10 @@
     "spa": "Spa",
     "pool": "Bazen",
     "restaurant": "Restoran",
-    "gym": "Teretana"
+    "gym": "Teretana",
+    "rooms": {
+      "rooms": "Sobe"
+    }
   },
   "create": {
     "review": {
@@ -25,6 +30,61 @@
       "plhreview": "Napišite utisak",
       "loadbtn": "Kreiranje...",
       "button": "Kreirajte utisak"
+    },
+    "room": {
+      "new": "Dodajte sobu",
+      "title": "Kreirajte novu sobu",
+      "floor": "Sprat",
+      "roomnum": "Broj sobe",
+      "type": "Tip sobe",
+      "bednum": "Broj kreveta",
+      "smoking": "Da li je dozvoljeno pušenje",
+      "accessibility": "Da li je soba pogodna za osobe sa invaliditetom",
+      "view": "Da li soba ima pogled",
+      "balcony": "Da li soba ima balkon/terasu",
+      "status": "Status sobe",
+      "housekeeping": "Status kućnog čišćenja",
+      "lastcleaned": "Kada je poslednji put čišćena soba",
+      "linkedroom": "Da li je soba povezana sa drugomm sobom",
+      "pets": "Da li su dozvoljeni kućni ljubimci",
+      "loadbtn": "Kreiranje...",
+      "button": "Kreirajte sobu",
+      "typeoptions": {
+        "standard": "Standardna",
+        "deluxe": "Deluks",
+        "suite": "Apartman",
+        "penthouse": "Penthaus"
+      },
+      "bedoptions": {
+        "single": "Jednokrevetna",
+        "double": "Bračni",
+        "twin": "Dvokrevetna"
+      },
+      "viewoptions": {
+        "none": "Nema",
+        "sea": "More",
+        "city": "Grad",
+        "garden": "Bašta"
+      },
+      "statusoptions": {
+        "available": "Slobodna",
+        "occupied": "Zauzeta",
+        "reserved": "Rezervisana",
+        "outofservice": "Nije u upotrebi"
+      },
+      "housekeepingoptions": {
+        "clean": "Čista",
+        "dirty": "Prljava",
+        "inspected": "Proverena"
+      }
+    }
+  },
+  "edit": {
+    "room": {
+      "title": "Izmenite sobu",
+      "loadbtn": "Izmena...",
+      "button": "Izmenite sobu",
+      "delete": "Obrišite sobu"
     }
   },
   "dcalendar": {
@@ -56,5 +116,8 @@
     "savebtn": "Sačuvajte promene",
     "new": "Novi utisak",
     "norev": "Trenutno nema utisaka."
+  },
+  "room": {
+    "norooms": "Trenutno nema soba."
   }
 }
