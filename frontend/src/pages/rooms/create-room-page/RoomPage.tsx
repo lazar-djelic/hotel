@@ -10,6 +10,10 @@ import { useRoom } from "../../api/rooms/room-detail/useRoom";
 import { useEditRoom } from "../../api/rooms/room-detail/useEditRoom";
 import type { RoomStruct } from "../../api/rooms/RoomStruct";
 import { useDeleteRoom } from "../../api/rooms/room-detail/useDeleteRoom";
+import NumberInputComp from "../../../components/NumberInputComp";
+import SelectComp from "../../../components/SelectComp";
+import CheckboxComp from "../../../components/CheckboxComp";
+import SimpleDateInComp from "../../../components/SimpleDateInComp";
 
 const RoomPage = () => {
   const { t } = useTranslation();
@@ -98,264 +102,133 @@ const RoomPage = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit}>
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.floor")}
-                      </span>
-                    </label>
-                    <input
-                      className="input input-bordered"
-                      type="number"
-                      value={current.floor}
-                      min={0}
-                      onChange={(e) => {
-                        setForm({
-                          ...current,
-                          floor: parseInt(e.target.value),
-                        });
-                      }}
-                    />
-                  </div>
+                  <NumberInputComp
+                    labelText={t("create.room.floor")}
+                    iValue={current.floor}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, floor: value })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.roomnum")}
-                      </span>
-                    </label>
-                    <input
-                      className="input input-bordered"
-                      type="number"
-                      value={current.roomnum}
-                      min={0}
-                      onChange={(e) => {
-                        setForm({
-                          ...current,
-                          roomnum: parseInt(e.target.value),
-                        });
-                      }}
-                    />
-                  </div>
+                  <NumberInputComp
+                    labelText={t("create.room.roomnum")}
+                    iValue={current.roomnum}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, roomnum: value })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.type")}
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered"
-                      value={current.type}
-                      onChange={(e) =>
-                        setForm({ ...current, type: e.target.value })
-                      }
-                    >
-                      {typeOptions.map((option: string, index: number) => (
-                        <option key={index} value={option}>
-                          {t("create.room.typeoptions." + option)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <SelectComp
+                    labelText={t("create.room.type")}
+                    sValue={current.type}
+                    onChangeFn={(value) => setForm({ ...current, type: value })}
+                    options={typeOptions.map((option) => ({
+                      value: option,
+                      label: t(`create.room.typeoptions.${option}`),
+                    }))}
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.bednum")}
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered"
-                      value={current.bednum}
-                      onChange={(e) =>
-                        setForm({ ...current, bednum: e.target.value })
-                      }
-                    >
-                      {bedOptions.map((option: string, index: number) => (
-                        <option key={index} value={option}>
-                          {t("create.room.bedoptions." + option)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <SelectComp
+                    labelText={t("create.room.bednum")}
+                    sValue={current.bednum}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, bednum: value })
+                    }
+                    options={bedOptions.map((option) => ({
+                      value: option,
+                      label: t(`create.room.bedoptions.${option}`),
+                    }))}
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label cursor-pointer">
-                      <span className="label-text">
-                        {t("create.room.smoking")}
-                      </span>
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        checked={current.smoking}
-                        onChange={(e) =>
-                          setForm({ ...current, smoking: e.target.checked })
-                        }
-                      />
-                    </label>
-                  </div>
+                  <CheckboxComp
+                    labelText={t("create.room.smoking")}
+                    isCheck={current.smoking}
+                    onChangeFn={(checked) =>
+                      setForm({ ...current, smoking: checked })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label cursor-pointer">
-                      <span className="label-text">
-                        {t("create.room.accessibility")}
-                      </span>
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        checked={current.accessibility}
-                        onChange={(e) =>
-                          setForm({
-                            ...current,
-                            accessibility: e.target.checked,
-                          })
-                        }
-                      />
-                    </label>
-                  </div>
+                  <CheckboxComp
+                    labelText={t("create.room.accessibility")}
+                    isCheck={current.accessibility}
+                    onChangeFn={(checked) =>
+                      setForm({ ...current, accessibility: checked })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.view")}
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered"
-                      value={current.view}
-                      onChange={(e) =>
-                        setForm({ ...current, view: e.target.value })
-                      }
-                    >
-                      {viewOptions.map((option: string, index: number) => (
-                        <option key={index} value={option}>
-                          {t("create.room.viewoptions." + option)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <SelectComp
+                    labelText={t("create.room.view")}
+                    sValue={current.view}
+                    onChangeFn={(value) => setForm({ ...current, view: value })}
+                    options={viewOptions.map((option) => ({
+                      value: option,
+                      label: t(`create.room.viewoptions.${option}`),
+                    }))}
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label cursor-pointer">
-                      <span className="label-text">
-                        {t("create.room.balcony")}
-                      </span>
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        checked={current.balcony}
-                        onChange={(e) =>
-                          setForm({ ...current, balcony: e.target.checked })
-                        }
-                      />
-                    </label>
-                  </div>
+                  <CheckboxComp
+                    labelText={t("create.room.balcony")}
+                    isCheck={current.balcony}
+                    onChangeFn={(checked) =>
+                      setForm({ ...current, balcony: checked })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.status")}
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered"
-                      value={current.status}
-                      onChange={(e) =>
-                        setForm({ ...current, status: e.target.value })
-                      }
-                    >
-                      {statusOptions.map((option: string, index: number) => (
-                        <option key={index} value={option}>
-                          {t("create.room.statusoptions." + option)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <SelectComp
+                    labelText={t("create.room.status")}
+                    sValue={current.status}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, status: value })
+                    }
+                    options={statusOptions.map((option) => ({
+                      value: option,
+                      label: t(`create.room.statusoptions.${option}`),
+                    }))}
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.housekeeping")}
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered"
-                      value={current.housekeeping}
-                      onChange={(e) =>
-                        setForm({ ...current, housekeeping: e.target.value })
-                      }
-                    >
-                      {housekeepingOptions.map(
-                        (option: string, index: number) => (
-                          <option key={index} value={option}>
-                            {t("create.room.housekeepingoptions." + option)}
-                          </option>
-                        ),
-                      )}
-                    </select>
-                  </div>
+                  <SelectComp
+                    labelText={t("create.room.housekeeping")}
+                    sValue={current.housekeeping}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, housekeeping: value })
+                    }
+                    options={housekeepingOptions.map((option) => ({
+                      value: option,
+                      label: t(`create.room.housekeepingoptions.${option}`),
+                    }))}
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.room.lastcleaned")}
-                      </span>
-                    </label>
-                    <input
-                      className="input input-bordered"
-                      type="date"
-                      value={current.lastcleaned.split("T")[0]}
-                      onChange={(e) => {
-                        setForm({
-                          ...current,
-                          lastcleaned: new Date(e.target.value)
-                            .toISOString()
-                            .split("T")[0],
-                        });
-                      }}
-                    />
-                  </div>
+                  <SimpleDateInComp
+                    labelText={t("create.room.lastcleaned")}
+                    value={current.lastcleaned}
+                    onChangeFn={(value) =>
+                      setForm({ ...current, lastcleaned: value })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label cursor-pointer">
-                      <span className="label-text">
-                        {t("create.room.linkedroom")}
-                      </span>
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        checked={current.linkedroom}
-                        onChange={(e) =>
-                          setForm({ ...current, linkedroom: e.target.checked })
-                        }
-                      />
-                    </label>
-                  </div>
+                  <CheckboxComp
+                    labelText={t("create.room.linkedroom")}
+                    isCheck={current.linkedroom}
+                    onChangeFn={(checked) =>
+                      setForm({ ...current, linkedroom: checked })
+                    }
+                  />
 
-                  <div className="form-control mb-4">
-                    <label className="label cursor-pointer">
-                      <span className="label-text">
-                        {t("create.room.pets")}
-                      </span>
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        checked={current.pets}
-                        onChange={(e) =>
-                          setForm({ ...current, pets: e.target.checked })
-                        }
-                      />
-                    </label>
-                  </div>
+                  <CheckboxComp
+                    labelText={t("create.room.pets")}
+                    isCheck={current.pets}
+                    onChangeFn={(checked) =>
+                      setForm({ ...current, pets: checked })
+                    }
+                  />
 
                   <div className="card-actions justify-end mt-16">
                     <button
                       type="submit"
                       className="btn btn-primary"
-                      disabled={isPending || isPendingE}
+                      disabled={isPending || isPendingE || loading}
                     >
-                      {isPending || isPendingE
+                      {isPending || isPendingE || loading
                         ? isNew
                           ? t("create.room.loadbtn")
                           : t("edit.room.loadbtn")

@@ -9,6 +9,7 @@ export const confSchema = z.object({
   pool: z.boolean(),
   restaurant: z.boolean(),
   gym: z.boolean(),
+  sauna: z.boolean(),
 });
 
 export const confArraySchema = z.array(confSchema);
@@ -21,4 +22,5 @@ export const confSimpleSchema = z.object({
   pool: z.boolean(),
   restaurant: z.boolean(),
   gym: z.boolean(),
+  sauna: z.boolean(),
 });

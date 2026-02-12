@@ -16,6 +16,7 @@ export const fetchConfQueryFn = async () => {
       pool: false,
       restaurant: false,
       gym: false,
+      sauna: false,
     };
     return t;
   }

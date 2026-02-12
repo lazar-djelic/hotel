@@ -1,8 +1,8 @@
 import api from "../../../lib/axios";
 import type { RoomStruct, SimpleRoomStruct } from "./RoomStruct";
 
-export const fetchRooms = async (): Promise<RoomStruct[]> => {
-  const res = await api.get("/rooms");
+export const fetchRooms = async (roomNumber: number): Promise<RoomStruct[]> => {
+  const res = await api.get("/rooms", { params: { room: roomNumber } });
   return res.data;
 };
 

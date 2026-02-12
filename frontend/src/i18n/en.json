@@ -17,6 +17,7 @@
     "pool": "Pool",
     "restaurant": "Restaurant",
     "gym": "Gym",
+    "sauna": "Sauna",
     "rooms": {
       "rooms": "Rooms"
     }
@@ -118,6 +119,7 @@
     "norev": "There are no reviews yet."
   },
   "room": {
-    "norooms": "There are no rooms."
+    "norooms": "There are no rooms.",
+    "search": "Search for a room"
   }
 }

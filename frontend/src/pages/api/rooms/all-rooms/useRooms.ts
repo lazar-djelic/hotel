@@ -3,14 +3,14 @@ import toast from "react-hot-toast";
 import type { RoomStruct } from "../RoomStruct";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom } from "../rooms.api";
-import { fetchRoomsQueryFn } from "./fetchRoomsQueryFN";
+import { fetchRoomsQueryFn } from "./fetchRoomsQueryFn";
 
-export const useRooms = () => {
+export const useRooms = (roomNumber: number) => {
   const queryClient = useQueryClient();
 
   const { data: rooms = [], isLoading } = useQuery<RoomStruct[]>({
-    queryKey: [QUERY_KEYS.ROOM.ROOMS],
-    queryFn: fetchRoomsQueryFn,
+    queryKey: [QUERY_KEYS.ROOM.ROOMS, roomNumber],
+    queryFn: () => fetchRoomsQueryFn(roomNumber),
   });
 
   const { mutate: removeRoom } = useMutation({

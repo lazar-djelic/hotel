@@ -17,6 +17,7 @@
     "pool": "Bazen",
     "restaurant": "Restoran",
     "gym": "Teretana",
+    "sauna": "Sauna",
     "rooms": {
       "rooms": "Sobe"
     }
@@ -118,6 +119,7 @@
     "norev": "Trenutno nema utisaka."
   },
   "room": {
-    "norooms": "Trenutno nema soba."
+    "norooms": "Trenutno nema soba.",
+    "search": "Pretražite sobu"
   }
 }

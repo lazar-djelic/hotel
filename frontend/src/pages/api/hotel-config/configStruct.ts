@@ -7,4 +7,5 @@ export interface HotelConfig {
   pool: boolean;
   restaurant: boolean;
   gym: boolean;
+  sauna: boolean;
 }

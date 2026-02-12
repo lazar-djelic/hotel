@@ -13,7 +13,7 @@ const ReservationsPage = () => {
   const [dateRange, setDateRange] = useState([
     { startDate: new Date(), endDate: new Date(), key: "selection" },
   ]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const { conf } = useConfig();
 
   const reservationOptions = Object.keys(conf || {}).filter(

@@ -4,10 +4,13 @@ import { Link } from "react-router";
 import { ArrowLeftIcon, PlusIcon } from "lucide-react";
 import { useRooms } from "../../api/rooms/all-rooms/useRooms";
 import RoomCard from "./RoomCard";
+import InputComp from "../../../components/NumberInputComp";
+import { useState } from "react";
 
 const RoomsPage = () => {
   const { t } = useTranslation();
-  const { rooms, loading } = useRooms();
+  const [roomNumber, setRoomNumber] = useState(0);
+  const { rooms, loading } = useRooms(roomNumber);
 
   return (
     <div className="min-h-screen">
@@ -34,6 +37,12 @@ const RoomsPage = () => {
           </div>
         </div>
 
+        <InputComp
+          labelText={t("room.search")}
+          iValue={roomNumber}
+          onChangeFn={(value) => setRoomNumber(value)}
+        />
+
         {loading && (
           <div className="text-center text-primary py-10">{t("loading")}</div>
         )}
@@ -45,7 +54,7 @@ const RoomsPage = () => {
         )}
 
         {rooms.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
             {rooms.map((room) => (
               <RoomCard key={room._id} room={room} />
             ))}

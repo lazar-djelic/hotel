@@ -30,6 +30,10 @@ const confMongooseSchema = new mongoose.Schema({
     type: boolean,
     requred: true,
   },
+  sauna: {
+    type: boolean,
+    requred: true,
+  },
 });
 
 const Configuration = mongoose.model("hconfig", confMongooseSchema);
