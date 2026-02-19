@@ -113,6 +113,7 @@
     "delrev": "Delete review",
     "name": "Name",
     "review": "Your review",
+    "rating": "Your rating",
     "loadsavebtn": "Saving...",
     "savebtn": "Save changes",
     "new": "New review",
@@ -120,6 +121,8 @@
   },
   "room": {
     "norooms": "There are no rooms.",
-    "search": "Search for a room"
+    "search": "Search for a room",
+    "expandall": "Expand all",
+    "collapseall": "Collapse all"
   }
 }

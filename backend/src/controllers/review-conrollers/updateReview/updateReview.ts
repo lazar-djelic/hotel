@@ -6,19 +6,19 @@ import type { UpdateReviewRequest } from "./types.ts";
 export async function updateReview(
   req: UpdateReviewRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const { guest, opinion } = req.body;
-    const review = new Review({ guest, opinion });
+    const { guest, opinion, rating } = req.body;
+    const review = new Review({ guest, opinion, rating });
     const parsed = reviewSimpleSchema.parse(review);
 
     const updatedReview = await Review.findByIdAndUpdate(
       req.params.id,
-      { guest, opinion },
+      { guest, opinion, rating },
       {
         new: true,
-      }
+      },
     );
 
     if (!updatedReview)

@@ -113,6 +113,7 @@
     "delrev": "Obrišite utisak",
     "name": "Ime",
     "review": "Vaš utisak",
+    "rating": "Vaša ocena",
     "loadsavebtn": "Sačuvavanje...",
     "savebtn": "Sačuvajte promene",
     "new": "Novi utisak",
@@ -120,6 +121,8 @@
   },
   "room": {
     "norooms": "Trenutno nema soba.",
-    "search": "Pretražite sobu"
+    "search": "Pretražite sobu",
+    "expandall": "Proširite sve",
+    "collapseall": "Skupite sve"
   }
 }

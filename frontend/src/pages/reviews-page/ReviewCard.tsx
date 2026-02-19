@@ -1,7 +1,7 @@
 import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { formatDate } from "../../lib/utils";
 import { Link } from "react-router";
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import type { ReviewStruct } from "../api/reviews/ReviewStruct";
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +12,7 @@ type ReviewCardArgs = {
 
 const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
   const { i18n } = useTranslation();
+  const [rating, setRating] = useState(review.rating);
 
   const handleDelete = (id: string) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
@@ -19,10 +20,24 @@ const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
   };
 
   return (
-    <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-8 border-b-2 border-solid">
+    <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid">
       <div className="card-body">
-        <h4 className="card-title text-base-content">{review.guest}</h4>
-        <p className="text-base-content/70 line-clamp-3">{review.opinion}</p>
+        <div className="flex items-center justify-between">
+          <h4 className="card-title text-base-content">{review.guest}</h4>
+          <div className="rating pointer-events-none">
+            {[1, 2, 3, 4, 5].map((value) => (
+              <input
+                key={value}
+                type="radio"
+                name={`${review._id}`}
+                value={value}
+                className="mask mask-star-2 bg-orange-400"
+                checked={rating === value}
+              />
+            ))}
+          </div>
+        </div>
+        <p className="text-base-content/70 mt-4">{review.opinion}</p>
 
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">

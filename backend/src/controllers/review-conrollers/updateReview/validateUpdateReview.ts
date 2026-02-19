@@ -10,13 +10,14 @@ export const validateUpdateReview =
       const review = new Review(parsed);
       const guest = review.guest;
       const opinion = review.opinion;
+      const rating = review.rating;
 
       const updatedReview = await Review.findByIdAndUpdate(
         req.params.id,
-        { guest, opinion },
+        { guest, opinion, rating },
         {
           new: true,
-        }
+        },
       );
 
       res.locals.data = updatedReview;
@@ -31,7 +32,7 @@ export const validateUpdateReview =
 
       console.error(
         "Error in validateUpdateReview middleware, specifically updating review.",
-        error
+        error,
       );
       res.status(500).json({ message: "Internal server error" });
     }

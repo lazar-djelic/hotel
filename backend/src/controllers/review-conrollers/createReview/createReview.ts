@@ -6,11 +6,11 @@ import type { CreateReviewRequest } from "./types.ts";
 export async function createReview(
   req: CreateReviewRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const { guest, opinion } = req.body;
-    const review = new Review({ guest, opinion });
+    const { guest, opinion, rating } = req.body;
+    const review = new Review({ guest, opinion, rating });
     const parsed = reviewSimpleSchema.parse(review);
     await review.save();
     res.status(200).json(parsed);

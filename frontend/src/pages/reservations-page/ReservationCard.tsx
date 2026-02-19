@@ -21,17 +21,17 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
         <h4 className="card-title text-base-content">
           {reservation.fName} {reservation.lName}
         </h4>
-        <p className="text-base-content/70 line-clamp-3">
+        <p className="text-base-content/70">
           {t("rescard.startd")}:{" "}
           {formatDate(reservation.startDate, i18n.language)}
         </p>
-        <p className="text-base-content/70 line-clamp-3">
+        <p className="text-base-content/70">
           {t("rescard.endd")}: {formatDate(reservation.endDate, i18n.language)}
         </p>
-        <p className="text-base-content/70 line-clamp-3">
+        <p className="text-base-content/70">
           {t("rescard.rtype")}: {reservation.roomType}
         </p>
-        <p className="text-base-content/70 line-clamp-3">
+        <p className="text-base-content/70">
           {t("rescard.bednum")}: {reservation.bedNum}
         </p>
       </div>

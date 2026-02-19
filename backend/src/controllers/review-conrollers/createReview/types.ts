@@ -5,6 +5,7 @@ export const CreateReviewRequestSchema = {
   body: z.object({
     guest: z.string(),
     opinion: z.string(),
+    rating: z.number(),
   }),
   query: z.object({}),
   params: z.object({}),

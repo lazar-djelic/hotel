@@ -11,6 +11,7 @@ const RoomsPage = () => {
   const { t } = useTranslation();
   const [roomNumber, setRoomNumber] = useState(0);
   const { rooms, loading } = useRooms(roomNumber);
+  const [expanded, setExpanded] = useState<boolean | null>(null);
 
   return (
     <div className="min-h-screen">
@@ -54,10 +55,40 @@ const RoomsPage = () => {
         )}
 
         {rooms.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
-            {rooms.map((room) => (
-              <RoomCard key={room._id} room={room} />
-            ))}
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "1rem",
+              }}
+            >
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={() => {
+                  setExpanded(true);
+                  setTimeout(() => setExpanded(null), 0);
+                }}
+              >
+                {t("room.expandall")}
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={() => {
+                  setExpanded(false);
+                  setTimeout(() => setExpanded(null), 0);
+                }}
+              >
+                {t("room.collapseall")}
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+              {rooms.map((room) => (
+                <RoomCard key={room._id} room={room} expanded={expanded} />
+              ))}
+            </div>
           </div>
         )}
       </div>

@@ -11,6 +11,7 @@ const CreateReviewPage = () => {
   const { t } = useTranslation();
   const [guest, setGuest] = useState("");
   const [opinion, setOpinion] = useState("");
+  const [rating, setRating] = useState(1);
   const navigate = useNavigate();
 
   const { mutate: createReview, isPending } = useCreateReview(navigate);
@@ -21,6 +22,7 @@ const CreateReviewPage = () => {
     const parsed = reviewSimpleSchema.safeParse({
       guest,
       opinion,
+      rating,
     });
 
     if (!parsed.success) {
@@ -79,6 +81,25 @@ const CreateReviewPage = () => {
                       value={opinion}
                       onChange={(e) => setOpinion(e.target.value)}
                     />
+                  </div>
+
+                  <div className="form-control mb-4">
+                    <label className="label">
+                      <span className="label-text">{t("review.rating")}</span>
+                    </label>
+                    <div className="rating">
+                      {[1, 2, 3, 4, 5].map((value) => (
+                        <input
+                          key={value}
+                          type="radio"
+                          name={"rating"}
+                          value={value}
+                          className="mask mask-star-2 bg-orange-400"
+                          checked={rating === value}
+                          onChange={() => setRating(value)}
+                        />
+                      ))}
+                    </div>
                   </div>
 
                   <div className="card-actions justify-end">

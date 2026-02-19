@@ -25,6 +25,7 @@ const ReviewDetailPage = () => {
     const parsed = reviewSimpleSchema.safeParse({
       guest: form.guest,
       opinion: form.opinion,
+      rating: form.rating,
     });
 
     if (parsed.success) {
@@ -94,6 +95,25 @@ const ReviewDetailPage = () => {
                       setForm({ ...current, opinion: e.target.value })
                     }
                   />
+                </div>
+
+                <div className="form-control mb-4">
+                  <label className="label">
+                    <span className="label-text">{t("review.rating")}</span>
+                  </label>
+                  <div className="rating">
+                    {[1, 2, 3, 4, 5].map((value) => (
+                      <input
+                        key={value}
+                        type="radio"
+                        name={`${review._id}`}
+                        value={value}
+                        className="mask mask-star-2 bg-orange-400"
+                        checked={current.rating === value}
+                        onChange={() => setForm({ ...current, rating: value })}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 <div className="card-actions justify-end">
