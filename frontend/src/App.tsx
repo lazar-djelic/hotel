@@ -7,6 +7,8 @@ import HomePage from "./pages/home-page/HomePage.tsx";
 import ConfigPage from "./pages/config-page/ConfigPage.tsx";
 import RoomPage from "./pages/rooms/create-room-page/RoomPage.tsx";
 import RoomsPage from "./pages/rooms/rooms-page/RoomsPage.tsx";
+import LoginPage from "./pages/login-page/LoginPage.tsx";
+import RegisterPage from "./pages/register-page/RegisterPage.tsx";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/createreview" element={<CreateReviewPage />} />
         <Route path="/review/:id" element={<ReviewDetailPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </>
   );

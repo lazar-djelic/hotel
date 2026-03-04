@@ -7,7 +7,6 @@ import { reviewSimpleSchema } from "../../schemas/review.response.schema";
 import { useUpdateReview } from "../api/reviews/review-detail/useUpdateReview";
 import { useDeleteReview } from "../api/reviews/review-detail/useDeleteReview";
 import { useTranslation } from "react-i18next";
-import Navbar from "../../components/Navbar";
 
 const ReviewDetailPage = () => {
   const { t } = useTranslation();
@@ -45,8 +44,6 @@ const ReviewDetailPage = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">

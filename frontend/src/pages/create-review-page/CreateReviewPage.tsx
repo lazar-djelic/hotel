@@ -5,7 +5,6 @@ import { useCreateReview } from "../api/reviews/create-review/useCreateReview";
 import toast from "react-hot-toast";
 import { reviewSimpleSchema } from "../../schemas/review.response.schema";
 import { useTranslation } from "react-i18next";
-import Navbar from "../../components/Navbar";
 
 const CreateReviewPage = () => {
   const { t } = useTranslation();
@@ -37,8 +36,6 @@ const CreateReviewPage = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">

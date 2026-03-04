@@ -3,7 +3,11 @@
   "navbar": {
     "reservations": "Rezervacije",
     "reviews": "Knjiga utisaka",
-    "configuration": "Konfiguracija"
+    "configuration": "Konfiguracija",
+    "login": "Prijavite se",
+    "register": "Registrujte se",
+    "profile": "Profil",
+    "logout": "Odjavite se"
   },
   "loading": "Učitavanje...",
   "back": "Nazad",
@@ -124,5 +128,14 @@
     "search": "Pretražite sobu",
     "expandall": "Proširite sve",
     "collapseall": "Skupite sve"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Lozinka",
+    "confpass": "Potvrdite lozinku",
+    "loadLoging": "Prijavljivanje...",
+    "loginbtn": "Prijavite se",
+    "loadRegister": "Registrovanje...",
+    "registerbtn": "Registrujte se"
   }
 }

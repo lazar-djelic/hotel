@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useCreateRoom } from "../../api/rooms/create-room/useCreateRoom";
 import { roomSimpleSchema } from "../../../schemas/room.response.schema";
-import Navbar from "../../../components/Navbar";
 import { useRoom } from "../../api/rooms/room-detail/useRoom";
 import { useEditRoom } from "../../api/rooms/room-detail/useEditRoom";
 import type { RoomStruct } from "../../api/rooms/RoomStruct";
@@ -69,8 +68,6 @@ const RoomPage = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">

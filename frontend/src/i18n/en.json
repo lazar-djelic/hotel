@@ -3,7 +3,11 @@
   "navbar": {
     "reservations": "Reservations",
     "reviews": "Reviews",
-    "configuration": "Configuration"
+    "configuration": "Configuration",
+    "login": "Log in",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Log out"
   },
   "loading": "Loading...",
   "back": "Back",
@@ -124,5 +128,14 @@
     "search": "Search for a room",
     "expandall": "Expand all",
     "collapseall": "Collapse all"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confpass": "Confirm password",
+    "loadLoging": "Logging in...",
+    "loginbtn": "Login",
+    "loadRegister": "Registering...",
+    "registerbtn": "Register"
   }
 }

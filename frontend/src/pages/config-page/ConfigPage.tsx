@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useConfig } from "../api/hotel-config/useConfig";
-import Navbar from "../../components/Navbar";
 import CheckboxComp from "../../components/CheckboxComp";
 import { Link } from "react-router";
 import { ArrowLeftIcon } from "lucide-react";
@@ -19,9 +18,7 @@ const ConfigPage = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-
+    <div>
       <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">

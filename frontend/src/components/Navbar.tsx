@@ -1,12 +1,29 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { MoonIcon, SunIcon } from "lucide-react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { useMe } from "../services/useMe";
+import { useLogout } from "../pages/profile-page/useLogout";
 
 const Navbar: FC = () => {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+  const { data } = useMe();
+  const logoutMutation = useLogout();
+
+  const isAuthenticated = !!data?.authenticated;
+
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        navigate("/");
+      },
+    });
+  };
+
   return (
     <div className="navbar bg-base-100">
       <h1 className="flex-1 text-3xl font-bold font-mono tracking-tight px-20">
@@ -57,6 +74,39 @@ const Navbar: FC = () => {
               <span>{t("navbar.configuration")}</span>
             </Link>
           </li>
+
+          {!isAuthenticated ? (
+            <>
+              <li>
+                <Link to={"/login"}>
+                  <span>{t("navbar.login")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={"/register"}>
+                  <span>{t("navbar.register")}</span>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to={"/profile"}>
+                  <span>{t("navbar.profile")}</span>
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  disabled={logoutMutation.isPending}
+                >
+                  {logoutMutation.isPending
+                    ? "Logging out..."
+                    : t("navbar.logout")}
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>
