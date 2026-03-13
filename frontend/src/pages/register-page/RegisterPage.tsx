@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 const Register: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const registerMutation = useRegister();
+  const registerMutation = useRegister(navigate);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,9 +26,6 @@ const Register: FC = () => {
     registerMutation.mutate(
       { email, password },
       {
-        onSuccess: () => {
-          navigate("/");
-        },
         onError: (err: any) => {
           setError(err.response?.data?.message || "Registration failed");
         },

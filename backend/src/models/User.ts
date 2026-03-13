@@ -17,6 +17,10 @@ const userMongooseSchema = new mongoose.Schema({
     enum: ["guest", "admin", "receptionist", "housekeeping"],
     default: "guest",
   },
+  guest: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Guest",
+  },
 });
 
 const User = mongoose.model("User", userMongooseSchema);

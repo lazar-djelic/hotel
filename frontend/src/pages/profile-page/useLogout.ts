@@ -7,8 +7,8 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: ["me"] });
-      queryClient.invalidateQueries({ queryKey: ["me"] });
+      queryClient.setQueryData(["me"], null);
+      queryClient.invalidateQueries({ queryKey: ["me"], refetchType: "all" });
     },
   });
 };

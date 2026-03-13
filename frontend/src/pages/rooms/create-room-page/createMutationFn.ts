@@ -12,7 +12,7 @@ export const createRoomMutationFn = async (data: roomSimpleSchemaType) => {
   const parsedResponse = roomSimpleSchema.safeParse(res.data);
 
   if (!parsedResponse.success) {
-    console.error("Invalid create review API response", parsedResponse.error);
+    console.error("Invalid create room API response", parsedResponse.error);
     throw new Error("Invalid server response");
   }
 

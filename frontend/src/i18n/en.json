@@ -136,6 +136,25 @@
     "loadLoging": "Logging in...",
     "loginbtn": "Login",
     "loadRegister": "Registering...",
-    "registerbtn": "Register"
+    "registerbtn": "Register",
+    "ORdivider": "OR"
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal information",
+    "address": "Address",
+    "birthDate": "Birth date",
+    "personalID": "Personal ID",
+    "phone": "Phone",
+    "notes": "Notes",
+    "edit": "Edit profile",
+    "editPersonalInfo": "Edit personal information",
+    "enterPersonalInfo": "Enter personal information",
+    "fName": "First name",
+    "lName": "Last name",
+    "email": "Email",
+    "save": "Save profile",
+    "create": "Create profile",
+    "delete": "Delete profile"
   }
 }

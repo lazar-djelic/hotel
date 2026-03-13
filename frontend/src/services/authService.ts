@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../lib/axios";
 
 export interface LoginPayload {
   email: string;
@@ -6,7 +6,7 @@ export interface LoginPayload {
 }
 
 export const loginUser = async (data: LoginPayload) => {
-  const response = await axios.post(
+  const response = await api.post(
     "http://localhost:5001/api/users/login",
     data,
     { withCredentials: true },
@@ -16,7 +16,7 @@ export const loginUser = async (data: LoginPayload) => {
 };
 
 export const logoutUser = async () => {
-  const response = await axios.post(
+  const response = await api.post(
     "http://localhost:5001/api/users/logout",
     {},
     { withCredentials: true },
@@ -31,7 +31,7 @@ export interface RegisterPayload {
 }
 
 export const registerUser = async (data: RegisterPayload) => {
-  const response = await axios.post(
+  const response = await api.post(
     "http://localhost:5001/api/users/register",
     data,
     { withCredentials: true },

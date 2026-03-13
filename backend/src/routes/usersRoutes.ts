@@ -6,6 +6,7 @@ import { loginUser } from "../controllers/user-controllers/login-user/loginUser.
 import { logoutUser } from "../controllers/user-controllers/logout-user/logoutUser.ts";
 import { isAuthenticated } from "../middlewares/isAuthenticated.ts";
 import { authorizeRoles } from "../middlewares/authorizeRoles.ts";
+import { getMe } from "../middlewares/getMe.ts";
 
 const router = express.Router();
 
@@ -13,16 +14,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 
-router.get("/me", (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).json({ authenticated: false });
-  }
-
-  res.json({
-    authenticated: true,
-    userId: req.session.userId,
-  });
-});
+router.get("/me", isAuthenticated, getMe);
 
 // PROTECTED ROUTE
 router.get(

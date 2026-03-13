@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useLogin } from "./useLogin";
 
@@ -74,6 +74,17 @@ const Login: FC = () => {
               ? t("auth.loadLoging")
               : t("auth.loginbtn")}
           </button>
+
+          <div className="divider">{t("auth.ORdivider")}</div>
+
+          <div className="form-control mt-2 text-center">
+            <Link
+              to="/register"
+              className="text-sm link link-hover text-primary"
+            >
+              {t("navbar.register")}
+            </Link>
+          </div>
         </form>
       </div>
     </div>

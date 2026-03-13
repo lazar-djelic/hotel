@@ -7,10 +7,15 @@ export const QUERY_KEYS = {
     REVIEWS: "reviews",
   },
   RESERVATION: {
+    RESERVATION: "reservation",
     RESERVATIONS: "reservations",
   },
   ROOM: {
     ROOM: "room",
     ROOMS: "rooms",
+  },
+  GUEST: {
+    GUEST: "guest",
+    GUESTS: "guests",
   },
 };

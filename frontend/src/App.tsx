@@ -9,6 +9,8 @@ import RoomPage from "./pages/rooms/create-room-page/RoomPage.tsx";
 import RoomsPage from "./pages/rooms/rooms-page/RoomsPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import RegisterPage from "./pages/register-page/RegisterPage.tsx";
+import Profile from "./pages/profile-page/ProfilePage.tsx";
+import ProtectedRoute from "./context/ProtectedRoute.tsx";
 
 function App() {
   return (
@@ -25,6 +27,10 @@ function App() {
         <Route path="/review/:id" element={<ReviewDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        <Route element={<ProtectedRoute allowedRoles={["admin", "guest"]} />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </>
   );

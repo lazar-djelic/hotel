@@ -3,18 +3,17 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { useMe } from "../services/useMe";
 import { useLogout } from "../pages/profile-page/useLogout";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar: FC = () => {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
 
   const navigate = useNavigate();
-  const { data } = useMe();
   const logoutMutation = useLogout();
 
-  const isAuthenticated = !!data?.authenticated;
+  const { isAuthenticated } = useAuth();
 
   const handleLogout = () => {
     logoutMutation.mutate(undefined, {

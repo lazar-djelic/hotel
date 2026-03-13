@@ -136,6 +136,25 @@
     "loadLoging": "Prijavljivanje...",
     "loginbtn": "Prijavite se",
     "loadRegister": "Registrovanje...",
-    "registerbtn": "Registrujte se"
+    "registerbtn": "Registrujte se",
+    "ORdivider": "ILI"
+  },
+  "profile": {
+    "title": "Profil",
+    "personalInfo": "Lični podaci",
+    "address": "Adresa",
+    "birthDate": "Datum rođenja",
+    "personalID": "Broj lične karte / pasoša",
+    "phone": "Telefon",
+    "notes": "Beleške",
+    "edit": "Izmenite profil",
+    "editPersonalInfo": "Izmenite lične podatke",
+    "enterPersonalInfo": "Unesite lične podatke",
+    "fName": "Ime",
+    "lName": "Prezime",
+    "email": "Email",
+    "save": "Sačuvajte profil",
+    "create": "Kreirajte profil",
+    "delete": "Obrišite profil"
   }
 }

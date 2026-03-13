@@ -9,6 +9,7 @@ import configRoutes from "./hotel-config/configRoutes.ts";
 import reservationsRoutes from "./routes/reservationsRoutes.ts";
 import roomsRoutes from "./routes/roomsRoutes.ts";
 import usersRoutes from "./routes/usersRoutes.ts";
+import guestsRoutes from "./routes/guestsRoutes.ts";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: true,
+      sameSite: "lax",
     },
   }),
 );
@@ -38,6 +40,7 @@ app.use("/api/rooms", roomsRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/reservations", reservationsRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/guests", guestsRoutes);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
