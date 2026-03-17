@@ -7,7 +7,8 @@ export const useRegister = (navigate: NavigateFunction) => {
 
   return useMutation({
     mutationFn: (data: RegisterPayload) => registerUser(data),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["me"] });
       queryClient.invalidateQueries({ queryKey: ["me"] });
       navigate("/profile");
     },

@@ -33,6 +33,7 @@ const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
                 value={value}
                 className="mask mask-star-2 bg-orange-400"
                 checked={rating === value}
+                readOnly
               />
             ))}
           </div>

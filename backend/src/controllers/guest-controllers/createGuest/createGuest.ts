@@ -44,7 +44,7 @@ export async function createGuest(
 
     res.status(200).json(parsed);
   } catch (error) {
-    console.error("Error in createRoom controller", error);
+    console.error("Error in createGuest controller", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

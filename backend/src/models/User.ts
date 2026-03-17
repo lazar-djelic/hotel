@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-export type UserRole = "guest" | "admin" | "receptionist" | "housekeeping";
+import { USER_ROLE } from "../utils/roleEnums.ts";
 
 const userMongooseSchema = new mongoose.Schema({
   email: {
@@ -14,8 +13,13 @@ const userMongooseSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["guest", "admin", "receptionist", "housekeeping"],
-    default: "guest",
+    enum: [
+      USER_ROLE.guest,
+      USER_ROLE.admin,
+      USER_ROLE.receptionist,
+      USER_ROLE.housekeeping,
+    ],
+    default: USER_ROLE.guest,
   },
   guest: {
     type: mongoose.Schema.Types.ObjectId,

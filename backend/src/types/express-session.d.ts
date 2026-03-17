@@ -1,8 +1,10 @@
 import "express-session";
+import type { Role } from "../utils/roleEnums.ts";
 
 declare module "express-session" {
   interface SessionData {
     userId: string;
-    role: "guest" | "admin" | "receptionist" | "housekeeping";
+    role: Role;
+    guest: string;
   }
 }

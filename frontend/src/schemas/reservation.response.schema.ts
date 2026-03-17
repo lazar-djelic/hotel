@@ -1,36 +1,23 @@
 import { z } from "zod";
+import { guestSchema } from "./guest.response.schema";
 
 export const reservationSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
-  fName: z.string(),
-  lName: z.string(),
-  startDate: z.string(),
-  endDate: z.string(),
+  guest: guestSchema,
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   roomType: z.string(),
   bedNum: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const reservationArraySchema = z.array(reservationSchema);
 
 export const reservationSimpleSchema = z.object({
-  fName: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  lName: z
-    .string()
-    .min(1, "Last name is required")
-    .max(100, "Last name must be less than 100 characters"),
-  startDate: z
-    .string()
-    .min(1, "Start date is required")
-    .max(25, "Start date must be less than 25 characters"),
-  endDate: z
-    .string()
-    .min(1, "End date is required")
-    .max(25, "End date must be less than 25 characters"),
+  guest: guestSchema,
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   roomType: z
     .string()
     .min(1, "Room type is required")

@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
 
-const reservationMongooseSchema = new mongoose.Schema(
+const roomReservationMongooseSchema = new mongoose.Schema(
   {
-    fName: {
-      type: String,
-      required: true,
-    },
-    lName: {
-      type: String,
+    guest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Guest",
       required: true,
     },
     startDate: {
@@ -30,9 +27,9 @@ const reservationMongooseSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Reservation = mongoose.model(
+const RoomReservation = mongoose.model(
   "room_reservations",
-  reservationMongooseSchema,
+  roomReservationMongooseSchema,
 );
 
-export default Reservation;
+export default RoomReservation;

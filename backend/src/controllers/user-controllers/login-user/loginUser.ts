@@ -21,10 +21,23 @@ export async function loginUser(
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    req.session.userId = user._id.toString();
-    req.session.role = user.role;
+    req.session.regenerate((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Session error" });
+      }
 
-    res.json({ message: "Logged in" });
+      req.session.userId = user._id.toString();
+      req.session.role = user.role;
+      if (user.guest) req.session.guest = user.guest.toString();
+
+      req.session.save((err) => {
+        if (err) {
+          return res.status(500).json({ message: "Session save error" });
+        }
+
+        res.json({ message: "Logged in" });
+      });
+    });
   } catch (error) {
     console.error("Error in loginUser controller", error);
     res.status(500).json({ message: "Server error" });

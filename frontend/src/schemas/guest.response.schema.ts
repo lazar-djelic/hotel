@@ -8,7 +8,7 @@ export const guestSchema = z.object({
   email: z.string(),
   address: z.string(),
   personalID: z.number(),
-  birthDate: z.date(),
+  birthDate: z.string(),
   notes: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),

@@ -52,7 +52,10 @@ const ReservationsPage = () => {
               ))}
             </select>
 
-            <Link to="/createreservation" className="btn btn-outline text-lg">
+            <Link
+              to="/reception/createreservation"
+              className="btn btn-outline text-lg"
+            >
               <PlusIcon className="size-8" />
               {t("newres")}
             </Link>

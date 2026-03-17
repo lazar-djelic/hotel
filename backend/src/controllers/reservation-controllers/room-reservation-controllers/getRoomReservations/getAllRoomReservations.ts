@@ -1,10 +1,10 @@
-import Reservation from "../../../models/Reservation.ts";
+import RoomReservation from "../../../../models/RoomReservation.ts";
 import { type Response, type NextFunction } from "express";
-import { reservationArraySchema } from "../../../schemas/reservation.response.schema.ts";
-import type { GetReservationsRequest } from "./types.ts";
+import { roomReservationArraySchema } from "../../../../schemas/roomReservation.response.schema.ts";
+import type { GetRoomReservationsRequest } from "./types.ts";
 
-export async function getAllReservations(
-  _req: GetReservationsRequest,
+export async function getAllRoomReservations(
+  _req: GetRoomReservationsRequest,
   res: Response,
   next: NextFunction,
 ) {
@@ -14,17 +14,18 @@ export async function getAllReservations(
     const endD = new Date(_req.query.endDate);
     endD.setUTCHours(23, 59, 59, 999);
 
-    const reservations = await Reservation.find({
+    const reservations = await RoomReservation.find({
       startDate: { $lte: endD },
       endDate: { $gte: startD },
     })
+      .populate("guest")
       .sort({ createdAt: -1 })
       .lean();
 
-    const parsed = reservationArraySchema.parse(reservations);
+    const parsed = roomReservationArraySchema.parse(reservations);
     res.status(200).json(reservations);
   } catch (error) {
-    console.error("Error in getAllReservations controller", error);
+    console.error("Error in getAllRoomReservations controller", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

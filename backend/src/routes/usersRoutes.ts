@@ -7,11 +7,18 @@ import { logoutUser } from "../controllers/user-controllers/logout-user/logoutUs
 import { isAuthenticated } from "../middlewares/isAuthenticated.ts";
 import { authorizeRoles } from "../middlewares/authorizeRoles.ts";
 import { getMe } from "../middlewares/getMe.ts";
+import { validateRequest } from "../middlewares/validateRequest.ts";
+import { RegisterUserRequestSchema } from "../controllers/user-controllers/register-user/types.ts";
+import { LoginUserRequestSchema } from "../controllers/user-controllers/login-user/types.ts";
 
 const router = express.Router();
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+router.post(
+  "/register",
+  validateRequest(RegisterUserRequestSchema),
+  registerUser,
+);
+router.post("/login", validateRequest(LoginUserRequestSchema), loginUser);
 router.post("/logout", logoutUser);
 
 router.get("/me", isAuthenticated, getMe);

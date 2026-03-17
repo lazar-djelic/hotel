@@ -1,5 +1,4 @@
 export interface HotelConfig {
-  _id: string;
   levels: number;
   room: boolean;
   conference: boolean;

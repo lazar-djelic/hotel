@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import { boolean, number } from "zod";
 
 const confMongooseSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: "global_config",
+  },
   levels: {
     type: number,
     required: true,

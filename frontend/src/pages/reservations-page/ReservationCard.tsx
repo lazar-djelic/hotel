@@ -19,14 +19,15 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
     >
       <div className="card-body">
         <h4 className="card-title text-base-content">
-          {reservation.fName} {reservation.lName}
+          {reservation.guest.fName} {reservation.guest.lName}
         </h4>
         <p className="text-base-content/70">
           {t("rescard.startd")}:{" "}
-          {formatDate(reservation.startDate, i18n.language)}
+          {formatDate(reservation.startDate.toString(), i18n.language)}
         </p>
         <p className="text-base-content/70">
-          {t("rescard.endd")}: {formatDate(reservation.endDate, i18n.language)}
+          {t("rescard.endd")}:{" "}
+          {formatDate(reservation.endDate.toString(), i18n.language)}
         </p>
         <p className="text-base-content/70">
           {t("rescard.rtype")}: {reservation.roomType}

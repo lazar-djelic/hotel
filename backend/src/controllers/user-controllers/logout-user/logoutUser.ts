@@ -10,7 +10,9 @@ export async function logoutUser(
       return res.status(500).json({ message: "Logout failed" });
     }
 
-    res.clearCookie("connect.sid");
-    res.json({ message: "Logged out" });
+    res.clearCookie("connect.sid", { path: "/" });
+    req.session = null as any;
+
+    return res.status(200).json({ message: "Logged out" });
   });
 }

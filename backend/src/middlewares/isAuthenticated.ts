@@ -6,7 +6,7 @@ export const isAuthenticated = (
   next: NextFunction,
 ) => {
   if (!req.session.userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.json({ user: null, authenticated: false });
   }
   next();
 };

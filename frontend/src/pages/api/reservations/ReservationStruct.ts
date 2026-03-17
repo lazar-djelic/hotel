@@ -1,20 +1,20 @@
+import type { GuestStruct } from "../../profile-page/GuestStruct";
+
 export interface ReservationStruct {
   _id: string;
-  fName: string;
-  lName: string;
-  startDate: string;
-  endDate: string;
+  guest: GuestStruct;
+  startDate: Date;
+  endDate: Date;
   roomType: string;
   bedNum: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export type SimpleReservationStruct = {
-  fName: string;
-  lName: string;
-  startDate: string;
-  endDate: string;
+  guest: GuestStruct;
+  startDate: Date;
+  endDate: Date;
   roomType: string;
   bedNum: string;
 };

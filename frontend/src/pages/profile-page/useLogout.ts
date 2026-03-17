@@ -9,6 +9,7 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.setQueryData(["me"], null);
       queryClient.invalidateQueries({ queryKey: ["me"], refetchType: "all" });
+      queryClient.clear();
     },
   });
 };

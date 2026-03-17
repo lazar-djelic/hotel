@@ -1,10 +1,10 @@
 import { type Response, type NextFunction } from "express";
-import type { GetRoomsRequst } from "./types.ts";
+import type { GetRoomsRequest } from "./types.ts";
 import Room from "../../../models/Room.ts";
 import { roomArraySchema } from "../../../schemas/room.response.schema.ts";
 
 export async function getAllRooms(
-  _req: GetRoomsRequst,
+  _req: GetRoomsRequest,
   res: Response,
   next: NextFunction,
 ) {

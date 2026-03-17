@@ -9,7 +9,7 @@ export const GetRoomsRequestSchema = {
   params: z.object({}),
 };
 
-export type GetRoomsRequst = Request<
+export type GetRoomsRequest = Request<
   z.infer<typeof GetRoomsRequestSchema.params>,
   {},
   z.infer<typeof GetRoomsRequestSchema.body>,

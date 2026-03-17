@@ -5,8 +5,8 @@ import session from "express-session";
 import reviewsRoutes from "./routes/reviewsRoutes.ts";
 import { connectDB } from "./config/db.ts";
 import apiLogger from "./middlewares/apiLogger.ts";
-import configRoutes from "./hotel-config/configRoutes.ts";
-import reservationsRoutes from "./routes/reservationsRoutes.ts";
+import configRoutes from "./routes/configRoutes.ts";
+import roomReservationsRoutes from "./routes/roomReservationsRoutes.ts";
 import roomsRoutes from "./routes/roomsRoutes.ts";
 import usersRoutes from "./routes/usersRoutes.ts";
 import guestsRoutes from "./routes/guestsRoutes.ts";
@@ -22,9 +22,11 @@ app.use(express.json());
 
 app.use(
   session({
+    name: "connect.sid",
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
+    rolling: true,
     cookie: {
       secure: false,
       httpOnly: true,
@@ -38,7 +40,7 @@ app.use(apiLogger);
 app.use("/api/config", configRoutes);
 app.use("/api/rooms", roomsRoutes);
 app.use("/api/reviews", reviewsRoutes);
-app.use("/api/reservations", reservationsRoutes);
+app.use("/api/reservations", roomReservationsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/guests", guestsRoutes);
 

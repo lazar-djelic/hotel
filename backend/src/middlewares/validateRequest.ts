@@ -10,7 +10,7 @@ export const validateRequest = <Params = {}, Query = {}, Body = {}>(schemas: {
   return (
     req: Request<Params, any, Body, Query>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     function errorMessages(error: ZodError, type: "body" | "query" | "params") {
       const errorMsgs = error.issues.map((issue: any) => ({
