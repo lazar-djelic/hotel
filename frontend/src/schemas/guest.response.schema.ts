@@ -4,10 +4,10 @@ export const guestSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
   fName: z.string(),
   lName: z.string(),
-  phone: z.number(),
+  phone: z.string(),
   email: z.string(),
   address: z.string(),
-  personalID: z.number(),
+  personalID: z.string(),
   birthDate: z.string(),
   notes: z.string().optional(),
   createdAt: z.string(),
@@ -19,10 +19,10 @@ export const guestArraySchema = z.array(guestSchema);
 export const guestSimpleSchema = z.object({
   fName: z.string().min(1, "First name is required"),
   lName: z.string().min(1, "Last name is required"),
-  phone: z.number().min(1, "Phone number is required"),
+  phone: z.string().min(1, "Phone number is required"),
   email: z.string().min(1, "Email is required"),
   address: z.string().min(1, "Address is required"),
-  personalID: z.number().min(1, "Personal ID is required"),
+  personalID: z.string().min(1, "Personal ID is required"),
   birthDate: z
     .string()
     .min(1, "Birth date is required")

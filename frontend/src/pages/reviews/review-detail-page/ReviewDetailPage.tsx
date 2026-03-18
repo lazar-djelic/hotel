@@ -1,11 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
-import { useReview } from "../api/reviews/review-detail/useReview";
-import type { ReviewStruct } from "../api/reviews/ReviewStruct";
-import { reviewSimpleSchema } from "../../schemas/review.response.schema";
-import { useUpdateReview } from "../api/reviews/review-detail/useUpdateReview";
-import { useDeleteReview } from "../api/reviews/review-detail/useDeleteReview";
+import { useReview } from "../../api/reviews/review-detail/useReview";
+import type { ReviewStruct } from "../../api/reviews/ReviewStruct";
+import { reviewSimpleSchema } from "../../../schemas/review.response.schema";
+import { useUpdateReview } from "../../api/reviews/review-detail/useUpdateReview";
+import { useDeleteReview } from "../../api/reviews/review-detail/useDeleteReview";
 import { useTranslation } from "react-i18next";
 
 const ReviewDetailPage = () => {
@@ -20,9 +20,7 @@ const ReviewDetailPage = () => {
 
   const handleSave = () => {
     if (!form) return;
-    console.log(form.guest, "  ", form.opinion);
     const parsed = reviewSimpleSchema.safeParse({
-      guest: form.guest,
       opinion: form.opinion,
       rating: form.rating,
     });
@@ -32,10 +30,18 @@ const ReviewDetailPage = () => {
     }
   };
 
-  if (loading || !review) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-base-200 flex items-center justify-center">
         <LoaderIcon className="animate-spin size-10" />
+      </div>
+    );
+  }
+
+  if (!review) {
+    return (
+      <div className="min-h-screen bg-base-200 flex items-center justify-center">
+        {t("review.no")}
       </div>
     );
   }
@@ -68,19 +74,6 @@ const ReviewDetailPage = () => {
 
             <div className="card bg-base-100">
               <div className="card-body">
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">{t("review.name")}</span>
-                  </label>
-                  <input
-                    className="input input-bordered"
-                    value={current.guest}
-                    onChange={(e) =>
-                      setForm({ ...current, guest: e.target.value })
-                    }
-                  />
-                </div>
-
                 <div className="form-control mb-4">
                   <label className="label">
                     <span className="label-text">{t("review.review")}</span>

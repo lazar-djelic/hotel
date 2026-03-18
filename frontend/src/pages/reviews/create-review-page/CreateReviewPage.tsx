@@ -1,14 +1,13 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateReview } from "../api/reviews/create-review/useCreateReview";
+import { useCreateReview } from "../../api/reviews/create-review/useCreateReview";
 import toast from "react-hot-toast";
-import { reviewSimpleSchema } from "../../schemas/review.response.schema";
+import { reviewSimpleSchema } from "../../../schemas/review.response.schema";
 import { useTranslation } from "react-i18next";
 
 const CreateReviewPage = () => {
   const { t } = useTranslation();
-  const [guest, setGuest] = useState("");
   const [opinion, setOpinion] = useState("");
   const [rating, setRating] = useState(1);
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const CreateReviewPage = () => {
     e.preventDefault();
 
     const parsed = reviewSimpleSchema.safeParse({
-      guest,
       opinion,
       rating,
     });
@@ -51,21 +49,6 @@ const CreateReviewPage = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit}>
-                  <div className="form-control mb-4">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("create.review.name")}
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      className="input input-bordered"
-                      placeholder={t("create.review.plhname")}
-                      value={guest}
-                      onChange={(e) => setGuest(e.target.value)}
-                    />
-                  </div>
-
                   <div className="form-control mb-4">
                     <label className="label">
                       <span className="label-text">

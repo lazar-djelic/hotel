@@ -4,7 +4,7 @@ import { useReservations } from "./useReservations";
 import ReservationCard from "./ReservationCard";
 import { Link, useSearchParams } from "react-router";
 import { PlusIcon } from "lucide-react";
-import { useConfig } from "../api/hotel-config/useConfig";
+import { useConfig } from "../../api/hotel-config/useConfig";
 import { useTranslation } from "react-i18next";
 
 const ReservationsPage = () => {

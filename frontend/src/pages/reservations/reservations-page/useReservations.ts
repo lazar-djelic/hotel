@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { QUERY_KEYS } from "../../config/query-keys";
+import { QUERY_KEYS } from "../../../config/query-keys";
 import { fetchReservationsQueryFn } from "./fetchReservationsQueryFn";
-import type { ReservationStruct } from "../api/reservations/ReservationStruct";
-import type { RangeType } from "../interfaces/RangeType";
+import type { ReservationStruct } from "../../api/reservations/ReservationStruct";
+import type { RangeType } from "../../interfaces/RangeType";
 import type { SetURLSearchParams } from "react-router-dom";
 
 export const useReservations = (

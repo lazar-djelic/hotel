@@ -24,16 +24,16 @@ router.post("/logout", logoutUser);
 router.get("/me", isAuthenticated, getMe);
 
 // PROTECTED ROUTE
-router.get(
-  "/protected",
-  isAuthenticated,
-  authorizeRoles("admin"),
-  (req, res) => {
-    res.json({
-      message: "Welcome to protected route!",
-      userId: req.session.userId,
-    });
-  },
-);
+// router.get(
+//   "/protected",
+//   isAuthenticated,
+//   authorizeRoles("admin"),
+//   (req, res) => {
+//     res.json({
+//       message: "Welcome to protected route!",
+//       userId: req.session.userId,
+//     });
+//   },
+// );
 
 export default router;

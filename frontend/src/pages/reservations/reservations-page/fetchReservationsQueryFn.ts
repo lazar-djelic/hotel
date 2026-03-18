@@ -1,7 +1,7 @@
 import type { SetURLSearchParams } from "react-router-dom";
-import { reservationArraySchema } from "../../schemas/reservation.response.schema";
-import { fetchReservations } from "../api/reservations/reservations.api";
-import type { RangeType } from "../interfaces/RangeType";
+import { reservationArraySchema } from "../../../schemas/reservation.response.schema";
+import { fetchReservations } from "../../api/reservations/reservations.api";
+import type { RangeType } from "../../interfaces/RangeType";
 
 export const fetchReservationsQueryFn = async (
   dateRange: RangeType,

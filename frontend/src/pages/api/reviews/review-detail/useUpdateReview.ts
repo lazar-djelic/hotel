@@ -12,7 +12,13 @@ export const useUpdateReview = (navigate: NavigateFunction) => {
     onSuccess: (_, { id, review }) => {
       queryClient.setQueryData([QUERY_KEYS.REVIEW.REVIEW, id], review);
 
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });
+      // queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });
+
+      queryClient.setQueryData([QUERY_KEYS.REVIEW.REVIEWS], (old: any) => {
+        if (!old) return old;
+
+        return old.map((r: any) => (r._id === id ? { ...r, ...review } : r));
+      });
 
       toast.success("Review updated successfully!");
       navigate("/reviews");

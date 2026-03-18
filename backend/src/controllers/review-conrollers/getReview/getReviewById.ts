@@ -2,14 +2,21 @@ import Review from "../../../models/Review.ts";
 import { type Response, type NextFunction } from "express";
 import { reviewSchema } from "../../../schemas/review.response.schema.ts";
 import type { GetReviewRequest } from "./types.ts";
+import { USER_ROLE } from "../../../utils/roleEnums.ts";
 
 export async function getReviewById(
   req: GetReviewRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const review = await Review.findById(req.params.id);
+    const filter: any = { _id: req.params.id };
+
+    if (req.session.role === USER_ROLE.guest) {
+      filter.guest = req.session.guest;
+    }
+
+    const review = await Review.findOne(filter).populate("guest");
     if (!review) return res.status(404).json({ message: "Review not found" });
     const parsed = reviewSchema.parse(review);
     res.status(200).json(parsed);

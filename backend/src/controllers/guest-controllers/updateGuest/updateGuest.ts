@@ -2,6 +2,7 @@ import { type Response, type NextFunction } from "express";
 import type { UpdateGuestRequest } from "./types.ts";
 import Guest from "../../../models/Guest.ts";
 import { guestSimpleSchema } from "../../../schemas/guest.response.schema.ts";
+import { USER_ROLE } from "../../../utils/roleEnums.ts";
 
 export async function updateGuest(
   req: UpdateGuestRequest,
@@ -9,6 +10,15 @@ export async function updateGuest(
   next: NextFunction,
 ) {
   try {
+    if (
+      req.session.role === USER_ROLE.guest &&
+      req.session.guest !== req.params.id
+    ) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized. Guests do not match." });
+    }
+
     const {
       fName,
       lName,

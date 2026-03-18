@@ -3,7 +3,6 @@ import type { Request } from "express";
 
 export const CreateReviewRequestSchema = {
   body: z.object({
-    guest: z.string(),
     opinion: z.string(),
     rating: z.number(),
   }),

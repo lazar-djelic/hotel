@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 import { formatDate } from "../../lib/utils";
 import StringInputComp from "../../components/StringInputComp";
 import SimpleDateInComp from "../../components/SimpleDateInComp";
-import NumberInputComp from "../../components/NumberInputComp";
 import type { GuestStruct } from "./GuestStruct";
 import { guestSimpleSchema } from "../../schemas/guest.response.schema";
 import toast from "react-hot-toast";
@@ -44,7 +43,7 @@ const Profile = () => {
     const parsed = guestSimpleSchema.safeParse({
       fName: form.fName,
       lName: form.lName,
-      phone: Number(form.phone),
+      phone: form.phone,
       email: user.email,
       address: form.address,
       personalID: form.personalID,
@@ -100,8 +99,8 @@ const Profile = () => {
               <span className="text-gray-500">{t("profile.phone")}</span>
               <span>{guest.phone}</span>
 
-              <span className="text-gray-500">{t("profile.notes")}</span>
-              <span>{guest.notes || "-"}</span>
+              {/* <span className="text-gray-500">{t("profile.notes")}</span>
+              <span>{guest.notes || "-"}</span> */}
             </div>
 
             <div className="mt-8 flex justify-end">
@@ -149,7 +148,7 @@ const Profile = () => {
               onChangeFn={(value) => setForm({ ...current!, lName: value })}
             />
 
-            <NumberInputComp
+            <StringInputComp
               labelText={t("profile.phone")}
               iValue={current?.phone || ""}
               onChangeFn={(value) => setForm({ ...current!, phone: value })}
@@ -167,7 +166,7 @@ const Profile = () => {
               onChangeFn={(value) => setForm({ ...current!, address: value })}
             />
 
-            <NumberInputComp
+            <StringInputComp
               labelText={t("profile.personalID")}
               iValue={current?.personalID || ""}
               onChangeFn={(value) =>

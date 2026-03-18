@@ -1,10 +1,10 @@
 import { type Response, type NextFunction } from "express";
-import type { GetGuestsRequst } from "./types.ts";
+import type { GetGuestsRequest } from "./types.ts";
 import Guest from "../../../models/Guest.ts";
 import { guestArraySchema } from "../../../schemas/guest.response.schema.ts";
 
 export async function getAllGuests(
-  _req: GetGuestsRequst,
+  _req: GetGuestsRequest,
   res: Response,
   next: NextFunction,
 ) {

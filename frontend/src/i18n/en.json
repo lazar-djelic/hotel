@@ -121,7 +121,9 @@
     "loadsavebtn": "Saving...",
     "savebtn": "Save changes",
     "new": "New review",
-    "norev": "There are no reviews yet."
+    "norev": "There are no reviews yet.",
+    "title": "Our guests' reviews",
+    "no": "There is no review on this location."
   },
   "room": {
     "norooms": "There are no rooms.",

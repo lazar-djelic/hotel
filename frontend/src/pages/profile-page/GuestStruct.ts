@@ -2,10 +2,10 @@ export interface GuestStruct {
   _id: string;
   fName: string;
   lName: string;
-  phone: number;
+  phone: string;
   email: string;
   address: string;
-  personalID: number;
+  personalID: string;
   birthDate: string;
   notes?: string;
   createdAt: string;
@@ -15,10 +15,10 @@ export interface GuestStruct {
 export type SimpleGuestStruct = {
   fName: string;
   lName: string;
-  phone: number;
+  phone: string;
   email: string;
   address: string;
-  personalID: number;
+  personalID: string;
   birthDate: string;
   notes?: string;
 };

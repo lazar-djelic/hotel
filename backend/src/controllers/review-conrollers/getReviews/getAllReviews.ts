@@ -6,10 +6,13 @@ import type { GetReviewsRequst } from "./types.ts";
 export async function getAllReviews(
   _req: GetReviewsRequst,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const reviews = await Review.find().sort({ createdAt: -1 }).lean();
+    const reviews = await Review.find()
+      .populate("guest")
+      .sort({ createdAt: -1 })
+      .lean();
     const parsed = reviewArraySchema.parse(reviews);
     res.status(200).json(reviews);
   } catch (error) {

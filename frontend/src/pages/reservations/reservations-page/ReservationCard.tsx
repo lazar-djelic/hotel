@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import type { ReservationStruct } from "../api/reservations/ReservationStruct";
+import type { ReservationStruct } from "../../api/reservations/ReservationStruct";
 import { Link } from "react-router";
-import { formatDate } from "../../lib/utils";
+import { formatDate } from "../../../lib/utils";
 import { useTranslation } from "react-i18next";
 
 type ReservationCardArgs = {

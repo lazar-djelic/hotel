@@ -9,13 +9,13 @@ export async function updateReview(
   next: NextFunction,
 ) {
   try {
-    const { guest, opinion, rating } = req.body;
-    const review = new Review({ guest, opinion, rating });
+    const { opinion, rating } = req.body;
+    const review = new Review({ opinion, rating });
     const parsed = reviewSimpleSchema.parse(review);
 
-    const updatedReview = await Review.findByIdAndUpdate(
-      req.params.id,
-      { guest, opinion, rating },
+    const updatedReview = await Review.findOneAndUpdate(
+      { _id: req.params.id, guest: req.session.guest },
+      { opinion, rating },
       {
         new: true,
       },

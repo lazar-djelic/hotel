@@ -11,7 +11,7 @@ const guestMongooseSchema = new mongoose.Schema(
       required: true,
     },
     phone: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {
@@ -24,7 +24,7 @@ const guestMongooseSchema = new mongoose.Schema(
       required: true,
     },
     personalID: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },

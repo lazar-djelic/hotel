@@ -5,10 +5,10 @@ export const UpdateGuestRequestSchema = {
   body: z.object({
     fName: z.string(),
     lName: z.string(),
-    phone: z.number(),
+    phone: z.string(),
     email: z.string(),
     address: z.string(),
-    personalID: z.number(),
+    personalID: z.string(),
     birthDate: z.string(),
     notes: z.string(),
   }),

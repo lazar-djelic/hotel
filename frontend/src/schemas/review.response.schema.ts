@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { guestSchema } from "./guest.response.schema";
 
 export const reviewSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
-  guest: z.string(),
+  guest: guestSchema,
   opinion: z.string(),
   rating: z.number(),
   createdAt: z.string(),
@@ -12,10 +13,6 @@ export const reviewSchema = z.object({
 export const reviewArraySchema = z.array(reviewSchema);
 
 export const reviewSimpleSchema = z.object({
-  guest: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
   opinion: z
     .string()
     .min(1, "Review is required")

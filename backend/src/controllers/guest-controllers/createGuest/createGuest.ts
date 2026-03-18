@@ -34,7 +34,6 @@ export async function createGuest(
     const newGuest = await guest.save();
 
     if (req.session.role === "guest") {
-      console.log("usao");
       await User.findByIdAndUpdate(
         req.session.userId,
         { guest: newGuest._id },

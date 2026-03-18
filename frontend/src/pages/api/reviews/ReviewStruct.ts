@@ -1,6 +1,8 @@
+import type { GuestStruct } from "../../profile-page/GuestStruct";
+
 export interface ReviewStruct {
   _id: string;
-  guest: string;
+  guest: GuestStruct;
   opinion: string;
   rating: number;
   createdAt: string;
@@ -8,7 +10,6 @@ export interface ReviewStruct {
 }
 
 export type SimpleReviewStruct = {
-  guest: string;
   opinion: string;
   rating: number;
 };

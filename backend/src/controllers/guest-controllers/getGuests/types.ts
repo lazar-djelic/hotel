@@ -7,7 +7,7 @@ export const GetGuestsRequestSchema = {
   params: z.object({}),
 };
 
-export type GetGuestsRequst = Request<
+export type GetGuestsRequest = Request<
   z.infer<typeof GetGuestsRequestSchema.params>,
   {},
   z.infer<typeof GetGuestsRequestSchema.body>,

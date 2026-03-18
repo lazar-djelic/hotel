@@ -9,7 +9,8 @@ export async function createReview(
   next: NextFunction,
 ) {
   try {
-    const { guest, opinion, rating } = req.body;
+    const guest = req.session.guest;
+    const { opinion, rating } = req.body;
     const review = new Review({ guest, opinion, rating });
     const parsed = reviewSimpleSchema.parse(review);
     await review.save();

@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { guestSchema } from "./guest.response.schema.ts";
 
 export const reviewSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
-  guest: z.string(),
+  guest: guestSchema,
   opinion: z.string(),
   rating: z.number(),
   createdAt: z.date(),
@@ -12,7 +13,6 @@ export const reviewSchema = z.object({
 export const reviewArraySchema = z.array(reviewSchema);
 
 export const reviewSimpleSchema = z.object({
-  guest: z.string(),
   opinion: z.string(),
   rating: z.number(),
 });

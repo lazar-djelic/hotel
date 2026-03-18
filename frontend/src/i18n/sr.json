@@ -121,7 +121,9 @@
     "loadsavebtn": "Sačuvavanje...",
     "savebtn": "Sačuvajte promene",
     "new": "Novi utisak",
-    "norev": "Trenutno nema utisaka."
+    "norev": "Trenutno nema utisaka.",
+    "title": "Utisci naših gostiju",
+    "no": "Utisak ne postoji na ovoj lokaciji."
   },
   "room": {
     "norooms": "Trenutno nema soba.",
