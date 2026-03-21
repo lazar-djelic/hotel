@@ -23,7 +23,7 @@ import {
   type DeleteReviewRequest,
 } from "../controllers/review-conrollers/deleteReview/types.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 
 const router = express.Router();
 

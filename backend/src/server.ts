@@ -10,6 +10,11 @@ import roomReservationsRoutes from "./routes/roomReservationsRoutes.ts";
 import roomsRoutes from "./routes/roomsRoutes.ts";
 import usersRoutes from "./routes/usersRoutes.ts";
 import guestsRoutes from "./routes/guestsRoutes.ts";
+import staysRoutes from "./routes/staysRoutes.ts";
+import receptionRoutes from "./routes/receptionRoutes.ts";
+import { startHousekeepingJob } from "./jobs/housekeeping.job.ts";
+import housekeepingRoutes from "./routes/housekeepingRoutes.ts";
+import adminRoutes from "./routes/adminRoutes.ts";
 
 dotenv.config();
 
@@ -40,11 +45,17 @@ app.use(apiLogger);
 app.use("/api/config", configRoutes);
 app.use("/api/rooms", roomsRoutes);
 app.use("/api/reviews", reviewsRoutes);
-app.use("/api/reservations", roomReservationsRoutes);
+app.use("/api/roomreservations", roomReservationsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/guests", guestsRoutes);
+app.use("/api/stays", staysRoutes);
+app.use("/api/reception/", receptionRoutes);
+app.use("/api/housekeeping/", housekeepingRoutes);
+app.use("/api/admin/", adminRoutes);
 
 connectDB().then(() => {
+  startHousekeepingJob();
+
   app.listen(PORT, () => {
     console.log("Server started running on PORT:", PORT);
   });

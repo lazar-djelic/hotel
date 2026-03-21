@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { RESERVATION_STATUS } from "../utils/enums.ts";
 
 const roomReservationMongooseSchema = new mongoose.Schema(
   {
@@ -15,13 +16,16 @@ const roomReservationMongooseSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    roomType: {
-      type: String,
-      required: true,
+    adults: { type: Number, default: 1 },
+    children: { type: Number, default: 0 },
+    assignedRoom: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Room",
+      default: null,
     },
-    bedNum: {
+    resStatus: {
       type: String,
-      required: true,
+      default: RESERVATION_STATUS.booked,
     },
   },
   { timestamps: true },

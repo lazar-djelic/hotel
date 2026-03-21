@@ -1,7 +1,7 @@
 import Review from "../../../models/Review.ts";
 import { type Response } from "express";
 import type { DeleteReviewRequest } from "./types.ts";
-import { USER_ROLE } from "../../../utils/roleEnums.ts";
+import { USER_ROLE } from "../../../utils/enums.ts";
 
 export async function deleteReview(req: DeleteReviewRequest, res: Response) {
   try {

@@ -2,7 +2,7 @@ import { type Response, type NextFunction } from "express";
 import type { UpdateGuestRequest } from "./types.ts";
 import Guest from "../../../models/Guest.ts";
 import { guestSimpleSchema } from "../../../schemas/guest.response.schema.ts";
-import { USER_ROLE } from "../../../utils/roleEnums.ts";
+import { USER_ROLE } from "../../../utils/enums.ts";
 
 export async function updateGuest(
   req: UpdateGuestRequest,

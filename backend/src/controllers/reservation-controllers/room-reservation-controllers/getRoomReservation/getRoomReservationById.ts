@@ -2,7 +2,7 @@ import { type Response, type NextFunction } from "express";
 import type { GetRoomReservationRequest } from "./types.ts";
 import RoomReservation from "../../../../models/RoomReservation.ts";
 import { roomReservationSchema } from "../../../../schemas/roomReservation.response.schema.ts";
-import { USER_ROLE } from "../../../../utils/roleEnums.ts";
+import { USER_ROLE } from "../../../../utils/enums.ts";
 
 export async function getRoomReservationById(
   req: GetRoomReservationRequest,
@@ -16,7 +16,9 @@ export async function getRoomReservationById(
       filter.guest = req.session.guest;
     }
 
-    const reservation = await RoomReservation.findOne(filter);
+    const reservation = await RoomReservation.findOne(filter)
+      .populate("guest")
+      .populate("assignedRoom");
 
     if (!reservation)
       return res.status(404).json({ message: "Room reservation not found" });

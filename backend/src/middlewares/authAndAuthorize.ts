@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from "express";
-import type { Role } from "../utils/roleEnums.ts";
+import type { Role } from "../utils/enums.ts";
 import User from "../models/User.ts";
 
 export const authenAndAuthorize =

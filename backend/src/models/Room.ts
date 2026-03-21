@@ -54,6 +54,11 @@ const roomMongooseSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    currentStay: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Stay",
+      default: null,
+    },
   },
   { timestamps: true },
 );

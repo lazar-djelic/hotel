@@ -19,6 +19,7 @@ export async function getAllRoomReservations(
       endDate: { $gte: startD },
     })
       .populate("guest")
+      .populate("assignedRoom")
       .sort({ createdAt: -1 })
       .lean();
 

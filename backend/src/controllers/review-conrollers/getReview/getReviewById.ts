@@ -2,7 +2,7 @@ import Review from "../../../models/Review.ts";
 import { type Response, type NextFunction } from "express";
 import { reviewSchema } from "../../../schemas/review.response.schema.ts";
 import type { GetReviewRequest } from "./types.ts";
-import { USER_ROLE } from "../../../utils/roleEnums.ts";
+import { USER_ROLE } from "../../../utils/enums.ts";
 
 export async function getReviewById(
   req: GetReviewRequest,

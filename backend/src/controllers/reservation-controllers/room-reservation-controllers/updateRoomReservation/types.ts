@@ -1,14 +1,9 @@
 import { z } from "zod";
 import type { Request } from "express";
+import { updateRoomReservationSimpleSchema } from "../../../../schemas/roomReservation.response.schema.ts";
 
 export const UpdateRoomReservationRequestSchema = {
-  body: z.object({
-    guest: z.any().transform((val) => val.toString()),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    roomType: z.string(),
-    bedNum: z.string(),
-  }),
+  body: updateRoomReservationSimpleSchema,
   query: z.object({}),
   params: z.object({
     id: z.string(),

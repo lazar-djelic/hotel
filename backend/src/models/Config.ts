@@ -7,35 +7,35 @@ const confMongooseSchema = new mongoose.Schema({
     default: "global_config",
   },
   levels: {
-    type: number,
+    type: Number,
     required: true,
   },
   room: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   conference: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   spa: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   pool: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   restaurant: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   gym: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
   sauna: {
-    type: boolean,
+    type: Boolean,
     requred: true,
   },
 });

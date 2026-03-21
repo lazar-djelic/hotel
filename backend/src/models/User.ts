@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 
 const userMongooseSchema = new mongoose.Schema({
   email: {

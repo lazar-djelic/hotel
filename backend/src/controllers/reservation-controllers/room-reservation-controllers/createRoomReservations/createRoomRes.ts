@@ -1,39 +1,27 @@
 import { type Response, type NextFunction } from "express";
-import type { CreateRoomReservationReceptionRequest } from "./types.ts";
-import Guest from "../../../../models/Guest.ts";
-import { guestSimpleSchema } from "../../../../schemas/guest.response.schema.ts";
-import {
-  roomReservationReceptionSimpleSchema,
-  roomReservationSimpleSchema,
-} from "../../../../schemas/roomReservation.response.schema.ts";
+import type { CreateRoomReservationRequest } from "./types.ts";
 import RoomReservation from "../../../../models/RoomReservation.ts";
+import { roomReservationSimpleSchema } from "../../../../schemas/roomReservation.response.schema.ts";
 import mongoose from "mongoose";
 import Room from "../../../../models/Room.ts";
 import { RESERVATION_STATUS, ROOM_STATUS } from "../../../../utils/enums.ts";
 
-export async function createRoomReservationReception(
-  req: CreateRoomReservationReceptionRequest,
+export async function createRoomRes(
+  req: CreateRoomReservationRequest,
   res: Response,
   next: NextFunction,
 ) {
-  const validatedGuest = roomReservationReceptionSimpleSchema.parse(req.body);
+  const parsed = roomReservationSimpleSchema.parse(req.body);
+
+  if (req.body.guest !== req.session.guest)
+    return res
+      .status(401)
+      .json({ message: "Unauthorized. Guests do not match." });
 
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
-
-    const guest = new Guest({
-      fName: req.body.fName,
-      lName: req.body.lName,
-      phone: req.body.phone,
-      email: req.body.email,
-      address: req.body.address,
-      personalID: req.body.personalID,
-      birthDate: req.body.birthDate,
-      notes: req.body.notes,
-    });
-    const newGuest = await guest.save({ session });
 
     const availableRoom = await Room.findOne({
       type: req.body.roomType,
@@ -76,7 +64,7 @@ export async function createRoomReservationReception(
     );
 
     const reservation = new RoomReservation({
-      guest: newGuest._id,
+      guest: req.body.guest,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       adults: req.body.adults,
@@ -94,7 +82,7 @@ export async function createRoomReservationReception(
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.error("Error in createRoomReservationReception controller", error);
+    console.error("Error in createRoomReservation controller", error);
     res.status(500).json({
       message:
         "Internal server error. There is a conflict with creating a reservation.",

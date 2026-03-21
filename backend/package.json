@@ -30,6 +30,7 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mongoose": "^8.21.0",
+    "node-cron": "^4.2.1",
     "nodemon": "^3.1.11",
     "zod": "^4.2.1"
   }

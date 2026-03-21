@@ -26,7 +26,7 @@ import {
 } from "../controllers/room-controllers/getRooms/types.ts";
 import { getAllRooms } from "../controllers/room-controllers/getRooms/getAllRooms.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 
 const router = express.Router();
 

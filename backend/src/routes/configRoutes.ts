@@ -6,7 +6,7 @@ import {
 import { getConfig } from "../controllers/config-controllers/getConfig/getConfig.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 import {
   CreateConfigRequestSchema,
   type CreateConfigRequest,

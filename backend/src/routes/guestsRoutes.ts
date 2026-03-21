@@ -26,7 +26,7 @@ import {
 } from "../controllers/guest-controllers/deleteGuest/types.ts";
 import { deleteGuest } from "../controllers/guest-controllers/deleteGuest/deleteGuest.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 
 const router = express.Router();
 

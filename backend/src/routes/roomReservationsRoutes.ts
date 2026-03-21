@@ -9,9 +9,9 @@ import {
   CreateRoomReservationRequestSchema,
   type CreateRoomReservationRequest,
 } from "../controllers/reservation-controllers/room-reservation-controllers/createRoomReservations/types.ts";
-import { createRoomReservation } from "../controllers/reservation-controllers/room-reservation-controllers/createRoomReservations/createRoomReservation.ts";
+import { createRoomRes } from "../controllers/reservation-controllers/room-reservation-controllers/createRoomReservations/createRoomRes.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
-import { USER_ROLE } from "../utils/roleEnums.ts";
+import { USER_ROLE } from "../utils/enums.ts";
 import {
   GetRoomReservationRequestSchema,
   type GetRoomReservationRequest,
@@ -27,11 +27,6 @@ import {
   type DeleteRoomReservationRequest,
 } from "../controllers/reservation-controllers/room-reservation-controllers/deleteRoomReservation/types.ts";
 import { deleteRoomReservation } from "../controllers/reservation-controllers/room-reservation-controllers/deleteRoomReservation/deleteRoomReservation.ts";
-import {
-  CreateRoomReservationReceptionRequestSchema,
-  type CreateRoomReservationReceptionRequest,
-} from "../controllers/reservation-controllers/room-reservation-controllers/createRoomReservationsReception/types.ts";
-import { createRoomReservationReception } from "../controllers/reservation-controllers/room-reservation-controllers/createRoomReservationsReception/createRoomRezervationReception.ts";
 
 const router = express.Router();
 
@@ -59,22 +54,11 @@ router
   );
 
 router
-  .route("/reception/")
-  .post(
-    authenAndAuthorize<CreateRoomReservationReceptionRequest>([
-      USER_ROLE.receptionist,
-      USER_ROLE.admin,
-    ]),
-    validateRequest(CreateRoomReservationReceptionRequestSchema),
-    createRoomReservationReception,
-  );
-
-router
   .route("/")
   .post(
     authenAndAuthorize<CreateRoomReservationRequest>([USER_ROLE.guest]),
     validateRequest(CreateRoomReservationRequestSchema),
-    createRoomReservation,
+    createRoomRes,
   );
 
 router
@@ -94,7 +78,6 @@ router
   .delete(
     authenAndAuthorize<DeleteRoomReservationRequest>([
       USER_ROLE.receptionist,
-      USER_ROLE.guest,
       USER_ROLE.admin,
     ]),
     validateRequest(DeleteRoomReservationRequestSchema),
