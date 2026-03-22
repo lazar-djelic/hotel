@@ -1,11 +1,9 @@
 import { z } from "zod";
 import type { Request } from "express";
+import { reviewSimpleSchema } from "../../../schemas/review.response.schema.ts";
 
 export const UpdateReviewRequestSchema = {
-  body: z.object({
-    opinion: z.string(),
-    rating: z.number(),
-  }),
+  body: reviewSimpleSchema,
   query: z.object({}),
   params: z.object({
     id: z.string(),

@@ -1,22 +1,9 @@
 import { z } from "zod";
 import type { Request } from "express";
+import { roomSimpleSchema } from "../../../schemas/room.response.schema.ts";
 
 export const CreateRoomRequestSchema = {
-  body: z.object({
-    floor: z.number(),
-    roomnum: z.number(),
-    type: z.string(),
-    bednum: z.string(),
-    smoking: z.boolean(),
-    accessibility: z.boolean(),
-    view: z.string(),
-    balcony: z.boolean(),
-    status: z.string(),
-    housekeeping: z.string(),
-    lastcleaned: z.string(),
-    linkedroom: z.boolean(),
-    pets: z.boolean(),
-  }),
+  body: roomSimpleSchema,
   query: z.object({}),
   params: z.object({}),
 };

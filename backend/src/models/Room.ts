@@ -1,4 +1,11 @@
 import mongoose from "mongoose";
+import {
+  BED_OPTIONS,
+  HOUSEKEEPING_OPTIONS,
+  ROOM_STATUS,
+  ROOM_TYPES,
+  VIEW_OPTIONS,
+} from "../utils/enums.ts";
 
 const roomMongooseSchema = new mongoose.Schema(
   {
@@ -12,10 +19,17 @@ const roomMongooseSchema = new mongoose.Schema(
     },
     type: {
       type: String,
+      enum: [
+        ROOM_TYPES.standard,
+        ROOM_TYPES.deluxe,
+        ROOM_TYPES.suite,
+        ROOM_TYPES.penthouse,
+      ],
       required: true,
     },
     bednum: {
       type: String,
+      enum: [BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin],
       required: true,
     },
     smoking: {
@@ -28,6 +42,12 @@ const roomMongooseSchema = new mongoose.Schema(
     },
     view: {
       type: String,
+      enum: [
+        VIEW_OPTIONS.city,
+        VIEW_OPTIONS.garden,
+        VIEW_OPTIONS.sea,
+        VIEW_OPTIONS.none,
+      ],
       required: true,
     },
     balcony: {
@@ -36,10 +56,22 @@ const roomMongooseSchema = new mongoose.Schema(
     },
     status: {
       type: String,
+      enum: [
+        ROOM_STATUS.available,
+        ROOM_STATUS.reserved,
+        ROOM_STATUS.occupied,
+        ROOM_STATUS.outofservice,
+      ],
       required: true,
     },
     housekeeping: {
       type: String,
+      enum: [
+        HOUSEKEEPING_OPTIONS.clean,
+        HOUSEKEEPING_OPTIONS.dirty,
+        HOUSEKEEPING_OPTIONS.in_progress,
+        HOUSEKEEPING_OPTIONS.inspected,
+      ],
       required: true,
     },
     lastcleaned: {

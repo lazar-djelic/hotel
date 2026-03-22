@@ -2,6 +2,7 @@ import { z } from "zod";
 import { guestSchema } from "./guest.response.schema.ts";
 import { roomReservationSchema } from "./roomReservation.response.schema.ts";
 import { roomSchema } from "./room.response.schema.ts";
+import { CURRENCIES, STAY_STATUS } from "../utils/enums.ts";
 
 export const staySchema = z.object({
   _id: z.any().transform((val) => val.toString()),
@@ -10,11 +11,16 @@ export const staySchema = z.object({
   room: roomSchema,
   checkIn: z.coerce.date(),
   checkOut: z.coerce.date().nullable().optional(),
-  stStatus: z.string(),
+  stStatus: z.enum([
+    STAY_STATUS.checked_in,
+    STAY_STATUS.checked_out,
+    STAY_STATUS.cancelled,
+    STAY_STATUS.no_show,
+  ]),
   adults: z.number().nullable().optional(),
   children: z.number().nullable().optional(),
   rate: z.number().nullable().optional(),
-  currency: z.string().nullable().optional(),
+  currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]).nullable().optional(),
   extras: z
     .array(
       z.object({
@@ -43,7 +49,7 @@ export const staySimpleSchema = z.object({
   adults: z.number().nullable().optional(),
   children: z.number().nullable().optional(),
   rate: z.number().nullable().optional(),
-  currency: z.string().nullable().optional(),
+  currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]).nullable().optional(),
   extras: z
     .array(
       z.object({
@@ -65,11 +71,16 @@ export const updateStaySimpleSchema = z.object({
   room: z.any().transform((val) => val.toString()),
   checkIn: z.coerce.date(),
   checkOut: z.coerce.date().nullable().optional(),
-  stStatus: z.string(),
+  stStatus: z.enum([
+    STAY_STATUS.checked_in,
+    STAY_STATUS.checked_out,
+    STAY_STATUS.cancelled,
+    STAY_STATUS.no_show,
+  ]),
   adults: z.number().nullable().optional(),
   children: z.number().nullable().optional(),
   rate: z.number().nullable().optional(),
-  currency: z.string().nullable().optional(),
+  currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]).nullable().optional(),
   extras: z
     .array(
       z.object({

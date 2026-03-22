@@ -48,7 +48,11 @@ const staySchema = new Schema<IStay>(
     adults: Number,
     children: Number,
     rate: Number,
-    currency: { type: String, default: CURRENCIES.rsd },
+    currency: {
+      type: String,
+      enum: [CURRENCIES.rsd, CURRENCIES.eur],
+      default: CURRENCIES.rsd,
+    },
     extras: [
       {
         type: { type: String },

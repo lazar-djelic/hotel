@@ -70,3 +70,29 @@ export const AMENITY_TYPES = {
 } as const;
 
 export type AmenityTypes = (typeof AMENITY_TYPES)[keyof typeof AMENITY_TYPES];
+
+export const VIEW_OPTIONS = {
+  none: "none",
+  sea: "sea",
+  city: "city",
+  garden: "garden",
+} as const;
+
+export type ViewOptions = (typeof VIEW_OPTIONS)[keyof typeof VIEW_OPTIONS];
+
+export const BED_OPTIONS = {
+  single: "single",
+  double: "double",
+  twin: "twin",
+} as const;
+
+export type BedOptions = (typeof BED_OPTIONS)[keyof typeof BED_OPTIONS];
+
+export const ROOM_TYPES = {
+  standard: "standard",
+  deluxe: "deluxe",
+  suite: "suite",
+  penthouse: "penthouse",
+} as const;
+
+export type RoomTypes = (typeof ROOM_TYPES)[keyof typeof ROOM_TYPES];

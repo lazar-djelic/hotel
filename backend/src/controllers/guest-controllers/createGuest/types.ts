@@ -1,17 +1,9 @@
 import { z } from "zod";
 import type { Request } from "express";
+import { guestSimpleSchema } from "../../../schemas/guest.response.schema.ts";
 
 export const CreateGuestRequestSchema = {
-  body: z.object({
-    fName: z.string(),
-    lName: z.string(),
-    phone: z.string(),
-    email: z.string(),
-    address: z.string(),
-    personalID: z.string(),
-    birthDate: z.string(),
-    notes: z.string(),
-  }),
+  body: guestSimpleSchema,
   query: z.object({}),
   params: z.object({}),
 };

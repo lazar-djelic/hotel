@@ -25,6 +25,12 @@ const roomReservationMongooseSchema = new mongoose.Schema(
     },
     resStatus: {
       type: String,
+      enum: [
+        RESERVATION_STATUS.booked,
+        RESERVATION_STATUS.confirmed,
+        RESERVATION_STATUS.checked_in,
+        RESERVATION_STATUS.cancelled,
+      ],
       default: RESERVATION_STATUS.booked,
     },
   },
