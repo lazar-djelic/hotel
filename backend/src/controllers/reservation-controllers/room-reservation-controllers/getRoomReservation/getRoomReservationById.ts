@@ -23,8 +23,15 @@ export async function getRoomReservationById(
     if (!reservation)
       return res.status(404).json({ message: "Room reservation not found" });
 
-    const parsed = roomReservationSchema.parse(reservation);
-    res.status(200).json(parsed);
+    const parsed = roomReservationSchema.safeParse(reservation);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getRoomReservationById controller", error);
     res.status(500).json({ message: "Internal server error" });

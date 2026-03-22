@@ -10,6 +10,14 @@ export async function updateGuest(
   next: NextFunction,
 ) {
   try {
+    const parsed = guestSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     if (
       req.session.role === USER_ROLE.guest &&
       req.session.guest !== req.params.id
@@ -39,7 +47,6 @@ export async function updateGuest(
       birthDate,
       notes,
     });
-    const parsed = guestSimpleSchema.parse(guest);
 
     const updatedGuest = await Guest.findByIdAndUpdate(
       req.params.id,

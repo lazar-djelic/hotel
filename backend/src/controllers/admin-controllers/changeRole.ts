@@ -8,11 +8,17 @@ export async function changeRole(
   next: NextFunction,
 ) {
   try {
-    const parsed = roleSimpleSchema.parse(req.body);
+    const parsed = roleSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       { _id: req.params.id },
-      { role: parsed.role },
+      { role: parsed.data.role },
       {
         new: true,
       },

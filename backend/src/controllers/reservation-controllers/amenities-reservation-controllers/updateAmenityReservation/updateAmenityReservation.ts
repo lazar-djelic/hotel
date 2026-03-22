@@ -10,6 +10,14 @@ export async function updateAmenityReservation(
   next: NextFunction,
 ) {
   try {
+    const parsed = amenityReservationSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     if (
       req.session.role === USER_ROLE.guest &&
       req.body.guest !== req.session.guest
@@ -26,7 +34,6 @@ export async function updateAmenityReservation(
       numberOfPeople,
       status,
     });
-    const parsed = amenityReservationSimpleSchema.parse(req.body);
 
     const updatedRes = await AmenityReservation.findOneAndUpdate(
       { _id: req.params.id, guest: req.session.guest },

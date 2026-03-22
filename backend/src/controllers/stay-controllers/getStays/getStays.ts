@@ -24,7 +24,14 @@ export async function getAllStays(
       .sort({ createdAt: -1 })
       .lean();
 
-    const parsed = stayArraySchema.parse(stays);
+    const parsed = stayArraySchema.safeParse(stays);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     res.status(200).json(stays);
   } catch (error) {
     console.error("Error in getAllStays controller", error);

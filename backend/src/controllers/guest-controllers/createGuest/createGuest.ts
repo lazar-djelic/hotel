@@ -10,6 +10,14 @@ export async function createGuest(
   next: NextFunction,
 ) {
   try {
+    const parsed = guestSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const {
       fName,
       lName,
@@ -30,7 +38,6 @@ export async function createGuest(
       birthDate,
       notes,
     });
-    const parsed = guestSimpleSchema.parse(guest);
     const newGuest = await guest.save();
 
     if (req.session.role === "guest") {
@@ -41,7 +48,7 @@ export async function createGuest(
       );
     }
 
-    res.status(200).json(parsed);
+    res.status(200).json(newGuest);
   } catch (error) {
     console.error("Error in createGuest controller", error);
     res.status(500).json({ message: "Internal server error" });

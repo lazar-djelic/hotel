@@ -22,8 +22,15 @@ export async function getAmenityReservation(
 
     if (!amres)
       return res.status(404).json({ message: "Amenity reservation not found" });
-    const parsed = amenityReservationSchema.parse(amres);
-    res.status(200).json(parsed);
+    const parsed = amenityReservationSchema.safeParse(amres);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getAmenityReservation controller", error);
     res.status(500).json({ message: "Internal server error" });

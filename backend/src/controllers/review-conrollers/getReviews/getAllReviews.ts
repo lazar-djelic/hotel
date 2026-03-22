@@ -13,7 +13,14 @@ export async function getAllReviews(
       .populate("guest")
       .sort({ createdAt: -1 })
       .lean();
-    const parsed = reviewArraySchema.parse(reviews);
+    const parsed = reviewArraySchema.safeParse(reviews);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     res.status(200).json(reviews);
   } catch (error) {
     console.error("Error in getAllReviews controller", error);

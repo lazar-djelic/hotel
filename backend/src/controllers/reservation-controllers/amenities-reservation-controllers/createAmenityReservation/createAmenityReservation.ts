@@ -16,13 +16,19 @@ export const createAmenityReservation = async (
   next: NextFunction,
 ) => {
   try {
-    const parsed = CreateAmenityReservationBodySchema.parse(req.body);
+    const parsed = CreateAmenityReservationBodySchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
 
     const amenityId = req.params.id;
     const userId = req.session.userId;
     const role = req.session.role;
 
-    const { startTime, endTime, numberOfPeople } = parsed;
+    const { startTime, endTime, numberOfPeople } = parsed.data;
 
     const start = new Date(startTime);
     const end = new Date(endTime);
@@ -89,17 +95,15 @@ export const createAmenityReservation = async (
       }
 
       const reservation = await AmenityReservation.create(
-        [
-          {
-            amenity: amenityId,
-            user: req.session.userId,
-            guest: req.session.guest,
-            startTime: start,
-            endTime: end,
-            numberOfPeople,
-            status: AM_RES_STATUS.booked,
-          },
-        ],
+        {
+          amenity: amenityId,
+          user: req.session.userId,
+          guest: req.session.guest,
+          startTime: start,
+          endTime: end,
+          numberOfPeople,
+          status: AM_RES_STATUS.booked,
+        },
         { session },
       );
 
@@ -108,7 +112,7 @@ export const createAmenityReservation = async (
 
       return res.status(201).json({
         message: "Reservation created successfully",
-        reservation: reservation[0],
+        reservation: reservation,
       });
     } catch (err) {
       await session.abortTransaction();

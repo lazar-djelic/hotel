@@ -9,12 +9,19 @@ export async function createReview(
   next: NextFunction,
 ) {
   try {
+    const parsed = reviewSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const guest = req.session.guest;
     const { opinion, rating } = req.body;
     const review = new Review({ guest, opinion, rating });
-    const parsed = reviewSimpleSchema.parse(review);
-    await review.save();
-    res.status(200).json(parsed);
+    const newReview = await review.save();
+    res.status(200).json(newReview);
   } catch (error) {
     console.error("Error in createReview controller", error);
     res.status(500).json({ message: "Internal server error" });

@@ -20,6 +20,14 @@ export async function createStay(
   const session = await mongoose.startSession();
 
   try {
+    const parsed = staySimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const stay = new Stay({
       guest: req.body.guest,
       reservation: req.body.reservation,
@@ -35,11 +43,9 @@ export async function createStay(
       notes: req.body.notes,
     });
 
-    const parsed = staySimpleSchema.parse(req.body);
-
     session.startTransaction();
 
-    const room = await Room.findById(parsed.room).session(session);
+    const room = await Room.findById(parsed.data.room).session(session);
 
     if (!room) {
       await session.abortTransaction();
@@ -61,10 +67,10 @@ export async function createStay(
     }
 
     const stayConflict = await Stay.findOne({
-      room: parsed.room,
+      room: parsed.data.room,
       stStatus: STAY_STATUS.checked_in,
-      checkIn: { $lt: parsed.checkOut },
-      $or: [{ checkOut: { $gt: parsed.checkIn } }, { checkOut: null }],
+      checkIn: { $lt: parsed.data.checkOut },
+      $or: [{ checkOut: { $gt: parsed.data.checkIn } }, { checkOut: null }],
     }).session(session);
 
     if (stayConflict) {
@@ -76,9 +82,9 @@ export async function createStay(
     }
 
     const reservationConflict = await RoomReservation.findOne({
-      assignedRoom: parsed.room,
-      startDate: { $lt: parsed.checkOut },
-      endDate: { $gt: parsed.checkIn },
+      assignedRoom: parsed.data.room,
+      startDate: { $lt: parsed.data.checkOut },
+      endDate: { $gt: parsed.data.checkIn },
     }).session(session);
 
     if (reservationConflict) {
@@ -90,14 +96,14 @@ export async function createStay(
     }
 
     await Room.findByIdAndUpdate(
-      parsed.room,
+      parsed.data.room,
       { status: ROOM_STATUS.occupied },
       { session },
     );
 
-    if (parsed.reservation) {
+    if (parsed.data.reservation) {
       await RoomReservation.findByIdAndUpdate(
-        parsed.reservation,
+        parsed.data.reservation,
         { resStatus: RESERVATION_STATUS.checked_in },
         { session },
       );
@@ -106,7 +112,7 @@ export async function createStay(
     const savedStay = await stay.save({ session });
 
     await Room.findByIdAndUpdate(
-      parsed.room,
+      parsed.data.room,
       { currentStay: savedStay._id },
       { session },
     );

@@ -19,6 +19,14 @@ export async function updateRoomReservation(
   const session = await mongoose.startSession();
 
   try {
+    const parsed = updateRoomReservationSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     if (
       req.session.role === USER_ROLE.guest &&
       req.body.guest !== req.session.guest
@@ -28,8 +36,6 @@ export async function updateRoomReservation(
         .json({ message: "Unauthorized. Guests do not match." });
 
     session.startTransaction();
-
-    const parsed = updateRoomReservationSimpleSchema.parse(req.body);
 
     const currentReservation = await RoomReservation.findById(
       req.params.id,

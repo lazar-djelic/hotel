@@ -23,7 +23,14 @@ export async function getAllRoomReservations(
       .sort({ createdAt: -1 })
       .lean();
 
-    const parsed = roomReservationArraySchema.parse(reservations);
+    const parsed = roomReservationArraySchema.safeParse(reservations);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     res.status(200).json(reservations);
   } catch (error) {
     console.error("Error in getAllRoomReservations controller", error);

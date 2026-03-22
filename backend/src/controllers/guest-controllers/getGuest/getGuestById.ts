@@ -11,8 +11,15 @@ export async function getGuestById(
   try {
     const guest = await Guest.findById(req.params.id);
     if (!guest) return res.status(404).json({ message: "Guest not found" });
-    const parsed = guestSchema.parse(guest);
-    res.status(200).json(parsed);
+    const parsed = guestSchema.safeParse(guest);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getGuestById controller", error);
     res.status(500).json({ message: "Internal server error" });

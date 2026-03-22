@@ -13,8 +13,15 @@ export async function getAmenity(
 
     if (!amenity) return res.status(404).json({ message: "Amenity not found" });
 
-    const parsed = amenitySchema.parse(amenity);
-    res.status(200).json(parsed);
+    const parsed = amenitySchema.safeParse(amenity);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getAmenity controller", error);
     res.status(500).json({ message: "Internal server error" });

@@ -9,6 +9,14 @@ export async function updateAmenity(
   next: NextFunction,
 ) {
   try {
+    const parsed = amenitySimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const {
       name,
       type,
@@ -30,7 +38,6 @@ export async function updateAmenity(
       requiresReservation,
       onePerSlot,
     });
-    const parsed = amenitySimpleSchema.parse(req.body);
 
     const updatedAmenity = await Amenity.findByIdAndUpdate(
       req.params.id,

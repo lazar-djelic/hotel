@@ -10,8 +10,15 @@ export async function getAmenities(
 ) {
   try {
     const amenities = await Amenity.find().sort({ createdAt: -1 }).lean();
-    const parsed = amenityArraySchema.parse(amenities);
-    res.status(200).json(amenities);
+    const parsed = amenityArraySchema.safeParse(amenities);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getAmenities controller", error);
     return res.status(500).json({ message: "Internal server error" });

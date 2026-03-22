@@ -16,8 +16,15 @@ export async function getStayById(
 
     if (!stay) return res.status(404).json({ message: "Stay not found" });
 
-    const parsed = staySchema.parse(stay);
-    res.status(200).json(parsed);
+    const parsed = staySchema.safeParse(stay);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getStayById controller", error);
     res.status(500).json({ message: "Internal server error" });

@@ -23,7 +23,14 @@ export async function getAmenityReservations(
       .populate("guest")
       .sort({ createdAt: -1 });
 
-    const parsed = amenityReservationArraySchema.parse(reservations);
+    const parsed = amenityReservationArraySchema.safeParse(reservations);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     res.status(200).json(reservations);
   } catch (error) {
     console.error("Error in getAmenityReservations controller", error);

@@ -9,9 +9,16 @@ export async function updateReview(
   next: NextFunction,
 ) {
   try {
+    const parsed = reviewSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const { opinion, rating } = req.body;
     const review = new Review({ opinion, rating });
-    const parsed = reviewSimpleSchema.parse(review);
 
     const updatedReview = await Review.findOneAndUpdate(
       { _id: req.params.id, guest: req.session.guest },

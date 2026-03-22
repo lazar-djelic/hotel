@@ -14,6 +14,14 @@ export async function updateStay(
   const session = await mongoose.startSession();
 
   try {
+    const parsed = staySimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const {
       guest,
       reservation,
@@ -29,8 +37,6 @@ export async function updateStay(
       notes,
     } = req.body;
 
-    const parsed = staySimpleSchema.parse(req.body);
-
     session.startTransaction();
 
     const currentStay = await Stay.findById(req.params.id).session(session);
@@ -43,10 +49,10 @@ export async function updateStay(
 
     const stayConflict = await Stay.findOne({
       _id: { $ne: req.params.id },
-      room: parsed.room,
+      room: parsed.data.room,
       stStatus: STAY_STATUS.checked_in,
-      checkIn: { $lt: parsed.checkOut },
-      $or: [{ checkOut: { $gt: parsed.checkIn } }, { checkOut: null }],
+      checkIn: { $lt: parsed.data.checkOut },
+      $or: [{ checkOut: { $gt: parsed.data.checkIn } }, { checkOut: null }],
     }).session(session);
 
     if (stayConflict) {
@@ -58,9 +64,9 @@ export async function updateStay(
     }
 
     const reservationConflict = await RoomReservation.findOne({
-      assignedRoom: parsed.room,
-      startDate: { $lt: parsed.checkOut },
-      endDate: { $gt: parsed.checkIn },
+      assignedRoom: parsed.data.room,
+      startDate: { $lt: parsed.data.checkOut },
+      endDate: { $gt: parsed.data.checkIn },
     }).session(session);
 
     if (reservationConflict) {

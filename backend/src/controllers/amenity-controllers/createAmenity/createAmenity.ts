@@ -9,6 +9,14 @@ export async function createAmenity(
   next: NextFunction,
 ) {
   try {
+    const parsed = amenitySimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const {
       name,
       type,
@@ -37,9 +45,8 @@ export async function createAmenity(
       requiresReservation,
       onePerSlot,
     });
-    const parsed = amenitySimpleSchema.parse(req.body);
-    await amenity.save();
-    res.status(200).json(parsed);
+    const newAmenity = await amenity.save();
+    res.status(200).json(newAmenity);
   } catch (error) {
     console.error("Error in createAmenity controller", error);
     res.status(500).json({ message: "Internal server error" });

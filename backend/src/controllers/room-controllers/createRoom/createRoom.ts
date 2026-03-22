@@ -9,6 +9,14 @@ export async function createRoom(
   next: NextFunction,
 ) {
   try {
+    const parsed = roomSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     const {
       floor,
       roomnum,
@@ -40,9 +48,8 @@ export async function createRoom(
       linkedroom,
       pets,
     });
-    const parsed = roomSimpleSchema.parse(room);
-    await room.save();
-    res.status(200).json(parsed);
+    const newRoom = await room.save();
+    res.status(200).json(newRoom);
   } catch (error) {
     console.error("Error in createRoom controller", error);
     res.status(500).json({ message: "Internal server error" });

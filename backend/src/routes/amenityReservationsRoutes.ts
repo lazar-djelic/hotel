@@ -43,7 +43,7 @@ router
   );
 
 router
-  .route("/:id")
+  .route("/one/:id")
   .get(
     authenAndAuthorize<GetAmenityReservationRequest>([
       USER_ROLE.receptionist,

@@ -16,7 +16,13 @@ export async function createRoomReservationReception(
   res: Response,
   next: NextFunction,
 ) {
-  const validatedGuest = roomReservationReceptionSimpleSchema.parse(req.body);
+  const parsed = roomReservationReceptionSimpleSchema.safeParse(req.body);
+
+  if (!parsed.success) {
+    return res
+      .status(400)
+      .json({ message: "Validation failed", errors: parsed.error.issues });
+  }
 
   const session = await mongoose.startSession();
 

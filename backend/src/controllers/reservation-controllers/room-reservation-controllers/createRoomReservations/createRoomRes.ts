@@ -11,7 +11,13 @@ export async function createRoomRes(
   res: Response,
   next: NextFunction,
 ) {
-  const parsed = roomReservationSimpleSchema.parse(req.body);
+  const parsed = roomReservationSimpleSchema.safeParse(req.body);
+
+  if (!parsed.success) {
+    return res
+      .status(400)
+      .json({ message: "Validation failed", errors: parsed.error.issues });
+  }
 
   if (req.body.guest !== req.session.guest)
     return res

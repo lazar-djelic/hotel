@@ -8,11 +8,17 @@ export async function changeRoomHousekeeping(
   next: NextFunction,
 ) {
   try {
-    const parsed = housekeepingSimpleSchema.parse(req.body);
+    const parsed = housekeepingSimpleSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
 
     const updatedRoom = await Room.findByIdAndUpdate(
       { _id: req.params.id },
-      { housekeeping: parsed.housekeeping },
+      { housekeeping: parsed.data.housekeeping },
       {
         new: true,
       },

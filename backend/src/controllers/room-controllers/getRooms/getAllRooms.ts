@@ -27,7 +27,14 @@ export async function getAllRooms(
     // })
     //   .sort({ roomnum: -1 })
     //   .lean();
-    const parsed = roomArraySchema.parse(rooms);
+    const parsed = roomArraySchema.safeParse(rooms);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
     res.status(200).json(rooms);
   } catch (error) {
     console.error("Error in getAllRooms controller", error);

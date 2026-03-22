@@ -18,8 +18,15 @@ export async function getReviewById(
 
     const review = await Review.findOne(filter).populate("guest");
     if (!review) return res.status(404).json({ message: "Review not found" });
-    const parsed = reviewSchema.parse(review);
-    res.status(200).json(parsed);
+    const parsed = reviewSchema.safeParse(review);
+
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ message: "Validation failed", errors: parsed.error.issues });
+    }
+
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getReviewById controller", error);
     res.status(500).json({ message: "Internal server error" });
