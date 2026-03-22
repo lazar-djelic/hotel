@@ -33,6 +33,14 @@ export const RESERVATION_STATUS = {
 export type ResStatus =
   (typeof RESERVATION_STATUS)[keyof typeof RESERVATION_STATUS];
 
+export const AM_RES_STATUS = {
+  booked: "booked",
+  confirmed: "confirmed",
+  cancelled: "cancelled",
+} as const;
+
+export type AmResStatus = (typeof AM_RES_STATUS)[keyof typeof AM_RES_STATUS];
+
 export const ROOM_STATUS = {
   available: "available",
   reserved: "reserved",
@@ -51,3 +59,14 @@ export const HOUSEKEEPING_OPTIONS = {
 
 export type HousekeepingOptions =
   (typeof HOUSEKEEPING_OPTIONS)[keyof typeof HOUSEKEEPING_OPTIONS];
+
+export const AMENITY_TYPES = {
+  conference: "conference",
+  spa: "spa",
+  pool: "pool",
+  restaurant: "restaurant",
+  gym: "gym",
+  sauna: "sauna",
+} as const;
+
+export type AmenityTypes = (typeof AMENITY_TYPES)[keyof typeof AMENITY_TYPES];

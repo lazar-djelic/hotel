@@ -9,6 +9,10 @@ export async function loginUser(
   next: NextFunction,
 ) {
   try {
+    if (req.session.userId) {
+      return res.status(400).json({ message: "User already logged in" });
+    }
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });

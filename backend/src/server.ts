@@ -5,7 +5,6 @@ import session from "express-session";
 import reviewsRoutes from "./routes/reviewsRoutes.ts";
 import { connectDB } from "./config/db.ts";
 import apiLogger from "./middlewares/apiLogger.ts";
-import configRoutes from "./routes/configRoutes.ts";
 import roomReservationsRoutes from "./routes/roomReservationsRoutes.ts";
 import roomsRoutes from "./routes/roomsRoutes.ts";
 import usersRoutes from "./routes/usersRoutes.ts";
@@ -15,6 +14,8 @@ import receptionRoutes from "./routes/receptionRoutes.ts";
 import { startHousekeepingJob } from "./jobs/housekeeping.job.ts";
 import housekeepingRoutes from "./routes/housekeepingRoutes.ts";
 import adminRoutes from "./routes/adminRoutes.ts";
+import amenityRoutes from "./routes/amenityRoutes.ts";
+import amenityReservationsRoutes from "./routes/amenityReservationsRoutes.ts";
 
 dotenv.config();
 
@@ -42,7 +43,6 @@ app.use(
 
 app.use(apiLogger);
 
-app.use("/api/config", configRoutes);
 app.use("/api/rooms", roomsRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/roomreservations", roomReservationsRoutes);
@@ -52,6 +52,8 @@ app.use("/api/stays", staysRoutes);
 app.use("/api/reception/", receptionRoutes);
 app.use("/api/housekeeping/", housekeepingRoutes);
 app.use("/api/admin/", adminRoutes);
+app.use("/api/amenities/", amenityRoutes);
+app.use("/api/amenityreservations/", amenityReservationsRoutes);
 
 connectDB().then(() => {
   startHousekeepingJob();

@@ -19,7 +19,7 @@ router.post(
   registerUser,
 );
 router.post("/login", validateRequest(LoginUserRequestSchema), loginUser);
-router.post("/logout", logoutUser);
+router.post("/logout", isAuthenticated, logoutUser);
 
 router.get("/me", isAuthenticated, getMe);
 
