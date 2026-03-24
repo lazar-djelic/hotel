@@ -26,8 +26,10 @@ export async function updateAmenityReservation(
         .status(401)
         .json({ message: "Unauthorized. Guests do not match." });
 
-    const { guest, startTime, endTime, numberOfPeople, status } = req.body;
+    const { amenity, guest, startTime, endTime, numberOfPeople, status } =
+      req.body;
     const amres = new AmenityReservation({
+      amenity,
       guest,
       startTime,
       endTime,
@@ -37,7 +39,7 @@ export async function updateAmenityReservation(
 
     const updatedRes = await AmenityReservation.findOneAndUpdate(
       { _id: req.params.id, guest: req.session.guest },
-      { guest, startTime, endTime, numberOfPeople, status },
+      { amenity, guest, startTime, endTime, numberOfPeople, status },
       {
         new: true,
       },

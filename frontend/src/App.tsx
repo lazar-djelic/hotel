@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import ReservationsPage from "./pages/reservations/reservations-page/ReservationsPage.tsx";
+import AmenitiesReservationsPage from "./pages/reservations/amenities-reservations-page/AmenitiesReservationsPage.tsx";
 import ReviewsPage from "./pages/reviews/reviews-page/ReviewsPage.tsx";
 import CreateReviewPage from "./pages/reviews/create-review-page/CreateReviewPage.tsx";
 import ReviewDetailPage from "./pages/reviews/review-detail-page/ReviewDetailPage.tsx";
@@ -11,8 +11,9 @@ import LoginPage from "./pages/user-pages/login-page/LoginPage.tsx";
 import RegisterPage from "./pages/user-pages/register-page/RegisterPage.tsx";
 import Profile from "./pages/profile-page/ProfilePage.tsx";
 import ProtectedRoute from "./context/ProtectedRoute.tsx";
-import CreateReservationPage from "./pages/reservations/create-reservation-page/CreateReservationPage.tsx";
-import { USER_ROLE } from "./config/roleEnums.ts";
+import AmenityReservationEditPage from "./pages/reservations/amenity-reservation-edit-page-reception/AmenityReservationEditPage.tsx";
+import { USER_ROLE } from "./config/enums.ts";
+import CreateAmenityResRecPage from "./pages/reservations/amenities-reservations-page/amenity-reservation-create-page-reception/CreateAmenityResRecPage.tsx";
 
 function App() {
   return (
@@ -45,12 +46,16 @@ function App() {
           }
         >
           <Route
-            path="/reception/reservations"
-            element={<ReservationsPage />}
+            path="/reception/amenity-reservations"
+            element={<AmenitiesReservationsPage />}
           />
           <Route
-            path="/reception/createreservation"
-            element={<CreateReservationPage />}
+            path="/reception/create-amenity-reservation"
+            element={<CreateAmenityResRecPage />}
+          />
+          <Route
+            path="/reception/amenity-reservation/:id"
+            element={<AmenityReservationEditPage />}
           />
         </Route>
 

@@ -9,7 +9,7 @@ export async function getAmenities(
   next: NextFunction,
 ) {
   try {
-    const amenities = await Amenity.find().sort({ createdAt: -1 }).lean();
+    const amenities = await Amenity.find().sort({ name: 1 }).lean();
     const parsed = amenityArraySchema.safeParse(amenities);
 
     if (!parsed.success) {

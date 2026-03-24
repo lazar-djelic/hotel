@@ -1,8 +1,5 @@
 import api from "../../../lib/axios";
-import type {
-  GuestStruct,
-  SimpleGuestStruct,
-} from "../../profile-page/GuestStruct";
+import type { GuestStruct, SimpleGuestStruct } from "../structs/GuestStruct";
 
 export const fetchGuests = async (): Promise<GuestStruct[]> => {
   const res = await api.get("/guests");
@@ -11,6 +8,16 @@ export const fetchGuests = async (): Promise<GuestStruct[]> => {
 
 export const deleteGuest = async (id: string): Promise<void> => {
   await api.delete(`/guests/${id}`);
+};
+
+export const findGuest = async (
+  email: string | undefined,
+  personalID: string | undefined,
+): Promise<GuestStruct> => {
+  const res = await api.get("/guests/findguest", {
+    params: { email, personalID },
+  });
+  return res.data;
 };
 
 export const fetchGuest = async (id: string): Promise<GuestStruct> => {

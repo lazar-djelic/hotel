@@ -3,11 +3,16 @@ import { roomSchema } from "./room.response.schema.ts";
 import { AM_RES_STATUS, RESERVATION_STATUS } from "../utils/enums.ts";
 import { guestSchema } from "./guest.response.schema.ts";
 import { amenitySchema } from "./amenity.response.schema.ts";
+import { userSchema, userSimpleSchema } from "./user.response.schema.ts";
 
 export const amenityReservationSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
   amenity: amenitySchema,
-  guest: guestSchema,
+  user: z
+    .any()
+    .nullable()
+    .transform((val) => val?.toString() || null),
+  guest: guestSchema.optional(),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   numberOfPeople: z.number().int().positive(),
@@ -16,13 +21,18 @@ export const amenityReservationSchema = z.object({
     AM_RES_STATUS.confirmed,
     AM_RES_STATUS.cancelled,
   ]),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const amenityReservationArraySchema = z.array(amenityReservationSchema);
 
 export const amenityReservationSimpleSchema = z.object({
+  amenity: z.any().transform((val) => val.toString()),
+  user: z
+    .any()
+    .nullable()
+    .transform((val) => val?.toString() || null),
   guest: z.any().transform((val) => val.toString()),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
@@ -34,7 +44,7 @@ export const amenityReservationSimpleSchema = z.object({
   ]),
 });
 
-export const amenityReservationReceptionSimpleSchema = z.object({
+export const userAndAmenityResRecSimpleSchema = z.object({
   fName: z.string(),
   lName: z.string(),
   phone: z.string(),
@@ -43,7 +53,11 @@ export const amenityReservationReceptionSimpleSchema = z.object({
   personalID: z.string(),
   birthDate: z.coerce.date(),
   notes: z.string().optional(),
-  guest: z.any().transform((val) => val.toString()),
+  amenity: z.any().transform((val) => val.toString()),
+  user: z
+    .any()
+    .nullable()
+    .transform((val) => val?.toString() || null),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   numberOfPeople: z.number().int().positive(),

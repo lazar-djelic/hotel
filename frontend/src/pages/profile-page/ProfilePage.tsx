@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { formatDate } from "../../lib/utils";
 import StringInputComp from "../../components/StringInputComp";
 import SimpleDateInComp from "../../components/SimpleDateInComp";
-import type { GuestStruct } from "./GuestStruct";
+import type { GuestStruct } from "../api/structs/GuestStruct";
 import { guestSimpleSchema } from "../../schemas/guest.response.schema";
 import toast from "react-hot-toast";
 import { useCreateGuest } from "../api/guests/create-guest/useCreateGuest";
@@ -139,18 +139,21 @@ const Profile = () => {
             <StringInputComp
               labelText={t("profile.fName")}
               iValue={current?.fName || ""}
+              disable={false}
               onChangeFn={(value) => setForm({ ...current!, fName: value })}
             />
 
             <StringInputComp
               labelText={t("profile.lName")}
               iValue={current?.lName || ""}
+              disable={false}
               onChangeFn={(value) => setForm({ ...current!, lName: value })}
             />
 
             <StringInputComp
               labelText={t("profile.phone")}
               iValue={current?.phone || ""}
+              disable={false}
               onChangeFn={(value) => setForm({ ...current!, phone: value })}
             />
 
@@ -163,12 +166,14 @@ const Profile = () => {
             <StringInputComp
               labelText={t("profile.address")}
               iValue={current?.address || ""}
+              disable={false}
               onChangeFn={(value) => setForm({ ...current!, address: value })}
             />
 
             <StringInputComp
               labelText={t("profile.personalID")}
               iValue={current?.personalID || ""}
+              disable={false}
               onChangeFn={(value) =>
                 setForm({ ...current!, personalID: value })
               }

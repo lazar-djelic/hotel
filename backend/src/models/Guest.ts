@@ -30,7 +30,7 @@ const guestMongooseSchema = new mongoose.Schema(
     },
     birthDate: {
       type: Date,
-      required: false,
+      required: true,
     },
     notes: {
       type: String,

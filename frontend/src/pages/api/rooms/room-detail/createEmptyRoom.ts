@@ -1,4 +1,4 @@
-import type { RoomStruct } from "../RoomStruct";
+import type { RoomStruct } from "../../structs/RoomStruct";
 
 export const createEmptySimpleRoom = (): RoomStruct => ({
   _id: "",

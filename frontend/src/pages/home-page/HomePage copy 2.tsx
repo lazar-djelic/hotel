@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchConfQueryFn } from "../api/hotel-config/configQueryFn";
+import { fetchConfQueryFn } from "../api/reservation-options/amenitiesQueryFn";
 
 export const HomePage = () => {
   const [name, setName] = React.useState("");

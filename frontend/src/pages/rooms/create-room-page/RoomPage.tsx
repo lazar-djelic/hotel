@@ -7,7 +7,7 @@ import { useCreateRoom } from "../../api/rooms/create-room/useCreateRoom";
 import { roomSimpleSchema } from "../../../schemas/room.response.schema";
 import { useRoom } from "../../api/rooms/room-detail/useRoom";
 import { useEditRoom } from "../../api/rooms/room-detail/useEditRoom";
-import type { RoomStruct } from "../../api/rooms/RoomStruct";
+import type { RoomStruct } from "../../api/structs/RoomStruct";
 import { useDeleteRoom } from "../../api/rooms/room-detail/useDeleteRoom";
 import NumberInputComp from "../../../components/NumberInputComp";
 import SelectComp from "../../../components/SelectComp";
@@ -197,9 +197,9 @@ const RoomPage = () => {
 
                   <SimpleDateInComp
                     labelText={t("create.room.lastcleaned")}
-                    value={current.lastcleaned}
+                    value={current.lastcleaned.toString()}
                     onChangeFn={(value) =>
-                      setForm({ ...current, lastcleaned: value })
+                      setForm({ ...current, lastcleaned: new Date(value) })
                     }
                   />
 

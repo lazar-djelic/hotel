@@ -8,26 +8,23 @@ export const guestSchema = z.object({
   email: z.string(),
   address: z.string(),
   personalID: z.string(),
-  birthDate: z.string(),
-  notes: z.string().optional(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  birthDate: z.coerce.date(),
+  notes: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const guestArraySchema = z.array(guestSchema);
 
 export const guestSimpleSchema = z.object({
-  fName: z.string().min(1, "First name is required"),
-  lName: z.string().min(1, "Last name is required"),
-  phone: z.string().min(1, "Phone number is required"),
-  email: z.string().min(1, "Email is required"),
-  address: z.string().min(1, "Address is required"),
-  personalID: z.string().min(1, "Personal ID is required"),
-  birthDate: z
-    .string()
-    .min(1, "Birth date is required")
-    .max(25, "Birth date must be less than 25 characters"),
-  notes: z.string().optional(),
+  fName: z.string(),
+  lName: z.string(),
+  phone: z.string(),
+  email: z.string(),
+  address: z.string(),
+  personalID: z.string(),
+  birthDate: z.coerce.date(),
+  notes: z.string(),
 });
 
 export type guestSimpleSchemaType = z.infer<typeof guestSimpleSchema>;

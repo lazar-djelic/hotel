@@ -1,64 +1,91 @@
 import { z } from "zod";
+import type { Room } from "../types/RoomType";
+import {
+  BED_OPTIONS,
+  HOUSEKEEPING_OPTIONS,
+  ROOM_STATUS,
+  ROOM_TYPES,
+  VIEW_OPTIONS,
+} from "../config/enums";
+import { staySchema } from "./stay.response.schema";
 
-export const roomSchema = z.object({
+export const roomSchema: z.ZodType<Room> = z.object({
   _id: z.any().transform((val) => val.toString()),
   floor: z.number(),
   roomnum: z.number(),
-  type: z.string(),
-  bednum: z.string(),
+  type: z.enum([
+    ROOM_TYPES.standard,
+    ROOM_TYPES.deluxe,
+    ROOM_TYPES.suite,
+    ROOM_TYPES.penthouse,
+  ]),
+  bednum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   smoking: z.boolean(),
   accessibility: z.boolean(),
-  view: z.string(),
+  view: z.enum([
+    VIEW_OPTIONS.city,
+    VIEW_OPTIONS.garden,
+    VIEW_OPTIONS.sea,
+    VIEW_OPTIONS.none,
+  ]),
   balcony: z.boolean(),
-  status: z.string(),
-  housekeeping: z.string(),
-  lastcleaned: z.string(),
+  status: z.enum([
+    ROOM_STATUS.available,
+    ROOM_STATUS.reserved,
+    ROOM_STATUS.occupied,
+    ROOM_STATUS.outofservice,
+  ]),
+  housekeeping: z.enum([
+    HOUSEKEEPING_OPTIONS.clean,
+    HOUSEKEEPING_OPTIONS.dirty,
+    HOUSEKEEPING_OPTIONS.in_progress,
+    HOUSEKEEPING_OPTIONS.inspected,
+  ]),
+  lastcleaned: z.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  currentStay: z.lazy(() => staySchema),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const roomArraySchema = z.array(roomSchema);
 
 export const roomSimpleSchema = z.object({
-  floor: z
-    .number()
-    .min(1, "Floor is required")
-    .max(20, "Floor must be less than 20"),
-  roomnum: z
-    .number()
-    .min(1, "Room number is required")
-    .max(10000, "Room number must be less than 10000"),
-  type: z
-    .string()
-    .min(1, "Type is required")
-    .max(10, "Type must be less than 10 characters"),
-  bednum: z
-    .string()
-    .min(1, "Number of beds is required")
-    .max(10, "Number of beds must be less than 10 characters"),
+  floor: z.number(),
+  roomnum: z.number(),
+  type: z.enum([
+    ROOM_TYPES.standard,
+    ROOM_TYPES.deluxe,
+    ROOM_TYPES.suite,
+    ROOM_TYPES.penthouse,
+  ]),
+  bednum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   smoking: z.boolean(),
   accessibility: z.boolean(),
-  view: z
-    .string()
-    .min(1, "View is required")
-    .max(10, "View must be less than 10 characters"),
+  view: z.enum([
+    VIEW_OPTIONS.city,
+    VIEW_OPTIONS.garden,
+    VIEW_OPTIONS.sea,
+    VIEW_OPTIONS.none,
+  ]),
   balcony: z.boolean(),
-  status: z
-    .string()
-    .min(1, "Status is required")
-    .max(20, "Status must be less than 20 characters"),
-  housekeeping: z
-    .string()
-    .min(1, "Housekeeping is required")
-    .max(10, "Housekeeping must be less than 10 characters"),
-  lastcleaned: z
-    .string()
-    .min(1, "Last cleaned date is required")
-    .max(25, "Last cleaned date must be less than 25 characters"),
+  status: z.enum([
+    ROOM_STATUS.available,
+    ROOM_STATUS.reserved,
+    ROOM_STATUS.occupied,
+    ROOM_STATUS.outofservice,
+  ]),
+  housekeeping: z.enum([
+    HOUSEKEEPING_OPTIONS.clean,
+    HOUSEKEEPING_OPTIONS.dirty,
+    HOUSEKEEPING_OPTIONS.in_progress,
+    HOUSEKEEPING_OPTIONS.inspected,
+  ]),
+  lastcleaned: z.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
+  currentStay: z.any().transform((val) => val.toString()),
 });
 
 export type roomSimpleSchemaType = z.infer<typeof roomSimpleSchema>;

@@ -1,5 +1,6 @@
 import { Amenity } from "../../../../models/Amenity.ts";
 import { AmenityReservation } from "../../../../models/AmenityReservation.ts";
+import { amenitySchema } from "../../../../schemas/amenity.response.schema.ts";
 import { AM_RES_STATUS } from "../../../../utils/enums.ts";
 import { setTime } from "./setTime.ts";
 
@@ -17,7 +18,13 @@ export async function generateSlots(
   const amenity = await Amenity.findById(amenityId);
   if (!amenity) throw new Error("Amenity not found");
 
-  const { openTime, closeTime, slotDuration, capacity } = amenity;
+  const parsedAmenity = amenitySchema.safeParse(amenity);
+  if (!parsedAmenity.success) {
+    return [];
+  }
+
+  const { openTime, closeTime, slotDuration, capacity, onePerSlot } =
+    parsedAmenity.data;
 
   const startOfDay = setTime(date, openTime);
   const endOfDay = setTime(date, closeTime);
@@ -48,11 +55,19 @@ export async function generateSlots(
 
     const remainingCapacity = capacity - usedCapacity;
 
+    const isAvailable = onePerSlot
+      ? overlapping.length === 0 && remainingCapacity > 0
+      : remainingCapacity > 0;
+
     slots.push({
       startTime: new Date(currentStart),
       endTime: currentEnd,
-      available: remainingCapacity > 0,
-      remainingCapacity,
+      available: isAvailable,
+      remainingCapacity: onePerSlot
+        ? overlapping.length === 0
+          ? capacity
+          : 0
+        : remainingCapacity,
     });
 
     currentStart = currentEnd;

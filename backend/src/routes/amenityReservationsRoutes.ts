@@ -5,8 +5,8 @@ import { validateRequest } from "../middlewares/validateRequest.ts";
 import {
   CreateAmenityReservationRequestSchema,
   type CreateAmenityReservationRequest,
-} from "../controllers/reservation-controllers/amenities-reservation-controllers/createAmenityReservation/types.ts";
-import { createAmenityReservation } from "../controllers/reservation-controllers/amenities-reservation-controllers/createAmenityReservation/createAmenityReservation.ts";
+} from "../controllers/reservation-controllers/amenities-reservation-controllers/createAmenityReservationRec/types.ts";
+import { createAmenityReservation } from "../controllers/reservation-controllers/amenities-reservation-controllers/createAmenityReservationRec/createAmenityResRec.ts";
 import {
   GetAmenityReservationRequestSchema,
   type GetAmenityReservationRequest,

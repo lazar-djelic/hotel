@@ -7,15 +7,16 @@ import {
   VIEW_OPTIONS,
 } from "../utils/enums.ts";
 import { guestSchema } from "./guest.response.schema.ts";
+import type { RoomReservation } from "../types/RoomReservationType.ts";
 
-export const roomReservationSchema = z.object({
+export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
   _id: z.any().transform((val) => val.toString()),
   guest: guestSchema,
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   adults: z.number().default(1),
   children: z.number().default(0),
-  assignedRoom: roomSchema.nullable().optional(),
+  assignedRoom: z.lazy(() => roomSchema),
   resStatus: z
     .enum([
       RESERVATION_STATUS.booked,
@@ -41,21 +42,19 @@ export const roomReservationSimpleSchema = z.object({
     ROOM_TYPES.penthouse,
   ]),
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
-  adults: z.number().optional().default(1),
-  children: z.number().optional().default(0),
-  smoking: z.boolean().optional(),
-  accessibility: z.boolean().optional(),
-  view: z
-    .enum([
-      VIEW_OPTIONS.city,
-      VIEW_OPTIONS.garden,
-      VIEW_OPTIONS.sea,
-      VIEW_OPTIONS.none,
-    ])
-    .optional(),
-  balcony: z.boolean().optional(),
-  linkedRoom: z.boolean().optional(),
-  pets: z.boolean().optional(),
+  adults: z.number().default(1),
+  children: z.number().default(0),
+  smoking: z.boolean(),
+  accessibility: z.boolean(),
+  view: z.enum([
+    VIEW_OPTIONS.city,
+    VIEW_OPTIONS.garden,
+    VIEW_OPTIONS.sea,
+    VIEW_OPTIONS.none,
+  ]),
+  balcony: z.boolean(),
+  linkedRoom: z.boolean(),
+  pets: z.boolean(),
 });
 
 export const roomReservationReceptionSimpleSchema = z.object({
@@ -66,7 +65,7 @@ export const roomReservationReceptionSimpleSchema = z.object({
   address: z.string(),
   personalID: z.string(),
   birthDate: z.coerce.date(),
-  notes: z.string().optional(),
+  notes: z.string(),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   roomType: z.enum([
@@ -76,21 +75,19 @@ export const roomReservationReceptionSimpleSchema = z.object({
     ROOM_TYPES.penthouse,
   ]),
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
-  adults: z.number().optional().default(1),
-  children: z.number().optional().default(0),
-  smoking: z.boolean().optional(),
-  accessibility: z.boolean().optional(),
-  view: z
-    .enum([
-      VIEW_OPTIONS.city,
-      VIEW_OPTIONS.garden,
-      VIEW_OPTIONS.sea,
-      VIEW_OPTIONS.none,
-    ])
-    .optional(),
-  balcony: z.boolean().optional(),
-  linkedRoom: z.boolean().optional(),
-  pets: z.boolean().optional(),
+  adults: z.number().default(1),
+  children: z.number().default(0),
+  smoking: z.boolean(),
+  accessibility: z.boolean(),
+  view: z.enum([
+    VIEW_OPTIONS.city,
+    VIEW_OPTIONS.garden,
+    VIEW_OPTIONS.sea,
+    VIEW_OPTIONS.none,
+  ]),
+  balcony: z.boolean(),
+  linkedRoom: z.boolean(),
+  pets: z.boolean(),
 });
 
 export const updateRoomReservationSimpleSchema = z.object({
@@ -102,7 +99,6 @@ export const updateRoomReservationSimpleSchema = z.object({
   assignedRoom: z
     .any()
     .nullable()
-    .optional()
     .transform((val) => val.toString()),
   resStatus: z.enum([
     RESERVATION_STATUS.booked,

@@ -1,7 +1,4 @@
 export const QUERY_KEYS = {
-  CONFIGURATION: {
-    CONF: "config",
-  },
   REVIEW: {
     REVIEW: "review",
     REVIEWS: "reviews",
@@ -17,5 +14,17 @@ export const QUERY_KEYS = {
   GUEST: {
     GUEST: "guest",
     GUESTS: "guests",
+  },
+  AMENITY: {
+    AMENITY: "amenity",
+    AMENITIES: "amenities",
+  },
+  AM_RES: {
+    RESERVATION: "amenityReservation",
+    RESERVATIONS: "amenityReservations",
+  },
+  SLOTS: {
+    SLOTS: "slots",
+    // SLOT: "slot",
   },
 };

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import type { RoomStruct } from "../RoomStruct";
+import type { RoomStruct } from "../../structs/RoomStruct";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom } from "../rooms.api";
 import { fetchRoomsQueryFn } from "./fetchRoomsQueryFn";

@@ -4,7 +4,7 @@ import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { editGuest } from "../guests.api";
 import type { Dispatch, SetStateAction } from "react";
-import type { GuestStruct } from "../../../profile-page/GuestStruct";
+import type { GuestStruct } from "../../structs/GuestStruct";
 
 export const useEditGuest = (
   navigate: NavigateFunction,

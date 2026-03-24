@@ -158,5 +158,28 @@
     "save": "Save profile",
     "create": "Create profile",
     "delete": "Delete profile"
+  },
+  "amenityRes": {
+    "title": "Amenity reservations",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "numOfPeople": "Number of people",
+    "status": "Reservation status",
+    "statusEnum": {
+      "booked": "Booked",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    },
+    "delete": "Delete reservation",
+    "resDetails": "Enter reservation details",
+    "save": "Save reservation",
+    "availableSlots": "Available slots:",
+    "availability": "Available",
+    "remainingCapacity": "Remaining capacity",
+    "amenity": "Amenity",
+    "date": "Date",
+    "noSlotsAvailable": "No slots available for the selected date",
+    "guest": "Guest information:",
+    "newGuest": "Is the new guest?"
   }
 }

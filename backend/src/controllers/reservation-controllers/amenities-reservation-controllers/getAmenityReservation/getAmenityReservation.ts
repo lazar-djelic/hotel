@@ -18,7 +18,8 @@ export async function getAmenityReservation(
 
     const amres = await AmenityReservation.findOne(filter)
       .populate("amenity")
-      .populate("guest");
+      .populate("guest")
+      .populate("user");
 
     if (!amres)
       return res.status(404).json({ message: "Amenity reservation not found" });

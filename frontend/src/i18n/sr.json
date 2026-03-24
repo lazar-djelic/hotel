@@ -158,5 +158,20 @@
     "save": "Sačuvajte profil",
     "create": "Kreirajte profil",
     "delete": "Obrišite profil"
+  },
+  "amenityRes": {
+    "title": "Rezervacije dodatnih pogodnosti",
+    "startTime": "Početak rezervacije",
+    "endTime": "Završetak rezervacije",
+    "numOfPeople": "Broj osoba",
+    "status": "Status rezervacije",
+    "statusEnum": {
+      "booked": "Rezervisano",
+      "confirmed": "Potvrđeno",
+      "cancelled": "Otkazano"
+    },
+    "delete": "Obrišite rezervaciju",
+    "resDetails": "Unesite detalje rezervacije",
+    "save": "Sačuvajte rezervaciju"
   }
 }

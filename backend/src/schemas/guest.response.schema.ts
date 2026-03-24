@@ -24,5 +24,5 @@ export const guestSimpleSchema = z.object({
   address: z.string(),
   personalID: z.string(),
   birthDate: z.coerce.date(),
-  notes: z.string().optional(),
+  notes: z.string(),
 });

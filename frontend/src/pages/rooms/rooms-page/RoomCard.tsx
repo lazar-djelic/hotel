@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
-import type { RoomStruct } from "../../api/rooms/RoomStruct";
+import type { RoomStruct } from "../../api/structs/RoomStruct";
 import { formatDate } from "../../../lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -87,7 +87,7 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
             </p>
             <p className="text-base-content/70">
               {t("create.room.lastcleaned")}:{" "}
-              {formatDate(room.lastcleaned, i18n.language)}
+              {formatDate(room.lastcleaned.toString(), i18n.language)}
             </p>
             <p className="text-base-content/70">
               {t("create.room.linkedroom")}:{" "}

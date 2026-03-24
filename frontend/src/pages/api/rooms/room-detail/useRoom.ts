@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import type { RoomStruct } from "../RoomStruct";
+import type { RoomStruct } from "../../structs/RoomStruct";
 import { fetchRoomQueryFn } from "./fetchRoomQueryFn";
 import { useMemo } from "react";
 import { createEmptySimpleRoom } from "./createEmptyRoom";

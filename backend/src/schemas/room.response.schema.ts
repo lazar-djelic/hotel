@@ -6,8 +6,10 @@ import {
   ROOM_TYPES,
   VIEW_OPTIONS,
 } from "../utils/enums.ts";
+import { staySchema } from "./stay.response.schema.ts";
+import type { Room } from "../types/RoomType.ts";
 
-export const roomSchema = z.object({
+export const roomSchema: z.ZodType<Room> = z.object({
   _id: z.any().transform((val) => val.toString()),
   floor: z.number(),
   roomnum: z.number(),
@@ -42,6 +44,7 @@ export const roomSchema = z.object({
   lastcleaned: z.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
+  currentStay: z.lazy(() => staySchema),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -82,4 +85,5 @@ export const roomSimpleSchema = z.object({
   lastcleaned: z.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
+  currentStay: z.any().transform((val) => val.toString()),
 });

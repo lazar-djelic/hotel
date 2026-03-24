@@ -1,5 +1,5 @@
 import Navbar from "../../components/Navbar";
-import { fetchHotelConfig } from "../api/hotel-config/useConfig";
+import { fetchHotelConfig } from "../api/reservation-options/useGetAmenities";
 import Test from "./Test";
 
 const HomePage = () => {

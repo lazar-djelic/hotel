@@ -1,0 +1,562 @@
+import { ArrowLeftIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
+import { RESERVATION_STATUS } from "../../../../config/enums";
+import {
+  amenityReservationSimpleSchema,
+  userAndAmResRecSimpleSchema,
+} from "../../../../schemas/amenityReservation.response.schema";
+import type { SimpleAmenityCreateReservationReceptionStruct } from "../../../api/structs/AmenityReservation";
+import { useCreateAmenityReservationRec } from "../../../api/amenityReservations/amenity-reservation-detail/useCreateAmenityReservation";
+import { useCreateGuestAndAmResRec } from "../../../api/amenityReservations/amenity-reservation-detail/useCreateGuestAndAmResRec";
+import { createEmptyAmenityReservation } from "../../../api/amenityReservations/amenity-reservation-detail/createEmptyAmenityReservation";
+import { useAmenities } from "../../../api/amenities/all-amenities/useAmenities";
+import { useAmenitySlots } from "../../../api/amenities/amenity-slots/useAmenitySlots";
+import { findGuest } from "../../../api/guests/guests.api";
+import StringInputComp from "../../../../components/StringInputComp";
+
+const CreateAmenityResRecPage = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { amenities } = useAmenities();
+
+  const [isNew, setIsNew] = useState<boolean>(true);
+  const [guestFound, setGuestFound] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedSlotIndex, setSelectedSlotIndex] = useState<number | null>(
+    null,
+  );
+
+  const [form, setForm] =
+    useState<SimpleAmenityCreateReservationReceptionStruct>(() =>
+      createEmptyAmenityReservation(),
+    );
+
+  useEffect(() => {
+    if (amenities.length > 0 && !selectedOption) {
+      const firstReservableAmenity = amenities.find(
+        (a) => a.requiresReservation,
+      );
+      if (firstReservableAmenity) {
+        setSelectedOption(firstReservableAmenity._id);
+      }
+    }
+  }, [amenities, selectedOption]);
+
+  useEffect(() => {
+    setForm(createEmptyAmenityReservation());
+    setGuestFound(false);
+  }, [isNew]);
+
+  const { slots, loading } = useAmenitySlots(selectedOption, form.date);
+
+  const { mutate: createAmenityReservation, isPending: isPendingAmenity } =
+    useCreateAmenityReservationRec(navigate);
+
+  const {
+    mutate: createGuestAndAmenityReservation,
+    isPending: isPendingGuest,
+  } = useCreateGuestAndAmResRec(navigate);
+
+  const isPending = isNew ? isPendingGuest : isPendingAmenity;
+
+  const { mutate: searchGuest, isPending: isSearching } = useMutation({
+    mutationFn: async () => {
+      return await findGuest(
+        current.email || undefined,
+        current.personalID || undefined,
+      );
+    },
+    onSuccess: (guest) => {
+      if (!guest) {
+        toast.error(t("amenityRes.guestNotFound") || "Guest not found");
+        return;
+      }
+      setForm({
+        ...current,
+        fName: guest.fName,
+        lName: guest.lName,
+        phone: guest.phone,
+        email: guest.email,
+        address: guest.address,
+        personalID: guest.personalID,
+        birthDate: new Date(guest.birthDate),
+        notes: guest.notes || "",
+        guest: guest._id,
+        user: null,
+      });
+      setGuestFound(true);
+      toast.success(t("amenityRes.guestFound") || "Guest found");
+    },
+    onError: (error) => {
+      toast.error(
+        (error as any)?.response?.data?.message ||
+          t("amenityRes.guestSearchError") ||
+          "Error searching for guest",
+      );
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!form) return;
+
+    if (isNew) {
+      // For new guests, send guest data to create both guest and reservation
+      const parsed = userAndAmResRecSimpleSchema.safeParse({
+        fName: form.fName,
+        lName: form.lName,
+        phone: form.phone,
+        email: form.email,
+        address: form.address,
+        personalID: form.personalID,
+        birthDate: form.birthDate,
+        notes: form.notes,
+        amenity: selectedOption,
+        user: null,
+        startTime: form.startTime,
+        endTime: form.endTime,
+        numberOfPeople: form.numberOfPeople,
+        status: RESERVATION_STATUS.booked,
+      });
+
+      if (!parsed.success) {
+        const firstError = parsed.error.issues[0]?.message || "Invalid input";
+        toast.error(firstError);
+        return;
+      }
+
+      createGuestAndAmenityReservation({
+        id: selectedOption,
+        amenityReservation: parsed.data,
+      });
+    } else {
+      // For existing guests, just create the reservation
+      const parsed = amenityReservationSimpleSchema.safeParse({
+        amenity: selectedOption,
+        user: null,
+        guest: form.guest,
+        startTime: form.startTime,
+        endTime: form.endTime,
+        numberOfPeople: form.numberOfPeople,
+        status: RESERVATION_STATUS.booked,
+      });
+
+      if (!parsed.success) {
+        const firstError = parsed.error.issues[0]?.message || "Invalid input";
+        toast.error(firstError);
+        return;
+      }
+
+      createAmenityReservation({
+        id: selectedOption,
+        amenityReservation: parsed.data,
+      });
+    }
+  };
+
+  const current = form;
+
+  return (
+    <>
+      <div className="bg-base-200">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <Link
+                to="/reception/amenity-reservations"
+                className="btn btn-ghost mb-6"
+              >
+                <ArrowLeftIcon className="size-5" />
+                {t("back")}
+              </Link>
+            </div>
+
+            <div className="card bg-base-100">
+              <div className="card-body">
+                <h2 className="card-title text-2xl mb-4">
+                  {t("amenityRes.resDetails")}
+                </h2>
+
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4">
+                      {t("amenityRes.guest")}
+                    </h3>
+
+                    <div className="flex items-center mb-8 mt-8">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={isNew}
+                        onChange={(e) => setIsNew(e.target.checked)}
+                      />
+                      <span className="label-text ml-4">
+                        {t("amenityRes.newGuest")}
+                      </span>
+                    </div>
+
+                    <StringInputComp
+                      labelText={t("profile.fName")}
+                      iValue={current?.fName || ""}
+                      disable={!isNew && !guestFound}
+                      onChangeFn={(value) =>
+                        setForm({ ...current!, fName: value })
+                      }
+                    />
+
+                    <StringInputComp
+                      labelText={t("profile.lName")}
+                      iValue={current?.lName || ""}
+                      disable={!isNew && !guestFound}
+                      onChangeFn={(value) =>
+                        setForm({ ...current!, lName: value })
+                      }
+                    />
+
+                    <StringInputComp
+                      labelText={t("profile.phone")}
+                      iValue={current?.phone || ""}
+                      disable={!isNew && !guestFound}
+                      onChangeFn={(value) =>
+                        setForm({ ...current!, phone: value })
+                      }
+                    />
+
+                    <div className="form-control mb-4">
+                      <label className="label">
+                        <span className="label-text">{t("profile.email")}</span>
+                      </label>
+                      <input
+                        className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        type="text"
+                        value={current?.email || ""}
+                        onChange={(e) =>
+                          setForm({ ...current!, email: e.target.value })
+                        }
+                      />
+                    </div>
+
+                    <StringInputComp
+                      labelText={t("profile.address")}
+                      iValue={current?.address || ""}
+                      disable={!isNew && !guestFound}
+                      onChangeFn={(value) =>
+                        setForm({ ...current!, address: value })
+                      }
+                    />
+
+                    <div className="form-control mb-4">
+                      <label className="label">
+                        <span className="label-text">
+                          {t("profile.personalID")}
+                        </span>
+                      </label>
+                      <input
+                        className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        type="text"
+                        value={current?.personalID || ""}
+                        onChange={(e) =>
+                          setForm({ ...current!, personalID: e.target.value })
+                        }
+                      />
+                    </div>
+
+                    <label className="label">
+                      <span className="label-text">
+                        {t("profile.birthDate")}
+                      </span>
+                    </label>
+                    <input
+                      className="input input-bordered"
+                      type="date"
+                      disabled={!isNew && !guestFound}
+                      value={current?.birthDate.toISOString().split("T")[0]}
+                      onChange={(e) =>
+                        setForm({
+                          ...current,
+                          birthDate: new Date(e.target.value),
+                        })
+                      }
+                    />
+
+                    <StringInputComp
+                      labelText={t("profile.notes")}
+                      iValue={current?.notes || ""}
+                      disable={!isNew && !guestFound}
+                      onChangeFn={(value) =>
+                        setForm({ ...current!, notes: value })
+                      }
+                    />
+
+                    {!isNew && (
+                      <button
+                        type="button"
+                        className="btn btn-primary mt-4"
+                        onClick={() => searchGuest()}
+                        disabled={
+                          isSearching || (!current.email && !current.personalID)
+                        }
+                      >
+                        {isSearching ? (
+                          <span className="loading loading-spinner loading-sm" />
+                        ) : (
+                          t("amenityRes.findGuest") || "Find Guest"
+                        )}
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="divider mt-8 mb-8" />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">
+                          {t("amenityRes.amenity")}
+                        </span>
+                      </label>
+                      <select
+                        className="select select-bordered"
+                        value={selectedOption ?? ""}
+                        onChange={(e) => setSelectedOption(e.target.value)}
+                      >
+                        {amenities
+                          .filter((amenity) => amenity.requiresReservation)
+                          .map((amenity) => (
+                            <option key={amenity._id} value={amenity._id}>
+                              {amenity.name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">
+                          {t("amenityRes.date")}
+                        </span>
+                      </label>
+                      <input
+                        className="input input-bordered"
+                        type="date"
+                        value={current.date.toISOString().split("T")[0]}
+                        onChange={(e) => {
+                          const newDate = new Date(e.target.value);
+                          const startTimeHours =
+                            current.startTime.getUTCHours();
+                          const startTimeMinutes =
+                            current.startTime.getUTCMinutes();
+                          const endTimeHours = current.endTime.getUTCHours();
+                          const endTimeMinutes =
+                            current.endTime.getUTCMinutes();
+
+                          const newStartTime = new Date(
+                            Date.UTC(
+                              newDate.getUTCFullYear(),
+                              newDate.getUTCMonth(),
+                              newDate.getUTCDate(),
+                              startTimeHours,
+                              startTimeMinutes,
+                              0,
+                            ),
+                          );
+                          const newEndTime = new Date(
+                            Date.UTC(
+                              newDate.getUTCFullYear(),
+                              newDate.getUTCMonth(),
+                              newDate.getUTCDate(),
+                              endTimeHours,
+                              endTimeMinutes,
+                              0,
+                            ),
+                          );
+
+                          setForm({
+                            ...current,
+                            date: newDate,
+                            startTime: newStartTime,
+                            endTime: newEndTime,
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 mt-8">
+                    <h3 className="text-lg font-semibold mb-4">
+                      {t("amenityRes.availableSlots")}
+                    </h3>
+                    {loading ? (
+                      <div className="flex justify-center py-8">
+                        <span className="loading loading-spinner loading-lg" />
+                      </div>
+                    ) : slots && slots.length > 0 ? (
+                      <div className="overflow-x-auto">
+                        <table className="table table-sm w-full">
+                          <thead>
+                            <tr className="bg-base-300">
+                              <th>{t("amenityRes.startTime")}</th>
+                              <th>{t("amenityRes.endTime")}</th>
+                              <th>{t("amenityRes.availability")}</th>
+                              <th>{t("amenityRes.remainingCapacity")}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {slots.map((slot, index) => {
+                              const isAvailable =
+                                slot.available && slot.remainingCapacity > 0;
+                              const startTimeFormatted = new Date(
+                                slot.startTime,
+                              )
+                                .toLocaleTimeString("en-US", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: false,
+                                  timeZone: "UTC",
+                                })
+                                .replace("24:", "00:");
+                              const endTimeFormatted = new Date(slot.endTime)
+                                .toLocaleTimeString("en-US", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: false,
+                                  timeZone: "UTC",
+                                })
+                                .replace("24:", "00:");
+                              const isSelected = selectedSlotIndex === index;
+
+                              return (
+                                <tr
+                                  key={index}
+                                  onClick={() => {
+                                    if (!slot.available) return;
+                                    console.log("click");
+
+                                    const slotStartTime = new Date(
+                                      slot.startTime,
+                                    );
+                                    const slotEndTime = new Date(slot.endTime);
+
+                                    // Create UTC dates with the selected date but slot times
+                                    const newStartTime = new Date(
+                                      Date.UTC(
+                                        current.date.getUTCFullYear(),
+                                        current.date.getUTCMonth(),
+                                        current.date.getUTCDate(),
+                                        slotStartTime.getUTCHours(),
+                                        slotStartTime.getUTCMinutes(),
+                                        0,
+                                      ),
+                                    );
+                                    const newEndTime = new Date(
+                                      Date.UTC(
+                                        current.date.getUTCFullYear(),
+                                        current.date.getUTCMonth(),
+                                        current.date.getUTCDate(),
+                                        slotEndTime.getUTCHours(),
+                                        slotEndTime.getUTCMinutes(),
+                                        0,
+                                      ),
+                                    );
+
+                                    setSelectedSlotIndex(index);
+                                    setForm({
+                                      ...current,
+                                      startTime: newStartTime,
+                                      endTime: newEndTime,
+                                    });
+                                  }}
+                                  className={`cursor-pointer transition-all border-l-4 ${
+                                    isAvailable
+                                      ? "border-l-green-500"
+                                      : "border-l-red-500"
+                                  } ${
+                                    isSelected
+                                      ? isAvailable
+                                        ? "bg-[rgba(34,197,94,0.25)]"
+                                        : "bg-[rgba(239,68,68,0.25)]"
+                                      : isAvailable
+                                        ? "bg-[rgba(34,197,94,0.08)] hover:bg-[rgba(34,197,94,0.15)]"
+                                        : "bg-[rgba(239,68,68,0.08)] hover:bg-[rgba(239,68,68,0.15)]"
+                                  }`}
+                                >
+                                  <td className="font-medium">
+                                    {startTimeFormatted}
+                                  </td>
+                                  <td>{endTimeFormatted}</td>
+                                  <td>
+                                    <span className="font-medium">
+                                      {slot.available ? t("yes") : t("no")}
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <span
+                                      className={`font-semibold ${
+                                        slot.remainingCapacity > 0
+                                          ? "text-green-700"
+                                          : "text-red-700"
+                                      }`}
+                                    >
+                                      {slot.remainingCapacity}
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <div className="alert alert-info">
+                        <span>{t("amenityRes.noSlotsAvailable")}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">
+                          {t("amenityRes.numOfPeople")}
+                        </span>
+                      </label>
+                      <input
+                        className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        type="number"
+                        value={current.numberOfPeople}
+                        min={0}
+                        onChange={(e) =>
+                          setForm({
+                            ...current,
+                            numberOfPeople: Number(e.target.value),
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="card-actions justify-end mt-16">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isPending}
+                    >
+                      {!isPending && t("amenityRes.save")}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CreateAmenityResRecPage;

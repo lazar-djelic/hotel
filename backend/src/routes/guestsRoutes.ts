@@ -27,6 +27,11 @@ import {
 import { deleteGuest } from "../controllers/guest-controllers/deleteGuest/deleteGuest.ts";
 import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
 import { USER_ROLE } from "../utils/enums.ts";
+import {
+  FindGuestRequestSchema,
+  type FindGuestRequest,
+} from "../controllers/guest-controllers/findGuest/types.ts";
+import { findGuest } from "../controllers/guest-controllers/findGuest/findGuest.ts";
 
 const router = express.Router();
 
@@ -39,6 +44,17 @@ router
     ]),
     validateRequest(GetGuestsRequestSchema),
     getAllGuests,
+  );
+
+router
+  .route("/findguest")
+  .get(
+    authenAndAuthorize<FindGuestRequest>([
+      USER_ROLE.admin,
+      USER_ROLE.receptionist,
+    ]),
+    validateRequest(FindGuestRequestSchema),
+    findGuest,
   );
 
 router

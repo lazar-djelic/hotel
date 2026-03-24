@@ -31,7 +31,7 @@ export async function getAmenityReservations(
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
 
-    res.status(200).json(reservations);
+    res.status(200).json(parsed.data);
   } catch (error) {
     console.error("Error in getAmenityReservations controller", error);
     return res.status(500).json({ message: "Internal server error" });
