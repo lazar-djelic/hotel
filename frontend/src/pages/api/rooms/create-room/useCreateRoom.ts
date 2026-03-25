@@ -1,13 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import { createRoomMutationFn } from "../../../rooms/create-room-page/createMutationFn";
+import {
+  roomSimpleSchema,
+  type roomSimpleSchemaType,
+} from "../../../../schemas/room.response.schema";
+import api from "../../../../lib/axios";
 
 export const useCreateRoom = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createRoomMutationFn,
+    mutationFn: async (data: roomSimpleSchemaType) => {
+      const payload = roomSimpleSchema.parse(data);
+
+      const res = await api.post("/rooms", payload);
+
+      const parsedResponse = roomSimpleSchema.safeParse(res.data);
+
+      if (!parsedResponse.success) {
+        console.error("Invalid create room API response", parsedResponse.error);
+        throw new Error("Invalid server response");
+      }
+
+      return parsedResponse.data;
+    },
     onSuccess: () => {
       toast.success("Room created successfully!");
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOM] });

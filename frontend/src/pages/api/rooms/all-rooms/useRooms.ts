@@ -2,15 +2,23 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import type { RoomStruct } from "../../structs/RoomStruct";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import { deleteRoom } from "../rooms.api";
-import { fetchRoomsQueryFn } from "./fetchRoomsQueryFn";
+import { deleteRoom, fetchRooms } from "../rooms.api";
+import { roomArraySchema } from "../../../../schemas/room.response.schema";
 
 export const useRooms = (roomNumber: number) => {
   const queryClient = useQueryClient();
 
   const { data: rooms = [], isLoading } = useQuery<RoomStruct[]>({
     queryKey: [QUERY_KEYS.ROOM.ROOMS, roomNumber],
-    queryFn: () => fetchRoomsQueryFn(roomNumber),
+    queryFn: async () => {
+      const rawRooms = await fetchRooms(roomNumber);
+      const parsed = roomArraySchema.safeParse(rawRooms);
+      if (!parsed.success) {
+        console.error("Invalid room data", parsed.error);
+        return [];
+      }
+      return parsed.data;
+    },
   });
 
   const { mutate: removeRoom } = useMutation({

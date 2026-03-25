@@ -105,11 +105,13 @@
     "dutt": "days up to today",
     "dst": "days starting today"
   },
-  "rescard": {
-    "startd": "Start date",
-    "endd": "End date",
-    "rtype": "Room type",
-    "bednum": "Number of beds"
+  "roomres": {
+    "startd": "Start date: ",
+    "endd": "End date: ",
+    "adults": "Adults: ",
+    "children": "Children: ",
+    "assignedroom": "Assigned room: ",
+    "status": "Reservation status: "
   },
   "newres": "New reservation",
   "nores": "There are no reservations for selected period yet.",
@@ -180,6 +182,10 @@
     "date": "Date",
     "noSlotsAvailable": "No slots available for the selected date",
     "guest": "Guest information:",
-    "newGuest": "Is the new guest?"
+    "newGuest": "Is the new guest?",
+    "findGuest": "Find guest"
+  },
+  "roomRes": {
+    "title": "Room reservations"
   }
 }

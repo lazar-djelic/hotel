@@ -41,12 +41,12 @@ export const roomSchema: z.ZodType<Room> = z.object({
     HOUSEKEEPING_OPTIONS.in_progress,
     HOUSEKEEPING_OPTIONS.inspected,
   ]),
-  lastcleaned: z.date(),
+  lastcleaned: z.coerce.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
-  currentStay: z.lazy(() => staySchema),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  currentStay: z.lazy(() => staySchema).nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const roomArraySchema = z.array(roomSchema);
@@ -82,10 +82,13 @@ export const roomSimpleSchema = z.object({
     HOUSEKEEPING_OPTIONS.in_progress,
     HOUSEKEEPING_OPTIONS.inspected,
   ]),
-  lastcleaned: z.date(),
+  lastcleaned: z.coerce.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
-  currentStay: z.any().transform((val) => val.toString()),
+  currentStay: z
+    .any()
+    .nullable()
+    .transform((val) => val.toString()),
 });
 
 export type roomSimpleSchemaType = z.infer<typeof roomSimpleSchema>;

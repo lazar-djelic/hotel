@@ -1,16 +1,24 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { deleteReview } from "../reviews.api";
+import { deleteReview, fetchReviews } from "../reviews.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import { fetchReviewsQueryFn } from "./fetchReviewsQueryFn";
 import type { ReviewStruct } from "../../structs/ReviewStruct";
+import { reviewArraySchema } from "../../../../schemas/review.response.schema";
 
 export const useReviews = () => {
   const queryClient = useQueryClient();
 
   const { data: reviews = [], isLoading } = useQuery<ReviewStruct[]>({
     queryKey: [QUERY_KEYS.REVIEW.REVIEWS],
-    queryFn: fetchReviewsQueryFn,
+    queryFn: async () => {
+      const rawReviews = await fetchReviews();
+      const parsed = reviewArraySchema.safeParse(rawReviews);
+      if (!parsed.success) {
+        console.error("Invalid review data", parsed.error);
+        return [];
+      }
+      return parsed.data;
+    },
   });
 
   const { mutate: removeReview } = useMutation({

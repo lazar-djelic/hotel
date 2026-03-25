@@ -1,12 +1,11 @@
 import api from "../../../lib/axios";
 import type { RangeType } from "../../interfaces/RangeType";
-import { formatDate } from "../reservations/formatDate";
+import { formatDate } from "../roomReservations/formatDate";
 import type {
   AmenityReservationStruct,
-  SimpleAmenityCreateReservationReceptionStruct,
+  SimpleAmResCreateReceptionStruct,
   SimpleAmenityReservationStruct,
 } from "../structs/AmenityReservation";
-import type { SimpleGuestStruct } from "../structs/GuestStruct";
 
 export const fetchAmenityReservations = async (
   dateRange: RangeType,
@@ -37,16 +36,26 @@ export const createAmenityResRec = async ({
   await api.post(`/reception/amenityreservations/${id}`, amenityReservation);
 };
 
-type WithoutDateAndGuest = Omit<
-  SimpleAmenityCreateReservationReceptionStruct,
-  "date" | "guest"
+export const createAmResGuest = async ({
+  id,
+  amenityReservation,
+}: {
+  id: string;
+  amenityReservation: SimpleAmenityReservationStruct;
+}): Promise<void> => {
+  await api.post(`/amenityreservations/${id}`, amenityReservation);
+};
+
+type WithoutSomeProperties = Omit<
+  SimpleAmResCreateReceptionStruct,
+  "date" | "guest" | "_id" | "createdAt" | "updatedAt"
 >;
 export const createGuestAndAmResRec = async ({
   id,
   amenityReservation,
 }: {
   id: string;
-  amenityReservation: WithoutDateAndGuest;
+  amenityReservation: WithoutSomeProperties;
 }): Promise<void> => {
   await api.post(`/reception/user-amenityreservations/${id}`, {
     ...amenityReservation,

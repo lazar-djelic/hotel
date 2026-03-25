@@ -3,7 +3,7 @@ import type { RangeType } from "../../interfaces/RangeType";
 import { formatDate } from "./formatDate";
 import type { RoomReservationStruct } from "../structs/RoomReservationStruct";
 
-export const fetchReservations = async (
+export const fetchRoomReservations = async (
   dateRange: RangeType,
 ): Promise<RoomReservationStruct[]> => {
   const sDate = formatDate(dateRange.startDate);

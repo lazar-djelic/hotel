@@ -25,8 +25,8 @@ export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const roomReservationArraySchema = z.array(roomReservationSchema);

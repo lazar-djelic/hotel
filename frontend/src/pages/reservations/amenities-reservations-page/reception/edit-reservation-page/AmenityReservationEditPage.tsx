@@ -1,19 +1,17 @@
 import { ArrowLeftIcon, Trash2Icon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { useCreateAmenityReservationRec } from "../../api/amenityReservations/amenity-reservation-detail/useCreateAmenityReservation";
-import { amenityReservationSimpleSchema } from "../../../schemas/amenityReservation.response.schema";
-import { useAmenityReservation } from "../../api/amenityReservations/amenity-reservation-detail/useAmenityReservation";
-import { useEditAmenityReservation } from "../../api/amenityReservations/amenity-reservation-detail/useEditAmenityReservation";
-import type { SimpleAmenityReservationStruct } from "../../api/structs/AmenityReservation";
-import { useDeleteAmenityReservation } from "../../api/amenityReservations/amenity-reservation-detail/useDeleteAmenityReservation";
-import NumberInputComp from "../../../components/NumberInputComp";
-import SelectComp from "../../../components/SelectComp";
-import SimpleDateInComp from "../../../components/SimpleDateInComp";
-import { AM_RES_STATUS, type AmResStatus } from "../../../config/enums";
-import DateAndTimeComp from "../../../components/DateAndTimeComp";
+import { amenityReservationSimpleSchema } from "../../../../../schemas/amenityReservation.response.schema";
+import { useAmenityReservation } from "../../../../api/amenityReservations/amenity-reservation-detail/useAmenityReservation";
+import { useEditAmenityReservation } from "../../../../api/amenityReservations/amenity-reservation-detail/useEditAmenityReservation";
+import type { SimpleAmenityReservationStruct } from "../../../../api/structs/AmenityReservation";
+import { useDeleteAmenityReservation } from "../../../../api/amenityReservations/amenity-reservation-detail/useDeleteAmenityReservation";
+import NumberInputComp from "../../../../../components/NumberInputComp";
+import SelectComp from "../../../../../components/SelectComp";
+import { AM_RES_STATUS, type AmResStatus } from "../../../../../config/enums";
+import DateAndTimeComp from "../../../../../components/DateAndTimeComp";
 
 const AmenityReservationEditPage = () => {
   const { t } = useTranslation();
@@ -28,6 +26,31 @@ const AmenityReservationEditPage = () => {
   const { saveAmenityReservation: editAmenityReservation, saving: isPendingE } =
     useEditAmenityReservation(navigate);
   const { deleteAmenityReservation } = useDeleteAmenityReservation(navigate);
+
+  useEffect(() => {
+    if (amenityReservation) {
+      const simpleForm: SimpleAmenityReservationStruct = {
+        amenity:
+          typeof amenityReservation.amenity === "string"
+            ? amenityReservation.amenity
+            : (amenityReservation.amenity as any)._id,
+        user: amenityReservation.user
+          ? typeof amenityReservation.user === "string"
+            ? amenityReservation.user
+            : (amenityReservation.user as any)._id
+          : null,
+        guest:
+          typeof amenityReservation.guest === "string"
+            ? amenityReservation.guest
+            : (amenityReservation.guest as any)._id,
+        startTime: amenityReservation.startTime,
+        endTime: amenityReservation.endTime,
+        numberOfPeople: amenityReservation.numberOfPeople,
+        status: amenityReservation.status,
+      };
+      setForm(simpleForm);
+    }
+  }, [amenityReservation._id]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +76,15 @@ const AmenityReservationEditPage = () => {
     editAmenityReservation({ id: id!, amenityReservation: parsed.data });
   };
 
-  const current = form ?? amenityReservation;
+  const current = form;
+
+  if (loading || !current) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-spinner loading-lg" />
+      </div>
+    );
+  }
 
   return (
     <>

@@ -1,14 +1,14 @@
 import type { FC } from "react";
-import type { RoomReservationStruct } from "../../api/structs/RoomReservationStruct";
+import type { RoomReservationStruct } from "../../../../api/structs/RoomReservationStruct";
 import { Link } from "react-router";
-import { formatDate } from "../../../lib/utils";
+import { formatDate } from "../../../../../lib/utils";
 import { useTranslation } from "react-i18next";
 
-type ReservationCardArgs = {
+type RoomReservationCardArgs = {
   reservation: RoomReservationStruct;
 };
 
-const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
+const RoomReservationCard: FC<RoomReservationCardArgs> = ({ reservation }) => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
 
@@ -22,24 +22,32 @@ const ReservationCard: FC<ReservationCardArgs> = ({ reservation }) => {
           {reservation.guest.fName} {reservation.guest.lName}
         </h4>
         <p className="text-base-content/70">
-          {t("rescard.startd")}:{" "}
+          {t("roomres.startd")}
           {formatDate(reservation.startDate.toString(), i18n.language)}
         </p>
         <p className="text-base-content/70">
-          {t("rescard.endd")}:{" "}
+          {t("roomres.endd")}
           {formatDate(reservation.endDate.toString(), i18n.language)}
         </p>
-        <p className="text-base-content/70">Adults: {reservation.adults}</p>
-        <p className="text-base-content/70">Children: {reservation.children}</p>
         <p className="text-base-content/70">
-          Assigned room: {reservation.assignedRoom.roomnum}
+          {t("roomres.adults")}
+          {reservation.adults}
         </p>
         <p className="text-base-content/70">
-          Reservation status: {reservation.resStatus}
+          {t("roomres.children")}
+          {reservation.children}
+        </p>
+        <p className="text-base-content/70">
+          {t("roomres.assignedroom")}
+          {reservation.assignedRoom.roomnum}
+        </p>
+        <p className="text-base-content/70">
+          {t("roomres.status")}
+          {reservation.resStatus}
         </p>
       </div>
     </Link>
   );
 };
 
-export default ReservationCard;
+export default RoomReservationCard;

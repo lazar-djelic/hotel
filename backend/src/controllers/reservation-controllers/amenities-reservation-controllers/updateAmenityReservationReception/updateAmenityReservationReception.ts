@@ -34,7 +34,7 @@ export async function updateAmenityReservationReception(
       { _id: req.params.id },
       {
         amenity: amenity,
-        user: user._id,
+        user: user,
         guest: guest,
         startTime: startTime,
         endTime: endTime,

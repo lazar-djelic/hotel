@@ -18,7 +18,7 @@ export const useEditAmenityReservation = (navigate: NavigateFunction) => {
       });
 
       toast.success("Amenity reservation updated successfully!");
-      navigate("/reception/reservations");
+      navigate("/reception/amenity-reservations");
     },
     onError: () => {
       toast.error("Failed to update the amenity reservation");

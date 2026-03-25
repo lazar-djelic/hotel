@@ -1,13 +1,33 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import { createMutationFn } from "./createMutationFn";
+import {
+  reviewSimpleSchema,
+  type reviewSimpleSchemaType,
+} from "../../../../schemas/review.response.schema";
+import api from "../../../../lib/axios";
 
 export const useCreateReview = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createMutationFn,
+    mutationFn: async (data: reviewSimpleSchemaType) => {
+      const payload = reviewSimpleSchema.parse(data);
+
+      const res = await api.post("/reviews", payload);
+
+      const parsedResponse = reviewSimpleSchema.safeParse(res.data);
+
+      if (!parsedResponse.success) {
+        console.error(
+          "Invalid create review API response",
+          parsedResponse.error,
+        );
+        throw new Error("Invalid server response");
+      }
+
+      return parsedResponse.data;
+    },
     onSuccess: () => {
       toast.success("Review created successfully!");
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });

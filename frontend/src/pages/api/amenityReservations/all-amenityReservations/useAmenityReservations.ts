@@ -1,10 +1,10 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { AmenityReservationStruct } from "../../structs/AmenityReservation";
-import { fetchAmenityReservationsQueryFn } from "./fetchAmenityReservationsQueryFn";
 import type { RangeType } from "../../../interfaces/RangeType";
 import type { SetURLSearchParams } from "react-router";
+import { fetchAmenityReservations } from "../amenityReservations.api";
+import { amenityReservationArraySchema } from "../../../../schemas/amenityReservation.response.schema";
 
 export const useAmenityReservations = (
   dateRange: RangeType,
@@ -22,9 +22,27 @@ export const useAmenityReservations = (
       dateRange,
       option,
     ],
-    queryFn: () =>
-      fetchAmenityReservationsQueryFn(dateRange, option, setSearchParams),
+    queryFn: async () => {
+      if (dateRange.startDate && dateRange.endDate) {
+        setSearchParams({
+          startDate: dateRange.startDate.toISOString(),
+          endDate: dateRange.endDate.toISOString(),
+        });
+      }
+
+      const rawReservations = await fetchAmenityReservations(dateRange, option);
+      const parsed = amenityReservationArraySchema.safeParse(rawReservations);
+      if (!parsed.success) {
+        console.error("Invalid amenity reservations data", parsed.error.issues);
+        throw new Error(
+          `Failed to parse amenity reservations: ${parsed.error.issues.map((issue) => issue.message).join(", ")}`,
+        );
+      }
+      return parsed.data;
+    },
   });
+
+  //   prepravi za rezervaciju
 
   //   const { mutate: removeAmenity } = useMutation({
   //     mutationFn: deleteAmenity,

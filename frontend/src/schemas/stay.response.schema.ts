@@ -29,8 +29,8 @@ export const staySchema: z.ZodType<Stay> = z.object({
     }),
   ),
   notes: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const stayArraySchema = z.array(staySchema);

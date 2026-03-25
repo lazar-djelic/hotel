@@ -1,3 +1,5 @@
+import type { Stay } from "../../../types/StayType";
+
 export interface RoomStruct {
   _id: string;
   floor: number;
@@ -13,6 +15,7 @@ export interface RoomStruct {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
+  currentStay: Stay | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,4 +34,5 @@ export type SimpleRoomStruct = {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
+  currentStay: string | null;
 };

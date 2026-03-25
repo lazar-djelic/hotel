@@ -18,7 +18,7 @@ export interface AmenityReservationStruct {
 
 export type SimpleAmenityReservationStruct = {
   amenity: string;
-  user?: UserStruct | null;
+  user?: string | null;
   guest: string;
   startTime: Date;
   endTime: Date;
@@ -26,7 +26,7 @@ export type SimpleAmenityReservationStruct = {
   status: AmResStatus;
 };
 
-export type SimpleAmenityCreateReservationReceptionStruct = {
+export type SimpleAmResCreateReceptionStruct = {
   fName: string;
   lName: string;
   phone: string;
@@ -35,6 +35,20 @@ export type SimpleAmenityCreateReservationReceptionStruct = {
   personalID: string;
   birthDate: Date;
   notes?: string;
+  date: Date;
+  amenity: string;
+  user: string | null;
+  guest: string;
+  startTime: Date;
+  endTime: Date;
+  numberOfPeople: number;
+  status: AmResStatus;
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type SimpleAmResCreateStruct = {
   date: Date;
   amenity: string;
   user: string | null;

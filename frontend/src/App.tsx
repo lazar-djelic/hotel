@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import AmenitiesReservationsPage from "./pages/reservations/amenities-reservations-page/AmenitiesReservationsPage.tsx";
 import ReviewsPage from "./pages/reviews/reviews-page/ReviewsPage.tsx";
 import CreateReviewPage from "./pages/reviews/create-review-page/CreateReviewPage.tsx";
 import ReviewDetailPage from "./pages/reviews/review-detail-page/ReviewDetailPage.tsx";
@@ -11,9 +10,12 @@ import LoginPage from "./pages/user-pages/login-page/LoginPage.tsx";
 import RegisterPage from "./pages/user-pages/register-page/RegisterPage.tsx";
 import Profile from "./pages/profile-page/ProfilePage.tsx";
 import ProtectedRoute from "./context/ProtectedRoute.tsx";
-import AmenityReservationEditPage from "./pages/reservations/amenity-reservation-edit-page-reception/AmenityReservationEditPage.tsx";
 import { USER_ROLE } from "./config/enums.ts";
-import CreateAmenityResRecPage from "./pages/reservations/amenities-reservations-page/amenity-reservation-create-page-reception/CreateAmenityResRecPage.tsx";
+import CreateAmenityResRecPage from "./pages/reservations/amenities-reservations-page/reception/create-page/CreateAmenityResRecPage.tsx";
+import AmenitiesReservationsPage from "./pages/reservations/amenities-reservations-page/reception/all-reservations/AmenitiesReservationsPage.tsx";
+import AmenityReservationEditPage from "./pages/reservations/amenities-reservations-page/reception/edit-reservation-page/AmenityReservationEditPage.tsx";
+import CreateAmenityResGuestPage from "./pages/reservations/amenities-reservations-page/guest/CreateAmenityResGuestPage.tsx";
+import RoomsReservationsPage from "./pages/reservations/rooms-reservations-page/reception/all-reservations/RoomsReservationsPage.tsx";
 
 function App() {
   return (
@@ -57,12 +59,28 @@ function App() {
             path="/reception/amenity-reservation/:id"
             element={<AmenityReservationEditPage />}
           />
+          <Route
+            path="/reception/room-reservations"
+            element={<RoomsReservationsPage />}
+          />
+          {/* <Route
+            path="/reception/create-room-reservation"
+            element={<CreateRoomResRecPage />}
+          />
+          <Route
+            path="/reception/room-reservation/:id"
+            element={<RoomReservationEditPage />}
+          /> */}
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={[USER_ROLE.guest]} />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
           <Route path="/review/:id" element={<ReviewDetailPage />} />
+          <Route
+            path="/create-amenity-reservation"
+            element={<CreateAmenityResGuestPage />}
+          />
         </Route>
       </Routes>
     </>

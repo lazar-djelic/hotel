@@ -22,7 +22,7 @@ export type Room = {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
-  currentStay: Stay;
+  currentStay: Stay | null;
   createdAt: Date;
   updatedAt: Date;
 };

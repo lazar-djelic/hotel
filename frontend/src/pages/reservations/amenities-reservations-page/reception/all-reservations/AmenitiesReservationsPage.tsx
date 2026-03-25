@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import DoubleCalendar from "./DoubleCalendar";
 import { Link, useSearchParams } from "react-router";
 import { PlusIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useAmenities } from "../../api/amenities/all-amenities/useAmenities";
-import { useAmenityReservations } from "../../api/amenityReservations/all-amenityReservations/useAmenityReservations";
+import { useAmenities } from "../../../../api/amenities/all-amenities/useAmenities";
+import DoubleCalendar from "../../../DoubleCalendar";
 import AmenityReservationCard from "./AmenityReservationCard";
+import { useAmenityReservations } from "../../../../api/amenityReservations/all-amenityReservations/useAmenityReservations";
 
 const AmenitiesReservationsPage = () => {
   const { t } = useTranslation();

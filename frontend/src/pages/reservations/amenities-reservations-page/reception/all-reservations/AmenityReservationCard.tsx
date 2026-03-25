@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Link } from "react-router";
-import { formatTime } from "../../../lib/utils";
 import { useTranslation } from "react-i18next";
-import type { AmenityReservationStruct } from "../../api/structs/AmenityReservation";
+import { formatTime } from "../../../../../lib/utils";
+import type { AmenityReservationStruct } from "../../../../api/structs/AmenityReservation";
 
 type AmenityReservationCardArgs = {
   reservation: AmenityReservationStruct;

@@ -105,11 +105,13 @@
     "dutt": "dana do danas",
     "dst": "dana od danas"
   },
-  "rescard": {
-    "startd": "Početak rezervacije",
-    "endd": "Završetak rezervacije",
-    "rtype": "Tip sobe",
-    "bednum": "Broj kreveta"
+  "roomres": {
+    "startd": "Početak rezervacije: ",
+    "endd": "Kraj rezervacije: ",
+    "adults": "Odrasli: ",
+    "children": "Deca: ",
+    "assignedroom": "Dodeljena soba: ",
+    "status": "Status rezervacije: "
   },
   "newres": "Kreirajte rezervaciju",
   "nores": "Trenutno nema rezervacija za izabrani period.",
@@ -172,6 +174,18 @@
     },
     "delete": "Obrišite rezervaciju",
     "resDetails": "Unesite detalje rezervacije",
-    "save": "Sačuvajte rezervaciju"
+    "save": "Sačuvajte rezervaciju",
+    "availableSlots": "Slobodni termini:",
+    "availability": "Dostupno",
+    "remainingCapacity": "Preostali kapacitet",
+    "amenity": "Pogodnosti",
+    "date": "Datum",
+    "noSlotsAvailable": "Nema dostupnih termina za izabrani datum",
+    "guest": "Informacije o gostu:",
+    "newGuest": "Da li je novi gost?",
+    "findGuest": "Pronađi gosta"
+  },
+  "roomRes": {
+    "title": "Rezervacije soba"
   }
 }

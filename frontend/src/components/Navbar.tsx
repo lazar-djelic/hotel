@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { useLogout } from "../pages/profile-page/useLogout";
 import { useAuth } from "../context/AuthContext";
+import { USER_ROLE } from "../config/enums";
 
 const Navbar: FC = () => {
   const { i18n } = useTranslation();
@@ -13,7 +14,7 @@ const Navbar: FC = () => {
   const navigate = useNavigate();
   const logoutMutation = useLogout();
 
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   const handleLogout = () => {
     logoutMutation.mutate(undefined, {
@@ -58,7 +59,30 @@ const Navbar: FC = () => {
             <SunIcon className="swap-off" />
           </label>
 
-          <li>
+          {isAuthenticated && user.role === USER_ROLE.receptionist && (
+            <>
+              <li>
+                <Link to={"/reception/amenity-reservations"}>
+                  <span>Amenity reservation reception</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={"/reception/room-reservations"}>
+                  <span>Room reservation reception</span>
+                </Link>
+              </li>
+            </>
+          )}
+
+          {isAuthenticated && user.role === USER_ROLE.guest && (
+            <li>
+              <Link to={"/create-amenity-reservation"}>
+                <span>Amenity reservation</span>
+              </Link>
+            </li>
+          )}
+
+          {/* <li>
             <Link to={"/reservations"}>
               <span>{t("navbar.reservations")}</span>
             </Link>
@@ -72,7 +96,7 @@ const Navbar: FC = () => {
             <Link to={"/config"}>
               <span>{t("navbar.configuration")}</span>
             </Link>
-          </li>
+          </li> */}
 
           {!isAuthenticated ? (
             <>
@@ -89,11 +113,13 @@ const Navbar: FC = () => {
             </>
           ) : (
             <>
-              <li>
-                <Link to={"/profile"}>
-                  <span>{t("navbar.profile")}</span>
-                </Link>
-              </li>
+              {user.role === USER_ROLE.guest && (
+                <li>
+                  <Link to={"/profile"}>
+                    <span>{t("navbar.profile")}</span>
+                  </Link>
+                </li>
+              )}
               <li>
                 <button
                   onClick={handleLogout}

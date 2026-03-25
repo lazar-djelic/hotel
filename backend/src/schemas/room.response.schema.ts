@@ -44,9 +44,9 @@ export const roomSchema: z.ZodType<Room> = z.object({
   lastcleaned: z.date(),
   linkedroom: z.boolean(),
   pets: z.boolean(),
-  currentStay: z.lazy(() => staySchema),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  currentStay: z.lazy(() => staySchema).nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const roomArraySchema = z.array(roomSchema);

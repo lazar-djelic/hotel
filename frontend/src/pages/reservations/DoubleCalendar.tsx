@@ -24,8 +24,8 @@ import {
   addWeeks,
   subMonths,
 } from "date-fns";
-import type { RangeType } from "../../interfaces/RangeType";
 import { useTranslation } from "react-i18next";
+import type { RangeType } from "../interfaces/RangeType";
 
 type DoubleCalendarArguments = {
   dateRange: RangeType[];

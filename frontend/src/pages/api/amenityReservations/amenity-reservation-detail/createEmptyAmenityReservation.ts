@@ -1,7 +1,10 @@
-import type { SimpleAmenityCreateReservationReceptionStruct } from "../../structs/AmenityReservation";
+import type {
+  SimpleAmResCreateReceptionStruct,
+  SimpleAmResCreateStruct,
+} from "../../structs/AmenityReservation";
 
 export const createEmptyAmenityReservation =
-  (): SimpleAmenityCreateReservationReceptionStruct => {
+  (): SimpleAmResCreateReceptionStruct => {
     const now = new Date();
     return {
       fName: "",
@@ -34,5 +37,36 @@ export const createEmptyAmenityReservation =
       ),
       numberOfPeople: 1,
       status: "booked",
+      _id: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
   };
+
+export const createEmptyAmResGuest = (): SimpleAmResCreateStruct => {
+  const now = new Date();
+  return {
+    date: new Date(),
+    guest: "",
+    amenity: "",
+    user: null,
+    startTime: new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      0,
+      0,
+      0,
+    ),
+    endTime: new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      0,
+      0,
+      0,
+    ),
+    numberOfPeople: 1,
+    status: "booked",
+  };
+};

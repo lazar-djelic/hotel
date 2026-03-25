@@ -1,9 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { QUERY_KEYS } from "../../../../config/query-keys";
-import { createGuestMutationFn } from "./createMutationFn";
 import type { Dispatch, SetStateAction } from "react";
 import type { GuestStruct } from "../../structs/GuestStruct";
+import {
+  guestSimpleSchema,
+  type guestSimpleSchemaType,
+} from "../../../../schemas/guest.response.schema";
+import api from "../../../../lib/axios";
 
 export const useCreateGuest = (
   navigate: (path: string) => void,
@@ -12,7 +16,23 @@ export const useCreateGuest = (
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createGuestMutationFn,
+    mutationFn: async (data: guestSimpleSchemaType) => {
+      const payload = guestSimpleSchema.parse(data);
+
+      const res = await api.post("/guests", payload, { withCredentials: true });
+
+      const parsedResponse = guestSimpleSchema.safeParse(res.data);
+
+      if (!parsedResponse.success) {
+        console.error(
+          "Invalid create guest API response",
+          parsedResponse.error,
+        );
+        throw new Error("Invalid server response");
+      }
+
+      return parsedResponse.data;
+    },
     onSuccess: () => {
       toast.success("Guest created successfully!");
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GUEST.GUEST] });
