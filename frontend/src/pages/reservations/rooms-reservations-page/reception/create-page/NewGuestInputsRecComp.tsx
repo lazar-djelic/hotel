@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
-import type { SimpleAmResCreateReceptionStruct } from "../../../../api/structs/AmenityReservation";
 import StringInputComp from "../../../../../components/StringInputComp";
+import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs/RoomReservationStruct";
 
 interface NewGuestInputsRecCompProps {
   isNew: boolean;
-  current: SimpleAmResCreateReceptionStruct;
-  setForm: (form: SimpleAmResCreateReceptionStruct) => void;
+  current: SimpleRoomResCreateReceptionStruct;
+  setForm: (form: SimpleRoomResCreateReceptionStruct) => void;
   guestFound: boolean;
   searchGuest: () => void;
   isSearching: boolean;
@@ -25,7 +25,7 @@ const NewGuestInputsRecComp = ({
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-4">{t("amenityRes.guest")}</h3>
+      <h3 className="text-2xl font-semibold mb-4">{t("amenityRes.guest")}</h3>
 
       <div className="flex items-center mb-8 mt-8">
         <input

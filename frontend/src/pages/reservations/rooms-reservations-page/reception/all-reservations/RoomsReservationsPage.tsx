@@ -32,7 +32,7 @@ const RoomsReservationsPage = () => {
             }}
           >
             <Link
-              to="/reception/create-amenity-reservation"
+              to="/reception/create-room-reservation"
               className="btn btn-outline text-lg"
             >
               <PlusIcon className="size-8" />

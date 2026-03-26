@@ -16,6 +16,9 @@ import AmenitiesReservationsPage from "./pages/reservations/amenities-reservatio
 import AmenityReservationEditPage from "./pages/reservations/amenities-reservations-page/reception/edit-reservation-page/AmenityReservationEditPage.tsx";
 import CreateAmenityResGuestPage from "./pages/reservations/amenities-reservations-page/guest/CreateAmenityResGuestPage.tsx";
 import RoomsReservationsPage from "./pages/reservations/rooms-reservations-page/reception/all-reservations/RoomsReservationsPage.tsx";
+import CreateRoomResRecPage from "./pages/reservations/rooms-reservations-page/reception/create-page/CreateRoomResRecPage.tsx";
+import RoomReservationEditPage from "./pages/reservations/rooms-reservations-page/reception/edit-reservations-page/RoomReservationEditPage.tsx";
+import CreateRoomResGuestPage from "./pages/reservations/rooms-reservations-page/guest/CreateRoomResGuestPage.tsx";
 
 function App() {
   return (
@@ -63,14 +66,14 @@ function App() {
             path="/reception/room-reservations"
             element={<RoomsReservationsPage />}
           />
-          {/* <Route
+          <Route
             path="/reception/create-room-reservation"
             element={<CreateRoomResRecPage />}
           />
           <Route
             path="/reception/room-reservation/:id"
             element={<RoomReservationEditPage />}
-          /> */}
+          />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={[USER_ROLE.guest]} />}>
@@ -80,6 +83,10 @@ function App() {
           <Route
             path="/create-amenity-reservation"
             element={<CreateAmenityResGuestPage />}
+          />
+          <Route
+            path="/create-room-reservation"
+            element={<CreateRoomResGuestPage />}
           />
         </Route>
       </Routes>

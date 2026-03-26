@@ -111,7 +111,24 @@
     "adults": "Odrasli: ",
     "children": "Deca: ",
     "assignedroom": "Dodeljena soba: ",
-    "status": "Status rezervacije: "
+    "status": "Status rezervacije",
+    "save": "Sačuvajte rezervaciju",
+    "view": "Da li soba ima pogled",
+    "nofilter": "Bez preferencija",
+    "smoking": "Da li je dozvoljeno pušenje",
+    "accessibility": "Da li je soba pogodna za osobe sa invaliditetom",
+    "balcony": "Da li soba ima balkon/terasu",
+    "pets": "Da li su dozvoljeni kućni ljubimci",
+    "details": "Detalji rezervacije:",
+    "roomType": "Tip sobe",
+    "bednum": "Broj kreveta",
+    "statusenum": {
+      "booked": "Rezervisano",
+      "confirmed": "Potvrđeno",
+      "checked_in": "Prijavljeno",
+      "cancelled": "Otkazano"
+    },
+    "delete": "Delete reservation"
   },
   "newres": "Kreirajte rezervaciju",
   "nores": "Trenutno nema rezervacija za izabrani period.",

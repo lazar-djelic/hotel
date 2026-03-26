@@ -14,7 +14,7 @@ const RoomReservationCard: FC<RoomReservationCardArgs> = ({ reservation }) => {
 
   return (
     <Link
-      to={`/reservations/${reservation._id}`}
+      to={`/reception/room-reservation/${reservation._id}`}
       className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid"
     >
       <div className="card-body">
@@ -43,7 +43,7 @@ const RoomReservationCard: FC<RoomReservationCardArgs> = ({ reservation }) => {
         </p>
         <p className="text-base-content/70">
           {t("roomres.status")}
-          {reservation.resStatus}
+          {t(`roomres.statusenum.${reservation.resStatus}`)}
         </p>
       </div>
     </Link>

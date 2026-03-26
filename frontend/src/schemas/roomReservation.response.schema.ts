@@ -44,19 +44,73 @@ export const roomReservationSimpleSchema = z.object({
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   adults: z.number().default(1),
   children: z.number().default(0),
-  smoking: z.boolean(),
-  accessibility: z.boolean(),
-  view: z.enum([
-    VIEW_OPTIONS.city,
-    VIEW_OPTIONS.garden,
-    VIEW_OPTIONS.sea,
-    VIEW_OPTIONS.none,
-  ]),
-  balcony: z.boolean(),
-  linkedRoom: z.boolean(),
-  pets: z.boolean(),
+  smoking: z.boolean().optional(),
+  accessibility: z.boolean().optional(),
+  view: z
+    .enum([
+      VIEW_OPTIONS.city,
+      VIEW_OPTIONS.garden,
+      VIEW_OPTIONS.sea,
+      VIEW_OPTIONS.none,
+    ])
+    .optional(),
+  balcony: z.boolean().optional(),
+  linkedRoom: z.boolean().optional(),
+  pets: z.boolean().optional(),
 });
 
-export type roomReservationSimpleSchemaType = z.infer<
+export type roomResRecSimpleSchemaType = z.infer<
   typeof roomReservationSimpleSchema
 >;
+
+export const userAndRoomResRecSimpleSchema = z.object({
+  fName: z.string(),
+  lName: z.string(),
+  phone: z.string(),
+  email: z.string(),
+  address: z.string(),
+  personalID: z.string(),
+  birthDate: z.coerce.date(),
+  notes: z.string().optional(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  roomType: z.enum([
+    ROOM_TYPES.standard,
+    ROOM_TYPES.deluxe,
+    ROOM_TYPES.suite,
+    ROOM_TYPES.penthouse,
+  ]),
+  bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
+  adults: z.number().default(1),
+  children: z.number().default(0),
+  smoking: z.boolean().optional(),
+  accessibility: z.boolean().optional(),
+  view: z
+    .enum([
+      VIEW_OPTIONS.city,
+      VIEW_OPTIONS.garden,
+      VIEW_OPTIONS.sea,
+      VIEW_OPTIONS.none,
+    ])
+    .optional(),
+  balcony: z.boolean().optional(),
+  pets: z.boolean().optional(),
+});
+
+export const updateRoomReservationSimpleSchema = z.object({
+  guest: z.any().transform((val) => val.toString()),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  adults: z.number(),
+  children: z.number(),
+  assignedRoom: z
+    .any()
+    .nullable()
+    .transform((val) => val.toString()),
+  resStatus: z.enum([
+    RESERVATION_STATUS.booked,
+    RESERVATION_STATUS.confirmed,
+    RESERVATION_STATUS.checked_in,
+    RESERVATION_STATUS.cancelled,
+  ]),
+});

@@ -4,7 +4,11 @@ import RoomReservation from "../../../../models/RoomReservation.ts";
 import { roomReservationSimpleSchema } from "../../../../schemas/roomReservation.response.schema.ts";
 import mongoose from "mongoose";
 import Room from "../../../../models/Room.ts";
-import { RESERVATION_STATUS, ROOM_STATUS } from "../../../../utils/enums.ts";
+import {
+  RESERVATION_STATUS,
+  ROOM_STATUS,
+  USER_ROLE,
+} from "../../../../utils/enums.ts";
 
 export async function createRoomRes(
   req: CreateRoomReservationRequest,
@@ -19,27 +23,38 @@ export async function createRoomRes(
       .json({ message: "Validation failed", errors: parsed.error.issues });
   }
 
-  if (req.body.guest !== req.session.guest)
+  if (
+    req.session.role === USER_ROLE.guest &&
+    req.body.guest !== req.session.guest
+  )
     return res
       .status(401)
       .json({ message: "Unauthorized. Guests do not match." });
+
+  const startD = new Date(req.body.startDate);
+  startD.setUTCHours(0, 0, 0, 0);
+  const endD = new Date(req.body.endDate);
+  endD.setUTCHours(23, 59, 59, 999);
 
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
 
-    const availableRoom = await Room.findOne({
+    const query = {
       type: req.body.roomType,
       bednum: req.body.bedNum,
-      smoking: req.body.smoking,
-      accessibility: req.body.accessibility,
-      view: req.body.view,
-      balcony: req.body.balcony,
-      pets: req.body.pets,
-      linkedroom: req.body.linkedRoom,
       status: ROOM_STATUS.available,
-    }).session(session);
+      ...(req.body.smoking !== undefined && { smoking: req.body.smoking }),
+      ...(req.body.accessibility !== undefined && {
+        accessibility: req.body.accessibility,
+      }),
+      ...(req.body.view !== undefined && { view: req.body.view }),
+      ...(req.body.balcony !== undefined && { balcony: req.body.balcony }),
+      ...(req.body.pets !== undefined && { pets: req.body.pets }),
+    };
+
+    const availableRoom = await Room.findOne(query).session(session);
 
     if (!availableRoom) {
       await session.abortTransaction();
@@ -51,8 +66,8 @@ export async function createRoomRes(
 
     const conflict = await RoomReservation.findOne({
       assignedRoom: availableRoom._id,
-      startDate: { $lt: req.body.endDate },
-      endDate: { $gt: req.body.startDate },
+      startDate: { $lt: endD },
+      endDate: { $gt: startD },
     }).session(session);
 
     if (conflict) {
@@ -71,8 +86,8 @@ export async function createRoomRes(
 
     const reservation = new RoomReservation({
       guest: req.body.guest,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
+      startDate: startD,
+      endDate: endD,
       adults: req.body.adults,
       children: req.body.children,
       assignedRoom: availableRoom._id,

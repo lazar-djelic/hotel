@@ -5,6 +5,7 @@ export function formatDate(dateS: string, language: string) {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 

@@ -57,7 +57,7 @@ export const createGuestAndAmResRec = async ({
   id: string;
   amenityReservation: WithoutSomeProperties;
 }): Promise<void> => {
-  await api.post(`/reception/user-amenityreservations/${id}`, {
+  await api.post(`/reception/guest-amenityreservations/${id}`, {
     ...amenityReservation,
   });
 };

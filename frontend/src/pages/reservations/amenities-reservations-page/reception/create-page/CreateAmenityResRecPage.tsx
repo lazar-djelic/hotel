@@ -14,9 +14,9 @@ import { useCreateGuestAndAmResRec } from "../../../../api/amenityReservations/a
 import { createEmptyAmenityReservation } from "../../../../api/amenityReservations/amenity-reservation-detail/createEmptyAmenityReservation";
 import { useAmenities } from "../../../../api/amenities/all-amenities/useAmenities";
 import { useAmenitySlots } from "../../../../api/amenities/amenity-slots/useAmenitySlots";
-import { useFindGuest } from "./useFindGuest";
-import NewGuestInputsRecComp from "./NewGuestInputsRecComp";
 import AmResComp from "./AmResComp";
+import NewGuestInputsRecComp from "./NewGuestInputsRecComp";
+import { useFindGuestAmRes } from "./useFindGuestAmRes";
 
 const CreateAmenityResRecPage = () => {
   const { t } = useTranslation();
@@ -62,7 +62,7 @@ const CreateAmenityResRecPage = () => {
 
   const isPending = isNew ? isPendingGuest : isPendingAmenity;
 
-  const { searchGuest, isSearching } = useFindGuest({
+  const { searchGuest, isSearching } = useFindGuestAmRes({
     form,
     setForm,
     setGuestFound,

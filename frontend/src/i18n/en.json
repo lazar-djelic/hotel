@@ -111,7 +111,24 @@
     "adults": "Adults: ",
     "children": "Children: ",
     "assignedroom": "Assigned room: ",
-    "status": "Reservation status: "
+    "status": "Reservation status: ",
+    "save": "Save reservation",
+    "view": "Does a room have a view",
+    "nofilter": "No preferences",
+    "smoking": "Is smoking allowed",
+    "accessibility": "Is accessibility friendly",
+    "balcony": "Does a room have a balcony",
+    "pets": "Are pets allowed in the room",
+    "details": "Room reservation details:",
+    "roomType": "Room type",
+    "bednum": "Number of beds",
+    "statusenum": {
+      "booked": "Booked",
+      "confirmed": "Confirmed",
+      "checked_in": "Checked in",
+      "cancelled": "Cancelled"
+    },
+    "delete": "Delete reservation"
   },
   "newres": "New reservation",
   "nores": "There are no reservations for selected period yet.",

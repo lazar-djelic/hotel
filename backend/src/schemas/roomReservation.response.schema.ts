@@ -44,17 +44,19 @@ export const roomReservationSimpleSchema = z.object({
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   adults: z.number().default(1),
   children: z.number().default(0),
-  smoking: z.boolean(),
-  accessibility: z.boolean(),
-  view: z.enum([
-    VIEW_OPTIONS.city,
-    VIEW_OPTIONS.garden,
-    VIEW_OPTIONS.sea,
-    VIEW_OPTIONS.none,
-  ]),
-  balcony: z.boolean(),
-  linkedRoom: z.boolean(),
-  pets: z.boolean(),
+  smoking: z.boolean().optional(),
+  accessibility: z.boolean().optional(),
+  view: z
+    .enum([
+      VIEW_OPTIONS.city,
+      VIEW_OPTIONS.garden,
+      VIEW_OPTIONS.sea,
+      VIEW_OPTIONS.none,
+    ])
+    .optional(),
+  balcony: z.boolean().optional(),
+  linkedRoom: z.boolean().optional(),
+  pets: z.boolean().optional(),
 });
 
 export const roomReservationReceptionSimpleSchema = z.object({
@@ -65,7 +67,7 @@ export const roomReservationReceptionSimpleSchema = z.object({
   address: z.string(),
   personalID: z.string(),
   birthDate: z.coerce.date(),
-  notes: z.string(),
+  notes: z.string().optional(),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   roomType: z.enum([
@@ -77,17 +79,18 @@ export const roomReservationReceptionSimpleSchema = z.object({
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   adults: z.number().default(1),
   children: z.number().default(0),
-  smoking: z.boolean(),
-  accessibility: z.boolean(),
-  view: z.enum([
-    VIEW_OPTIONS.city,
-    VIEW_OPTIONS.garden,
-    VIEW_OPTIONS.sea,
-    VIEW_OPTIONS.none,
-  ]),
-  balcony: z.boolean(),
-  linkedRoom: z.boolean(),
-  pets: z.boolean(),
+  smoking: z.boolean().optional(),
+  accessibility: z.boolean().optional(),
+  view: z
+    .enum([
+      VIEW_OPTIONS.city,
+      VIEW_OPTIONS.garden,
+      VIEW_OPTIONS.sea,
+      VIEW_OPTIONS.none,
+    ])
+    .optional(),
+  balcony: z.boolean().optional(),
+  pets: z.boolean().optional(),
 });
 
 export const updateRoomReservationSimpleSchema = z.object({

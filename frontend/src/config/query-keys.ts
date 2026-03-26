@@ -3,10 +3,6 @@ export const QUERY_KEYS = {
     REVIEW: "review",
     REVIEWS: "reviews",
   },
-  RESERVATION: {
-    RESERVATION: "reservation",
-    RESERVATIONS: "reservations",
-  },
   ROOM: {
     ROOM: "room",
     ROOMS: "rooms",
@@ -22,6 +18,10 @@ export const QUERY_KEYS = {
   AM_RES: {
     RESERVATION: "amenityReservation",
     RESERVATIONS: "amenityReservations",
+  },
+  ROOM_RES: {
+    RESERVATION: "roomReservation",
+    RESERVATIONS: "roomReservations",
   },
   SLOTS: {
     SLOTS: "slots",

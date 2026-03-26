@@ -3,7 +3,7 @@ import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { RoomReservationStruct } from "../../structs/RoomReservationStruct";
 import type { RangeType } from "../../../interfaces/RangeType";
 import type { SetURLSearchParams } from "react-router-dom";
-import { fetchRoomReservations } from "../reservations.api";
+import { fetchRoomReservations } from "../roomReservations.api";
 import { roomReservationArraySchema } from "../../../../schemas/roomReservation.response.schema";
 
 export const useRoomReservations = (
@@ -13,7 +13,7 @@ export const useRoomReservations = (
   const { data: reservations = [], isLoading } = useQuery<
     RoomReservationStruct[]
   >({
-    queryKey: [QUERY_KEYS.RESERVATION.RESERVATIONS, dateRange],
+    queryKey: [QUERY_KEYS.ROOM_RES.RESERVATIONS, dateRange],
     queryFn: async () => {
       if (dateRange.startDate && dateRange.endDate) {
         setSearchParams({

@@ -75,11 +75,18 @@ const Navbar: FC = () => {
           )}
 
           {isAuthenticated && user.role === USER_ROLE.guest && (
-            <li>
-              <Link to={"/create-amenity-reservation"}>
-                <span>Amenity reservation</span>
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to={"/create-amenity-reservation"}>
+                  <span>Amenity reservation</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={"/create-room-reservation"}>
+                  <span>Room reservation</span>
+                </Link>
+              </li>
+            </>
           )}
 
           {/* <li>

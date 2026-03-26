@@ -2,16 +2,16 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 import toast from "react-hot-toast";
 import { findGuest } from "../../../../api/guests/guests.api";
-import type { SimpleAmResCreateReceptionStruct } from "../../../../api/structs/AmenityReservation";
+import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs/RoomReservationStruct";
 
 interface UseFindGuestProps {
-  form: SimpleAmResCreateReceptionStruct;
-  setForm: (form: SimpleAmResCreateReceptionStruct) => void;
+  form: SimpleRoomResCreateReceptionStruct;
+  setForm: (form: SimpleRoomResCreateReceptionStruct) => void;
   setGuestFound: (found: boolean) => void;
   t: (key: string) => string | undefined;
 }
 
-export const useFindGuest = ({
+export const useFindGuestRoomRes = ({
   form,
   setForm,
   setGuestFound,
@@ -42,7 +42,6 @@ export const useFindGuest = ({
         birthDate: new Date(guest.birthDate),
         notes: guest.notes || "",
         guest: guest._id,
-        user: null,
       });
       setGuestFound(true);
       toast.success("Guest found");

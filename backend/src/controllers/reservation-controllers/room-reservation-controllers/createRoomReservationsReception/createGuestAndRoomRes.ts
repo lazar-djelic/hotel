@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 import Room from "../../../../models/Room.ts";
 import { RESERVATION_STATUS, ROOM_STATUS } from "../../../../utils/enums.ts";
 
-export async function createRoomReservationReception(
+export async function createGuestAndRoomRes(
   req: CreateRoomReservationReceptionRequest,
   res: Response,
   next: NextFunction,
@@ -41,17 +41,20 @@ export async function createRoomReservationReception(
     });
     const newGuest = await guest.save({ session });
 
-    const availableRoom = await Room.findOne({
+    const query = {
       type: req.body.roomType,
       bednum: req.body.bedNum,
-      smoking: req.body.smoking,
-      accessibility: req.body.accessibility,
-      view: req.body.view,
-      balcony: req.body.balcony,
-      pets: req.body.pets,
-      linkedroom: req.body.linkedRoom,
       status: ROOM_STATUS.available,
-    }).session(session);
+      ...(req.body.smoking !== undefined && { smoking: req.body.smoking }),
+      ...(req.body.accessibility !== undefined && {
+        accessibility: req.body.accessibility,
+      }),
+      ...(req.body.view !== undefined && { view: req.body.view }),
+      ...(req.body.balcony !== undefined && { balcony: req.body.balcony }),
+      ...(req.body.pets !== undefined && { pets: req.body.pets }),
+    };
+
+    const availableRoom = await Room.findOne(query).session(session);
 
     if (!availableRoom) {
       await session.abortTransaction();
