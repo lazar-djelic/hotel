@@ -3,6 +3,14 @@
   background-color: transparent;
 }
 
+[data-theme="corporate"] .custom-date-range {
+  border-color: #000000 !important;
+}
+
+[data-theme="corporate"] div.border-slate {
+  border-color: #000000 !important;
+}
+
 /* main container */
 .custom-date-range .rdrCalendarWrapper {
   background-color: transparent !important;
@@ -22,21 +30,21 @@
 }
 
 /* day numbers */
-[data-theme="night"] .custom-date-range .rdrDayNumber span {
+[data-theme="business"] .custom-date-range .rdrDayNumber span {
   color: #c8cbd0 !important;
 }
 
-[data-theme="pastel"] .custom-date-range .rdrDayNumber span {
+[data-theme="corporate"] .custom-date-range .rdrDayNumber span {
   color: #000000 !important;
 }
 
 /* outside month days */
-[data-theme="night"] .custom-date-range .rdrDayPassive span {
+[data-theme="business"] .custom-date-range .rdrDayPassive span {
   color: #475569 !important;
 }
 
 /* outside month days */
-[data-theme="pastel"] .custom-date-range .rdrDayPassive span {
+[data-theme="corporate"] .custom-date-range .rdrDayPassive span {
   color: #475569 !important;
 }
 
@@ -45,23 +53,24 @@
   background-color: transparent !important;
 }
 
-[data-theme="night"] .custom-date-range .rdrStaticRange {
+[data-theme="business"] .custom-date-range .rdrStaticRange {
   background-color: transparent !important;
   color: #c8cbd0 !important;
 }
 
-[data-theme="pastel"] .custom-date-range .rdrStaticRange {
+[data-theme="corporate"] .custom-date-range .rdrStaticRange {
   background-color: transparent !important;
   color: #000000 !important;
+  border-color: #cbd5e1 !important;
 }
 
-[data-theme="night"] .custom-date-range .rdrStaticRange:hover,
-[data-theme="night"] .custom-date-range .rdrStaticRangeSelected {
+[data-theme="business"] .custom-date-range .rdrStaticRange:hover,
+[data-theme="business"] .custom-date-range .rdrStaticRangeSelected {
   background-color: #020617 !important;
 }
 
-[data-theme="pastel"] .custom-date-range .rdrStaticRange:hover,
-[data-theme="pastel"] .custom-date-range .rdrStaticRangeSelected {
+[data-theme="corporate"] .custom-date-range .rdrStaticRange:hover,
+[data-theme="corporate"] .custom-date-range .rdrStaticRangeSelected {
   background-color: #fbf3d2 !important;
 }
 
@@ -87,4 +96,21 @@
 
 .custom-date-range .rdrNextPrevButton {
   background-color: transparent !important;
+}
+
+/* borders for corporate theme */
+[data-theme="corporate"] .custom-date-range .rdrDay {
+  border-color: #000000 !important;
+}
+
+[data-theme="corporate"] .custom-date-range .rdrDateInput {
+  border-color: #000000 !important;
+}
+
+[data-theme="corporate"] .custom-date-range .rdrDateInputWrapper {
+  border-color: #000000 !important;
+}
+
+[data-theme="corporate"] .custom-date-range .rdrDefinedRangesWrapper {
+  border-color: #000000 !important;
 }

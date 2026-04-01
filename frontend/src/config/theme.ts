@@ -4,5 +4,5 @@ export const setTheme = (theme: string) => {
 };
 
 export const getSavedTheme = (): string => {
-  return localStorage.getItem("theme") || "night";
+  return localStorage.getItem("theme") || "business";
 };

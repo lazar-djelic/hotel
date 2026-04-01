@@ -28,7 +28,7 @@ const Navbar: FC = () => {
     });
   };
 
-  const toggleTheme = (theme: string = "night") => {
+  const toggleTheme = (theme: string = "business") => {
     setTheme(theme);
   };
 
@@ -174,7 +174,7 @@ const Navbar: FC = () => {
                   <ul className="p-2">
                     <li>
                       <button
-                        onClick={() => toggleTheme("pastel")}
+                        onClick={() => toggleTheme("corporate")}
                         className="btn btn-sm flex items-center gap-4"
                       >
                         <SunIcon />
@@ -183,7 +183,7 @@ const Navbar: FC = () => {
                     </li>
                     <li>
                       <button
-                        onClick={() => toggleTheme("night")}
+                        onClick={() => toggleTheme("business")}
                         className="btn btn-sm flex items-center gap-4"
                       >
                         <MoonIcon />
