@@ -1,6 +1,7 @@
 import { type Response, type NextFunction } from "express";
 import bcrypt from "bcrypt";
 import User from "../../../models/User.ts";
+import { USER_ROLE } from "../../../utils/enums.ts";
 import type { RegisterUserRequest } from "./types.ts";
 
 export async function registerUser(
@@ -18,9 +19,14 @@ export async function registerUser(
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const userCount = await User.countDocuments();
+    const isFirstUser = userCount === 0;
+    const role = isFirstUser ? USER_ROLE.admin : USER_ROLE.guest;
+
     const user = new User({
       email,
       password: hashedPassword,
+      role,
     });
 
     await user.save();

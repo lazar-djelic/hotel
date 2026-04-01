@@ -4,6 +4,7 @@ import {
   type RegisterPayload,
 } from "../../../services/authService";
 import type { NavigateFunction } from "react-router-dom";
+import { ROUTES } from "../../../config/routes";
 
 export const useRegister = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -13,7 +14,7 @@ export const useRegister = (navigate: NavigateFunction) => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["me"] });
       queryClient.invalidateQueries({ queryKey: ["me"] });
-      navigate("/profile");
+      navigate(ROUTES.GUEST.PROFILE);
     },
   });
 };

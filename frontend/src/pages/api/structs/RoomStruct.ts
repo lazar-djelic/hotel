@@ -1,3 +1,4 @@
+import type { CurrType } from "../../../config/enums";
 import type { Stay } from "../../../types/StayType";
 
 export interface RoomStruct {
@@ -15,7 +16,9 @@ export interface RoomStruct {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
-  currentStay: Stay | null;
+  currentStay?: Stay | null | undefined;
+  rate: number;
+  currency: CurrType;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -35,4 +38,6 @@ export type SimpleRoomStruct = {
   linkedroom: boolean;
   pets: boolean;
   currentStay: string | null;
+  rate: number;
+  currency: CurrType;
 };

@@ -2,7 +2,7 @@ export const USER_ROLE = {
   guest: "guest",
   admin: "admin",
   receptionist: "receptionist",
-  housekeeping: "housekeeping",
+  staff: "staff",
 } as const;
 
 export type Role = (typeof USER_ROLE)[keyof typeof USER_ROLE];
@@ -96,3 +96,25 @@ export const ROOM_TYPES = {
 } as const;
 
 export type RoomTypes = (typeof ROOM_TYPES)[keyof typeof ROOM_TYPES];
+
+export const EXTRA_OPTIONS = {
+  minibar: "Mini bar",
+  roomservice: "Room service",
+  restaurant: "Restaurant",
+  bardrinks: "Bar drinks",
+  breakfast: "Breakfast",
+  laundry: "Laundry",
+  drycleaning: "Dry cleaning",
+  ironing: "Ironing",
+  parking: "Parking",
+  airporttransfer: "Airport transfer",
+  taxiservice: "Taxi service",
+  spa: "Spa",
+  massage: "Massage",
+  gympass: "Gym pass",
+  pool: "Pool",
+  latecheckin: "Late check-out fee",
+  earlycheckin: "Early check-in fee",
+  damages: "Damages",
+  newkey: "Lost key / card replacement",
+} as const;

@@ -31,6 +31,8 @@ export async function updateRoom(
       lastcleaned,
       linkedroom,
       pets,
+      rate,
+      currency,
     } = req.body;
 
     const room = new Room({
@@ -47,6 +49,8 @@ export async function updateRoom(
       lastcleaned,
       linkedroom,
       pets,
+      rate,
+      currency,
     });
 
     const updatedRoom = await Room.findByIdAndUpdate(
@@ -65,6 +69,8 @@ export async function updateRoom(
         lastcleaned,
         linkedroom,
         pets,
+        rate,
+        currency,
       },
       {
         new: true,

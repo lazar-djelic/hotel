@@ -9,7 +9,7 @@ export const userSchema = z.object({
   role: z.enum([
     USER_ROLE.admin,
     USER_ROLE.guest,
-    USER_ROLE.housekeeping,
+    USER_ROLE.staff,
     USER_ROLE.receptionist,
   ]),
   guest: guestSchema,
@@ -23,8 +23,22 @@ export const userSimpleSchema = z.object({
   role: z.enum([
     USER_ROLE.admin,
     USER_ROLE.guest,
-    USER_ROLE.housekeeping,
+    USER_ROLE.staff,
     USER_ROLE.receptionist,
   ]),
   guest: guestSchema,
 });
+
+export const getuserSchema = z.array(
+  z.object({
+    _id: z.any().transform((val) => val.toString()),
+    email: z.string(),
+    role: z.enum([
+      USER_ROLE.admin,
+      USER_ROLE.guest,
+      USER_ROLE.staff,
+      USER_ROLE.receptionist,
+    ]),
+    guest: guestSchema,
+  }),
+);

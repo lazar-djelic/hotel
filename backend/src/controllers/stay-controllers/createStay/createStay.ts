@@ -1,7 +1,6 @@
 import { type Response, type NextFunction } from "express";
 import type { CreateStayRequest } from "./types.ts";
 import { Stay } from "../../../models/Stay.ts";
-import { staySimpleSchema } from "../../../schemas/stay.response.schema.ts";
 import mongoose from "mongoose";
 import {
   STAY_STATUS,
@@ -11,6 +10,7 @@ import {
 } from "../../../utils/enums.ts";
 import RoomReservation from "../../../models/RoomReservation.ts";
 import Room from "../../../models/Room.ts";
+import { createStaySimpleSchema } from "../../../schemas/stay.response.schema.ts";
 
 export async function createStay(
   req: CreateStayRequest,
@@ -20,28 +20,13 @@ export async function createStay(
   const session = await mongoose.startSession();
 
   try {
-    const parsed = staySimpleSchema.safeParse(req.body);
+    const parsed = createStaySimpleSchema.safeParse(req.body);
 
     if (!parsed.success) {
       return res
         .status(400)
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
-
-    const stay = new Stay({
-      guest: req.body.guest,
-      reservation: req.body.reservation,
-      room: req.body.room,
-      checkIn: req.body.checkIn,
-      checkOut: req.body.checkOut,
-      stStatus: STAY_STATUS.checked_in,
-      adults: req.body.adults,
-      children: req.body.children,
-      rate: req.body.rate,
-      currency: req.body.currency,
-      extras: req.body.extras,
-      notes: req.body.notes,
-    });
 
     session.startTransaction();
 
@@ -56,7 +41,8 @@ export async function createStay(
     }
 
     if (
-      room.status !== ROOM_STATUS.available ||
+      (room.status !== ROOM_STATUS.available &&
+        room.status !== ROOM_STATUS.reserved) ||
       room.housekeeping !== HOUSEKEEPING_OPTIONS.clean
     ) {
       await session.abortTransaction();
@@ -64,6 +50,34 @@ export async function createStay(
       return res.status(409).json({
         message: "Room is not available or has not been cleaned",
       });
+    }
+
+    if (parsed.data.reservation) {
+      const reservation = await RoomReservation.findById(
+        parsed.data.reservation,
+      )
+        .populate("assignedRoom")
+        .session(session);
+
+      if (!reservation) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(404).json({
+          message: "Reservation not found",
+        });
+      }
+
+      if (
+        reservation.guest.toString() !== parsed.data.guest.toString() ||
+        reservation.assignedRoom?._id.toString() !== room._id.toString()
+      ) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(409).json({
+          message:
+            "Guest or room does not match the reservation. The person who made the reservation must check in to the reserved room.",
+        });
+      }
     }
 
     const stayConflict = await Stay.findOne({
@@ -108,6 +122,20 @@ export async function createStay(
         { session },
       );
     }
+
+    const stay = new Stay({
+      guest: req.body.guest,
+      reservation: req.body.reservation,
+      room: req.body.room,
+      checkIn: req.body.checkIn,
+      checkOut: null,
+      stStatus: STAY_STATUS.checked_in,
+      adults: req.body.adults,
+      children: req.body.children,
+      rate: room.rate,
+      currency: room.currency,
+      notes: req.body.notes,
+    });
 
     const savedStay = await stay.save({ session });
 

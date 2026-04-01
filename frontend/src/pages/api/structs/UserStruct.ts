@@ -15,3 +15,10 @@ export type SimpleUserStruct = {
   role: Role;
   guest: string;
 };
+
+export interface GetUserStruct {
+  _id: string;
+  email: string;
+  role: Role;
+  guest: GuestStruct;
+}

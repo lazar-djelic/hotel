@@ -25,11 +25,19 @@ export const fetchAmenitySlots = async (
 };
 
 export const deleteAmenity = async (id: string): Promise<void> => {
-  await api.delete(`/amenity/${id}`);
+  await api.delete(`/amenities/${id}`);
 };
 
 export const fetchAmenity = async (id: string): Promise<AmenityStruct> => {
   const res = await api.get(`/amenities/${id}`);
+  return res.data;
+};
+
+export const createAmenity = async (
+  amenity: SimpleAmenityStruct,
+): Promise<AmenityStruct> => {
+  console.log(amenity);
+  const res = await api.post("/amenities", amenity);
   return res.data;
 };
 
@@ -39,6 +47,8 @@ export const updateAmenity = async ({
 }: {
   id: string;
   amenity: SimpleAmenityStruct;
-}) => {
-  await api.put(`/amenities/${id}`, amenity);
+}): Promise<void> => {
+  console.log(id, amenity);
+  const res = await api.put(`/amenities/${id}`, amenity);
+  return res.data;
 };

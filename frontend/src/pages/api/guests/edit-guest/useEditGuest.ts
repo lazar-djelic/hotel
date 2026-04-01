@@ -5,6 +5,7 @@ import { QUERY_KEYS } from "../../../../config/query-keys";
 import { editGuest } from "../guests.api";
 import type { Dispatch, SetStateAction } from "react";
 import type { GuestStruct } from "../../structs/GuestStruct";
+import { ROUTES } from "../../../../config/routes";
 
 export const useEditGuest = (
   navigate: NavigateFunction,
@@ -23,7 +24,7 @@ export const useEditGuest = (
 
       queryClient.invalidateQueries({ queryKey: ["me"] });
       setForm(null);
-      navigate("/profile");
+      navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
       toast.error("Failed to update the guest");

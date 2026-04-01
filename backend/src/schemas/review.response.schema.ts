@@ -6,8 +6,8 @@ export const reviewSchema = z.object({
   guest: guestSchema,
   opinion: z.string(),
   rating: z.number(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const reviewArraySchema = z.array(reviewSchema);

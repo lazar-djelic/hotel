@@ -7,12 +7,33 @@
     "login": "Log in",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Log out"
+    "logout": "Log out",
+    "users": "Users",
+    "amenities": "Amenities",
+    "rooms": "Rooms",
+    "config": "Configuration",
+    "checkin": "Check in",
+    "checkout": "Check out",
+    "amress": "Amenity reservations",
+    "roomress": "Room reservations",
+    "createamres": "Create amenity reservation",
+    "createroomres": "Create room reservation",
+    "menu": "Menu",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "english": "English",
+    "serbian": "Serbian",
+    "housekeeping": "Housekeeping",
+    "addextra": "Add extra"
   },
   "loading": "Loading...",
   "back": "Back",
   "yes": "Yes",
   "no": "No",
+  "cancel": "Cancel",
+  "close": "Close",
   "config": {
     "room": "Room",
     "levels": "Levels",
@@ -81,7 +102,9 @@
         "clean": "Clean",
         "dirty": "Dirty",
         "inspected": "Inspected"
-      }
+      },
+      "rate": "Rate",
+      "currency": "Currency"
     }
   },
   "edit": {
@@ -128,7 +151,9 @@
       "checked_in": "Checked in",
       "cancelled": "Cancelled"
     },
-    "delete": "Delete reservation"
+    "delete": "Delete reservation",
+    "noroomscriteria": "There are no rooms that match the criteria.",
+    "availcriteria": "There are available rooms that match the criteria."
   },
   "newres": "New reservation",
   "nores": "There are no reservations for selected period yet.",
@@ -148,7 +173,12 @@
     "norooms": "There are no rooms.",
     "search": "Search for a room",
     "expandall": "Expand all",
-    "collapseall": "Collapse all"
+    "collapseall": "Collapse all",
+    "rooms": "Rooms",
+    "roomnum": "Room number",
+    "status": "Room status",
+    "housekeeping": "Housekeeping status",
+    "lastcleaned": "Last time cleaned"
   },
   "auth": {
     "email": "Email",
@@ -204,5 +234,68 @@
   },
   "roomRes": {
     "title": "Room reservations"
-  }
+  },
+  "amenity": {
+    "create": "Create amenity",
+    "delete": "Delete amenity",
+    "edit": "Edit amenity",
+    "noam": "No amenities.",
+    "name": "Name",
+    "type": "Type",
+    "capacity": "Capacity",
+    "slotdur": "Slot duration",
+    "opentime": "Open time",
+    "closetime": "Close time",
+    "resreq": "Requires reservation",
+    "oneperslot": "One reservation per slot",
+    "loadbtnup": "Updating...",
+    "loadbtncr": "Creating...",
+    "btnup": "Update amenity",
+    "btncr": "Create amenity"
+  },
+  "nextpage": "Next page",
+  "previouspage": "Previous page",
+  "checkin": {
+    "checkedin": "Checked in",
+    "roomdetails": "Room details",
+    "roomprefs": "Room preferences",
+    "availablerooms": "Available rooms",
+    "checkexact": "Check exact availability",
+    "checkloose": "Check loose availability",
+    "roomnotsel": "Room not selected"
+  },
+  "checkout": {
+    "billing": "Billing",
+    "room": "Room",
+    "nights": "nights",
+    "extras": "Extras",
+    "addextra": "Add extra",
+    "extratype": "Extra type",
+    "typeorselect": "Type or select from options",
+    "amount": "Amount",
+    "total": "Total",
+    "gname": "Guest's name",
+    "title": "Check-out",
+    "staydet": "Stay details",
+    "adults": "Adults",
+    "children": "Children",
+    "checkin": "Check-in",
+    "checkout": "Check-out",
+    "notes": "Notes"
+  },
+  "stays": {
+    "nostays": "No stays."
+  },
+  "guests": {
+    "noguest": "No guest"
+  },
+  "users": {
+    "users": "Users",
+    "nousers": "No users.",
+    "email": "Email",
+    "role": "Role",
+    "name": "Name"
+  },
+  "extras": "Extras",
+  "clear": "Clear"
 }

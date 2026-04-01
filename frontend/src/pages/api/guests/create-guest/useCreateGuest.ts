@@ -8,6 +8,7 @@ import {
   type guestSimpleSchemaType,
 } from "../../../../schemas/guest.response.schema";
 import api from "../../../../lib/axios";
+import { ROUTES } from "../../../../config/routes";
 
 export const useCreateGuest = (
   navigate: (path: string) => void,
@@ -39,7 +40,7 @@ export const useCreateGuest = (
 
       queryClient.invalidateQueries({ queryKey: ["me"] });
       setForm(null);
-      navigate("/profile");
+      navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
       toast.error("Failed to create a guest!");

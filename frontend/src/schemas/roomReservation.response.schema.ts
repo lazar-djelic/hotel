@@ -114,3 +114,23 @@ export const updateRoomReservationSimpleSchema = z.object({
     RESERVATION_STATUS.cancelled,
   ]),
 });
+
+export const getRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
+  _id: z.any().transform((val) => val.toString()),
+  guest: z.any().transform((val) => val.toString()),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  adults: z.number().default(1),
+  children: z.number().default(0),
+  assignedRoom: z.any().transform((val) => val.toString()),
+  resStatus: z
+    .enum([
+      RESERVATION_STATUS.booked,
+      RESERVATION_STATUS.confirmed,
+      RESERVATION_STATUS.checked_in,
+      RESERVATION_STATUS.cancelled,
+    ])
+    .default(RESERVATION_STATUS.booked),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});

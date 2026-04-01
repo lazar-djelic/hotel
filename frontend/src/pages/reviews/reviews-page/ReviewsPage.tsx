@@ -1,6 +1,9 @@
 import ReviewCard from "./ReviewCard";
 import { useReviews } from "../../api/reviews/all-reviews/useReviews";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
+import { PlusIcon } from "lucide-react";
+import { ROUTES } from "../../../config/routes";
 
 const ReviewsPage = () => {
   const { t } = useTranslation();
@@ -8,9 +11,18 @@ const ReviewsPage = () => {
 
   return (
     <div className="mt-8">
-      <div className="max-w-7xl mx-auto p-4 mt-6">
-        <div className="mb-16 text-5xl font-semibold">{t("review.title")}</div>
+      <div className="flex max-w-7xl mx-auto p-4 mt-6 mb-8 items-center justify-between">
+        <div className="text-5xl font-semibold">{t("review.title")}</div>
+        <Link
+          to={ROUTES.GUEST.CREATE_REV}
+          className="btn btn-outline text-lg justify-end"
+        >
+          <PlusIcon className="size-8" />
+          {t("review.new")}
+        </Link>
+      </div>
 
+      <div className="max-w-7xl mx-auto p-4 mt-6">
         {loading && (
           <div className="text-center text-primary py-10">{t("loading")}</div>
         )}

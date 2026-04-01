@@ -17,7 +17,7 @@ const userMongooseSchema = new mongoose.Schema({
       USER_ROLE.guest,
       USER_ROLE.admin,
       USER_ROLE.receptionist,
-      USER_ROLE.housekeeping,
+      USER_ROLE.staff,
     ],
     default: USER_ROLE.guest,
   },

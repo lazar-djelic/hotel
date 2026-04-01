@@ -3,7 +3,7 @@ import type { Request } from "express";
 import { HOUSEKEEPING_OPTIONS } from "../../utils/enums.ts";
 
 export const housekeepingSimpleSchema = z.object({
-  housekeeping: z.enum([
+  status: z.enum([
     HOUSEKEEPING_OPTIONS.clean,
     HOUSEKEEPING_OPTIONS.dirty,
     HOUSEKEEPING_OPTIONS.in_progress,

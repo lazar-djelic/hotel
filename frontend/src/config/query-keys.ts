@@ -27,4 +27,12 @@ export const QUERY_KEYS = {
     SLOTS: "slots",
     // SLOT: "slot",
   },
+  STAYS: {
+    STAYS: "stays",
+    STAY: "stay",
+  },
+  USERS: {
+    USERS: "users",
+    USER: "user",
+  },
 };

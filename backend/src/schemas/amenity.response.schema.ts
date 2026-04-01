@@ -18,8 +18,8 @@ export const amenitySchema = z.object({
   closeTime: z.string(),
   requiresReservation: z.boolean(),
   onePerSlot: z.boolean(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const amenityArraySchema = z.array(amenitySchema);

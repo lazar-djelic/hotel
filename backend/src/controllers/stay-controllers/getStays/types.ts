@@ -3,10 +3,7 @@ import type { Request } from "express";
 
 export const GetStaysRequestSchema = {
   body: z.object({}).optional(),
-  query: z.object({
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-  }),
+  query: z.object({}),
   params: z.object({}),
 };
 

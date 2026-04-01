@@ -6,6 +6,7 @@ import {
   type reviewSimpleSchemaType,
 } from "../../../../schemas/review.response.schema";
 import api from "../../../../lib/axios";
+import { ROUTES } from "../../../../config/routes";
 
 export const useCreateReview = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
@@ -31,7 +32,7 @@ export const useCreateReview = (navigate: (path: string) => void) => {
     onSuccess: () => {
       toast.success("Review created successfully!");
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });
-      navigate("/reviews");
+      navigate(ROUTES.ALL.REVIEWS);
     },
     onError: () => {
       toast.error("Failed to create a review!");

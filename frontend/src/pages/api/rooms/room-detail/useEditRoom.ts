@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { editRoom } from "../rooms.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useEditRoom = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ export const useEditRoom = (navigate: NavigateFunction) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOMS] });
 
       toast.success("Room updated successfully!");
-      navigate("/rooms");
+      navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
       toast.error("Failed to update the room");

@@ -14,6 +14,7 @@ import {
   RESERVATION_STATUS,
   type ResStatus,
 } from "../../../../../config/enums";
+import { ROUTES } from "../../../../../config/routes";
 
 const RoomReservationEditPage = () => {
   const { t } = useTranslation();
@@ -70,7 +71,7 @@ const RoomReservationEditPage = () => {
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <Link
-                to="/reception/room-reservations"
+                to={ROUTES.RECEPTION.ROOM_RES_S}
                 className="btn btn-ghost mb-6"
               >
                 <ArrowLeftIcon className="size-5" />

@@ -7,7 +7,7 @@ export const roleSimpleSchema = z.object({
     USER_ROLE.admin,
     USER_ROLE.guest,
     USER_ROLE.receptionist,
-    USER_ROLE.housekeeping,
+    USER_ROLE.staff,
   ]),
 });
 

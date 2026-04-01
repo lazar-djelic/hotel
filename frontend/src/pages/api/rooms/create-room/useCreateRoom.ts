@@ -6,6 +6,7 @@ import {
   type roomSimpleSchemaType,
 } from "../../../../schemas/room.response.schema";
 import api from "../../../../lib/axios";
+import { ROUTES } from "../../../../config/routes";
 
 export const useCreateRoom = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ export const useCreateRoom = (navigate: (path: string) => void) => {
     onSuccess: () => {
       toast.success("Room created successfully!");
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOM] });
-      navigate("/config");
+      navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
       toast.error("Failed to create a room!");

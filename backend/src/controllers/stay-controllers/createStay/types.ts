@@ -1,9 +1,9 @@
 import { z } from "zod";
 import type { Request } from "express";
-import { staySimpleSchema } from "../../../schemas/stay.response.schema.ts";
+import { createStaySimpleSchema } from "../../../schemas/stay.response.schema.ts";
 
 export const CreateStayRequestSchema = {
-  body: staySimpleSchema,
+  body: createStaySimpleSchema,
   query: z.object({}),
   params: z.object({}),
 };

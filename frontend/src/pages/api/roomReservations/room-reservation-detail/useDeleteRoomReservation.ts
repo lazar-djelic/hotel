@@ -3,6 +3,7 @@ import type { NavigateFunction } from "react-router";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import toast from "react-hot-toast";
 import { deleteRoomReservation } from "../roomReservations.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useDeleteRoomReservation = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -18,7 +19,7 @@ export const useDeleteRoomReservation = (navigate: NavigateFunction) => {
       });
 
       toast.success("Room reservation deleted successfully!");
-      navigate("/reception/room-reservations");
+      navigate(ROUTES.RECEPTION.ROOM_RES_S);
     },
     onError: () => {
       toast.error("Failed to delete the room reservation!");

@@ -7,12 +7,33 @@
     "login": "Prijavite se",
     "register": "Registrujte se",
     "profile": "Profil",
-    "logout": "Odjavite se"
+    "logout": "Odjavite se",
+    "users": "Korisnici",
+    "amenities": "Dodatne pogodnosti",
+    "rooms": "Sobe",
+    "config": "Konfiguracija",
+    "checkin": "Prijavljivanje gostiju",
+    "checkout": "Odjavljivanje gostiju",
+    "amress": "Rezervacije dodatnih pogodnosti",
+    "roomress": "Rezervacije soba",
+    "createamres": "Kreirajte rezervaciju dodatnih pogodnosti",
+    "createroomres": "Kreirajte rezervaciju sobe",
+    "menu": "Meni",
+    "theme": "Tema",
+    "light": "Svetla",
+    "dark": "Tamna",
+    "language": "Jezik",
+    "english": "Engleski",
+    "serbian": "Srpski",
+    "housekeeping": "Kućno čišćenje",
+    "addextra": "Dodajte dodatak"
   },
   "loading": "Učitavanje...",
   "back": "Nazad",
   "yes": "Da",
   "no": "Ne",
+  "cancel": "Otkaži",
+  "close": "Zatvori",
   "config": {
     "room": "Soba",
     "levels": "Spratova",
@@ -81,7 +102,9 @@
         "clean": "Čista",
         "dirty": "Prljava",
         "inspected": "Proverena"
-      }
+      },
+      "rate": "Cena",
+      "currency": "Valuta"
     }
   },
   "edit": {
@@ -111,7 +134,7 @@
     "adults": "Odrasli: ",
     "children": "Deca: ",
     "assignedroom": "Dodeljena soba: ",
-    "status": "Status rezervacije",
+    "status": "Status rezervacije: ",
     "save": "Sačuvajte rezervaciju",
     "view": "Da li soba ima pogled",
     "nofilter": "Bez preferencija",
@@ -128,7 +151,9 @@
       "checked_in": "Prijavljeno",
       "cancelled": "Otkazano"
     },
-    "delete": "Delete reservation"
+    "delete": "Obrišite rezervaciju",
+    "noroomscriteria": "Nema soba koje ispunjavaju kriterijume.",
+    "availcriteria": "Ima slobodnih soba koje ispunjavaju kriterijume."
   },
   "newres": "Kreirajte rezervaciju",
   "nores": "Trenutno nema rezervacija za izabrani period.",
@@ -148,7 +173,12 @@
     "norooms": "Trenutno nema soba.",
     "search": "Pretražite sobu",
     "expandall": "Proširite sve",
-    "collapseall": "Skupite sve"
+    "collapseall": "Skupite sve",
+    "rooms": "Sobe",
+    "roomnum": "Broj sobe",
+    "status": "Status sobe",
+    "housekeeping": "Status kućnog čišćenja",
+    "lastcleaned": "Kada je poslednji put čišćena soba"
   },
   "auth": {
     "email": "Email",
@@ -204,5 +234,68 @@
   },
   "roomRes": {
     "title": "Rezervacije soba"
-  }
+  },
+  "amenity": {
+    "create": "Kreirajte dodatnu pogodnost",
+    "delete": "Obrišite dodatnu pogodnost",
+    "edit": "Izmenite dodatnu pogodnost",
+    "noam": "Nema dodatnih pogodnosti.",
+    "name": "Naziv",
+    "type": "Tip",
+    "capacity": "Kapacitet",
+    "slotdur": "Trajanje termina",
+    "opentime": "Otvaranje",
+    "closetime": "Zatvaranje",
+    "resreq": "Da li je potrebna rezervacija",
+    "oneperslot": "Jedna rezervacija po terminu",
+    "loadbtnup": "Izmena...",
+    "loadbtncr": "Kreiranje...",
+    "btnup": "Izmenite dodatnu pogodnost",
+    "btncr": "Kreirajte dodatnu pogodnost"
+  },
+  "nextpage": "Sledeća strana",
+  "previouspage": "Prethodna strana",
+  "checkin": {
+    "checkedin": "Prijavljen/a",
+    "roomdetails": "Detalji sobe",
+    "roomprefs": "Preferencije sobe",
+    "availablerooms": "Slobodne sobe",
+    "checkexact": "Proverite tačno poklapanje",
+    "checkloose": "Proverite slično poklapanje",
+    "roomnotsel": "Soba nije izabrana"
+  },
+  "checkout": {
+    "billing": "Naplata",
+    "room": "Soba",
+    "nights": "noći",
+    "extras": "Dodaci",
+    "addextra": "Dodajte dodatak",
+    "extratype": "Tip dodatka",
+    "typeorselect": "Kucajte ili izaberite iz opcija",
+    "amount": "Količina",
+    "total": "Ukupno",
+    "gname": "Ime gosta",
+    "title": "Odjava",
+    "staydet": "Detalji boravka",
+    "adults": "Odrasli",
+    "children": "Deca",
+    "checkin": "Prijava",
+    "checkout": "Odjava",
+    "notes": "Beleške"
+  },
+  "stays": {
+    "nostays": "Nema boravka."
+  },
+  "guests": {
+    "noguest": "Nema gostiju"
+  },
+  "users": {
+    "users": "Korisnici",
+    "nousers": "Nema korisnika.",
+    "email": "Email",
+    "role": "Uloga",
+    "name": "Ime"
+  },
+  "extras": "Dodaci",
+  "clear": "Očistite"
 }

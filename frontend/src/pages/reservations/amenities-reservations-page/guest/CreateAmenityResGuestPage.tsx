@@ -11,6 +11,7 @@ import { RESERVATION_STATUS } from "../../../../config/enums";
 import toast from "react-hot-toast";
 import { ArrowLeftIcon } from "lucide-react";
 import { useCreateAmResGuest } from "../../../api/amenityReservations/amenity-reservation-detail/useCreateAmResGuest";
+import { ROUTES } from "../../../../config/routes";
 
 const CreateAmenityResGuestPage = () => {
   const { t } = useTranslation();
@@ -51,6 +52,13 @@ const CreateAmenityResGuestPage = () => {
     );
   }
 
+  useEffect(() => {
+    if (user && !user.guest) {
+      toast.error("You need to enter your information first.");
+      navigate(ROUTES.GUEST.PROFILE);
+    }
+  }, [user, navigate]);
+
   const guest = user.guest;
   const current = form ?? guest;
 
@@ -87,7 +95,7 @@ const CreateAmenityResGuestPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <Link to="/profile" className="btn btn-ghost mb-6">
+              <Link to={ROUTES.GUEST.PROFILE} className="btn btn-ghost mb-6">
                 <ArrowLeftIcon className="size-5" />
                 {t("back")}
               </Link>
@@ -229,7 +237,6 @@ const CreateAmenityResGuestPage = () => {
                                     );
                                     const slotEndTime = new Date(slot.endTime);
 
-                                    // Create UTC dates with the selected date but slot times
                                     const newStartTime = new Date(
                                       Date.UTC(
                                         current.date.getUTCFullYear(),

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { NavigateFunction } from "react-router-dom";
 import { createAmResGuest } from "../amenityReservations.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useCreateAmResGuest = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export const useCreateAmResGuest = (navigate: NavigateFunction) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.AM_RES.RESERVATIONS],
       });
-      navigate("/profile");
+      navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
       toast.error("Failed to create amenity reservation");

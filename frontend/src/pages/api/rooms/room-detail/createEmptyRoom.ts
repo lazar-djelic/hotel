@@ -1,3 +1,4 @@
+import { CURRENCIES } from "../../../../config/enums";
 import type { RoomStruct } from "../../structs/RoomStruct";
 
 export const createEmptySimpleRoom = (): RoomStruct => ({
@@ -12,9 +13,12 @@ export const createEmptySimpleRoom = (): RoomStruct => ({
   balcony: false,
   status: "available",
   housekeeping: "clean",
-  lastcleaned: new Date().toISOString().split("T")[0],
+  lastcleaned: new Date(),
   linkedroom: false,
   pets: false,
-  createdAt: "",
-  updatedAt: "",
+  currentStay: null,
+  rate: 0,
+  currency: CURRENCIES.rsd,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 });

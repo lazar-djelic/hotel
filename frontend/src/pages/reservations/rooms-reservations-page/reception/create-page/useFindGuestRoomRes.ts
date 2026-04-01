@@ -8,6 +8,7 @@ interface UseFindGuestProps {
   form: SimpleRoomResCreateReceptionStruct;
   setForm: (form: SimpleRoomResCreateReceptionStruct) => void;
   setGuestFound: (found: boolean) => void;
+  setScreen: (value: number) => void;
   t: (key: string) => string | undefined;
 }
 
@@ -15,6 +16,7 @@ export const useFindGuestRoomRes = ({
   form,
   setForm,
   setGuestFound,
+  setScreen,
   t,
 }: UseFindGuestProps) => {
   const mutationFn = useCallback(async () => {
@@ -44,9 +46,11 @@ export const useFindGuestRoomRes = ({
         guest: guest._id,
       });
       setGuestFound(true);
+      setScreen(2);
       toast.success("Guest found");
     },
     onError: (error) => {
+      console.log(error);
       toast.error(
         (error as any)?.response?.data?.message || "Error searching for guest",
       );

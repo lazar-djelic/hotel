@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteAmenityReservation } from "../amenityReservations.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useDeleteAmenityReservation = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -18,7 +19,7 @@ export const useDeleteAmenityReservation = (navigate: NavigateFunction) => {
       });
 
       toast.success("Amenity reservation deleted successfully!");
-      navigate("/reception/amenity-reservations");
+      navigate(ROUTES.RECEPTION.AM_RES_S);
     },
     onError: () => {
       toast.error("Failed to delete the amenity reservation!");

@@ -1,7 +1,11 @@
 import api from "../../../lib/axios";
+import type { SimpleFindFilteredRoomType } from "../../../schemas/room.response.schema";
 import type { RoomStruct, SimpleRoomStruct } from "../structs/RoomStruct";
+import { formatDate } from "../roomReservations/formatDate";
 
-export const fetchRooms = async (roomNumber: number): Promise<RoomStruct[]> => {
+export const fetchRooms = async (
+  roomNumber?: number,
+): Promise<RoomStruct[]> => {
   const res = await api.get("/rooms", { params: { room: roomNumber } });
   return res.data;
 };
@@ -23,4 +27,25 @@ export const editRoom = async ({
   room: SimpleRoomStruct;
 }) => {
   await api.put(`/rooms/${id}`, room);
+};
+
+export const fetchFilteredRooms = async (
+  parameters: SimpleFindFilteredRoomType,
+): Promise<RoomStruct[]> => {
+  // console.log(parameters);
+  const res = await api.post("/reception/find-filtered-rooms", {
+    ...parameters,
+  });
+  return res.data;
+};
+
+export const fetchExactFilteredRooms = async (
+  parameters: SimpleFindFilteredRoomType,
+): Promise<RoomStruct[]> => {
+  // console.log(parameters);
+  const res = await api.post("/reception/find-exact-filtered-rooms", {
+    ...parameters,
+  });
+  console.log(res.data);
+  return res.data;
 };

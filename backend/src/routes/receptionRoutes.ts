@@ -38,6 +38,12 @@ import {
 } from "../controllers/reservation-controllers/room-reservation-controllers/updateRoomReservation/types.ts";
 import { updateRoomReservationSimpleSchema } from "../schemas/roomReservation.response.schema.ts";
 import { updateRoomReservation } from "../controllers/reservation-controllers/room-reservation-controllers/updateRoomReservation/updateRoomReservation.ts";
+import {
+  FindFilteredRoomsRequestSchema,
+  type FindFilteredRoomsRequest,
+} from "../controllers/room-controllers/findFilteredRooms/types.ts";
+import { findFilteredRooms } from "../controllers/room-controllers/findFilteredRooms/findFilteredRooms.ts";
+import { findExactFilteredRooms } from "../controllers/room-controllers/findFilteredRooms/findExactFilteredRooms.ts";
 
 const router = express.Router();
 
@@ -115,6 +121,28 @@ router
     ]),
     validateRequest(CreateGuestAndAmenityResRequestSchema),
     createGuestAndAmenityRes,
+  );
+
+router
+  .route("/find-filtered-rooms/")
+  .post(
+    authenAndAuthorize<FindFilteredRoomsRequest>([
+      USER_ROLE.receptionist,
+      USER_ROLE.admin,
+    ]),
+    validateRequest(FindFilteredRoomsRequestSchema),
+    findFilteredRooms,
+  );
+
+router
+  .route("/find-exact-filtered-rooms/")
+  .post(
+    authenAndAuthorize<FindFilteredRoomsRequest>([
+      USER_ROLE.receptionist,
+      USER_ROLE.admin,
+    ]),
+    validateRequest(FindFilteredRoomsRequestSchema),
+    findExactFilteredRooms,
   );
 
 export default router;

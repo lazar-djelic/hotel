@@ -3,6 +3,7 @@ import type { RoomReservationStruct } from "../../../../api/structs/RoomReservat
 import { Link } from "react-router";
 import { formatDate } from "../../../../../lib/utils";
 import { useTranslation } from "react-i18next";
+import { ROUTES } from "../../../../../config/routes";
 
 type RoomReservationCardArgs = {
   reservation: RoomReservationStruct;
@@ -14,7 +15,7 @@ const RoomReservationCard: FC<RoomReservationCardArgs> = ({ reservation }) => {
 
   return (
     <Link
-      to={`/reception/room-reservation/${reservation._id}`}
+      to={`${ROUTES.RECEPTION.ROOM_RES}/${reservation._id}`}
       className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid"
     >
       <div className="card-body">

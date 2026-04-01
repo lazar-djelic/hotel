@@ -6,6 +6,7 @@ import { useAmenities } from "../../../../api/amenities/all-amenities/useAmeniti
 import DoubleCalendar from "../../../DoubleCalendar";
 import AmenityReservationCard from "./AmenityReservationCard";
 import { useAmenityReservations } from "../../../../api/amenityReservations/all-amenityReservations/useAmenityReservations";
+import { ROUTES } from "../../../../../config/routes";
 
 const AmenitiesReservationsPage = () => {
   const { t } = useTranslation();
@@ -65,7 +66,7 @@ const AmenitiesReservationsPage = () => {
             </select>
 
             <Link
-              to="/reception/create-amenity-reservation"
+              to={ROUTES.RECEPTION.CREATE_AM_RES}
               className="btn btn-outline text-lg"
             >
               <PlusIcon className="size-8" />

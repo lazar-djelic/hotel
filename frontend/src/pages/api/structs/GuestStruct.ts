@@ -1,7 +1,7 @@
 export interface GuestStruct {
   _id: string;
   fName: string;
-  lName: string; //promeni
+  lName: string;
   phone: string;
   email: string;
   address: string;

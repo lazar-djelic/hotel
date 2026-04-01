@@ -4,7 +4,7 @@ import type { Request } from "express";
 export const GetRoomsRequestSchema = {
   body: z.object({}).optional(),
   query: z.object({
-    room: z.coerce.number(),
+    room: z.coerce.number().optional(),
   }),
   params: z.object({}),
 };

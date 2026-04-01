@@ -1,6 +1,9 @@
 import { type Response, type NextFunction } from "express";
 import type { GetStaysRequest } from "./types.ts";
 import { Stay } from "../../../models/Stay.ts";
+import { STAY_STATUS } from "../../../utils/enums.ts";
+import Guest from "../../../models/Guest.ts";
+import { guestSchema } from "../../../schemas/guest.response.schema.ts";
 import { stayArraySchema } from "../../../schemas/stay.response.schema.ts";
 
 export async function getAllStays(
@@ -9,19 +12,13 @@ export async function getAllStays(
   next: NextFunction,
 ) {
   try {
-    const startD = new Date(_req.query.startDate);
-    startD.setUTCHours(0, 0, 0, 0);
-    const endD = new Date(_req.query.endDate);
-    endD.setUTCHours(23, 59, 59, 999);
-
     const stays = await Stay.find({
-      checkIn: { $lte: endD },
-      checkOut: { $gte: startD },
+      stStatus: STAY_STATUS.checked_in,
     })
       .populate("guest")
       .populate("reservation")
       .populate("room")
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: 1 })
       .lean();
 
     const parsed = stayArraySchema.safeParse(stays);

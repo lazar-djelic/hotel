@@ -7,8 +7,20 @@ import {
   type roleRequest,
 } from "../controllers/admin-controllers/types.ts";
 import { changeRole } from "../controllers/admin-controllers/changeRole.ts";
+import {
+  GetUsersRequestSchema,
+  type GetUsersRequest,
+} from "../controllers/user-controllers/get-users/types.ts";
+import { getUsers } from "../controllers/user-controllers/get-users/getUsers.ts";
 
 const router = express.Router();
+
+router.get(
+  "/users",
+  authenAndAuthorize<GetUsersRequest>([USER_ROLE.admin]),
+  validateRequest(GetUsersRequestSchema),
+  getUsers,
+);
 
 router.post(
   "/role/:id",

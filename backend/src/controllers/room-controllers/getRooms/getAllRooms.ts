@@ -1,7 +1,10 @@
 import { type Response, type NextFunction } from "express";
 import type { GetRoomsRequest } from "./types.ts";
 import Room from "../../../models/Room.ts";
-import { roomArraySchema } from "../../../schemas/room.response.schema.ts";
+import {
+  getRoomArraySchema,
+  roomArraySchema,
+} from "../../../schemas/room.response.schema.ts";
 
 export async function getAllRooms(
   _req: GetRoomsRequest,
@@ -12,7 +15,7 @@ export async function getAllRooms(
     const room = _req.query.room;
     let rooms;
 
-    if (room == 0) {
+    if (!room) {
       rooms = await Room.find().sort({ roomnum: -1 }).lean();
     } else {
       rooms = await Room.find({
@@ -27,7 +30,7 @@ export async function getAllRooms(
     // })
     //   .sort({ roomnum: -1 })
     //   .lean();
-    const parsed = roomArraySchema.safeParse(rooms);
+    const parsed = getRoomArraySchema.safeParse(rooms);
 
     if (!parsed.success) {
       return res

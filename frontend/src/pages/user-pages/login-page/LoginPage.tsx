@@ -1,15 +1,25 @@
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { Link, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useLogin } from "./useLogin";
+import { useAuth } from "../../../context/AuthContext";
+import { ROUTES } from "../../../config/routes";
 
 const Login: FC = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const { t } = useTranslation();
   const loginMutation = useLogin();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,7 +89,7 @@ const Login: FC = () => {
 
           <div className="form-control mt-2 text-center">
             <Link
-              to="/register"
+              to={ROUTES.ALL.REGISTER}
               className="text-sm link link-hover text-primary"
             >
               {t("navbar.register")}

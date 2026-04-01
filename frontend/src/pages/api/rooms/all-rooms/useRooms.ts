@@ -3,16 +3,16 @@ import toast from "react-hot-toast";
 import type { RoomStruct } from "../../structs/RoomStruct";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom, fetchRooms } from "../rooms.api";
-import { roomArraySchema } from "../../../../schemas/room.response.schema";
+import { getRoomArraySchema } from "../../../../schemas/room.response.schema";
 
-export const useRooms = (roomNumber: number) => {
+export const useRooms = (roomNumber?: number) => {
   const queryClient = useQueryClient();
 
   const { data: rooms = [], isLoading } = useQuery<RoomStruct[]>({
-    queryKey: [QUERY_KEYS.ROOM.ROOMS, roomNumber],
+    queryKey: [QUERY_KEYS.ROOM.ROOMS],
     queryFn: async () => {
       const rawRooms = await fetchRooms(roomNumber);
-      const parsed = roomArraySchema.safeParse(rawRooms);
+      const parsed = getRoomArraySchema.safeParse(rawRooms);
       if (!parsed.success) {
         console.error("Invalid room data", parsed.error);
         return [];

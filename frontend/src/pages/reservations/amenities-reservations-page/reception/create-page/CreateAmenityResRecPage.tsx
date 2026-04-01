@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -17,6 +17,7 @@ import { useAmenitySlots } from "../../../../api/amenities/amenity-slots/useAmen
 import AmResComp from "./AmResComp";
 import NewGuestInputsRecComp from "./NewGuestInputsRecComp";
 import { useFindGuestAmRes } from "./useFindGuestAmRes";
+import { ROUTES } from "../../../../../config/routes";
 
 const CreateAmenityResRecPage = () => {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ const CreateAmenityResRecPage = () => {
   const [selectedSlotIndex, setSelectedSlotIndex] = useState<number | null>(
     null,
   );
+  const [screen, setScreen] = useState<number>(1);
 
   const [form, setForm] = useState<SimpleAmResCreateReceptionStruct>(() =>
     createEmptyAmenityReservation(),
@@ -130,48 +132,70 @@ const CreateAmenityResRecPage = () => {
     <>
       <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <Link
-                to="/reception/amenity-reservations"
-                className="btn btn-ghost mb-6"
-              >
-                <ArrowLeftIcon className="size-5" />
-                {t("back")}
-              </Link>
-            </div>
-
+          <div className="max-w-4xl mx-auto">
             <div className="card bg-base-100">
               <div className="card-body">
                 <h2 className="card-title text-2xl mb-4">
                   {t("amenityRes.resDetails")}
                 </h2>
 
-                <NewGuestInputsRecComp
-                  isNew={isNew}
-                  current={form}
-                  setForm={setForm}
-                  guestFound={guestFound}
-                  searchGuest={searchGuest}
-                  isSearching={isSearching}
-                  setIsNew={setIsNew}
-                />
+                {screen == 1 && (
+                  <>
+                    <NewGuestInputsRecComp
+                      isNew={isNew}
+                      current={form}
+                      setForm={setForm}
+                      guestFound={guestFound}
+                      searchGuest={searchGuest}
+                      isSearching={isSearching}
+                      setIsNew={setIsNew}
+                    />
 
-                <div className="divider mt-8 mb-8" />
+                    <div className="flex justify-start mx-auto mt-4">
+                      <button
+                        type="button"
+                        className="btn btn-secondary mt-4"
+                        onClick={() => {
+                          setScreen(2);
+                        }}
+                      >
+                        {t("nextpage")}
+                        <ArrowRightIcon className="size-5" />
+                      </button>
+                    </div>
+                  </>
+                )}
 
-                <AmResComp
-                  amenities={amenities}
-                  selectedOption={selectedOption}
-                  setSelectedOption={setSelectedOption}
-                  current={form}
-                  setForm={setForm}
-                  loading={loading}
-                  slots={slots}
-                  selectedSlotIndex={selectedSlotIndex}
-                  setSelectedSlotIndex={setSelectedSlotIndex}
-                  handleSubmit={handleSubmit}
-                  isPending={isPending}
-                />
+                {screen == 2 && (
+                  <>
+                    <AmResComp
+                      amenities={amenities}
+                      selectedOption={selectedOption}
+                      setSelectedOption={setSelectedOption}
+                      current={form}
+                      setForm={setForm}
+                      loading={loading}
+                      slots={slots}
+                      selectedSlotIndex={selectedSlotIndex}
+                      setSelectedSlotIndex={setSelectedSlotIndex}
+                      handleSubmit={handleSubmit}
+                      isPending={isPending}
+                    />
+
+                    <div className="flex justify-end mx-auto mt-4">
+                      <button
+                        type="button"
+                        className="btn btn-secondary mt-4"
+                        onClick={() => {
+                          setScreen(1);
+                        }}
+                      >
+                        {t("previouspage")}
+                        <ArrowLeftIcon className="size-5" />
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

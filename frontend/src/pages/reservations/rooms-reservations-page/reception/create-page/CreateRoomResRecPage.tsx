@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs/RoomReservationStruct";
 import { createEmptyRoomReservation } from "../../../../api/roomReservations/room-reservation-detail/createEmptyRoomReservation";
 import toast from "react-hot-toast";
@@ -14,7 +14,24 @@ import {
 import { useCreateRoomReservationRec } from "../../../../api/roomReservations/room-reservation-detail/useCreateRoomReservation";
 import { useCreateGuestAndRoomResRec } from "../../../../api/roomReservations/room-reservation-detail/useCreateGuestAndRoomResRec";
 import RoomResComp from "./RoomResComp";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
+import { ROUTES } from "../../../../../config/routes";
+
+export const toUtcStartOfDay = (date: Date) =>
+  new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+
+export const toUtcEndOfDay = (date: Date) =>
+  new Date(
+    Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      23,
+      59,
+      59,
+      999,
+    ),
+  );
 
 const CreateRoomResRecPage = () => {
   const { t } = useTranslation();
@@ -25,26 +42,11 @@ const CreateRoomResRecPage = () => {
 
   const [isNew, setIsNew] = useState<boolean>(true);
   const [guestFound, setGuestFound] = useState<boolean>(false);
+  const [screen, setScreen] = useState<number>(1);
 
   const [form, setForm] = useState<SimpleRoomResCreateReceptionStruct>(() =>
     createEmptyRoomReservation(),
   );
-
-  const toUtcStartOfDay = (date: Date) =>
-    new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-
-  const toUtcEndOfDay = (date: Date) =>
-    new Date(
-      Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        23,
-        59,
-        59,
-        999,
-      ),
-    );
 
   useEffect(() => {
     setForm(createEmptyRoomReservation());
@@ -63,6 +65,7 @@ const CreateRoomResRecPage = () => {
     form,
     setForm,
     setGuestFound,
+    setScreen,
     t,
   });
 
@@ -134,41 +137,60 @@ const CreateRoomResRecPage = () => {
   return (
     <div>
       <div className="max-w-7xl mx-auto p-4 mt-8">
-        <div className="flex items-center justify-between mb-6">
+        {/* <div className="flex items-center justify-between mb-6">
           <Link
-            to="/reception/amenity-reservations"
+            to={ROUTES.RECEPTION.ROOM_RES_S}
             className="btn btn-ghost mb-6"
           >
             <ArrowLeftIcon className="size-5" />
             {t("back")}
           </Link>
-        </div>
+        </div> */}
 
         {isPendingG && (
           <div className="text-center text-primary py-10">{t("loading")}</div>
         )}
 
-        <>
+        {(screen === 1 || screen === 2) && (
+          <div>
+            <div>
+              <NewGuestInputsRecComp
+                isNew={isNew}
+                current={form}
+                setForm={setForm}
+                setScreen={setScreen}
+                guestFound={guestFound}
+                searchGuest={searchGuest}
+                isSearching={isSearching}
+                setIsNew={setIsNew}
+              />
+            </div>
+
+            <div className="flex justify-end mx-auto mt-4">
+              <button
+                type="button"
+                className="btn btn-secondary mt-4"
+                onClick={() => {
+                  setScreen(3);
+                }}
+              >
+                {t("nextpage")}
+                <ArrowRightIcon className="size-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {screen === 3 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <div className="order-2 md:order-1 lg:order-1">
               <div className="">
                 <div className="card bg-base-100">
                   <div className="card-body">
-                    <NewGuestInputsRecComp
-                      isNew={isNew}
-                      current={form}
-                      setForm={setForm}
-                      guestFound={guestFound}
-                      searchGuest={searchGuest}
-                      isSearching={isSearching}
-                      setIsNew={setIsNew}
-                    />
-
-                    <div className="divider mt-8 mb-8" />
-
                     <RoomResComp
                       current={form}
                       setForm={setForm}
+                      setScreen={setScreen}
                       handleSubmit={handleSubmit}
                       isPending={isPendingG}
                     />
@@ -177,14 +199,14 @@ const CreateRoomResRecPage = () => {
               </div>
             </div>
 
-            <div className="order-1 md:order-2 lg:order-2 justify-self-end">
+            <div className="order-1 md:order-2 lg:order-2 justify-self-end mt-8">
               <DoubleCalendar
                 dateRange={dateRange}
                 setDateRange={setDateRange}
               />
             </div>
           </div>
-        </>
+        )}
       </div>
     </div>
   );

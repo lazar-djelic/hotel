@@ -13,6 +13,8 @@ import NumberInputComp from "../../../components/NumberInputComp";
 import SelectComp from "../../../components/SelectComp";
 import CheckboxComp from "../../../components/CheckboxComp";
 import SimpleDateInComp from "../../../components/SimpleDateInComp";
+import { CURRENCIES, type CurrType } from "../../../config/enums";
+import { ROUTES } from "../../../config/routes";
 
 const RoomPage = () => {
   const { t } = useTranslation();
@@ -26,7 +28,8 @@ const RoomPage = () => {
 
   const { id } = useParams<{ id?: string }>();
   const isNew = !id;
-  const { room, loading } = useRoom(isNew, id);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { room, loading } = useRoom(isNew, id, !isDeleting);
   const [form, setForm] = useState<RoomStruct | null>(null);
 
   const { mutate: createRoom, isPending } = useCreateRoom(navigate);
@@ -51,6 +54,9 @@ const RoomPage = () => {
       lastcleaned: form.lastcleaned,
       linkedroom: form.linkedroom,
       pets: form.pets,
+      currentStay: form.currentStay === null ? null : form.currentStay?._id,
+      rate: form.rate,
+      currency: form.currency,
     });
 
     if (!parsed.success) {
@@ -72,7 +78,7 @@ const RoomPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <Link to="/rooms" className="btn btn-ghost mb-6">
+              <Link to={ROUTES.ADMIN.ROOMS} className="btn btn-ghost mb-6">
                 <ArrowLeftIcon className="size-5" />
                 {t("back")}
               </Link>
@@ -82,6 +88,7 @@ const RoomPage = () => {
                   className="btn btn-error btn-outline"
                   onClick={() => {
                     if (window.confirm("Are you sure?")) {
+                      setIsDeleting(true);
                       deleteRoom(id!);
                     }
                   }}
@@ -197,7 +204,7 @@ const RoomPage = () => {
 
                   <SimpleDateInComp
                     labelText={t("create.room.lastcleaned")}
-                    value={current.lastcleaned.toString()}
+                    value={current.lastcleaned.toISOString()}
                     onChangeFn={(value) =>
                       setForm({ ...current, lastcleaned: new Date(value) })
                     }
@@ -218,6 +225,36 @@ const RoomPage = () => {
                       setForm({ ...current, pets: checked })
                     }
                   />
+
+                  <NumberInputComp
+                    labelText={t("create.room.rate")}
+                    iValue={current.rate}
+                    onChangeFn={(value) => setForm({ ...current, rate: value })}
+                  />
+
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">
+                        {t("create.room.currency")}
+                      </span>
+                    </label>
+                    <select
+                      className="select select-bordered"
+                      value={current.currency}
+                      onChange={(e) =>
+                        setForm({
+                          ...current,
+                          currency: e.target.value as CurrType,
+                        })
+                      }
+                    >
+                      {Object.values(CURRENCIES).map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
                   <div className="card-actions justify-end mt-16">
                     <button

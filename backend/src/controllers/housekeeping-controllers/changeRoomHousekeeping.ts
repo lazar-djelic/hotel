@@ -18,7 +18,7 @@ export async function changeRoomHousekeeping(
 
     const updatedRoom = await Room.findByIdAndUpdate(
       { _id: req.params.id },
-      { housekeeping: parsed.data.housekeeping },
+      { housekeeping: parsed.data.status, lastcleaned: new Date() },
       {
         new: true,
       },
@@ -26,7 +26,7 @@ export async function changeRoomHousekeeping(
 
     if (!updatedRoom)
       return res.status(404).json({ message: "Room not found" });
-    res.status(200).json({ message: "Room housekeeping updated successfully" });
+    res.status(200).json(updatedRoom);
   } catch (error) {
     console.error("Error in changeRoomHousekeeping controller", error);
     res.status(500).json({ message: "Internal server error" });

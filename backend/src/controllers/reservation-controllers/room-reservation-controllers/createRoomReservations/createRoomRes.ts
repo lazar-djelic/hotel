@@ -15,6 +15,12 @@ export async function createRoomRes(
   res: Response,
   next: NextFunction,
 ) {
+  if (req.session.role === USER_ROLE.guest && !req.session.guest) {
+    return res.status(400).json({
+      message: "Cannot create reservation without personal information.",
+    });
+  }
+
   const parsed = roomReservationSimpleSchema.safeParse(req.body);
 
   if (!parsed.success) {

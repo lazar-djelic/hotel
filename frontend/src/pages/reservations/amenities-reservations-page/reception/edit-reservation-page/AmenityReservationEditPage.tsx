@@ -12,6 +12,7 @@ import NumberInputComp from "../../../../../components/NumberInputComp";
 import SelectComp from "../../../../../components/SelectComp";
 import { AM_RES_STATUS, type AmResStatus } from "../../../../../config/enums";
 import DateAndTimeComp from "../../../../../components/DateAndTimeComp";
+import { ROUTES } from "../../../../../config/routes";
 
 const AmenityReservationEditPage = () => {
   const { t } = useTranslation();
@@ -93,7 +94,7 @@ const AmenityReservationEditPage = () => {
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <Link
-                to="/reception/amenity-reservations"
+                to={ROUTES.RECEPTION.AM_RES_S}
                 className="btn btn-ghost mb-6"
               >
                 <ArrowLeftIcon className="size-5" />

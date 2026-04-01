@@ -10,6 +10,7 @@ import { useCreateRoomResGuest } from "../../../api/roomReservations/room-reserv
 import { ArrowLeftIcon } from "lucide-react";
 import DoubleCalendar from "../../DoubleCalendar";
 import RoomResComp from "./RoomResCompGuest";
+import { ROUTES } from "../../../../config/routes";
 
 const CreateRoomResGuestPage = () => {
   const { t } = useTranslation();
@@ -42,6 +43,13 @@ const CreateRoomResGuestPage = () => {
   useEffect(() => {
     setForm(createEmptyRoomResGuest());
   }, [user]);
+
+  useEffect(() => {
+    if (user && !user.guest) {
+      toast.error("You need to enter your information first.");
+      navigate(ROUTES.GUEST.PROFILE);
+    }
+  }, [user, navigate]);
 
   const { mutate: createRoomReservation, isPending: isPendingRoomRes } =
     useCreateRoomResGuest(navigate);
@@ -92,7 +100,7 @@ const CreateRoomResGuestPage = () => {
     <div>
       <div className="max-w-7xl mx-auto p-4 mt-8">
         <div className="flex items-center justify-between mb-6">
-          <Link to="/profile" className="btn btn-ghost mb-6">
+          <Link to={ROUTES.GUEST.PROFILE} className="btn btn-ghost mb-6">
             <ArrowLeftIcon className="size-5" />
             {t("back")}
           </Link>

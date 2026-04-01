@@ -2,11 +2,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useReview } from "../../api/reviews/review-detail/useReview";
-import type { ReviewStruct } from "../../api/reviews/ReviewStruct";
 import { reviewSimpleSchema } from "../../../schemas/review.response.schema";
 import { useUpdateReview } from "../../api/reviews/review-detail/useUpdateReview";
 import { useDeleteReview } from "../../api/reviews/review-detail/useDeleteReview";
 import { useTranslation } from "react-i18next";
+import type { ReviewStruct } from "../../api/structs/ReviewStruct";
+import { ROUTES } from "../../../config/routes";
 
 const ReviewDetailPage = () => {
   const { t } = useTranslation();
@@ -54,7 +55,7 @@ const ReviewDetailPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <Link to="/reviews" className="btn btn-ghost mb-6">
+              <Link to={ROUTES.ALL.REVIEWS} className="btn btn-ghost mb-6">
                 <ArrowLeftIcon className="size-5" />
                 {t("back")}
               </Link>

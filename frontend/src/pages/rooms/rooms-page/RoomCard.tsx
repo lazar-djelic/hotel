@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { RoomStruct } from "../../api/structs/RoomStruct";
 import { formatDate } from "../../../lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { ROUTES } from "../../../config/routes";
 
 type RoomCardArgs = {
   room: RoomStruct;
@@ -26,7 +27,7 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
         <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid">
           <div className="card-body">
             <h1 className="card-title text-base-content">
-              <a className="text-3xl" href={`/room/${room._id}`}>
+              <a className="text-3xl" href={`${ROUTES.ADMIN.ROOM}/${room._id}`}>
                 {room.roomnum}
               </a>
               <button type="button" className="ml-auto cursor-pointer">
@@ -45,7 +46,7 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
         <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid">
           <div className="card-body">
             <h1 className="card-title text-base-content">
-              <a className="text-3xl" href={`/room/${room._id}`}>
+              <a className="text-3xl" href={`${ROUTES.ADMIN.ROOM}/${room._id}`}>
                 {room.roomnum}
               </a>
               <button type="button" className="ml-auto cursor-pointer">
@@ -95,6 +96,9 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
             </p>
             <p className="text-base-content/70">
               {t("create.room.pets")}: {room.pets ? t("yes") : t("no")}
+            </p>
+            <p className="text-base-content/70">
+              {t("create.room.rate")}: {room.rate + " " + room.currency}
             </p>
           </div>
         </div>

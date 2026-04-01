@@ -8,10 +8,17 @@ import {
   type RoomTypes,
   type ViewOptions,
 } from "../../../../../config/enums";
+import { useState } from "react";
+import { useFindFilteredRooms } from "../../../../api/rooms/find-filtered-rooms/useFindFilteredRooms";
+import toast from "react-hot-toast";
+import { SimpleFindFilteredRoomsRequestSchema } from "../../../../../schemas/room.response.schema";
+import { ArrowLeftIcon } from "lucide-react";
+import { useFindExactFilteredRooms } from "../../../../api/rooms/find-filtered-rooms/useFindExactFilteredRooms";
 
 interface RoomResCompProps {
   current: SimpleRoomResCreateReceptionStruct;
   setForm: (form: SimpleRoomResCreateReceptionStruct) => void;
+  setScreen: (value: number) => void;
   handleSubmit: (e: React.FormEvent) => void;
   isPending: boolean;
 }
@@ -19,10 +26,62 @@ interface RoomResCompProps {
 const RoomResComp = ({
   current,
   setForm,
+  setScreen,
   handleSubmit,
   isPending,
 }: RoomResCompProps) => {
   const { t } = useTranslation();
+
+  const [filters, setFilters] = useState({
+    startDate: current.startDate,
+    endDate: current.endDate,
+    roomType: current.roomType,
+    bedNum: current.bedNum,
+    view: current.view,
+    smoking: current.smoking,
+    accessibility: current.accessibility,
+    balcony: current.balcony,
+    pets: current.pets,
+  });
+
+  const { mutate, isPending: loadR, data: rooms = [] } = useFindFilteredRooms();
+  const {
+    mutate: mutateE,
+    isPending: loadER,
+    data: erooms = [],
+  } = useFindExactFilteredRooms();
+  const [searched, setSearched] = useState(false);
+  const [searchType, setSearchType] = useState<"exact" | "loose" | null>(null);
+
+  const displayRooms =
+    searchType === "exact" ? erooms : searchType === "loose" ? rooms : [];
+
+  const clickHandle = (exact: boolean) => {
+    const parsed = SimpleFindFilteredRoomsRequestSchema.safeParse({
+      roomType: current.roomType,
+      bedNum: current.bedNum,
+      view: current.view,
+      smoking: current.smoking,
+      accessibility: current.accessibility,
+      balcony: current.balcony,
+      pets: current.pets,
+    });
+
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || "Invalid input";
+      toast.error(firstError);
+      return;
+    }
+
+    setSearched(true);
+    setSearchType(exact ? "exact" : "loose");
+
+    if (exact) {
+      mutateE(parsed.data);
+    } else {
+      mutate(parsed.data);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -37,12 +96,13 @@ const RoomResComp = ({
             type="number"
             value={current.adults}
             min={0}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = Number(e.target.value);
               setForm({
                 ...current,
-                adults: Number(e.target.value),
-              })
-            }
+                adults: value,
+              });
+            }}
           />
         </div>
 
@@ -55,15 +115,20 @@ const RoomResComp = ({
             type="number"
             value={current.children}
             min={0}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = Number(e.target.value);
               setForm({
                 ...current,
-                children: Number(e.target.value),
-              })
-            }
+                children: value,
+              });
+            }}
           />
         </div>
+      </div>
 
+      <div className="divider mt-8 mb-8">Room preferences</div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="form-control">
           <label className="label">
             <span className="label-text">{t("roomres.roomType")}</span>
@@ -71,12 +136,17 @@ const RoomResComp = ({
           <select
             className="select select-bordered"
             value={current.roomType}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = e.target.value as RoomTypes;
               setForm({
                 ...current,
-                roomType: e.target.value as RoomTypes,
-              })
-            }
+                roomType: value,
+              });
+              setFilters((prev) => ({
+                ...prev,
+                roomType: value,
+              }));
+            }}
           >
             {Object.values(ROOM_TYPES).map((r) => (
               <option key={r} value={r}>
@@ -93,12 +163,13 @@ const RoomResComp = ({
           <select
             className="select select-bordered"
             value={current.bedNum}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = e.target.value as BedOptions;
               setForm({
                 ...current,
-                bedNum: e.target.value as BedOptions,
-              })
-            }
+                bedNum: value,
+              });
+            }}
           >
             {Object.values(BED_OPTIONS).map((b) => (
               <option key={b} value={b}>
@@ -107,11 +178,7 @@ const RoomResComp = ({
             ))}
           </select>
         </div>
-      </div>
 
-      <div className="divider mt-8 mb-8">Room preferences</div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="form-control">
           <label className="label">
             <span className="label-text">{t("roomres.view")}</span>
@@ -119,15 +186,16 @@ const RoomResComp = ({
           <select
             className="select select-bordered"
             value={current.view === undefined ? "" : current.view.toString()}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value =
+                e.target.value === ""
+                  ? undefined
+                  : (e.target.value as ViewOptions);
               setForm({
                 ...current,
-                view:
-                  e.target.value === ""
-                    ? undefined
-                    : (e.target.value as ViewOptions),
-              })
-            }
+                view: value,
+              });
+            }}
           >
             <option value="">{t("roomres.nofilter")}</option>
 
@@ -148,17 +216,18 @@ const RoomResComp = ({
             value={
               current.smoking === undefined ? "" : current.smoking.toString()
             }
-            onChange={(e) =>
+            onChange={(e) => {
+              const value =
+                e.target.value === ""
+                  ? undefined
+                  : e.target.value === "true"
+                    ? true
+                    : false;
               setForm({
                 ...current,
-                smoking:
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false,
-              })
-            }
+                smoking: value,
+              });
+            }}
           >
             <option value="">{t("roomres.nofilter")}</option>
             <option value={"true"}>{t("yes")}</option>
@@ -177,17 +246,18 @@ const RoomResComp = ({
                 ? ""
                 : current.accessibility.toString()
             }
-            onChange={(e) =>
+            onChange={(e) => {
+              const value =
+                e.target.value === ""
+                  ? undefined
+                  : e.target.value === "true"
+                    ? true
+                    : false;
               setForm({
                 ...current,
-                accessibility:
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false,
-              })
-            }
+                accessibility: value,
+              });
+            }}
           >
             <option value="">{t("roomres.nofilter")}</option>
             <option value={"true"}>{t("yes")}</option>
@@ -204,17 +274,18 @@ const RoomResComp = ({
             value={
               current.balcony === undefined ? "" : current.balcony.toString()
             }
-            onChange={(e) =>
+            onChange={(e) => {
+              const value =
+                e.target.value === ""
+                  ? undefined
+                  : e.target.value === "true"
+                    ? true
+                    : false;
               setForm({
                 ...current,
-                balcony:
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false,
-              })
-            }
+                balcony: value,
+              });
+            }}
           >
             <option value="">{t("roomres.nofilter")}</option>
             <option value={"true"}>{t("yes")}</option>
@@ -229,27 +300,85 @@ const RoomResComp = ({
           <select
             className="select select-bordered"
             value={current.pets === undefined ? "" : current.pets.toString()}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value =
+                e.target.value === ""
+                  ? undefined
+                  : e.target.value === "true"
+                    ? true
+                    : false;
               setForm({
                 ...current,
-                pets:
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false,
-              })
-            }
+                pets: value,
+              });
+            }}
           >
             <option value="">{t("roomres.nofilter")}</option>
             <option value={"true"}>{t("yes")}</option>
             <option value={"false"}>{t("no")}</option>
           </select>
         </div>
+
+        <div className="form-control justify-end">
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                clickHandle(true);
+              }}
+            >
+              {t("checkin.checkexact")}
+            </button>
+          </div>
+
+          <div className="flex justify-center mt-2">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                clickHandle(false);
+              }}
+            >
+              {t("checkin.checkloose")}
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="card-actions justify-end mt-16">
-        <button type="submit" className="btn btn-primary" disabled={isPending}>
+      {searched &&
+        ((searchType === "exact" && !loadER && erooms.length === 0) ||
+          (searchType === "loose" && !loadR && rooms.length === 0)) && (
+          <div className="alert alert-error text-black text-center rounded-md mt-4">
+            {t("roomres.noroomscriteria")}
+          </div>
+        )}
+
+      {searched &&
+        ((searchType === "exact" && !loadER && erooms.length > 0) ||
+          (searchType === "loose" && !loadR && rooms.length > 0)) && (
+          <div className="alert alert-success text-black text-center rounded-md mt-4">
+            {t("roomres.availcriteria")}
+          </div>
+        )}
+
+      <div className="flex justify-between mx-auto mt-4">
+        <button
+          type="button"
+          className="btn btn-secondary mt-4"
+          onClick={() => {
+            setScreen(2);
+          }}
+        >
+          <ArrowLeftIcon className="size-5" />
+          {t("previouspage")}
+        </button>
+
+        <button
+          type="submit"
+          className="btn btn-primary mt-4"
+          disabled={isPending}
+        >
           {!isPending && t("roomres.save")}
         </button>
       </div>

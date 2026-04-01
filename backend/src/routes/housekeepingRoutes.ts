@@ -11,11 +11,8 @@ import { changeRoomHousekeeping } from "../controllers/housekeeping-controllers/
 const router = express.Router();
 
 router.post(
-  "/:id",
-  authenAndAuthorize<housekeepingRequest>([
-    USER_ROLE.housekeeping,
-    USER_ROLE.admin,
-  ]),
+  "/room/:id",
+  authenAndAuthorize<housekeepingRequest>([USER_ROLE.staff, USER_ROLE.admin]),
   validateRequest(housekeepingRequestSchema),
   changeRoomHousekeeping,
 );

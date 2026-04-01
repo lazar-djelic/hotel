@@ -5,6 +5,7 @@ import { useRooms } from "../../api/rooms/all-rooms/useRooms";
 import RoomCard from "./RoomCard";
 import InputComp from "../../../components/NumberInputComp";
 import { useState } from "react";
+import { ROUTES } from "../../../config/routes";
 
 const RoomsPage = () => {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ const RoomsPage = () => {
     <div>
       <div className="max-w-7xl mx-auto p-4">
         <div style={{ display: "flex" }} className="mb-8">
-          <Link to="/config" className="btn btn-ghost">
+          <Link to="/" className="btn btn-ghost">
             <ArrowLeftIcon className="size-5" />
             {t("back")}
           </Link>
@@ -28,7 +29,7 @@ const RoomsPage = () => {
               alignItems: "center",
             }}
           >
-            <Link to="/room" className="btn btn-outline text-lg">
+            <Link to={ROUTES.ADMIN.ROOM} className="btn btn-outline text-lg">
               <PlusIcon className="size-8" />
               {t("create.room.new")}
             </Link>

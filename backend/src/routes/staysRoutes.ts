@@ -27,6 +27,16 @@ import {
   type DeleteStayRequest,
 } from "../controllers/stay-controllers/deleteStay/types.ts";
 import { deleteStay } from "../controllers/stay-controllers/deleteStay/deleteStay.ts";
+import {
+  AddExtraRequestSchema,
+  type AddExtraRequest,
+} from "../controllers/stay-controllers/addExtra/types.ts";
+import { addExtra } from "../controllers/stay-controllers/addExtra/addExtra.ts";
+import {
+  CheckOutRequestSchema,
+  type CheckOutRequest,
+} from "../controllers/stay-controllers/checkOut/types.ts";
+import { checkOut } from "../controllers/stay-controllers/checkOut/checkOut.ts";
 
 const router = express.Router();
 
@@ -47,6 +57,7 @@ router
     authenAndAuthorize<GetStaysRequest>([
       USER_ROLE.receptionist,
       USER_ROLE.admin,
+      USER_ROLE.staff,
     ]),
     validateRequest(GetStaysRequestSchema),
     getAllStays,
@@ -72,6 +83,29 @@ router
     ]),
     validateRequest(UpdateStayRequestSchema),
     updateStay,
+  );
+
+router
+  .route("/addExtra/:id")
+  .put(
+    authenAndAuthorize<AddExtraRequest>([
+      USER_ROLE.receptionist,
+      USER_ROLE.admin,
+      USER_ROLE.staff,
+    ]),
+    validateRequest(AddExtraRequestSchema),
+    addExtra,
+  );
+
+router
+  .route("/checkout/:id")
+  .post(
+    authenAndAuthorize<CheckOutRequest>([
+      USER_ROLE.receptionist,
+      USER_ROLE.admin,
+    ]),
+    validateRequest(CheckOutRequestSchema),
+    checkOut,
   );
 
 router

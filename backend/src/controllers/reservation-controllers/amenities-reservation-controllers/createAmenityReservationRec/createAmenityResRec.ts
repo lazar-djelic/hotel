@@ -16,6 +16,12 @@ export const createAmenityReservation = async (
   next: NextFunction,
 ) => {
   try {
+    if (req.session.role === USER_ROLE.guest && !req.session.guest) {
+      return res.status(400).json({
+        message: "Cannot create reservation without personal information.",
+      });
+    }
+
     const parsed = CreateAmenityReservationBodySchema.safeParse(req.body);
 
     if (!parsed.success) {

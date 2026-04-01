@@ -1,5 +1,5 @@
 import api from "../../../lib/axios";
-import type { ReviewStruct, SimpleReviewStruct } from "./ReviewStruct";
+import type { ReviewStruct, SimpleReviewStruct } from "../structs/ReviewStruct";
 
 export const fetchReviews = async (): Promise<ReviewStruct[]> => {
   const res = await api.get("/reviews");

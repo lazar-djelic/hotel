@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import {
   BED_OPTIONS,
+  CURRENCIES,
   HOUSEKEEPING_OPTIONS,
   ROOM_STATUS,
   ROOM_TYPES,
@@ -90,6 +91,15 @@ const roomMongooseSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Stay",
       default: null,
+    },
+    rate: {
+      type: Number,
+      required: true,
+    },
+    currency: {
+      type: String,
+      enum: [CURRENCIES.eur, CURRENCIES.rsd],
+      required: true,
     },
   },
   { timestamps: true },

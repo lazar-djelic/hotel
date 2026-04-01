@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom } from "../rooms.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useDeleteRoom = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export const useDeleteRoom = (navigate: NavigateFunction) => {
       queryClient.removeQueries({ queryKey: [QUERY_KEYS.ROOM.ROOM, id] });
 
       toast.success("Room deleted successfully!");
-      navigate("/config");
+      navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
       toast.error("Failed to delete the room!");

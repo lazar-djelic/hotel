@@ -33,7 +33,11 @@ const router = express.Router();
 router
   .route("/")
   .get(
-    authenAndAuthorize<GetRoomsRequest>([USER_ROLE.admin]),
+    authenAndAuthorize<GetRoomsRequest>([
+      USER_ROLE.admin,
+      USER_ROLE.receptionist,
+      USER_ROLE.staff,
+    ]),
     validateRequest(GetRoomsRequestSchema),
     getAllRooms,
   );

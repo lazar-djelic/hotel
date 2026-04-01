@@ -6,7 +6,11 @@ import { createEmptySimpleRoom } from "./createEmptyRoom";
 import { fetchRoom } from "../rooms.api";
 import { roomSchema } from "../../../../schemas/room.response.schema";
 
-export const useRoom = (isNew: boolean, id?: string) => {
+export const useRoom = (
+  isNew: boolean,
+  id?: string,
+  enabled: boolean = true,
+) => {
   const query = useQuery<RoomStruct>({
     queryKey: [QUERY_KEYS.ROOM.ROOM, id],
     queryFn: async () => {
@@ -20,8 +24,8 @@ export const useRoom = (isNew: boolean, id?: string) => {
 
       return parsed.data;
     },
-    enabled: !!id,
-    //enabled: !isNew, // proveri da li radi sa ovim iznad, ako ne, vrati ovo
+    // enabled: !!id,
+    enabled: !isNew && enabled, // proveri da li radi sa ovim iznad, ako ne, vrati ovo
   });
 
   const emptyRoom = useMemo(() => createEmptySimpleRoom(), []);

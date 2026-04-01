@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import type { NavigateFunction } from "react-router-dom";
 import { updateReview } from "../reviews.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
+import { ROUTES } from "../../../../config/routes";
 
 export const useUpdateReview = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -21,7 +22,7 @@ export const useUpdateReview = (navigate: NavigateFunction) => {
       });
 
       toast.success("Review updated successfully!");
-      navigate("/reviews");
+      navigate(ROUTES.ALL.REVIEWS);
     },
     onError: () => {
       toast.error("Failed to update the review");

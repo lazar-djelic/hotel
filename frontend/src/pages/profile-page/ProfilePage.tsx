@@ -63,7 +63,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div
+      className={`mx-auto p-6 ${guest && !form ? "max-w-2xl" : "max-w-5xl"}`}
+    >
       <div className="shadow-lg rounded-2xl p-6 border">
         <h1 className="text-2xl font-bold mb-6">{t("profile.title")}</h1>
 
@@ -98,9 +100,6 @@ const Profile = () => {
 
               <span className="text-gray-500">{t("profile.phone")}</span>
               <span>{guest.phone}</span>
-
-              {/* <span className="text-gray-500">{t("profile.notes")}</span>
-              <span>{guest.notes || "-"}</span> */}
             </div>
 
             <div className="mt-8 flex justify-end">
@@ -136,62 +135,75 @@ const Profile = () => {
                 : t("profile.enterPersonalInfo")}
             </h2>
 
-            <StringInputComp
-              labelText={t("profile.fName")}
-              iValue={current?.fName || ""}
-              disable={false}
-              onChangeFn={(value) => setForm({ ...current!, fName: value })}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <StringInputComp
+                labelText={t("profile.fName")}
+                iValue={current?.fName || ""}
+                disable={false}
+                onChangeFn={(value) => setForm({ ...current!, fName: value })}
+              />
 
-            <StringInputComp
-              labelText={t("profile.lName")}
-              iValue={current?.lName || ""}
-              disable={false}
-              onChangeFn={(value) => setForm({ ...current!, lName: value })}
-            />
+              <StringInputComp
+                labelText={t("profile.lName")}
+                iValue={current?.lName || ""}
+                disable={false}
+                onChangeFn={(value) => setForm({ ...current!, lName: value })}
+              />
 
-            <StringInputComp
-              labelText={t("profile.phone")}
-              iValue={current?.phone || ""}
-              disable={false}
-              onChangeFn={(value) => setForm({ ...current!, phone: value })}
-            />
+              <StringInputComp
+                labelText={t("profile.phone")}
+                iValue={current?.phone || ""}
+                disable={false}
+                onChangeFn={(value) => setForm({ ...current!, phone: value })}
+              />
 
-            {/* <StringInputComp
+              {/* <StringInputComp
               labelText={t("profile.email")}
               iValue={current?.email || ""}
               onChangeFn={(value) => setForm({ ...current!, email: value })}
             /> */}
 
-            <StringInputComp
-              labelText={t("profile.address")}
-              iValue={current?.address || ""}
-              disable={false}
-              onChangeFn={(value) => setForm({ ...current!, address: value })}
-            />
+              <StringInputComp
+                labelText={t("profile.address")}
+                iValue={current?.address || ""}
+                disable={false}
+                onChangeFn={(value) => setForm({ ...current!, address: value })}
+              />
 
-            <StringInputComp
-              labelText={t("profile.personalID")}
-              iValue={current?.personalID || ""}
-              disable={false}
-              onChangeFn={(value) =>
-                setForm({ ...current!, personalID: value })
-              }
-            />
+              <StringInputComp
+                labelText={t("profile.personalID")}
+                iValue={current?.personalID || ""}
+                disable={false}
+                onChangeFn={(value) =>
+                  setForm({ ...current!, personalID: value })
+                }
+              />
 
-            <SimpleDateInComp
-              labelText={t("profile.birthDate")}
-              value={current?.birthDate || ""}
-              onChangeFn={(value) => setForm({ ...current!, birthDate: value })}
-            />
+              <SimpleDateInComp
+                labelText={t("profile.birthDate")}
+                value={current?.birthDate || ""}
+                onChangeFn={(value) =>
+                  setForm({ ...current!, birthDate: value })
+                }
+              />
 
-            {/* <StringInputComp
+              {/* <StringInputComp
               labelText={t("profile.notes")}
               iValue={current?.notes || ""}
               onChangeFn={(value) => setForm({ ...current!, notes: value })}
             /> */}
+            </div>
 
-            <div className="flex justify-end mt-10">
+            <div className="flex justify-end gap-4 mt-10">
+              {guest && form && (
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setForm(null)}
+                >
+                  {t("cancel")}
+                </button>
+              )}
               <button type="submit" className="btn btn-primary">
                 {guest ? t("profile.save") : t("profile.create")}
               </button>

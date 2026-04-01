@@ -10,8 +10,8 @@ export const guestSchema = z.object({
   personalID: z.string(),
   birthDate: z.coerce.date(),
   notes: z.string().optional(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const guestArraySchema = z.array(guestSchema);

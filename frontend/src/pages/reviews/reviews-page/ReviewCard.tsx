@@ -2,9 +2,10 @@ import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { formatDate } from "../../../lib/utils";
 import { Link } from "react-router";
 import { useState, type FC } from "react";
-import type { ReviewStruct } from "../../api/reviews/ReviewStruct";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../../context/AuthContext";
+import type { ReviewStruct } from "../../api/structs/ReviewStruct";
+import { ROUTES } from "../../../config/routes";
 
 type ReviewCardArgs = {
   review: ReviewStruct;
@@ -54,7 +55,7 @@ const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
             <div className="card-actions justify-end items-center mt-4">
               <div className="flex items-center gap-1">
                 {user?.role !== "admin" && (
-                  <Link to={`/review/${review._id}`}>
+                  <Link to={`${ROUTES.GUEST.REVIEW}/${review._id}`}>
                     <button className="btn btn-ghost btn-s text-info">
                       <PenSquareIcon className="size-4" />
                     </button>

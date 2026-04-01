@@ -3,7 +3,6 @@ import ReviewsPage from "./pages/reviews/reviews-page/ReviewsPage.tsx";
 import CreateReviewPage from "./pages/reviews/create-review-page/CreateReviewPage.tsx";
 import ReviewDetailPage from "./pages/reviews/review-detail-page/ReviewDetailPage.tsx";
 import HomePage from "./pages/home-page/HomePage.tsx";
-import ConfigPage from "./pages/config-page/ConfigPage.tsx";
 import RoomPage from "./pages/rooms/create-room-page/RoomPage.tsx";
 import RoomsPage from "./pages/rooms/rooms-page/RoomsPage.tsx";
 import LoginPage from "./pages/user-pages/login-page/LoginPage.tsx";
@@ -19,19 +18,23 @@ import RoomsReservationsPage from "./pages/reservations/rooms-reservations-page/
 import CreateRoomResRecPage from "./pages/reservations/rooms-reservations-page/reception/create-page/CreateRoomResRecPage.tsx";
 import RoomReservationEditPage from "./pages/reservations/rooms-reservations-page/reception/edit-reservations-page/RoomReservationEditPage.tsx";
 import CreateRoomResGuestPage from "./pages/reservations/rooms-reservations-page/guest/CreateRoomResGuestPage.tsx";
+import CheckInPage from "./pages/check-in/CheckInPage.tsx";
+import CheckOutPage from "./pages/check-out/CheckOutPage.tsx";
+import AllAmenities from "./pages/amenities/all-amenities/AllAmenities.tsx";
+import AmenityPage from "./pages/amenities/edit-amenity/AmenityPage.tsx";
+import UsersPage from "./pages/user-pages/users-page/UsersPage.tsx";
+import { ROUTES } from "./config/routes.ts";
+import HousekeepingPage from "./pages/housekeeping/HousekeepingPage.tsx";
+import AddExtraPage from "./pages/housekeeping/AddExtraPage.tsx";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/reviews" element={<ReviewsPage />} />
-
-        <Route path="/rooms" element={<RoomsPage />} />
-        <Route path="/room" element={<RoomPage />} />
-        <Route path="/room/:id" element={<RoomPage />} />
+        <Route path={ROUTES.ALL.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTES.ALL.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.ALL.REVIEWS} element={<ReviewsPage />} />
 
         <Route
           element={
@@ -40,7 +43,16 @@ function App() {
         ></Route>
 
         <Route element={<ProtectedRoute allowedRoles={[USER_ROLE.admin]} />}>
-          <Route path="/config" element={<ConfigPage />} />
+          <Route path={ROUTES.ADMIN.AMENITIES} element={<AllAmenities />} />
+          <Route
+            path={`${ROUTES.ADMIN.AMENITY}/:id`}
+            element={<AmenityPage />}
+          />
+          <Route path={ROUTES.ADMIN.AMENITY} element={<AmenityPage />} />
+          <Route path={ROUTES.ADMIN.USERS} element={<UsersPage />} />
+          <Route path={ROUTES.ADMIN.ROOMS} element={<RoomsPage />} />
+          <Route path={ROUTES.ADMIN.ROOM} element={<RoomPage />} />
+          <Route path={`${ROUTES.ADMIN.ROOM}/:id`} element={<RoomPage />} />
         </Route>
 
         <Route
@@ -51,43 +63,63 @@ function App() {
           }
         >
           <Route
-            path="/reception/amenity-reservations"
+            path={ROUTES.RECEPTION.AM_RES_S}
             element={<AmenitiesReservationsPage />}
           />
           <Route
-            path="/reception/create-amenity-reservation"
+            path={ROUTES.RECEPTION.CREATE_AM_RES}
             element={<CreateAmenityResRecPage />}
           />
           <Route
-            path="/reception/amenity-reservation/:id"
+            path={`${ROUTES.RECEPTION.AM_RES}/:id`}
             element={<AmenityReservationEditPage />}
           />
           <Route
-            path="/reception/room-reservations"
+            path={ROUTES.RECEPTION.ROOM_RES_S}
             element={<RoomsReservationsPage />}
           />
           <Route
-            path="/reception/create-room-reservation"
+            path={ROUTES.RECEPTION.CREATE_ROOM_RES}
             element={<CreateRoomResRecPage />}
           />
           <Route
-            path="/reception/room-reservation/:id"
+            path={`${ROUTES.RECEPTION.ROOM_RES}/:id`}
             element={<RoomReservationEditPage />}
           />
+          <Route path={ROUTES.RECEPTION.CHECK_IN} element={<CheckInPage />} />
+          <Route path={ROUTES.RECEPTION.CHECK_OUT} element={<CheckOutPage />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={[USER_ROLE.guest]} />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/createreview" element={<CreateReviewPage />} />
-          <Route path="/review/:id" element={<ReviewDetailPage />} />
+          <Route path={ROUTES.GUEST.PROFILE} element={<Profile />} />
           <Route
-            path="/create-amenity-reservation"
+            path={ROUTES.GUEST.CREATE_REV}
+            element={<CreateReviewPage />}
+          />
+          <Route
+            path={`"${ROUTES.GUEST.REVIEW}/:id`}
+            element={<ReviewDetailPage />}
+          />
+          <Route
+            path={ROUTES.GUEST.CREATE_AM_RES}
             element={<CreateAmenityResGuestPage />}
           />
           <Route
-            path="/create-room-reservation"
+            path={ROUTES.GUEST.CREATE_ROOM_RES}
             element={<CreateRoomResGuestPage />}
           />
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={[USER_ROLE.admin, USER_ROLE.staff]} />
+          }
+        >
+          <Route
+            path={ROUTES.STAFF.HOUSEKEEPING}
+            element={<HousekeepingPage />}
+          />
+          <Route path={ROUTES.STAFF.ADD_EXTRA} element={<AddExtraPage />} />
         </Route>
       </Routes>
     </>

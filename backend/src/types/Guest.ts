@@ -7,7 +7,7 @@ export type Guest = {
   address: string;
   personalID: string;
   birthDate: Date;
-  notes: string;
+  notes?: string | undefined;
   createdAt: Date;
   updatedAt: Date;
 };

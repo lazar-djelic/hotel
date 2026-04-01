@@ -5,6 +5,7 @@ import type {
   ViewOptions,
   RoomStatus,
   HousekeepingOptions,
+  CurrType,
 } from "../config/enums";
 
 export type Room = {
@@ -22,7 +23,9 @@ export type Room = {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
-  currentStay: Stay | null;
+  currentStay?: Stay | null | undefined;
+  rate: number;
+  currency: CurrType;
   createdAt: Date;
   updatedAt: Date;
 };

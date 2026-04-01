@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import type { NavigateFunction } from "react-router";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { createRoomResGuest } from "../roomReservations.api";
+import { ROUTES } from "../../../../config/routes";
 
 export const useCreateRoomResGuest = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export const useCreateRoomResGuest = (navigate: NavigateFunction) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.ROOM_RES.RESERVATIONS],
       });
-      navigate("/profile");
+      navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
       toast.error("Failed to create room reservation");

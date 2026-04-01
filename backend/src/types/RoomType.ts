@@ -1,5 +1,6 @@
 import type {
   BedOptions,
+  CurrType,
   HousekeepingOptions,
   RoomStatus,
   RoomTypes,
@@ -22,7 +23,9 @@ export type Room = {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
-  currentStay: Stay | null;
+  currentStay?: Stay | null | undefined;
+  rate: number;
+  currency: CurrType;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -5,6 +5,7 @@ import { useRoomReservations } from "../../../../api/roomReservations/all-roomRe
 import { PlusIcon } from "lucide-react";
 import DoubleCalendar from "../../../DoubleCalendar";
 import RoomReservationCard from "./RoomReservationCard";
+import { ROUTES } from "../../../../../config/routes";
 
 const RoomsReservationsPage = () => {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const RoomsReservationsPage = () => {
             }}
           >
             <Link
-              to="/reception/create-room-reservation"
+              to={ROUTES.RECEPTION.CREATE_ROOM_RES}
               className="btn btn-outline text-lg"
             >
               <PlusIcon className="size-8" />

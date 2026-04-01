@@ -1,15 +1,16 @@
 import { z } from "zod";
 import { guestSchema } from "./guest.response.schema.ts";
-import { roomReservationSchema } from "./roomReservation.response.schema.ts";
-import { roomSchema } from "./room.response.schema.ts";
+
+import { getRoomSchema, roomSchema } from "./room.response.schema.ts";
 import { CURRENCIES, STAY_STATUS } from "../utils/enums.ts";
 import type { Stay } from "../types/StayType.ts";
+import { getRoomReservationSchema } from "./roomReservation.response.schema.ts";
 
 export const staySchema: z.ZodType<Stay> = z.object({
   _id: z.any().transform((val) => val.toString()),
-  guest: guestSchema,
-  reservation: z.lazy(() => roomReservationSchema).nullable(),
-  room: z.lazy(() => roomSchema),
+  guest: z.lazy(() => guestSchema),
+  reservation: z.lazy(() => getRoomReservationSchema).nullable(),
+  room: z.lazy(() => getRoomSchema),
   checkIn: z.coerce.date(),
   checkOut: z.coerce.date().nullable(),
   stStatus: z.enum([
@@ -29,8 +30,8 @@ export const staySchema: z.ZodType<Stay> = z.object({
     }),
   ),
   notes: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const stayArraySchema = z.array(staySchema);
@@ -89,4 +90,19 @@ export const updateStaySimpleSchema = z.object({
     )
     .optional(),
   notes: z.string().nullable().optional(),
+});
+
+export const createStaySimpleSchema = z.object({
+  guest: z.any().transform((val) => val.toString()),
+  reservation: z
+    .any()
+    .nullable()
+    .optional()
+    .transform((val) => val?.toString()),
+  room: z.any().transform((val) => val.toString()),
+  checkIn: z.coerce.date(),
+  checkOut: z.coerce.date().nullable().optional(),
+  adults: z.number().optional(),
+  children: z.number().optional(),
+  notes: z.string().optional(),
 });

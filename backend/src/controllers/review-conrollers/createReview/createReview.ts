@@ -2,6 +2,7 @@ import Review from "../../../models/Review.ts";
 import { type Response, type NextFunction } from "express";
 import { reviewSimpleSchema } from "../../../schemas/review.response.schema.ts";
 import type { CreateReviewRequest } from "./types.ts";
+import { USER_ROLE } from "../../../utils/enums.ts";
 
 export async function createReview(
   req: CreateReviewRequest,
@@ -9,6 +10,12 @@ export async function createReview(
   next: NextFunction,
 ) {
   try {
+    if (req.session.role === USER_ROLE.guest && !req.session.guest) {
+      return res.status(400).json({
+        message: "Cannot create review without personal information.",
+      });
+    }
+
     const parsed = reviewSimpleSchema.safeParse(req.body);
 
     if (!parsed.success) {

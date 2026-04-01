@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { formatTime } from "../../../../../lib/utils";
 import type { AmenityReservationStruct } from "../../../../api/structs/AmenityReservation";
+import { ROUTES } from "../../../../../config/routes";
 
 type AmenityReservationCardArgs = {
   reservation: AmenityReservationStruct;
@@ -16,14 +17,14 @@ const AmenityReservationCard: FC<AmenityReservationCardArgs> = ({
 
   return (
     <Link
-      to={`/reception/amenity-reservation/${reservation._id}`}
+      to={`${ROUTES.RECEPTION.AM_RES}/${reservation._id}`}
       className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid"
     >
       <div className="card-body">
         <h4 className="card-title text-base-content">
           {reservation.guest
             ? `${reservation.guest.fName} ${reservation.guest.lName}`
-            : "No Guest"}
+            : t("guests.noguest")}
         </h4>
         <p className="text-base-content/70">
           {t("amenityRes.startTime")} :{" "}

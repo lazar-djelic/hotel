@@ -10,6 +10,13 @@ import { getMe } from "../middlewares/getMe.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RegisterUserRequestSchema } from "../controllers/user-controllers/register-user/types.ts";
 import { LoginUserRequestSchema } from "../controllers/user-controllers/login-user/types.ts";
+import { authenAndAuthorize } from "../middlewares/authAndAuthorize.ts";
+import {
+  GetUsersRequestSchema,
+  type GetUsersRequest,
+} from "../controllers/user-controllers/get-users/types.ts";
+import { USER_ROLE } from "../utils/enums.ts";
+import { getUsers } from "../controllers/user-controllers/get-users/getUsers.ts";
 
 const router = express.Router();
 
