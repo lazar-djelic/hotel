@@ -4,9 +4,11 @@ import { updateAmenity } from "../amenities.api";
 import toast from "react-hot-toast";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useUpdateAmenity = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateAmenity,
@@ -21,11 +23,11 @@ export const useUpdateAmenity = (navigate: NavigateFunction) => {
         return old.map((r: any) => (r._id === id ? { ...r, ...amenity } : r));
       });
 
-      toast.success("Amenity updated successfully!");
+      toast.success(t("toast.amupsucc"));
       navigate(ROUTES.ADMIN.AMENITIES);
     },
     onError: () => {
-      toast.error("Failed to update the amenity");
+      toast.error(t("toast.amupfail"));
     },
   });
 

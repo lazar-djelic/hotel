@@ -5,6 +5,7 @@ import type {
   SimpleGuestStruct,
 } from "../api/structs/GuestStruct";
 import type { SimpleStayCreateStruct } from "../api/structs/StayStruct";
+import { useTranslation } from "react-i18next";
 
 export const checkData = (
   current: SimpleStayCreateStruct,
@@ -12,6 +13,8 @@ export const checkData = (
   isNewG: boolean,
   setScreen: (num: number) => void,
 ) => {
+  const { t } = useTranslation();
+
   const tmpGuest: SimpleGuestStruct = {
     fName: current.fName,
     lName: current.lName,
@@ -26,8 +29,7 @@ export const checkData = (
   const parsed = guestSimpleSchema.safeParse(tmpGuest);
 
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message || "Invalid guest input";
-    toast.error(firstError);
+    toast.error(t("toast.invalidguestinput"));
     return null;
   }
 

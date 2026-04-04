@@ -15,7 +15,7 @@ interface UseCreateGuestProps {
   setForm: (form: SimpleStayCreateStruct) => void;
   setGuestFound: (found: boolean) => void;
   setGuest: (data: GuestStruct) => void;
-  t: (key: string) => string | undefined;
+  t: (key: string) => string;
 }
 
 export const useCreateGuestCheckIn = ({
@@ -47,7 +47,7 @@ export const useCreateGuestCheckIn = ({
     },
     onSuccess: (guest) => {
       if (!guest) {
-        toast.error("Guest not found");
+        toast.error(t("toast.guestnotfound"));
         return;
       }
       setForm({
@@ -56,12 +56,12 @@ export const useCreateGuestCheckIn = ({
       });
       setGuestFound(true);
       setGuest(guest);
-      toast.success("Guest created successfully!");
+      toast.success(t("toast.guestcrsucc"));
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GUEST.GUEST] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GUEST.GUESTS] });
     },
     onError: () => {
-      toast.error("Failed to create a guest!");
+      toast.error(t("toast.guestcrfail"));
     },
   });
 

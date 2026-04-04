@@ -12,24 +12,8 @@ export async function getAllRooms(
   next: NextFunction,
 ) {
   try {
-    const room = _req.query.room;
-    let rooms;
+    const rooms = await Room.find().sort({ roomnum: -1 }).lean();
 
-    if (!room) {
-      rooms = await Room.find().sort({ roomnum: -1 }).lean();
-    } else {
-      rooms = await Room.find({
-        roomnum: room,
-      })
-        .sort({ roomnum: -1 })
-        .lean();
-    }
-
-    // const rooms = await Room.find({
-    //   roomnum: room,
-    // })
-    //   .sort({ roomnum: -1 })
-    //   .lean();
     const parsed = getRoomArraySchema.safeParse(rooms);
 
     if (!parsed.success) {

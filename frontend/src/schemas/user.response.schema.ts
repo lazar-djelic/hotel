@@ -39,6 +39,6 @@ export const getuserSchema = z.array(
       USER_ROLE.staff,
       USER_ROLE.receptionist,
     ]),
-    guest: guestSchema,
+    guest: guestSchema.optional(),
   }),
 );

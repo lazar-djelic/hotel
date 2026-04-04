@@ -4,9 +4,11 @@ import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { editRoom } from "../rooms.api";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useEditRoom = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: editRoom,
@@ -15,11 +17,11 @@ export const useEditRoom = (navigate: NavigateFunction) => {
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOMS] });
 
-      toast.success("Room updated successfully!");
+      toast.success(t("toast.roomupsucc"));
       navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
-      toast.error("Failed to update the room");
+      toast.error(t("toast.roomupfail"));
     },
   });
 

@@ -3,10 +3,8 @@ import type { SimpleFindFilteredRoomType } from "../../../schemas/room.response.
 import type { RoomStruct, SimpleRoomStruct } from "../structs/RoomStruct";
 import { formatDate } from "../roomReservations/formatDate";
 
-export const fetchRooms = async (
-  roomNumber?: number,
-): Promise<RoomStruct[]> => {
-  const res = await api.get("/rooms", { params: { room: roomNumber } });
+export const fetchRooms = async (): Promise<RoomStruct[]> => {
+  const res = await api.get("/rooms");
   return res.data;
 };
 

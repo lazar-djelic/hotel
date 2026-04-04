@@ -12,7 +12,7 @@ const UsersPage = () => {
 
   const roleOptions = Object.entries(USER_ROLE).map(([key, value]) => ({
     value: value,
-    label: key.charAt(0).toUpperCase() + key.slice(1),
+    label: key,
   }));
 
   return (
@@ -68,12 +68,16 @@ const UsersPage = () => {
                       >
                         {roleOptions.map((option) => (
                           <option key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`${option.label}`)}
                           </option>
                         ))}
                       </select>
                     </td>
-                    <td>{`${user.guest.fName} ${user.guest.lName}`}</td>
+                    {user.guest ? (
+                      <td>{`${user.guest?.fName} ${user.guest?.lName}`}</td>
+                    ) : (
+                      <td>{t("users.nodata")}</td>
+                    )}
                   </tr>
                 );
               })}

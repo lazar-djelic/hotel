@@ -10,7 +10,7 @@ interface UseFindGuestProps {
   setForm: (form: SimpleStayCreateStruct) => void;
   setGuestFound: (found: boolean) => void;
   setGuest: (data: GuestStruct) => void;
-  t: (key: string) => string | undefined;
+  t: (key: string) => string;
 }
 
 export const useFindGuestStay = ({
@@ -31,7 +31,7 @@ export const useFindGuestStay = ({
     mutationFn,
     onSuccess: (guest) => {
       if (!guest) {
-        toast.error("Guest not found");
+        toast.error(t("toast.guestnotfound"));
         return;
       }
       setForm({
@@ -48,13 +48,11 @@ export const useFindGuestStay = ({
       });
       setGuestFound(true);
       setGuest(guest);
-      toast.success("Guest found");
+      toast.success(t("toast.guestfound"));
     },
     onError: (error) => {
       console.log(error);
-      toast.error(
-        (error as any)?.response?.data?.message || "Error searching for guest",
-      );
+      toast.error(t("toast.guestfindfail"));
     },
   });
 

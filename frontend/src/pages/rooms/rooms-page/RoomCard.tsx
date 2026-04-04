@@ -4,6 +4,7 @@ import type { RoomStruct } from "../../api/structs/RoomStruct";
 import { formatDate } from "../../../lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { ROUTES } from "../../../config/routes";
+import { Link } from "react-router";
 
 type RoomCardArgs = {
   room: RoomStruct;
@@ -27,9 +28,12 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
         <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid">
           <div className="card-body">
             <h1 className="card-title text-base-content">
-              <a className="text-3xl" href={`${ROUTES.ADMIN.ROOM}/${room._id}`}>
+              <Link
+                to={`${ROUTES.ADMIN.ROOM}/${room._id}`}
+                className="text-3xl"
+              >
                 {room.roomnum}
-              </a>
+              </Link>
               <button type="button" className="ml-auto cursor-pointer">
                 <ChevronDown />
               </button>
@@ -46,9 +50,12 @@ const RoomCard: FC<RoomCardArgs> = ({ room, expanded }) => {
         <div className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-2 border-solid">
           <div className="card-body">
             <h1 className="card-title text-base-content">
-              <a className="text-3xl" href={`${ROUTES.ADMIN.ROOM}/${room._id}`}>
+              <Link
+                to={`${ROUTES.ADMIN.ROOM}/${room._id}`}
+                className="text-3xl"
+              >
                 {room.roomnum}
-              </a>
+              </Link>
               <button type="button" className="ml-auto cursor-pointer">
                 <ChevronUp />
               </button>

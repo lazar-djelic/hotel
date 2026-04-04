@@ -29,7 +29,7 @@ import AddExtraPage from "./pages/housekeeping/AddExtraPage.tsx";
 
 function App() {
   return (
-    <>
+    <div className="flex-1">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path={ROUTES.ALL.REGISTER} element={<RegisterPage />} />
@@ -97,7 +97,7 @@ function App() {
             element={<CreateReviewPage />}
           />
           <Route
-            path={`"${ROUTES.GUEST.REVIEW}/:id`}
+            path={`${ROUTES.GUEST.REVIEW}/:id`}
             element={<ReviewDetailPage />}
           />
           <Route
@@ -122,7 +122,7 @@ function App() {
           <Route path={ROUTES.STAFF.ADD_EXTRA} element={<AddExtraPage />} />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

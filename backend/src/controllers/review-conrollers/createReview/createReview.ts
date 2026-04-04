@@ -16,6 +16,15 @@ export async function createReview(
       });
     }
 
+    const guest = req.session.guest;
+
+    const existingReview = await Review.findOne({ guest });
+    if (existingReview) {
+      return res.status(400).json({
+        message: "You have already submitted a review.",
+      });
+    }
+
     const parsed = reviewSimpleSchema.safeParse(req.body);
 
     if (!parsed.success) {
@@ -24,7 +33,6 @@ export async function createReview(
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
 
-    const guest = req.session.guest;
     const { opinion, rating } = req.body;
     const review = new Review({ guest, opinion, rating });
     const newReview = await review.save();

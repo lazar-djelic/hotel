@@ -4,9 +4,11 @@ import { deleteReview, fetchReviews } from "../reviews.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { ReviewStruct } from "../../structs/ReviewStruct";
 import { reviewArraySchema } from "../../../../schemas/review.response.schema";
+import { useTranslation } from "react-i18next";
 
 export const useReviews = () => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { data: reviews = [], isLoading } = useQuery<ReviewStruct[]>({
     queryKey: [QUERY_KEYS.REVIEW.REVIEWS],
@@ -27,10 +29,10 @@ export const useReviews = () => {
       queryClient.setQueryData<ReviewStruct[]>(["reviews"], (old) =>
         old ? old.filter((r) => r._id !== id) : [],
       );
-      toast.success("Review deleted successfully!");
+      toast.success(t("toast.revdelsucc"));
     },
     onError: () => {
-      toast.error("Failed to delete the review!");
+      toast.error(t("toast.revdelfail"));
     },
   });
 

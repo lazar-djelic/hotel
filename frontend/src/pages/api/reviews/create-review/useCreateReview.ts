@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import axios from "axios";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import {
   reviewSimpleSchema,
@@ -7,9 +8,11 @@ import {
 } from "../../../../schemas/review.response.schema";
 import api from "../../../../lib/axios";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useCreateReview = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: async (data: reviewSimpleSchemaType) => {
@@ -30,12 +33,16 @@ export const useCreateReview = (navigate: (path: string) => void) => {
       return parsedResponse.data;
     },
     onSuccess: () => {
-      toast.success("Review created successfully!");
+      toast.success(t("toast.revcrsucc"));
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });
       navigate(ROUTES.ALL.REVIEWS);
     },
-    onError: () => {
-      toast.error("Failed to create a review!");
+    onError: (error: unknown) => {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        toast.error(t("toast.revexists"));
+      } else {
+        toast.error(t("toast.revcrfail"));
+      }
     },
   });
 

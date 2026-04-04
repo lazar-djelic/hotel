@@ -4,9 +4,11 @@ import type { NavigateFunction } from "react-router-dom";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom } from "../rooms.api";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useDeleteRoom = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate } = useMutation({
     mutationFn: deleteRoom,
@@ -14,11 +16,11 @@ export const useDeleteRoom = (navigate: NavigateFunction) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOMS] });
       queryClient.removeQueries({ queryKey: [QUERY_KEYS.ROOM.ROOM, id] });
 
-      toast.success("Room deleted successfully!");
+      toast.success(t("toast.roomdelsucc"));
       navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
-      toast.error("Failed to delete the room!");
+      toast.error(t("toast.roomdelfail"));
     },
   });
 

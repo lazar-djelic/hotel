@@ -6,6 +6,7 @@ const reviewMongooseSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Guest",
       required: true,
+      unique: true,
     },
     opinion: {
       type: String,

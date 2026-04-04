@@ -9,12 +9,14 @@ import {
 } from "../../../../schemas/guest.response.schema";
 import api from "../../../../lib/axios";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useCreateGuest = (
   navigate: (path: string) => void,
   setForm: Dispatch<SetStateAction<GuestStruct | null>>,
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: async (data: guestSimpleSchemaType) => {
@@ -35,7 +37,7 @@ export const useCreateGuest = (
       return parsedResponse.data;
     },
     onSuccess: () => {
-      toast.success("Guest created successfully!");
+      toast.success(t("toast.guestcrsucc"));
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GUEST.GUEST] });
 
       queryClient.invalidateQueries({ queryKey: ["me"] });
@@ -43,7 +45,7 @@ export const useCreateGuest = (
       navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
-      toast.error("Failed to create a guest!");
+      toast.error(t("toast.guestcrfail"));
     },
   });
 

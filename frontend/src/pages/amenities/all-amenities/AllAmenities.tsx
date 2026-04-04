@@ -11,7 +11,7 @@ const AllAmenities = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-4 mt-8">
-      <div className="mb-16 text-5xl font-semibold">Amenities</div>
+      <div className="mb-16 text-5xl font-semibold">{t("amenity.amenity")}</div>
       <div className="flex gap-2 justify-end mb-8">
         <button
           className="btn btn-outline"
@@ -64,7 +64,7 @@ const AllAmenities = () => {
            bg-[rgba(96,165,250,0.08)] hover:bg-[rgba(96,165,250,0.12)]"
                   >
                     <td className="font-medium">{amenity.name}</td>
-                    <td>{amenity.type}</td>
+                    <td>{t(`config.${amenity.type}`)}</td>
                     <td>{amenity.capacity}</td>
                     <td>{amenity.slotDuration}</td>
                     <td>{amenity.openTime}</td>

@@ -4,21 +4,23 @@ import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { NavigateFunction } from "react-router-dom";
 import { createAmResGuest } from "../amenityReservations.api";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useCreateAmResGuest = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createAmResGuest,
     onSuccess: () => {
-      toast.success("Amenity reservation created successfully!");
+      toast.success(t("toast.amrescrcucc"));
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.AM_RES.RESERVATIONS],
       });
       navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
-      toast.error("Failed to create amenity reservation");
+      toast.error(t("toast.amrescrfail"));
     },
   });
 

@@ -8,7 +8,7 @@ interface UseFindGuestProps {
   form: SimpleAmResCreateReceptionStruct;
   setForm: (form: SimpleAmResCreateReceptionStruct) => void;
   setGuestFound: (found: boolean) => void;
-  t: (key: string) => string | undefined;
+  t: (key: string) => string;
 }
 
 export const useFindGuestAmRes = ({
@@ -28,7 +28,7 @@ export const useFindGuestAmRes = ({
     mutationFn,
     onSuccess: (guest) => {
       if (!guest) {
-        toast.error("Guest not found");
+        toast.error(t("toast.guestnotfound"));
         return;
       }
       setForm({
@@ -45,12 +45,10 @@ export const useFindGuestAmRes = ({
         user: null,
       });
       setGuestFound(true);
-      toast.success("Guest found");
+      toast.success(t("toast.guestfound"));
     },
     onError: (error) => {
-      toast.error(
-        (error as any)?.response?.data?.message || "Error searching for guest",
-      );
+      toast.error(t("toast.guestfindfail"));
     },
   });
 

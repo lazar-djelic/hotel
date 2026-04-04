@@ -20,5 +20,5 @@ export interface GetUserStruct {
   _id: string;
   email: string;
   role: Role;
-  guest: GuestStruct;
+  guest?: GuestStruct;
 }

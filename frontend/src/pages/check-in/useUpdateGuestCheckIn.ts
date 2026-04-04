@@ -3,12 +3,14 @@ import { editGuest } from "../api/guests/guests.api";
 import { QUERY_KEYS } from "../../config/query-keys";
 import toast from "react-hot-toast";
 import type { SimpleGuestStruct } from "../api/structs/GuestStruct";
+import { useTranslation } from "react-i18next";
 
 export const useUpdateGuestCheckIn = (
   id: string,
   updatedGuest: SimpleGuestStruct,
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => editGuest({ id, guest: updatedGuest }),
@@ -17,10 +19,10 @@ export const useUpdateGuestCheckIn = (
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GUEST.GUESTS] });
 
-      toast.success("Guest updated successfully!");
+      toast.success(t("toast.guestupsucc"));
     },
     onError: () => {
-      toast.error("Failed to update the guest");
+      toast.error(t("toast.guestupfail"));
     },
   });
 

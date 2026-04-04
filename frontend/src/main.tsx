@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { getSavedTheme, setTheme } from "./config/theme.ts";
 import { getSavedLanguage, setLanguage } from "./config/language.ts";
+import Footer from "./components/Footer.tsx";
 
 const queryClient = new QueryClient();
 setTheme(getSavedTheme());
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
         <Navbar />
         <App />
         <Toaster />
+        <Footer />
       </AuthProvider>
     </BrowserRouter>
   </QueryClientProvider>,

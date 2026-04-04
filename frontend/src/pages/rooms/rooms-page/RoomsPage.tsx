@@ -9,9 +9,13 @@ import { ROUTES } from "../../../config/routes";
 
 const RoomsPage = () => {
   const { t } = useTranslation();
-  const [roomNumber, setRoomNumber] = useState(0);
-  const { rooms, loading } = useRooms(roomNumber);
+  const { rooms, loading } = useRooms();
   const [expanded, setExpanded] = useState<boolean | null>(null);
+  const [search, setSearch] = useState(0);
+
+  const filteredRooms = rooms.filter((room) =>
+    room.roomnum.toString().includes(search.toString()),
+  );
 
   return (
     <div>
@@ -38,8 +42,8 @@ const RoomsPage = () => {
 
         <InputComp
           labelText={t("room.search")}
-          iValue={roomNumber}
-          onChangeFn={(value) => setRoomNumber(value)}
+          iValue={search}
+          onChangeFn={(value) => setSearch(value)}
         />
 
         {loading && (
@@ -83,7 +87,7 @@ const RoomsPage = () => {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
-              {rooms.map((room) => (
+              {filteredRooms.map((room) => (
                 <RoomCard key={room._id} room={room} expanded={expanded} />
               ))}
             </div>

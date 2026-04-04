@@ -3,9 +3,11 @@ import type { NavigateFunction } from "react-router";
 import { QUERY_KEYS } from "../../../config/query-keys";
 import toast from "react-hot-toast";
 import { changeHousekeeping } from "./housekeeping.api";
+import { useTranslation } from "react-i18next";
 
 export const useChangeHousekeeping = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: changeHousekeeping,
@@ -17,10 +19,10 @@ export const useChangeHousekeeping = (navigate: NavigateFunction) => {
         return old.map((room: any) => (room._id === data._id ? data : room));
       });
 
-      toast.success("Room updated successfully!");
+      toast.success(t("toast.roomupsucc"));
     },
     onError: () => {
-      toast.error("Failed to update the room");
+      toast.error(t("toast.roomupfail"));
     },
   });
 

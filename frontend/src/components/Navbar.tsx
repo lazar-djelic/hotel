@@ -37,7 +37,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar sticky top-0 z-50 bg-base-100 shadow-md">
       <h1 className="flex-1 text-3xl font-bold font-mono tracking-tight px-20">
         <Link to={"/"}>Hotel name</Link>
       </h1>

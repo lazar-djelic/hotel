@@ -46,7 +46,7 @@ const CreateRoomResGuestPage = () => {
 
   useEffect(() => {
     if (user && !user.guest) {
-      toast.error("You need to enter your information first.");
+      toast.error(t("toast.infofirst"));
       navigate(ROUTES.GUEST.PROFILE);
     }
   }, [user, navigate]);
@@ -86,8 +86,7 @@ const CreateRoomResGuestPage = () => {
     });
 
     if (!parsed.success) {
-      const firstError = parsed.error.issues[0]?.message || "Invalid input";
-      toast.error(firstError);
+      toast.error(t("toast.invalidinput"));
       return;
     }
 

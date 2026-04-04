@@ -9,7 +9,7 @@ interface UseFindGuestProps {
   setForm: (form: SimpleRoomResCreateReceptionStruct) => void;
   setGuestFound: (found: boolean) => void;
   setScreen: (value: number) => void;
-  t: (key: string) => string | undefined;
+  t: (key: string) => string;
 }
 
 export const useFindGuestRoomRes = ({
@@ -30,7 +30,7 @@ export const useFindGuestRoomRes = ({
     mutationFn,
     onSuccess: (guest) => {
       if (!guest) {
-        toast.error("Guest not found");
+        toast.error(t("toast.guestnotfound"));
         return;
       }
       setForm({
@@ -47,13 +47,11 @@ export const useFindGuestRoomRes = ({
       });
       setGuestFound(true);
       setScreen(2);
-      toast.success("Guest found");
+      toast.success(t("toast.guestfound"));
     },
     onError: (error) => {
       console.log(error);
-      toast.error(
-        (error as any)?.response?.data?.message || "Error searching for guest",
-      );
+      toast.error(t("toast.guestfindfail"));
     },
   });
 

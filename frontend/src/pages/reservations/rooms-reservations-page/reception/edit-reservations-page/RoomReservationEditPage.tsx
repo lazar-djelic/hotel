@@ -45,9 +45,7 @@ const RoomReservationEditPage = () => {
     });
 
     if (!parsed.success) {
-      const firstError = parsed.error.issues[0]?.message || "Invalid input";
-
-      toast.error(firstError);
+      toast.error(t("toast.invalidinput"));
       return;
     }
 

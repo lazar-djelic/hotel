@@ -4,9 +4,11 @@ import type { NavigateFunction } from "react-router-dom";
 import { deleteReview } from "../reviews.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useDeleteReview = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate } = useMutation({
     mutationFn: deleteReview,
@@ -14,11 +16,11 @@ export const useDeleteReview = (navigate: NavigateFunction) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEWS] });
       queryClient.removeQueries({ queryKey: [QUERY_KEYS.REVIEW.REVIEW, id] });
 
-      toast.success("Review deleted successfully!");
+      toast.success(t("toast.revdelsucc"));
       navigate(ROUTES.ALL.REVIEWS);
     },
     onError: () => {
-      toast.error("Failed to delete the review!");
+      toast.error(t("toast.revdelfail"));
     },
   });
 

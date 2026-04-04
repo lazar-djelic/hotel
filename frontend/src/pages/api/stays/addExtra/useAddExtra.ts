@@ -5,6 +5,7 @@ import { QUERY_KEYS } from "../../../../config/query-keys";
 import { staySchema } from "../../../../schemas/stay.response.schema";
 import toast from "react-hot-toast";
 import { addExtra } from "../stays.api";
+import { useTranslation } from "react-i18next";
 
 export const useAddExtra = (
   id: string,
@@ -12,6 +13,7 @@ export const useAddExtra = (
   onSuccess?: (updatedStay: Stay) => void,
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => addExtra({ id, extra }),
@@ -29,10 +31,10 @@ export const useAddExtra = (
         onSuccess(parsed.data);
       }
 
-      toast.success("Extra added successfully!");
+      toast.success(t("toast.extracrsucc"));
     },
     onError: () => {
-      toast.error("Failed to add the extra");
+      toast.error(t("toast.extracrfail"));
     },
   });
 

@@ -3,9 +3,11 @@ import { changeRoles } from "../users.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import type { NavigateFunction } from "react-router";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export const useChangeRoles = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: changeRoles,
@@ -22,10 +24,10 @@ export const useChangeRoles = (navigate: NavigateFunction) => {
         );
       });
 
-      toast.success("User updated successfully!");
+      toast.success(t("toast.userupsucc"));
     },
     onError: () => {
-      toast.error("Failed to update the user");
+      toast.error(t("toast.userupfail"));
     },
   });
 

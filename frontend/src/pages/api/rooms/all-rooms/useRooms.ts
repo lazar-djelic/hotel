@@ -4,14 +4,16 @@ import type { RoomStruct } from "../../structs/RoomStruct";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { deleteRoom, fetchRooms } from "../rooms.api";
 import { getRoomArraySchema } from "../../../../schemas/room.response.schema";
+import { useTranslation } from "react-i18next";
 
-export const useRooms = (roomNumber?: number) => {
+export const useRooms = () => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { data: rooms = [], isLoading } = useQuery<RoomStruct[]>({
     queryKey: [QUERY_KEYS.ROOM.ROOMS],
     queryFn: async () => {
-      const rawRooms = await fetchRooms(roomNumber);
+      const rawRooms = await fetchRooms();
       const parsed = getRoomArraySchema.safeParse(rawRooms);
       if (!parsed.success) {
         console.error("Invalid room data", parsed.error);
@@ -27,10 +29,10 @@ export const useRooms = (roomNumber?: number) => {
       queryClient.setQueryData<RoomStruct[]>(["rooms"], (old) =>
         old ? old.filter((r) => r._id !== id) : [],
       );
-      toast.success("Room deleted successfully!");
+      toast.success(t("toast.roomdelsucc"));
     },
     onError: () => {
-      toast.error("Failed to delete the room!");
+      toast.error(t("toast.roomdelfail"));
     },
   });
 

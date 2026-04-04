@@ -4,9 +4,11 @@ import { deleteAmenity } from "../amenities.api";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import toast from "react-hot-toast";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useDeleteAmenity = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: deleteAmenity,
@@ -16,11 +18,11 @@ export const useDeleteAmenity = (navigate: NavigateFunction) => {
       });
       queryClient.removeQueries({ queryKey: [QUERY_KEYS.AMENITY.AMENITY, id] });
 
-      toast.success("Amenity deleted successfully!");
+      toast.success(t("toast.amdelsucc"));
       navigate(ROUTES.ADMIN.AMENITIES);
     },
     onError: () => {
-      toast.error("Failed to delete the amenity!");
+      toast.error(t("toast.amdelfail"));
     },
   });
 

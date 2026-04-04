@@ -12,7 +12,7 @@ const CreateReviewPage = () => {
   const { user } = useAuth();
   const { t } = useTranslation();
   const [opinion, setOpinion] = useState("");
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(5);
   const navigate = useNavigate();
 
   const { mutate: createReview, isPending } = useCreateReview(navigate);
@@ -26,9 +26,7 @@ const CreateReviewPage = () => {
     });
 
     if (!parsed.success) {
-      const firstError = parsed.error.issues[0]?.message || "Invalid input";
-
-      toast.error(firstError);
+      toast.error(t("toast.invalidinput"));
       return;
     }
 
@@ -37,7 +35,7 @@ const CreateReviewPage = () => {
 
   useEffect(() => {
     if (user && !user.guest) {
-      toast.error("You need to enter your information first.");
+      toast.error(t("toast.infofirst"));
       navigate(ROUTES.GUEST.PROFILE);
     }
   }, [user, navigate]);

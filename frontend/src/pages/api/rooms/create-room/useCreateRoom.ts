@@ -7,9 +7,11 @@ import {
 } from "../../../../schemas/room.response.schema";
 import api from "../../../../lib/axios";
 import { ROUTES } from "../../../../config/routes";
+import { useTranslation } from "react-i18next";
 
 export const useCreateRoom = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: async (data: roomSimpleSchemaType) => {
@@ -27,12 +29,12 @@ export const useCreateRoom = (navigate: (path: string) => void) => {
       return parsedResponse.data;
     },
     onSuccess: () => {
-      toast.success("Room created successfully!");
+      toast.success(t("toast.roomcrsucc"));
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ROOM.ROOM] });
       navigate(ROUTES.ADMIN.ROOMS);
     },
     onError: () => {
-      toast.error("Failed to create a room!");
+      toast.error(t("toast.roomcrfail"));
     },
   });
 
