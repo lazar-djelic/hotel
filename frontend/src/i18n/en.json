@@ -211,7 +211,29 @@
     "email": "Email",
     "save": "Save profile",
     "create": "Create profile",
-    "delete": "Delete profile"
+    "delete": "Delete profile",
+    "review": "Your review",
+    "btneditrev": "Edit your review",
+    "amress": "Amenity reservations",
+    "selectam": "Select amenity reservation",
+    "amenity": "Amenity: ",
+    "amenitytype": "Amenity type: ",
+    "startt": "Start time: ",
+    "endt": "End time: ",
+    "numpeop": "Number of people: ",
+    "status": "Status: ",
+    "roomress": "Room reservations",
+    "selectroom": "Select room reservation",
+    "roomnum": "Room number: ",
+    "startd": "Start date: ",
+    "endd": "End date: ",
+    "adults": "Adults: ",
+    "children": "Children: ",
+    "resstatus": "Reservation status: ",
+    "stays": "Stays",
+    "selectstay": "Select a stay",
+    "checkin": "Check-in: ",
+    "checkout": "Check-out: "
   },
   "amenityRes": {
     "title": "Amenity reservations",
@@ -282,6 +304,7 @@
     "total": "Total",
     "gname": "Guest's name",
     "title": "Check-out",
+    "guestinfo": "Guest Info",
     "staydet": "Stay details",
     "adults": "Adults",
     "children": "Children",
@@ -290,7 +313,13 @@
     "notes": "Notes"
   },
   "stays": {
-    "nostays": "No stays."
+    "nostays": "No stays.",
+    "stayenum": {
+      "checked_in": "Checked in",
+      "checked_out": "Checked out",
+      "cancelled": "Cancelled",
+      "no_show": "No show"
+    }
   },
   "guests": {
     "noguest": "No guest"

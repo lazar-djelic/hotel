@@ -211,7 +211,29 @@
     "email": "Email",
     "save": "Sačuvajte profil",
     "create": "Kreirajte profil",
-    "delete": "Obrišite profil"
+    "delete": "Obrišite profil",
+    "review": "Vaš utisak",
+    "btneditrev": "Izmenite Vaš utisak",
+    "amress": "Rezervacije dodatnih pogodnosti",
+    "selectam": "Izaberite rezervaciju",
+    "amenity": "Pogodnost: ",
+    "amenitytype": "Tip dodatne pogodnosti: ",
+    "startt": "Početak termina: ",
+    "endt": "Kraj termina: ",
+    "numpeop": "Broj osoba: ",
+    "status": "Status: ",
+    "roomress": "Rezervacije soba",
+    "selectroom": "Izaberite rezervaciju",
+    "roomnum": "Broj sobe: ",
+    "startd": "Od: ",
+    "endd": "Do: ",
+    "adults": "Odrasli: ",
+    "children": "Deca: ",
+    "resstatus": "Status rezervacije: ",
+    "stays": "Boravci",
+    "selectstay": "Izaberite boravak",
+    "checkin": "Datum prijave: ",
+    "checkout": "Datum odjave: "
   },
   "amenityRes": {
     "title": "Rezervacije dodatnih pogodnosti",
@@ -282,6 +304,7 @@
     "total": "Ukupno",
     "gname": "Ime gosta",
     "title": "Odjava",
+    "guestinfo": "Informacije o gostu",
     "staydet": "Detalji boravka",
     "adults": "Odrasli",
     "children": "Deca",
@@ -290,7 +313,13 @@
     "notes": "Beleške"
   },
   "stays": {
-    "nostays": "Nema boravka."
+    "nostays": "Nema boravka.",
+    "stayenum": {
+      "checked_in": "Prijavljen/a",
+      "checked_out": "Odjavljen/a",
+      "cancelled": "Otkazano",
+      "no_show": "Osoba se nije pojavila"
+    }
   },
   "guests": {
     "noguest": "Nema gostiju"

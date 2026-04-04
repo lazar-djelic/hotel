@@ -1,13 +1,16 @@
 import { z } from "zod";
 import { guestSchema } from "./guest.response.schema";
-import { roomSchema } from "./room.response.schema";
+import { getRoomSchema, roomSchema } from "./room.response.schema";
 import {
   BED_OPTIONS,
   RESERVATION_STATUS,
   ROOM_TYPES,
   VIEW_OPTIONS,
 } from "../config/enums";
-import type { RoomReservation } from "../types/RoomReservationType";
+import type {
+  MyRoomReservation,
+  RoomReservation,
+} from "../types/RoomReservationType";
 
 export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
   _id: z.any().transform((val) => val.toString()),
@@ -134,3 +137,28 @@ export const getRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
+
+export const getMyRoomReservationSchema: z.ZodType<MyRoomReservation> =
+  z.object({
+    _id: z.any().transform((val) => val.toString()),
+    guest: z.any().transform((val) => val.toString()),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    adults: z.number().default(1),
+    children: z.number().default(0),
+    assignedRoom: z.lazy(() => getRoomSchema).optional(),
+    resStatus: z
+      .enum([
+        RESERVATION_STATUS.booked,
+        RESERVATION_STATUS.confirmed,
+        RESERVATION_STATUS.checked_in,
+        RESERVATION_STATUS.cancelled,
+      ])
+      .default(RESERVATION_STATUS.booked),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+  });
+
+export const getMyRoomReservationArraySchema = z.array(
+  getMyRoomReservationSchema,
+);

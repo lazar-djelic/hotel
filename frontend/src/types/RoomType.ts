@@ -29,3 +29,25 @@ export type Room = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type getRoom = {
+  _id: string;
+  floor: number;
+  roomnum: number;
+  type: RoomTypes;
+  bednum: BedOptions;
+  smoking: boolean;
+  accessibility: boolean;
+  view: ViewOptions;
+  balcony: boolean;
+  status: RoomStatus;
+  housekeeping: HousekeepingOptions;
+  lastcleaned: Date;
+  linkedroom: boolean;
+  pets: boolean;
+  currentStay?: string | null | undefined;
+  rate: number;
+  currency: CurrType;
+  createdAt: Date;
+  updatedAt: Date;
+};

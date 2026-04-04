@@ -4,7 +4,7 @@ import type {
   RoomTypes,
   ViewOptions,
 } from "../../../config/enums";
-import type { RoomStruct } from "./RoomStruct";
+import type { getRoomStruct, RoomStruct } from "./RoomStruct";
 
 export type SimpleStayCreateStruct = {
   fName: string;
@@ -46,4 +46,19 @@ export type stayCreateStruct = {
   adults?: number | undefined;
   children?: number | undefined;
   notes?: string | undefined;
+};
+
+export type MyStayStruct = {
+  _id: string;
+  guest: string;
+  reservation?: string | null | undefined;
+  room: getRoomStruct;
+  checkIn: Date;
+  checkOut?: Date | null | undefined;
+  stStatus: string;
+  adults: number;
+  children: number;
+  rate: number;
+  currency: string;
+  notes: string;
 };

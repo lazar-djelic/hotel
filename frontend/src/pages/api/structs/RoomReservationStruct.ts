@@ -5,7 +5,7 @@ import type {
   ViewOptions,
 } from "../../../config/enums";
 import type { GuestStruct } from "./GuestStruct";
-import type { RoomStruct } from "./RoomStruct";
+import type { getRoomStruct, RoomStruct } from "./RoomStruct";
 
 export interface RoomReservationStruct {
   _id: string;
@@ -70,3 +70,16 @@ export type SimpleRoomResCreateReceptionStruct = {
   balcony?: boolean | undefined;
   pets?: boolean | undefined;
 };
+
+export interface MyRoomReservationStruct {
+  _id: string;
+  guest: string;
+  startDate: Date;
+  endDate: Date;
+  adults: number;
+  children: number;
+  assignedRoom?: getRoomStruct | undefined;
+  resStatus: ResStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}

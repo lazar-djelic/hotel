@@ -16,6 +16,7 @@ import housekeepingRoutes from "./routes/housekeepingRoutes.ts";
 import adminRoutes from "./routes/adminRoutes.ts";
 import amenityRoutes from "./routes/amenityRoutes.ts";
 import amenityReservationsRoutes from "./routes/amenityReservationsRoutes.ts";
+import profileRoutes from "./routes/profileRoutes.ts";
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.use("/api/housekeeping/", housekeepingRoutes);
 app.use("/api/admin/", adminRoutes);
 app.use("/api/amenities/", amenityRoutes);
 app.use("/api/amenityreservations/", amenityReservationsRoutes);
+app.use("/api/profile/", profileRoutes);
 
 connectDB().then(() => {
   startHousekeepingJob();

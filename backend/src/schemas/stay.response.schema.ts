@@ -106,3 +106,36 @@ export const createStaySimpleSchema = z.object({
   children: z.number().optional(),
   notes: z.string().optional(),
 });
+
+export const getStaySchema: z.ZodType<Stay> = z.object({
+  _id: z.any().transform((val) => val.toString()),
+  guest: z.any().transform((val) => val.toString()),
+  reservation: z
+    .any()
+    .transform((val) => val.toString())
+    .nullable(),
+  room: z.lazy(() => getRoomSchema),
+  checkIn: z.coerce.date(),
+  checkOut: z.coerce.date().nullable(),
+  stStatus: z.enum([
+    STAY_STATUS.checked_in,
+    STAY_STATUS.checked_out,
+    STAY_STATUS.cancelled,
+    STAY_STATUS.no_show,
+  ]),
+  adults: z.number(),
+  children: z.number(),
+  rate: z.number(),
+  currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]),
+  extras: z.array(
+    z.object({
+      type: z.string(),
+      amount: z.number(),
+    }),
+  ),
+  notes: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const getStayArraySchema = z.array(getStaySchema);

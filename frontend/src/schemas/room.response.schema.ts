@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Room } from "../types/RoomType";
+import type { getRoom, Room } from "../types/RoomType";
 import {
   BED_OPTIONS,
   CURRENCIES,
@@ -127,7 +127,7 @@ export type SimpleFindFilteredRoomType = z.infer<
   typeof SimpleFindFilteredRoomsRequestSchema
 >;
 
-export const getRoomSchema: z.ZodType<Room> = z.object({
+export const getRoomSchema: z.ZodType<getRoom> = z.object({
   _id: z.any().transform((val) => val.toString()),
   floor: z.number(),
   roomnum: z.number(),

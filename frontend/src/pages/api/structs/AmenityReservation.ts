@@ -58,3 +58,16 @@ export type SimpleAmResCreateStruct = {
   numberOfPeople: number;
   status: AmResStatus;
 };
+
+export interface MyAmenityReservationStruct {
+  _id: string;
+  amenity: AmenityStruct;
+  user: string;
+  guest?: string;
+  startTime: Date;
+  endTime: Date;
+  numberOfPeople: number;
+  status: AmResStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}

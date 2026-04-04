@@ -108,7 +108,7 @@ const CheckOutPage = () => {
 
           <div className="grid grid-cols-2 gap-6">
             <div className="bg-base-200 p-4 rounded-xl">
-              <h2 className="font-semibold mb-2">Guest Info</h2>
+              <h2 className="font-semibold mb-2">{t("checkout.guestinfo")}</h2>
               <p>
                 {globalStay.guest.fName} {globalStay.guest.lName}
               </p>

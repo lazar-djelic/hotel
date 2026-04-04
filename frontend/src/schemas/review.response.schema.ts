@@ -24,3 +24,12 @@ export const reviewSimpleSchema = z.object({
 });
 
 export type reviewSimpleSchemaType = z.infer<typeof reviewSimpleSchema>;
+
+export const getReviewSchema = z.object({
+  _id: z.any().transform((val) => val.toString()),
+  guest: z.any().transform((val) => val.toString()),
+  opinion: z.string(),
+  rating: z.number(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});

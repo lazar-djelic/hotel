@@ -1,4 +1,4 @@
-import type { Room } from "./RoomType.ts";
+import type { getRoom, Room } from "./RoomType.ts";
 import type { ResStatus } from "../config/enums";
 
 export type RoomReservation = {
@@ -9,6 +9,19 @@ export type RoomReservation = {
   adults: number;
   children: number;
   assignedRoom: Room;
+  resStatus: ResStatus;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type MyRoomReservation = {
+  _id: string;
+  guest: string;
+  startDate: Date;
+  endDate: Date;
+  adults: number;
+  children: number;
+  assignedRoom?: getRoom;
   resStatus: ResStatus;
   createdAt: Date;
   updatedAt: Date;

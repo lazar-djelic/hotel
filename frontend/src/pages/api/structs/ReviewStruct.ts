@@ -13,3 +13,12 @@ export type SimpleReviewStruct = {
   opinion: string;
   rating: number;
 };
+
+export interface getMyReviewStruct {
+  _id: string;
+  guest: string;
+  opinion: string;
+  rating: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
