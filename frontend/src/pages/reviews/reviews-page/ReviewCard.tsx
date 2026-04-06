@@ -13,12 +13,12 @@ type ReviewCardArgs = {
 };
 
 const ReviewCard: FC<ReviewCardArgs> = ({ review, onDelete }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [rating] = useState(review.rating);
   const { isAuthenticated, user } = useAuth();
 
   const handleDelete = (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    if (!window.confirm(t("areyousure"))) return;
     onDelete(id);
   };
 

@@ -1,6 +1,7 @@
 import { type Response, type NextFunction } from "express";
 import { housekeepingSimpleSchema, type housekeepingRequest } from "./types.ts";
 import Room from "../../models/Room.ts";
+import { HOUSEKEEPING_OPTIONS } from "../../utils/enums.ts";
 
 export async function changeRoomHousekeeping(
   req: housekeepingRequest,
@@ -16,9 +17,17 @@ export async function changeRoomHousekeeping(
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
 
+    const updateData: { housekeeping: string; lastcleaned?: Date } = {
+      housekeeping: parsed.data.status,
+    };
+
+    if (parsed.data.status === HOUSEKEEPING_OPTIONS.clean) {
+      updateData.lastcleaned = new Date();
+    }
+
     const updatedRoom = await Room.findByIdAndUpdate(
       { _id: req.params.id },
-      { housekeeping: parsed.data.status, lastcleaned: new Date() },
+      updateData,
       {
         new: true,
       },

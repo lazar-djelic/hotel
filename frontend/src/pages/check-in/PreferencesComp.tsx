@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { SimpleStayCreateStruct } from "../api/structs/StayStruct";
+import type { RoomStruct } from "../api/structs/RoomStruct";
+import type { Room } from "../../types/RoomType";
 import { useState } from "react";
 import { useFindFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindFilteredRooms";
 import {
@@ -14,6 +16,19 @@ import { SimpleFindFilteredRoomsRequestSchema } from "../../schemas/room.respons
 import toast from "react-hot-toast";
 import { ArrowLeftIcon } from "lucide-react";
 import { useFindExactFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindExactFilteredRooms";
+
+// Convert Room to RoomStruct by extracting currentStay ID if it exists
+const roomToRoomStruct = (room: Room): RoomStruct => {
+  const stayId =
+    room.currentStay && typeof room.currentStay === "object"
+      ? room.currentStay._id
+      : room.currentStay || undefined;
+
+  return {
+    ...room,
+    currentStay: stayId,
+  } as RoomStruct;
+};
 
 interface RoomResCompProps {
   current: SimpleStayCreateStruct;
@@ -87,238 +102,249 @@ const PreferencesComp = ({
       <h3 className="text-2xl font-semibold mb-4">
         {t("checkin.roomdetails")}
       </h3>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">{t("roomres.adults")}</span>
-          </label>
-          <input
-            className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            type="number"
-            value={current.adults}
-            min={0}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setForm({
-                ...current,
-                adults: value,
-              });
-            }}
-          />
-        </div>
+        <div className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.adults")}</span>
+              </label>
+              <input
+                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                type="number"
+                value={current.adults}
+                min={0}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  setForm({
+                    ...current,
+                    adults: value,
+                  });
+                }}
+              />
+            </div>
 
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">{t("roomres.children")}</span>
-          </label>
-          <input
-            className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            type="number"
-            value={current.children}
-            min={0}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setForm({
-                ...current,
-                children: value,
-              });
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="divider mt-8 mb-8">{t("checkin.roomprefs")}</div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.roomType")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={current.roomType}
-              onChange={(e) => {
-                const value = e.target.value as RoomTypes;
-                setForm({
-                  ...current,
-                  roomType: value,
-                });
-                setFilters((prev) => ({
-                  ...prev,
-                  roomType: value,
-                }));
-              }}
-            >
-              {Object.values(ROOM_TYPES).map((r) => (
-                <option key={r} value={r}>
-                  {t(`create.room.typeoptions.${r}`)}
-                </option>
-              ))}
-            </select>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.children")}</span>
+              </label>
+              <input
+                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                type="number"
+                value={current.children}
+                min={0}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  setForm({
+                    ...current,
+                    children: value,
+                  });
+                }}
+              />
+            </div>
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.bednum")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={current.bedNum}
-              onChange={(e) => {
-                const value = e.target.value as BedOptions;
-                setForm({
-                  ...current,
-                  bedNum: value,
-                });
-              }}
-            >
-              {Object.values(BED_OPTIONS).map((b) => (
-                <option key={b} value={b}>
-                  {t(`create.room.bedoptions.${b}`)}
-                </option>
-              ))}
-            </select>
-          </div>
+          <div className="divider mt-8 mb-8">{t("checkin.roomprefs")}</div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.view")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={current.view === undefined ? "" : current.view.toString()}
-              onChange={(e) => {
-                const value =
-                  e.target.value === ""
-                    ? undefined
-                    : (e.target.value as ViewOptions);
-                setForm({
-                  ...current,
-                  view: value,
-                });
-              }}
-            >
-              <option value="">{t("roomres.nofilter")}</option>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.roomType")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={current.roomType}
+                onChange={(e) => {
+                  const value = e.target.value as RoomTypes;
+                  setForm({
+                    ...current,
+                    roomType: value,
+                  });
+                  setFilters((prev) => ({
+                    ...prev,
+                    roomType: value,
+                  }));
+                }}
+              >
+                {Object.values(ROOM_TYPES).map((r) => (
+                  <option key={r} value={r}>
+                    {t(`create.room.typeoptions.${r}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              {Object.values(VIEW_OPTIONS).map((v) => (
-                <option key={v} value={v}>
-                  {t(`create.room.viewoptions.${v}`)}
-                </option>
-              ))}
-            </select>
-          </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.bednum")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={current.bedNum}
+                onChange={(e) => {
+                  const value = e.target.value as BedOptions;
+                  setForm({
+                    ...current,
+                    bedNum: value,
+                  });
+                }}
+              >
+                {Object.values(BED_OPTIONS).map((b) => (
+                  <option key={b} value={b}>
+                    {t(`create.room.bedoptions.${b}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.smoking")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={
-                current.smoking === undefined ? "" : current.smoking.toString()
-              }
-              onChange={(e) => {
-                const value =
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false;
-                setForm({
-                  ...current,
-                  smoking: value,
-                });
-              }}
-            >
-              <option value="">{t("roomres.nofilter")}</option>
-              <option value={"true"}>{t("yes")}</option>
-              <option value={"false"}>{t("no")}</option>
-            </select>
-          </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.view")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={
+                  current.view === undefined ? "" : current.view.toString()
+                }
+                onChange={(e) => {
+                  const value =
+                    e.target.value === ""
+                      ? undefined
+                      : (e.target.value as ViewOptions);
+                  setForm({
+                    ...current,
+                    view: value,
+                  });
+                }}
+              >
+                <option value="">{t("roomres.nofilter")}</option>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.accessibility")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={
-                current.accessibility === undefined
-                  ? ""
-                  : current.accessibility.toString()
-              }
-              onChange={(e) => {
-                const value =
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false;
-                setForm({
-                  ...current,
-                  accessibility: value,
-                });
-              }}
-            >
-              <option value="">{t("roomres.nofilter")}</option>
-              <option value={"true"}>{t("yes")}</option>
-              <option value={"false"}>{t("no")}</option>
-            </select>
-          </div>
+                {Object.values(VIEW_OPTIONS).map((v) => (
+                  <option key={v} value={v}>
+                    {t(`create.room.viewoptions.${v}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.balcony")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={
-                current.balcony === undefined ? "" : current.balcony.toString()
-              }
-              onChange={(e) => {
-                const value =
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false;
-                setForm({
-                  ...current,
-                  balcony: value,
-                });
-              }}
-            >
-              <option value="">{t("roomres.nofilter")}</option>
-              <option value={"true"}>{t("yes")}</option>
-              <option value={"false"}>{t("no")}</option>
-            </select>
-          </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.smoking")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={
+                  current.smoking === undefined
+                    ? ""
+                    : current.smoking.toString()
+                }
+                onChange={(e) => {
+                  const value =
+                    e.target.value === ""
+                      ? undefined
+                      : e.target.value === "true"
+                        ? true
+                        : false;
+                  setForm({
+                    ...current,
+                    smoking: value,
+                  });
+                }}
+              >
+                <option value="">{t("roomres.nofilter")}</option>
+                <option value={"true"}>{t("yes")}</option>
+                <option value={"false"}>{t("no")}</option>
+              </select>
+            </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">{t("roomres.pets")}</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={current.pets === undefined ? "" : current.pets.toString()}
-              onChange={(e) => {
-                const value =
-                  e.target.value === ""
-                    ? undefined
-                    : e.target.value === "true"
-                      ? true
-                      : false;
-                setForm({
-                  ...current,
-                  pets: value,
-                });
-              }}
-            >
-              <option value="">{t("roomres.nofilter")}</option>
-              <option value={"true"}>{t("yes")}</option>
-              <option value={"false"}>{t("no")}</option>
-            </select>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.accessibility")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={
+                  current.accessibility === undefined
+                    ? ""
+                    : current.accessibility.toString()
+                }
+                onChange={(e) => {
+                  const value =
+                    e.target.value === ""
+                      ? undefined
+                      : e.target.value === "true"
+                        ? true
+                        : false;
+                  setForm({
+                    ...current,
+                    accessibility: value,
+                  });
+                }}
+              >
+                <option value="">{t("roomres.nofilter")}</option>
+                <option value={"true"}>{t("yes")}</option>
+                <option value={"false"}>{t("no")}</option>
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.balcony")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={
+                  current.balcony === undefined
+                    ? ""
+                    : current.balcony.toString()
+                }
+                onChange={(e) => {
+                  const value =
+                    e.target.value === ""
+                      ? undefined
+                      : e.target.value === "true"
+                        ? true
+                        : false;
+                  setForm({
+                    ...current,
+                    balcony: value,
+                  });
+                }}
+              >
+                <option value="">{t("roomres.nofilter")}</option>
+                <option value={"true"}>{t("yes")}</option>
+                <option value={"false"}>{t("no")}</option>
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">{t("roomres.pets")}</span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={
+                  current.pets === undefined ? "" : current.pets.toString()
+                }
+                onChange={(e) => {
+                  const value =
+                    e.target.value === ""
+                      ? undefined
+                      : e.target.value === "true"
+                        ? true
+                        : false;
+                  setForm({
+                    ...current,
+                    pets: value,
+                  });
+                }}
+              >
+                <option value="">{t("roomres.nofilter")}</option>
+                <option value={"true"}>{t("yes")}</option>
+                <option value={"false"}>{t("no")}</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -340,11 +366,13 @@ const PreferencesComp = ({
                   );
                   setForm({
                     ...current,
-                    assignedRoom: selectedRoom || null,
+                    assignedRoom: selectedRoom
+                      ? roomToRoomStruct(selectedRoom)
+                      : null,
                   });
                 }}
               >
-                <option value="">Select a room</option>
+                <option value="">{t("checkin.selectroom")}</option>
                 {displayRooms.map((room) => (
                   <option key={room._id} value={room._id}>
                     {room.roomnum}
@@ -388,7 +416,21 @@ const PreferencesComp = ({
 
           {current.assignedRoom && (
             <div className="mt-6 border-2 flex flex-col flex-1 border-success">
-              <div className="flex-1 bg-base-200 flex flex-col justify-center gap-2 p-4">
+              <div className="flex-1 bg-base-200 flex flex-col justify-center gap-4 p-4 overflow-y-auto">
+                {current.assignedRoom.photos &&
+                  current.assignedRoom.photos.length > 0 && (
+                    <div className="flex gap-3 overflow-x-auto pb-2">
+                      {current.assignedRoom.photos.map((photo, index) => (
+                        <img
+                          key={index}
+                          src={photo}
+                          alt={`Room ${index + 1}`}
+                          className="w-128 h-128 object-cover rounded border border-base-300 flex-shrink-0"
+                        />
+                      ))}
+                    </div>
+                  )}
+
                 <p className="text-base-content/70">
                   {t("create.room.roomnum")}:{" "}
                   <b>{current.assignedRoom.roomnum}</b>

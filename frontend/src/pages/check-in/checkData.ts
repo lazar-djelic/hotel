@@ -5,16 +5,15 @@ import type {
   SimpleGuestStruct,
 } from "../api/structs/GuestStruct";
 import type { SimpleStayCreateStruct } from "../api/structs/StayStruct";
-import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
 export const checkData = (
   current: SimpleStayCreateStruct,
   guest: GuestStruct | undefined,
   isNewG: boolean,
   setScreen: (num: number) => void,
+  t: TFunction,
 ) => {
-  const { t } = useTranslation();
-
   const tmpGuest: SimpleGuestStruct = {
     fName: current.fName,
     lName: current.lName,

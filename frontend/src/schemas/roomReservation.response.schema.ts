@@ -19,7 +19,7 @@ export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
   endDate: z.coerce.date(),
   adults: z.number().default(1),
   children: z.number().default(0),
-  assignedRoom: z.lazy(() => roomSchema),
+  assignedRoom: z.lazy(() => getRoomSchema),
   resStatus: z
     .enum([
       RESERVATION_STATUS.booked,

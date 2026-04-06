@@ -33,6 +33,7 @@ export async function updateRoom(
       pets,
       rate,
       currency,
+      photos,
     } = req.body;
 
     const room = new Room({
@@ -51,6 +52,7 @@ export async function updateRoom(
       pets,
       rate,
       currency,
+      photos,
     });
 
     const updatedRoom = await Room.findByIdAndUpdate(
@@ -71,6 +73,7 @@ export async function updateRoom(
         pets,
         rate,
         currency,
+        photos,
       },
       {
         new: true,

@@ -19,18 +19,27 @@ const AddExtraPage = () => {
     stay.room.roomnum.toString().includes(search),
   );
 
-  const { addExtra } = useAddExtra(
-    selectedStay?._id || "",
-    {
-      type: extraType,
-      amount: extraAmount,
-    },
-    (updatedStay) => {
-      setSelectedStay(updatedStay);
-      setExtraType("");
-      setExtraAmount(0);
-    },
-  );
+  const { addExtra } = useAddExtra((updatedStay) => {
+    setSelectedStay(updatedStay);
+    setExtraType("");
+    setExtraAmount(0);
+    setTimeout(() => {
+      (document.getElementById("my_modal_3") as HTMLDialogElement)?.close();
+      setSelectedStay(null);
+    }, 100);
+  });
+
+  const handleAddExtra = () => {
+    if (extraType !== "" && extraAmount > 0 && selectedStay?._id) {
+      addExtra({
+        id: selectedStay._id,
+        extra: {
+          type: extraType,
+          amount: extraAmount,
+        },
+      });
+    }
+  };
 
   useEffect(() => {
     if (selectedStay) {
@@ -179,15 +188,7 @@ const AddExtraPage = () => {
               <button className="btn btn-outline" onClick={handleModalClose}>
                 {t("cancel")}
               </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (extraType !== "" && extraAmount > 0) {
-                    addExtra();
-                    handleModalClose();
-                  }
-                }}
-              >
+              <button className="btn btn-primary" onClick={handleAddExtra}>
                 {t("checkout.addextra")}
               </button>
             </div>

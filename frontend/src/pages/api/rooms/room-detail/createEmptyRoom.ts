@@ -19,6 +19,7 @@ export const createEmptySimpleRoom = (): RoomStruct => ({
   currentStay: null,
   rate: 0,
   currency: CURRENCIES.rsd,
+  photos: [],
   createdAt: new Date(),
   updatedAt: new Date(),
 });

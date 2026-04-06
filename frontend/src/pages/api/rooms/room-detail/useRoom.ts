@@ -4,7 +4,7 @@ import type { RoomStruct } from "../../structs/RoomStruct";
 import { useMemo } from "react";
 import { createEmptySimpleRoom } from "./createEmptyRoom";
 import { fetchRoom } from "../rooms.api";
-import { roomSchema } from "../../../../schemas/room.response.schema";
+import { getRoomSchema } from "../../../../schemas/room.response.schema";
 
 export const useRoom = (
   isNew: boolean,
@@ -15,7 +15,7 @@ export const useRoom = (
     queryKey: [QUERY_KEYS.ROOM.ROOM, id],
     queryFn: async () => {
       const raw = await fetchRoom(id!);
-      const parsed = roomSchema.safeParse(raw);
+      const parsed = getRoomSchema.safeParse(raw);
 
       if (!parsed.success) {
         console.error("Invalid room data from API", parsed.error);

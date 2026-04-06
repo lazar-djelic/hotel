@@ -109,8 +109,10 @@
         "inspected": "Proverena"
       },
       "rate": "Cena",
-      "currency": "Valuta"
-    }
+      "currency": "Valuta",
+      "photos": "Fotografije"
+    },
+    "add": "Dodajte"
   },
   "edit": {
     "room": {
@@ -133,6 +135,7 @@
     "dutt": "dana do danas",
     "dst": "dana od danas"
   },
+  "areyousure": "Da li ste sigurni?",
   "roomres": {
     "startd": "Početak rezervacije: ",
     "endd": "Kraj rezervacije: ",
@@ -290,7 +293,8 @@
     "availablerooms": "Slobodne sobe",
     "checkexact": "Proverite tačno poklapanje",
     "checkloose": "Proverite slično poklapanje",
-    "roomnotsel": "Soba nije izabrana"
+    "roomnotsel": "Soba nije izabrana",
+    "selectroom": "Izaberite sobu"
   },
   "checkout": {
     "billing": "Naplata",

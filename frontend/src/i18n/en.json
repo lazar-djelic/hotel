@@ -109,8 +109,10 @@
         "inspected": "Inspected"
       },
       "rate": "Rate",
-      "currency": "Currency"
-    }
+      "currency": "Currency",
+      "photos": "Photos"
+    },
+    "add": "Add"
   },
   "edit": {
     "room": {
@@ -133,6 +135,7 @@
     "dutt": "days up to today",
     "dst": "days starting today"
   },
+  "areyousure": "Are you sure?",
   "roomres": {
     "startd": "Start date: ",
     "endd": "End date: ",
@@ -290,7 +293,8 @@
     "availablerooms": "Available rooms",
     "checkexact": "Check exact availability",
     "checkloose": "Check loose availability",
-    "roomnotsel": "Room not selected"
+    "roomnotsel": "Room not selected",
+    "selectroom": "Select a room"
   },
   "checkout": {
     "billing": "Billing",

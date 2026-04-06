@@ -13,14 +13,11 @@ const HomePage: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <div className="carousel w-full h-[500px]">
         <div id="slide1" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-            className="w-full object-cover"
-          />
+          <img src="/photos/homepage1.jpeg" className="w-full object-cover" />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <button
               onClick={() => {
-                document.getElementById("slide3")?.scrollIntoView({
+                document.getElementById("slide4")?.scrollIntoView({
                   behavior: "smooth",
                   block: "nearest",
                 });
@@ -52,10 +49,7 @@ const HomePage: React.FC = () => {
         </div>
 
         <div id="slide2" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa"
-            className="w-full object-cover"
-          />
+          <img src="/photos/homepage2.jpeg" className="w-full object-cover" />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <button
               onClick={() => {
@@ -83,14 +77,39 @@ const HomePage: React.FC = () => {
         </div>
 
         <div id="slide3" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
-            className="w-full object-cover"
-          />
+          <img src="/photos/homepage3.jpg" className="w-full object-cover" />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <button
               onClick={() => {
                 document.getElementById("slide2")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                });
+              }}
+              className="btn btn-circle"
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              onClick={() => {
+                document.getElementById("slide4")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                });
+              }}
+              className="btn btn-circle"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        </div>
+
+        <div id="slide4" className="carousel-item relative w-full">
+          <img src="/photos/homepage4.jpg" className="w-full object-cover" />
+          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <button
+              onClick={() => {
+                document.getElementById("slide3")?.scrollIntoView({
                   behavior: "smooth",
                   block: "nearest",
                 });
@@ -129,7 +148,7 @@ const HomePage: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="card bg-base-100 shadow-xl">
             <figure>
-              <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32" />
+              <img src="/photos/room2.jpg" />
             </figure>
             <div className="card-body">
               <h3 className="card-title">{t("homepage.room1title")}</h3>
@@ -139,7 +158,7 @@ const HomePage: React.FC = () => {
 
           <div className="card bg-base-100 shadow-xl">
             <figure>
-              <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427" />
+              <img src="/photos/room1.jpg" />
             </figure>
             <div className="card-body">
               <h3 className="card-title">{t("homepage.room2title")}</h3>
@@ -149,7 +168,7 @@ const HomePage: React.FC = () => {
 
           <div className="card bg-base-100 shadow-xl">
             <figure>
-              <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461" />
+              <img src="/photos/room7.jpg" />
             </figure>
             <div className="card-body">
               <h3 className="card-title">{t("homepage.room3title")}</h3>

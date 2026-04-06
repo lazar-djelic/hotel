@@ -28,6 +28,7 @@ export const useRoomReservations = (
         console.error("Invalid reservation data", parsed.error.issues);
         return [];
       }
+      console.log(parsed.data);
       return parsed.data;
     },
   });

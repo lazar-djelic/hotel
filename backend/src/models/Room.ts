@@ -101,6 +101,11 @@ const roomMongooseSchema = new mongoose.Schema(
       enum: [CURRENCIES.eur, CURRENCIES.rsd],
       required: true,
     },
+    photos: {
+      type: [String],
+      required: false,
+      default: [],
+    },
   },
   { timestamps: true },
 );

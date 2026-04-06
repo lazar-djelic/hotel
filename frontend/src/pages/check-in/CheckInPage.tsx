@@ -275,7 +275,7 @@ const CheckInPage = () => {
                 onClick={() => {
                   if (!form) return;
 
-                  const tmp = checkData(form, guest, isNewG, setScreen);
+                  const tmp = checkData(form, guest, isNewG, setScreen, t);
 
                   if (!tmp) {
                     return;

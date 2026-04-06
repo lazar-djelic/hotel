@@ -33,6 +33,7 @@ export async function createRoom(
       pets,
       rate,
       currency,
+      photos,
     } = req.body;
 
     const room = new Room({
@@ -51,6 +52,7 @@ export async function createRoom(
       pets,
       rate,
       currency,
+      photos,
     });
     const newRoom = await room.save();
     res.status(200).json(newRoom);

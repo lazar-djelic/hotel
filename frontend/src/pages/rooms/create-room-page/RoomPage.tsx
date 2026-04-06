@@ -13,6 +13,7 @@ import NumberInputComp from "../../../components/NumberInputComp";
 import SelectComp from "../../../components/SelectComp";
 import CheckboxComp from "../../../components/CheckboxComp";
 import SimpleDateInComp from "../../../components/SimpleDateInComp";
+import PhotoLinksComp from "../../../components/PhotoLinksComp";
 import { CURRENCIES, type CurrType } from "../../../config/enums";
 import { ROUTES } from "../../../config/routes";
 
@@ -54,9 +55,10 @@ const RoomPage = () => {
       lastcleaned: form.lastcleaned,
       linkedroom: form.linkedroom,
       pets: form.pets,
-      currentStay: form.currentStay === null ? null : form.currentStay?._id,
+      currentStay: form.currentStay,
       rate: form.rate,
       currency: form.currency,
+      photos: form.photos,
     });
 
     if (!parsed.success) {
@@ -85,7 +87,7 @@ const RoomPage = () => {
                 <button
                   className="btn btn-error btn-outline"
                   onClick={() => {
-                    if (window.confirm("Are you sure?")) {
+                    if (window.confirm(t("areyousure"))) {
                       setIsDeleting(true);
                       deleteRoom(id!);
                     }
@@ -253,6 +255,13 @@ const RoomPage = () => {
                       ))}
                     </select>
                   </div>
+
+                  <PhotoLinksComp
+                    labelText={t("create.room.photos")}
+                    photos={current.photos || []}
+                    onChangeFn={(photos) => setForm({ ...current, photos })}
+                    disabled={loading}
+                  />
 
                   <div className="card-actions justify-end mt-16">
                     <button

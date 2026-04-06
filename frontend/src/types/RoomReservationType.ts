@@ -8,7 +8,7 @@ export type RoomReservation = {
   endDate: Date;
   adults: number;
   children: number;
-  assignedRoom: Room;
+  assignedRoom: getRoom;
   resStatus: ResStatus;
   createdAt: Date;
   updatedAt: Date;

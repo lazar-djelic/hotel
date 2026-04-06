@@ -51,6 +51,7 @@ export const roomSchema: z.ZodType<Room> = z.object({
     .optional(),
   rate: z.number(),
   currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
+  photos: z.array(z.string()).optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -97,6 +98,7 @@ export const roomSimpleSchema = z.object({
     .transform((val) => (val === null ? null : val.toString())),
   rate: z.number(),
   currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
+  photos: z.array(z.string()).optional(),
 });
 
 export const getRoomSchema: z.ZodType<Room> = z.object({
@@ -136,10 +138,13 @@ export const getRoomSchema: z.ZodType<Room> = z.object({
   pets: z.boolean(),
   currentStay: z
     .any()
-    .transform((val) => val.toString())
+    .transform((val) =>
+      val === null || val === undefined ? null : val.toString(),
+    )
     .nullable(),
   rate: z.number(),
   currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
+  photos: z.array(z.string()).optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

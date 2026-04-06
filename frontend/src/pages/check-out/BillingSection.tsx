@@ -31,20 +31,16 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
 
   const total = roomTotal + extrasTotal;
 
-  const { addExtra, loadingUpdate } = useAddExtra(
-    stay._id,
-    {
-      type: extraType,
-      amount: extraAmount,
-    },
-    (updatedStay) => {
-      if (onStayUpdated) {
-        onStayUpdated(updatedStay);
-      }
-      setExtraType("");
-      setExtraAmount(0);
-    },
-  );
+  const { addExtra, loadingUpdate } = useAddExtra((updatedStay) => {
+    if (onStayUpdated) {
+      onStayUpdated(updatedStay);
+    }
+    setExtraType("");
+    setExtraAmount(0);
+    setTimeout(() => {
+      (document.getElementById("my_modal_2") as HTMLDialogElement)?.close();
+    }, 100);
+  });
 
   return (
     <div className="bg-base-200 p-4 rounded-xl space-y-4">
@@ -123,10 +119,13 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
                 className="btn btn-primary"
                 onClick={() => {
                   if (extraType !== "" && extraAmount > 0) {
-                    addExtra();
-                    (
-                      document.getElementById("my_modal_2") as HTMLDialogElement
-                    )?.close();
+                    addExtra({
+                      id: stay._id,
+                      extra: {
+                        type: extraType,
+                        amount: extraAmount,
+                      },
+                    });
                   }
                 }}
               >

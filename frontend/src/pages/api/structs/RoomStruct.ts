@@ -16,9 +16,10 @@ export interface RoomStruct {
   lastcleaned: Date;
   linkedroom: boolean;
   pets: boolean;
-  currentStay?: Stay | null | undefined;
+  currentStay?: string | null | undefined;
   rate: number;
   currency: CurrType;
+  photos?: string[] | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -40,6 +41,7 @@ export type SimpleRoomStruct = {
   currentStay: string | null;
   rate: number;
   currency: CurrType;
+  photos?: string[] | undefined;
 };
 
 export interface getRoomStruct {
@@ -60,6 +62,7 @@ export interface getRoomStruct {
   currentStay?: string | null | undefined;
   rate: number;
   currency: CurrType;
+  photos?: string[] | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

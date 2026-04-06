@@ -26,6 +26,7 @@ export type Room = {
   currentStay?: Stay | null | undefined;
   rate: number;
   currency: CurrType;
+  photos?: string[] | undefined;
   createdAt: Date;
   updatedAt: Date;
 };

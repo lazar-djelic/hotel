@@ -63,7 +63,7 @@ const ReviewDetailPage = () => {
               <button
                 className="btn btn-error btn-outline"
                 onClick={() => {
-                  if (window.confirm("Are you sure?")) {
+                  if (window.confirm(t("areyousure"))) {
                     deleteReview(id!);
                   }
                 }}
