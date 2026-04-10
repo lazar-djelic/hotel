@@ -21,6 +21,7 @@ export const ROUTES = {
     ROOM_RES: "/reception/room-reservation",
     CHECK_IN: "/reception/check-in",
     CHECK_OUT: "/reception/check-out",
+    MESSAGES: "/reception/messages",
   },
   GUEST: {
     PROFILE: "/profile",
@@ -28,6 +29,7 @@ export const ROUTES = {
     REVIEW: "/review",
     CREATE_AM_RES: "/create-amenity-reservation",
     CREATE_ROOM_RES: "/create-room-reservation",
+    MESSAGES: "/messages",
   },
   STAFF: {
     HOUSEKEEPING: "/housekeeping",

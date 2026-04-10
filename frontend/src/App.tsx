@@ -26,6 +26,8 @@ import UsersPage from "./pages/user-pages/users-page/UsersPage.tsx";
 import { ROUTES } from "./config/routes.ts";
 import HousekeepingPage from "./pages/housekeeping/HousekeepingPage.tsx";
 import AddExtraPage from "./pages/housekeeping/AddExtraPage.tsx";
+import MessagesPageReception from "./pages/messages-page/MessagesPageReception.tsx";
+import MessagesPageGuest from "./pages/messages-page/MessagesPageGuest.tsx";
 
 function App() {
   return (
@@ -37,10 +39,13 @@ function App() {
         <Route path={ROUTES.ALL.REVIEWS} element={<ReviewsPage />} />
 
         <Route
-          element={
-            <ProtectedRoute allowedRoles={[USER_ROLE.admin, USER_ROLE.guest]} />
-          }
-        ></Route>
+          element={<ProtectedRoute allowedRoles={[USER_ROLE.receptionist]} />}
+        >
+          <Route
+            path={ROUTES.RECEPTION.MESSAGES}
+            element={<MessagesPageReception />}
+          />
+        </Route>
 
         <Route element={<ProtectedRoute allowedRoles={[USER_ROLE.admin]} />}>
           <Route path={ROUTES.ADMIN.AMENITIES} element={<AllAmenities />} />
@@ -108,6 +113,7 @@ function App() {
             path={ROUTES.GUEST.CREATE_ROOM_RES}
             element={<CreateRoomResGuestPage />}
           />
+          <Route path={ROUTES.GUEST.MESSAGES} element={<MessagesPageGuest />} />
         </Route>
 
         <Route

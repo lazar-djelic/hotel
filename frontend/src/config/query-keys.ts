@@ -35,4 +35,7 @@ export const QUERY_KEYS = {
     USERS: "users",
     USER: "user",
   },
+  MESSAGES: {
+    MESSAGES: "messages",
+  },
 };

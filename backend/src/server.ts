@@ -17,13 +17,26 @@ import adminRoutes from "./routes/adminRoutes.ts";
 import amenityRoutes from "./routes/amenityRoutes.ts";
 import amenityReservationsRoutes from "./routes/amenityReservationsRoutes.ts";
 import profileRoutes from "./routes/profileRoutes.ts";
+import { Server } from "socket.io";
+import { createServer } from "node:http";
+import { registerChatHandlers } from "./sockets/chatSocket.ts";
+import messagesRoutes from "./routes/messagesRoutes.ts";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true,
+  },
+});
+io.on("connection", (socket) => {
+  registerChatHandlers(io, socket);
+});
 
-// middlewares
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
@@ -50,17 +63,18 @@ app.use("/api/roomreservations", roomReservationsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/guests", guestsRoutes);
 app.use("/api/stays", staysRoutes);
-app.use("/api/reception/", receptionRoutes);
-app.use("/api/housekeeping/", housekeepingRoutes);
-app.use("/api/admin/", adminRoutes);
-app.use("/api/amenities/", amenityRoutes);
-app.use("/api/amenityreservations/", amenityReservationsRoutes);
-app.use("/api/profile/", profileRoutes);
+app.use("/api/reception", receptionRoutes);
+app.use("/api/housekeeping", housekeepingRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/amenities", amenityRoutes);
+app.use("/api/amenityreservations", amenityReservationsRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/messages", messagesRoutes);
 
 connectDB().then(() => {
   startHousekeepingJob();
 
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log("Server started running on PORT:", PORT);
   });
 });
