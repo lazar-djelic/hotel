@@ -83,9 +83,11 @@ const MessagesPageReception: React.FC = () => {
   };
 
   return (
-    <div className="flex h-auto max-h-screen overflow-hidden">
-      <div className="w-80 border-r flex flex-col overflow-hidden">
-        <div className="p-4 font-bold text-lg">{t("messages.chats")}</div>
+    <div className="flex h-[calc(100vh-80px)] overflow-hidden">
+      <div className="w-80 border-r flex flex-col overflow-hidden flex-shrink-0">
+        <div className="p-4 font-bold text-lg flex-shrink-0">
+          {t("messages.chats")}
+        </div>
 
         <div className="flex-1 overflow-y-auto">
           {conversations.map((conversation) => (
@@ -121,11 +123,11 @@ const MessagesPageReception: React.FC = () => {
       <div className="flex-1 flex flex-col overflow-hidden">
         {activeConversation ? (
           <>
-            <div className="p-4 border-b border-base-300 font-semibold text-3xl">
+            <div className="p-4 border-b border-base-300 font-semibold text-3xl flex-shrink-0">
               {activeConversation.participantName}
             </div>
 
-            <div className="max-h-[calc(100vh-220px)] overflow-hidden">
+            <div className="flex-1 overflow-hidden min-h-0">
               <div
                 ref={messagesEndRef}
                 className="h-full overflow-y-auto p-4 space-y-4 scrollbar-hide"
