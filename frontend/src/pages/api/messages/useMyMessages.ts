@@ -3,10 +3,12 @@ import { QUERY_KEYS } from "../../../config/query-keys";
 import api from "../../../lib/axios";
 
 export interface IMessage {
-  sender: string;
-  receiver: string;
+  _id: string;
+  sender: any;
+  receiver?: any;
   content: string;
   seen: boolean;
+  assignedReceptionist?: any;
   createdAt: Date;
 }
 

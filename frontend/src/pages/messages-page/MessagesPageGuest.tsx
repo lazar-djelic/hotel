@@ -3,6 +3,7 @@ import { socket } from "../../services/socket";
 import { useAuth } from "../../context/AuthContext";
 import { useMyMessages } from "../api/messages/useMyMessages";
 import { useMarkMessagesSeen } from "../api/messages/useMarkMessagesSeen";
+import { useTranslation } from "react-i18next";
 
 export interface IMessage {
   _id: string;
@@ -16,6 +17,7 @@ export interface IMessage {
 
 const MessagesPageGuest: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const { messages } = useMyMessages();
   const markAsSeenMutation = useMarkMessagesSeen();
   const [input, setInput] = useState("");
@@ -119,7 +121,7 @@ const MessagesPageGuest: React.FC = () => {
   return (
     <div className="flex h-[calc(100vh-80px)] flex-col overflow-hidden">
       <div className="p-4 border-b border-base-300 font-semibold text-3xl flex-shrink-0">
-        Reception
+        {t("messages.reception")}
       </div>
 
       <div className="flex-1 overflow-hidden min-h-0">
@@ -158,14 +160,14 @@ const MessagesPageGuest: React.FC = () => {
       <div className="p-4 border-t border-base-300 flex gap-2 flex-shrink-0">
         <input
           type="text"
-          placeholder="Type a message..."
+          placeholder={t("messages.type")}
           className="input input-bordered flex-1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
         <button className="btn btn-primary" onClick={sendMessage}>
-          Send
+          {t("messages.send")}
         </button>
       </div>
     </div>

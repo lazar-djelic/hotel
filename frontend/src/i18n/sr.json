@@ -422,5 +422,12 @@
     "invalidguestinput": "Nevažeći unos gosta",
     "invalidinput": "Nevažeći unos",
     "infofirst": "Potrebno je da unesete prvo Vaše informacije"
+  },
+  "messages": {
+    "reception": "Recepcija",
+    "type": "Napišite poruku...",
+    "send": "Pošaljite",
+    "chats": "Četovi",
+    "selectchat": "Izaberite čet da bi ste kucali poruku"
   }
 }

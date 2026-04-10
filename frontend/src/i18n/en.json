@@ -422,5 +422,12 @@
     "invalidguestinput": "Invalid guest input",
     "invalidinput": "Invalid input",
     "infofirst": "You need to enter your information first"
+  },
+  "messages": {
+    "reception": "Reception",
+    "type": "Type a message...",
+    "send": "Send",
+    "chats": "Chats",
+    "selectchat": "Select a chat to start messaging"
   }
 }

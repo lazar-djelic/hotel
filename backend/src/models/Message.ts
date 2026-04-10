@@ -2,10 +2,10 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IMessage extends Document {
   sender: mongoose.Types.ObjectId;
-  receiver?: mongoose.Types.ObjectId | null; // Null for unassigned reception messages
+  receiver?: mongoose.Types.ObjectId | null;
   content: string;
   seen: boolean;
-  assignedReceptionist?: mongoose.Types.ObjectId; // Track which receptionist is assigned to a guest conversation
+  assignedReceptionist?: mongoose.Types.ObjectId;
   createdAt: Date;
 }
 
