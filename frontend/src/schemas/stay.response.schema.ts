@@ -29,6 +29,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
       amount: z.number(),
     }),
   ),
+  paid: z.boolean(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
@@ -49,6 +50,7 @@ export const staySimpleSchema = z.object({
   adults: z.number().optional(),
   children: z.number().optional(),
   notes: z.string().optional(),
+  breakfast: z.boolean(),
 });
 
 export const updateStaySimpleSchema = z.object({
@@ -108,6 +110,7 @@ export const getStaySchema: z.ZodType<getStay> = z.object({
       amount: z.number(),
     }),
   ),
+  paid: z.boolean(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),

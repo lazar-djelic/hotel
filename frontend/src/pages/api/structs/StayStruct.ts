@@ -35,6 +35,7 @@ export type SimpleStayCreateStruct = {
   view?: ViewOptions | undefined;
   balcony?: boolean | undefined;
   pets?: boolean | undefined;
+  breakfast: boolean;
 };
 
 export type stayCreateStruct = {
@@ -46,6 +47,7 @@ export type stayCreateStruct = {
   adults?: number | undefined;
   children?: number | undefined;
   notes?: string | undefined;
+  breakfast: boolean;
 };
 
 export type MyStayStruct = {
@@ -60,5 +62,6 @@ export type MyStayStruct = {
   children: number;
   rate: number;
   currency: string;
+  paid: boolean;
   notes: string;
 };

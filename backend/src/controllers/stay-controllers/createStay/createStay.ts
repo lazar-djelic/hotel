@@ -10,6 +10,7 @@ import {
 } from "../../../utils/enums.ts";
 import RoomReservation from "../../../models/RoomReservation.ts";
 import Room from "../../../models/Room.ts";
+import Extra from "../../../models/Extra.ts";
 import { createStaySimpleSchema } from "../../../schemas/stay.response.schema.ts";
 
 export async function createStay(
@@ -99,6 +100,9 @@ export async function createStay(
       assignedRoom: parsed.data.room,
       startDate: { $lt: parsed.data.checkOut },
       endDate: { $gt: parsed.data.checkIn },
+      ...(parsed.data.reservation && {
+        _id: { $ne: parsed.data.reservation },
+      }),
     }).session(session);
 
     if (reservationConflict) {
@@ -123,17 +127,37 @@ export async function createStay(
       );
     }
 
+    const extras: { extra: mongoose.Types.ObjectId; amount: number }[] = [];
+
+    if (parsed.data.breakfast === true) {
+      const breakfastExtra = await Extra.findOne({
+        nameEng: "Breakfast",
+      }).session(session);
+
+      if (!breakfastExtra) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(404).json({ message: "Breakfast extra not found" });
+      }
+
+      const days =
+        (parsed.data.checkOut.getTime() - parsed.data.checkIn.getTime()) /
+        (1000 * 60 * 60 * 24);
+      extras.push({ extra: breakfastExtra._id, amount: days });
+    }
+
     const stay = new Stay({
       guest: req.body.guest,
       reservation: req.body.reservation,
       room: req.body.room,
       checkIn: req.body.checkIn,
-      checkOut: null,
+      checkOut: req.body.checkOut,
       stStatus: STAY_STATUS.checked_in,
       adults: req.body.adults,
       children: req.body.children,
       rate: room.rate,
       currency: room.currency,
+      extras,
       notes: req.body.notes,
     });
 

@@ -97,7 +97,7 @@ const RoomResComp = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SimpleDateInComp
               labelText={t("roomres.startd")}
-              value={formatDate(current.startDate.toString(), i18n.language)}
+              value={current.startDate.toISOString()}
               onChangeFn={(value) => {
                 const newDate = new Date(value);
                 setForm({ ...current, startDate: newDate });
@@ -110,7 +110,7 @@ const RoomResComp = ({
 
             <SimpleDateInComp
               labelText={t("roomres.endd")}
-              value={formatDate(current.endDate.toString(), i18n.language)}
+              value={current.endDate.toISOString()}
               onChangeFn={(value) => {
                 const newDate = new Date(value);
                 setForm({ ...current, endDate: newDate });

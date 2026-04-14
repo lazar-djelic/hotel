@@ -17,7 +17,8 @@ import toast from "react-hot-toast";
 import { ArrowLeftIcon } from "lucide-react";
 import { useFindExactFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindExactFilteredRooms";
 import SimpleDateInComp from "../../components/SimpleDateInComp";
-import { formatDate } from "../../lib/utils";
+import CheckboxComp from "../../components/CheckboxComp";
+import { useGetExtras } from "../api/extras/useGetExtras";
 
 const roomToRoomStruct = (room: getRoom): getRoomStruct => {
   return {
@@ -42,6 +43,7 @@ const PreferencesComp = ({
   isPending,
 }: RoomResCompProps) => {
   const { t, i18n } = useTranslation();
+  const { extras } = useGetExtras();
 
   const [filters, setFilters] = useState({
     startDate: current.startDate,
@@ -76,11 +78,11 @@ const PreferencesComp = ({
   };
 
   const getDays = () => {
-    const start = current.startDate;
-    const end = current.endDate;
+    const start = new Date(current.startDate);
+    const end = new Date(current.endDate);
 
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
+    start.setUTCHours(0, 0, 0, 0);
+    end.setUTCHours(0, 0, 0, 0);
 
     return (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
   };
@@ -387,6 +389,17 @@ const PreferencesComp = ({
                 <option value={"false"}>{t("no")}</option>
               </select>
             </div>
+
+            <CheckboxComp
+              labelText={t("checkin.breakfast")}
+              isCheck={current.breakfast}
+              onChangeFn={(checked) =>
+                setForm({
+                  ...current,
+                  breakfast: checked,
+                })
+              }
+            />
           </div>
         </div>
 
@@ -485,7 +498,12 @@ const PreferencesComp = ({
                 <p className="text-base-content/70 border-2 p-2 mx-auto">
                   {t("checkin.pricefor")} {getDays()} {t("checkin.nights")}{" "}
                   <b>
-                    {getDays() * current.assignedRoom.rate}{" "}
+                    {getDays() *
+                      (current.assignedRoom.rate +
+                        (current.breakfast
+                          ? (extras.find((e) => e.nameEng === "Breakfast")
+                              ?.price ?? 0)
+                          : 0))}{" "}
                     {" " + current.assignedRoom.currency}
                   </b>
                 </p>

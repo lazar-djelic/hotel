@@ -33,6 +33,10 @@ const roomReservationMongooseSchema = new mongoose.Schema(
       ],
       default: RESERVATION_STATUS.booked,
     },
+    paid: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

@@ -16,6 +16,7 @@ export interface RoomReservationStruct {
   children: number;
   assignedRoom: RoomStruct;
   resStatus: ResStatus;
+  paid: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -82,6 +83,7 @@ export interface MyRoomReservationStruct {
   children: number;
   assignedRoom?: getRoomStruct | undefined;
   resStatus: ResStatus;
+  paid: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

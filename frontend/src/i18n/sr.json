@@ -162,6 +162,7 @@
       "checked_in": "Prijavljeno",
       "cancelled": "Otkazano"
     },
+    "paid": "Da li je plaćena: ",
     "delete": "Obrišite rezervaciju",
     "noroomscriteria": "Nema soba koje ispunjavaju kriterijume.",
     "availcriteria": "Ima slobodnih soba koje ispunjavaju kriterijume."
@@ -239,7 +240,8 @@
     "stays": "Boravci",
     "selectstay": "Izaberite boravak",
     "checkin": "Datum prijave: ",
-    "checkout": "Datum odjave: "
+    "checkout": "Datum odjave: ",
+    "paid": "Da li je plaćen/a: "
   },
   "amenityRes": {
     "title": "Rezervacije dodatnih pogodnosti",
@@ -301,7 +303,8 @@
     "startd": "Početak boravka: ",
     "endd": "Kraj boravka: ",
     "pricefor": "Cena za",
-    "nights": "noći:"
+    "nights": "noći:",
+    "breakfast": "Uključen doručak?"
   },
   "checkout": {
     "billing": "Naplata",

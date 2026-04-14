@@ -10,6 +10,7 @@ export type RoomReservation = {
   children: number;
   assignedRoom: getRoom;
   resStatus: ResStatus;
+  paid: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -23,6 +24,7 @@ export type MyRoomReservation = {
   children: number;
   assignedRoom?: getRoom;
   resStatus: ResStatus;
+  paid: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

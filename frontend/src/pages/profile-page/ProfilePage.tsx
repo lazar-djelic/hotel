@@ -314,6 +314,12 @@ const Profile = () => {
                                 </span>{" "}
                                 {t(`roomres.statusenum.${selected?.resStatus}`)}
                               </p>
+                              <p>
+                                <span className="font-semibold">
+                                  {t("profile.paid")}
+                                </span>{" "}
+                                {selected?.paid ? t("yes") : t("no")}
+                              </p>
                             </>
                           );
                         })()}
@@ -390,6 +396,12 @@ const Profile = () => {
                                   {t("profile.status")}
                                 </span>{" "}
                                 {t(`stays.stayenum.${selected?.stStatus}`)}
+                              </p>
+                              <p>
+                                <span className="font-semibold">
+                                  {t("profile.paid")}
+                                </span>{" "}
+                                {selected?.paid ? t("yes") : t("no")}
                               </p>
                             </>
                           );

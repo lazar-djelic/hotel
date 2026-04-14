@@ -19,7 +19,6 @@ import type { GuestStruct } from "../api/structs/GuestStruct";
 import { checkData } from "./checkData";
 import { useCreateGuestCheckIn } from "./useCreateGuestCheckIn";
 import { useUpdateGuestCheckIn } from "./useUpdateGuestCheckIn";
-import { checkOut } from "../api/stays/stays.api";
 
 const CheckInPage = () => {
   const { t } = useTranslation();
@@ -107,6 +106,7 @@ const CheckInPage = () => {
       adults: form.adults,
       children: form.children,
       notes: form.notesStay,
+      breakfast: form.breakfast,
     });
 
     if (!parsed.success) {
@@ -212,6 +212,10 @@ const CheckInPage = () => {
                           <p className="text-base-content/70">
                             {t("roomres.status")}
                             {t(`roomres.statusenum.${reservation.resStatus}`)}
+                          </p>
+                          <p className="text-base-content/70">
+                            {t("roomres.paid")}
+                            {reservation.paid ? t("yes") : t("no")}
                           </p>
                         </>
                       )}

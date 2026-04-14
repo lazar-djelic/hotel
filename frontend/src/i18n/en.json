@@ -162,6 +162,7 @@
       "checked_in": "Checked in",
       "cancelled": "Cancelled"
     },
+    "paid": "Is it paid: ",
     "delete": "Delete reservation",
     "noroomscriteria": "There are no rooms that match the criteria.",
     "availcriteria": "There are available rooms that match the criteria."
@@ -239,7 +240,8 @@
     "stays": "Stays",
     "selectstay": "Select a stay",
     "checkin": "Check-in: ",
-    "checkout": "Check-out: "
+    "checkout": "Check-out: ",
+    "paid": "Is it paid: "
   },
   "amenityRes": {
     "title": "Amenity reservations",
@@ -301,7 +303,8 @@
     "startd": "Start date: ",
     "endd": "End date: ",
     "pricefor": "Price for",
-    "nights": "nights:"
+    "nights": "nights:",
+    "breakfast": "Include breakfast?"
   },
   "checkout": {
     "billing": "Billing",

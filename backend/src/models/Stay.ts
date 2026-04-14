@@ -27,6 +27,7 @@ export interface IStay {
     extra: IExtra;
     amount: number;
   }[];
+  paid: boolean;
   notes?: string;
 }
 
@@ -65,6 +66,10 @@ const staySchema = new Schema<IStay>(
         amount: Number,
       },
     ],
+    paid: {
+      type: Boolean,
+      default: false,
+    },
     notes: String,
   },
   { timestamps: true },

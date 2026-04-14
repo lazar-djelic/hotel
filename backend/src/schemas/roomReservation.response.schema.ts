@@ -25,6 +25,7 @@ export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
+  paid: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -129,6 +130,7 @@ export const getRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
+  paid: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -149,6 +151,7 @@ export const getMyRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
+  paid: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

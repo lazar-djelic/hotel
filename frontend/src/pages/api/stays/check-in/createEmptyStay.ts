@@ -32,5 +32,6 @@ export const createEmptyStay = (): SimpleStayCreateStruct => {
     view: undefined,
     balcony: undefined,
     pets: undefined,
+    breakfast: true,
   };
 };

@@ -32,6 +32,7 @@ export type Stay = {
     extra: GetExtra;
     amount: number;
   }[];
+  paid: boolean;
   notes: string;
   createdAt: Date;
   updatedAt: Date;
@@ -53,6 +54,7 @@ export type getStay = {
     extra: GetExtra;
     amount: number;
   }[];
+  paid: boolean;
   notes: string;
   createdAt: Date;
   updatedAt: Date;
