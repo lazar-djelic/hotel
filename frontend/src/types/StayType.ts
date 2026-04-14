@@ -9,7 +9,7 @@ export type Stay = {
   reservation?: RoomReservation | null;
   room: getRoom;
   checkIn: Date;
-  checkOut?: Date | null;
+  checkOut: Date;
   stStatus: StStatus;
   adults?: number;
   children?: number;
@@ -30,7 +30,7 @@ export type getStay = {
   reservation?: string | null;
   room: getRoom;
   checkIn: Date;
-  checkOut?: Date | null;
+  checkOut: Date;
   stStatus: StStatus;
   adults: number;
   children: number;

@@ -7,6 +7,7 @@ import {
   type housekeepingRequest,
 } from "../controllers/housekeeping-controllers/types.ts";
 import { changeRoomHousekeeping } from "../controllers/housekeeping-controllers/changeRoomHousekeeping.ts";
+import { getHousekeepingRooms } from "../controllers/housekeeping-controllers/getHousekeepingRooms.ts";
 
 const router = express.Router();
 
@@ -15,6 +16,12 @@ router.post(
   authenAndAuthorize<housekeepingRequest>([USER_ROLE.staff, USER_ROLE.admin]),
   validateRequest(housekeepingRequestSchema),
   changeRoomHousekeeping,
+);
+
+router.get(
+  "/rooms",
+  authenAndAuthorize<housekeepingRequest>([USER_ROLE.staff, USER_ROLE.admin]),
+  getHousekeepingRooms,
 );
 
 export default router;

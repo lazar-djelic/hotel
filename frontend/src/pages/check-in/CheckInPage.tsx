@@ -19,6 +19,7 @@ import type { GuestStruct } from "../api/structs/GuestStruct";
 import { checkData } from "./checkData";
 import { useCreateGuestCheckIn } from "./useCreateGuestCheckIn";
 import { useUpdateGuestCheckIn } from "./useUpdateGuestCheckIn";
+import { checkOut } from "../api/stays/stays.api";
 
 const CheckInPage = () => {
   const { t } = useTranslation();
@@ -102,6 +103,7 @@ const CheckInPage = () => {
       reservation: hasRes ? form.roomReservation : null,
       room: form.assignedRoom?._id,
       checkIn: form.startDate,
+      checkOut: form.endDate,
       adults: form.adults,
       children: form.children,
       notes: form.notesStay,
@@ -145,6 +147,8 @@ const CheckInPage = () => {
                         setForm({
                           ...form,
                           roomReservation: reservation._id,
+                          startDate: reservation.startDate,
+                          endDate: reservation.endDate,
                           assignedRoom: reservation.assignedRoom,
                           guest: reservation.guest._id,
                           fName: reservation.guest.fName,

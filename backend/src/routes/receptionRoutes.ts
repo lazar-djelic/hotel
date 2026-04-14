@@ -129,6 +129,7 @@ router
     authenAndAuthorize<FindFilteredRoomsRequest>([
       USER_ROLE.receptionist,
       USER_ROLE.admin,
+      USER_ROLE.guest,
     ]),
     validateRequest(FindFilteredRoomsRequestSchema),
     findFilteredRooms,
@@ -140,6 +141,7 @@ router
     authenAndAuthorize<FindFilteredRoomsRequest>([
       USER_ROLE.receptionist,
       USER_ROLE.admin,
+      USER_ROLE.guest,
     ]),
     validateRequest(FindFilteredRoomsRequestSchema),
     findExactFilteredRooms,

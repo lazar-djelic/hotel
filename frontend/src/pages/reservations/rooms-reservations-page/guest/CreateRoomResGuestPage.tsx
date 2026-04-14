@@ -8,16 +8,12 @@ import { roomReservationSimpleSchema } from "../../../../schemas/roomReservation
 import toast from "react-hot-toast";
 import { useCreateRoomResGuest } from "../../../api/roomReservations/room-reservation-detail/useCreateRoomResGuest";
 import { ArrowLeftIcon } from "lucide-react";
-import DoubleCalendar from "../../DoubleCalendar";
 import RoomResComp from "./RoomResCompGuest";
 import { ROUTES } from "../../../../config/routes";
 
 const CreateRoomResGuestPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [dateRange, setDateRange] = useState([
-    { startDate: new Date(), endDate: new Date(), key: "selection" },
-  ]);
   const { user } = useAuth();
 
   const [form, setForm] = useState<SimpleRoomResCreateStruct>(() =>
@@ -72,12 +68,13 @@ const CreateRoomResGuestPage = () => {
 
     const parsed = roomReservationSimpleSchema.safeParse({
       guest: user.guest._id,
-      startDate: toUtcStartOfDay(dateRange[0].startDate),
-      endDate: toUtcEndOfDay(dateRange[0].endDate),
+      startDate: toUtcStartOfDay(form.startDate),
+      endDate: toUtcEndOfDay(form.endDate),
       roomType: form.roomType,
       bedNum: form.bedNum,
       adults: form.adults,
       children: form.children,
+      assignedRoom: form.assignedRoom,
       smoking: form.smoking,
       accessibility: form.accessibility,
       view: form.view,
@@ -109,29 +106,16 @@ const CreateRoomResGuestPage = () => {
           <div className="text-center text-primary py-10">{t("loading")}</div>
         )}
 
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <div className="order-2 md:order-1 lg:order-1">
-              <div className="card bg-base-100">
-                <div className="card-body">
-                  <RoomResComp
-                    current={form}
-                    setForm={setForm}
-                    handleSubmit={handleSubmit}
-                    isPending={isPendingRoomRes}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 md:order-2 lg:order-2 justify-self-end">
-              <DoubleCalendar
-                dateRange={dateRange}
-                setDateRange={setDateRange}
-              />
-            </div>
+        <div className="card bg-base-100">
+          <div className="card-body">
+            <RoomResComp
+              current={form}
+              setForm={setForm}
+              handleSubmit={handleSubmit}
+              isPending={isPendingRoomRes}
+            />
           </div>
-        </>
+        </div>
       </div>
     </div>
   );

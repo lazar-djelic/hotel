@@ -20,8 +20,8 @@ export type SimpleStayCreateStruct = {
   endDate: Date;
   adults: number;
   children: number;
-  assignedRoom: RoomStruct | undefined | null;
-  room: RoomStruct | undefined | null;
+  assignedRoom: getRoomStruct | undefined | null;
+  room: getRoomStruct | undefined | null;
   resStatus: ResStatus | undefined;
   roomReservation: string | undefined;
   _id: string;
@@ -42,7 +42,7 @@ export type stayCreateStruct = {
   reservation?: string | null | undefined;
   room: string;
   checkIn: Date;
-  checkOut?: Date | null | undefined;
+  checkOut: Date;
   adults?: number | undefined;
   children?: number | undefined;
   notes?: string | undefined;
@@ -54,7 +54,7 @@ export type MyStayStruct = {
   reservation?: string | null | undefined;
   room: getRoomStruct;
   checkIn: Date;
-  checkOut?: Date | null | undefined;
+  checkOut: Date;
   stStatus: string;
   adults: number;
   children: number;

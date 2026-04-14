@@ -9,7 +9,12 @@ import {
 import RoomReservation from "../../../../models/RoomReservation.ts";
 import mongoose from "mongoose";
 import Room from "../../../../models/Room.ts";
-import { RESERVATION_STATUS, ROOM_STATUS } from "../../../../utils/enums.ts";
+import { Stay } from "../../../../models/Stay.ts";
+import {
+  RESERVATION_STATUS,
+  ROOM_STATUS,
+  STAY_STATUS,
+} from "../../../../utils/enums.ts";
 
 export async function createGuestAndRoomRes(
   req: CreateRoomReservationReceptionRequest,
@@ -41,36 +46,27 @@ export async function createGuestAndRoomRes(
     });
     const newGuest = await guest.save({ session });
 
-    const query = {
-      type: req.body.roomType,
-      bednum: req.body.bedNum,
-      status: ROOM_STATUS.available,
-      ...(req.body.smoking !== undefined && { smoking: req.body.smoking }),
-      ...(req.body.accessibility !== undefined && {
-        accessibility: req.body.accessibility,
-      }),
-      ...(req.body.view !== undefined && { view: req.body.view }),
-      ...(req.body.balcony !== undefined && { balcony: req.body.balcony }),
-      ...(req.body.pets !== undefined && { pets: req.body.pets }),
-    };
-
-    const availableRoom = await Room.findOne(query).session(session);
+    const availableRoom = await Room.findOne({
+      _id: req.body.assignedRoom._id,
+      status: { $ne: ROOM_STATUS.outofservice },
+    }).session(session);
 
     if (!availableRoom) {
       await session.abortTransaction();
       session.endSession();
       return res.status(404).json({
-        message: "No available room matching the requested criteria.",
+        message: "Room not found or is not available.",
       });
     }
 
-    const conflict = await RoomReservation.findOne({
+    const reservationConflict = await RoomReservation.findOne({
       assignedRoom: availableRoom._id,
+      resStatus: { $ne: RESERVATION_STATUS.cancelled },
       startDate: { $lt: req.body.endDate },
       endDate: { $gt: req.body.startDate },
     }).session(session);
 
-    if (conflict) {
+    if (reservationConflict) {
       await session.abortTransaction();
       session.endSession();
       return res.status(409).json({
@@ -78,11 +74,23 @@ export async function createGuestAndRoomRes(
       });
     }
 
-    await Room.findByIdAndUpdate(
-      availableRoom._id,
-      { status: ROOM_STATUS.reserved },
-      { session },
-    );
+    const stayConflict = await Stay.findOne({
+      room: availableRoom._id,
+      stStatus: STAY_STATUS.checked_in,
+      checkIn: { $lt: new Date(req.body.endDate) },
+      $or: [
+        { checkOut: null },
+        { checkOut: { $gt: new Date(req.body.startDate) } },
+      ],
+    }).session(session);
+
+    if (stayConflict) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(409).json({
+        message: "Room reservation conflicts with an existing stay.",
+      });
+    }
 
     const reservation = new RoomReservation({
       guest: newGuest._id,

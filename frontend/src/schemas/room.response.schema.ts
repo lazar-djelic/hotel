@@ -104,6 +104,8 @@ export const roomSimpleSchema = z.object({
 export type roomSimpleSchemaType = z.infer<typeof roomSimpleSchema>;
 
 export const SimpleFindFilteredRoomsRequestSchema = z.object({
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   roomType: z.enum([
     ROOM_TYPES.standard,
     ROOM_TYPES.deluxe,

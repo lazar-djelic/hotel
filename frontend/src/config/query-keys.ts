@@ -38,4 +38,10 @@ export const QUERY_KEYS = {
   MESSAGES: {
     MESSAGES: "messages",
   },
+  H_ROOM: {
+    H_ROOMS: "h_rooms",
+  },
+  TAXES: {
+    TAXES: "taxes",
+  },
 };

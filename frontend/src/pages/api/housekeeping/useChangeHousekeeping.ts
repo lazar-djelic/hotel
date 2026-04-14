@@ -19,6 +19,8 @@ export const useChangeHousekeeping = (navigate: NavigateFunction) => {
         return old.map((room: any) => (room._id === data._id ? data : room));
       });
 
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.H_ROOM.H_ROOMS] });
+
       toast.success(t("toast.roomupsucc"));
     },
     onError: () => {

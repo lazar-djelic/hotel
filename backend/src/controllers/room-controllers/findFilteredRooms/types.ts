@@ -16,6 +16,8 @@ const optionalBooleanQueryParam = z.preprocess((value) => {
 }, z.boolean().optional());
 
 export const SimpleFindFilteredRoomsRequestSchema = z.object({
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   roomType: z.enum([
     ROOM_TYPES.standard,
     ROOM_TYPES.deluxe,

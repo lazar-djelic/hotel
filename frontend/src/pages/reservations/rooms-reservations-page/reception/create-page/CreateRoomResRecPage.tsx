@@ -15,7 +15,6 @@ import { useCreateRoomReservationRec } from "../../../../api/roomReservations/ro
 import { useCreateGuestAndRoomResRec } from "../../../../api/roomReservations/room-reservation-detail/useCreateGuestAndRoomResRec";
 import RoomResComp from "./RoomResComp";
 import { ArrowRightIcon } from "lucide-react";
-import { ROUTES } from "../../../../../config/routes";
 
 export const toUtcStartOfDay = (date: Date) =>
   new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -86,10 +85,11 @@ const CreateRoomResRecPage = () => {
         notes: form.notes,
         roomType: form.roomType,
         bedNum: form.bedNum,
-        startDate: toUtcStartOfDay(dateRange[0].startDate),
-        endDate: toUtcEndOfDay(dateRange[0].endDate),
+        startDate: form.startDate,
+        endDate: form.endDate,
         adults: form.adults,
         children: form.children,
+        assignedRoom: form.assignedRoom,
         smoking: form.smoking,
         accessibility: form.accessibility,
         view: form.view,
@@ -108,12 +108,13 @@ const CreateRoomResRecPage = () => {
     } else {
       const parsed = roomReservationSimpleSchema.safeParse({
         guest: form.guest,
-        startDate: toUtcStartOfDay(dateRange[0].startDate),
-        endDate: toUtcEndOfDay(dateRange[0].endDate),
+        startDate: form.startDate,
+        endDate: form.endDate,
         roomType: form.roomType,
         bedNum: form.bedNum,
         adults: form.adults,
         children: form.children,
+        assignedRoom: form.assignedRoom,
         smoking: form.smoking,
         accessibility: form.accessibility,
         view: form.view,
@@ -180,27 +181,14 @@ const CreateRoomResRecPage = () => {
         )}
 
         {screen === 3 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <div className="order-2 md:order-1 lg:order-1">
-              <div className="">
-                <div className="card bg-base-100">
-                  <div className="card-body">
-                    <RoomResComp
-                      current={form}
-                      setForm={setForm}
-                      setScreen={setScreen}
-                      handleSubmit={handleSubmit}
-                      isPending={isPendingG}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 md:order-2 lg:order-2 justify-self-end mt-8">
-              <DoubleCalendar
-                dateRange={dateRange}
-                setDateRange={setDateRange}
+          <div className="card bg-base-100">
+            <div className="card-body">
+              <RoomResComp
+                current={form}
+                setForm={setForm}
+                setScreen={setScreen}
+                handleSubmit={handleSubmit}
+                isPending={isPendingG}
               />
             </div>
           </div>

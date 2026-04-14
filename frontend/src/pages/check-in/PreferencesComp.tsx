@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import type { SimpleStayCreateStruct } from "../api/structs/StayStruct";
-import type { RoomStruct } from "../api/structs/RoomStruct";
-import type { Room } from "../../types/RoomType";
-import { useState } from "react";
+import type { getRoomStruct } from "../api/structs/RoomStruct";
+import type { getRoom } from "../../types/RoomType";
+import { useState, useEffect } from "react";
 import { useFindFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindFilteredRooms";
 import {
   BED_OPTIONS,
@@ -16,18 +16,14 @@ import { SimpleFindFilteredRoomsRequestSchema } from "../../schemas/room.respons
 import toast from "react-hot-toast";
 import { ArrowLeftIcon } from "lucide-react";
 import { useFindExactFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindExactFilteredRooms";
+import SimpleDateInComp from "../../components/SimpleDateInComp";
+import { formatDate } from "../../lib/utils";
 
-// Convert Room to RoomStruct by extracting currentStay ID if it exists
-const roomToRoomStruct = (room: Room): RoomStruct => {
-  const stayId =
-    room.currentStay && typeof room.currentStay === "object"
-      ? room.currentStay._id
-      : room.currentStay || undefined;
-
+const roomToRoomStruct = (room: getRoom): getRoomStruct => {
   return {
     ...room,
-    currentStay: stayId,
-  } as RoomStruct;
+    currentStay: room.currentStay || undefined,
+  } as getRoomStruct;
 };
 
 interface RoomResCompProps {
@@ -45,7 +41,7 @@ const PreferencesComp = ({
   handleSubmit,
   isPending,
 }: RoomResCompProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [filters, setFilters] = useState({
     startDate: current.startDate,
@@ -65,37 +61,33 @@ const PreferencesComp = ({
     isPending: loadER,
     data: erooms = [],
   } = useFindExactFilteredRooms();
-  const [searched, setSearched] = useState(false);
-  const [searchType, setSearchType] = useState<"exact" | "loose" | null>(null);
 
-  const displayRooms =
-    searchType === "exact" ? erooms : searchType === "loose" ? rooms : [];
-
-  const clickHandle = (exact: boolean) => {
-    const parsed = SimpleFindFilteredRoomsRequestSchema.safeParse({
-      roomType: current.roomType,
-      bedNum: current.bedNum,
-      view: current.view,
-      smoking: current.smoking,
-      accessibility: current.accessibility,
-      balcony: current.balcony,
-      pets: current.pets,
-    });
+  const performSearch = (filtersToSearch: typeof filters) => {
+    const parsed =
+      SimpleFindFilteredRoomsRequestSchema.safeParse(filtersToSearch);
 
     if (!parsed.success) {
       toast.error(t("toast.invalidinput"));
       return;
     }
 
-    setSearched(true);
-    setSearchType(exact ? "exact" : "loose");
-
-    if (exact) {
-      mutateE(parsed.data);
-    } else {
-      mutate(parsed.data);
-    }
+    mutateE(parsed.data);
+    mutate(parsed.data);
   };
+
+  const getDays = () => {
+    const start = current.startDate;
+    const end = current.endDate;
+
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    return (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+  };
+
+  useEffect(() => {
+    performSearch(filters);
+  }, [filters]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -106,6 +98,32 @@ const PreferencesComp = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SimpleDateInComp
+              labelText={t("checkin.startd")}
+              value={current.startDate.toString()}
+              onChangeFn={(value) => {
+                const newDate = new Date(value);
+                setForm({ ...current, startDate: newDate });
+                setFilters((prev) => ({
+                  ...prev,
+                  startDate: newDate,
+                }));
+              }}
+            />
+
+            <SimpleDateInComp
+              labelText={t("checkin.endd")}
+              value={current.endDate.toString()}
+              onChangeFn={(value) => {
+                const newDate = new Date(value);
+                setForm({ ...current, endDate: newDate });
+                setFilters((prev) => ({
+                  ...prev,
+                  endDate: newDate,
+                }));
+              }}
+            />
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">{t("roomres.adults")}</span>
@@ -188,6 +206,10 @@ const PreferencesComp = ({
                     ...current,
                     bedNum: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    bedNum: value,
+                  }));
                 }}
               >
                 {Object.values(BED_OPTIONS).map((b) => (
@@ -216,6 +238,10 @@ const PreferencesComp = ({
                     ...current,
                     view: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    view: value,
+                  }));
                 }}
               >
                 <option value="">{t("roomres.nofilter")}</option>
@@ -250,6 +276,10 @@ const PreferencesComp = ({
                     ...current,
                     smoking: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    smoking: value,
+                  }));
                 }}
               >
                 <option value="">{t("roomres.nofilter")}</option>
@@ -280,6 +310,10 @@ const PreferencesComp = ({
                     ...current,
                     accessibility: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    accessibility: value,
+                  }));
                 }}
               >
                 <option value="">{t("roomres.nofilter")}</option>
@@ -310,6 +344,10 @@ const PreferencesComp = ({
                     ...current,
                     balcony: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    balcony: value,
+                  }));
                 }}
               >
                 <option value="">{t("roomres.nofilter")}</option>
@@ -338,6 +376,10 @@ const PreferencesComp = ({
                     ...current,
                     pets: value,
                   });
+                  setFilters((prev) => ({
+                    ...prev,
+                    pets: value,
+                  }));
                 }}
               >
                 <option value="">{t("roomres.nofilter")}</option>
@@ -349,19 +391,20 @@ const PreferencesComp = ({
         </div>
 
         <div className="flex flex-col h-full">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  {t("checkin.availablerooms")}
+                  {t("checkin.availablerooms")} ({t("checkin.checkexact")})
                 </span>
               </label>
               <select
                 className="select select-bordered"
                 value={current.assignedRoom?._id || ""}
+                disabled={erooms.length == 0 ? true : false}
                 onChange={(e) => {
                   const roomId = e.target.value;
-                  const selectedRoom = displayRooms.find(
+                  const selectedRoom = erooms.find(
                     (room) => room._id === roomId,
                   );
                   setForm({
@@ -373,7 +416,7 @@ const PreferencesComp = ({
                 }}
               >
                 <option value="">{t("checkin.selectroom")}</option>
-                {displayRooms.map((room) => (
+                {erooms.map((room) => (
                   <option key={room._id} value={room._id}>
                     {room.roomnum}
                   </option>
@@ -381,28 +424,36 @@ const PreferencesComp = ({
               </select>
             </div>
 
-            <div className="flex justify-center mt-4">
-              <button
-                type="button"
-                className="btn btn-secondary mt-4"
-                onClick={() => {
-                  clickHandle(true);
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
+                  {t("checkin.availablerooms")} ({t("checkin.checkloose")})
+                </span>
+              </label>
+              <select
+                className="select select-bordered"
+                value={current.assignedRoom?._id || ""}
+                disabled={rooms.length == 0 ? true : false}
+                onChange={(e) => {
+                  const roomId = e.target.value;
+                  const selectedRoom = rooms.find(
+                    (room) => room._id === roomId,
+                  );
+                  setForm({
+                    ...current,
+                    assignedRoom: selectedRoom
+                      ? roomToRoomStruct(selectedRoom)
+                      : null,
+                  });
                 }}
               >
-                {t("checkin.checkexact")}
-              </button>
-            </div>
-
-            <div className="flex justify-center mt-4">
-              <button
-                type="button"
-                className="btn btn-secondary mt-4"
-                onClick={() => {
-                  clickHandle(false);
-                }}
-              >
-                {t("checkin.checkloose")}
-              </button>
+                <option value="">{t("checkin.selectroom")}</option>
+                {rooms.map((room) => (
+                  <option key={room._id} value={room._id}>
+                    {room.roomnum}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -416,7 +467,7 @@ const PreferencesComp = ({
 
           {current.assignedRoom && (
             <div className="mt-6 border-2 flex flex-col flex-1 border-success">
-              <div className="flex-1 bg-base-200 flex flex-col justify-center gap-4 p-4 overflow-y-auto">
+              <div className="flex-1 flex flex-col justify-center gap-4 p-4 overflow-y-auto">
                 {current.assignedRoom.photos &&
                   current.assignedRoom.photos.length > 0 && (
                     <div className="flex gap-3 overflow-x-auto pb-2">
@@ -431,6 +482,13 @@ const PreferencesComp = ({
                     </div>
                   )}
 
+                <p className="text-base-content/70 border-2 p-2 mx-auto">
+                  {t("checkin.pricefor")} {getDays()} {t("checkin.nights")}{" "}
+                  <b>
+                    {getDays() * current.assignedRoom.rate}{" "}
+                    {" " + current.assignedRoom.currency}
+                  </b>
+                </p>
                 <p className="text-base-content/70">
                   {t("create.room.roomnum")}:{" "}
                   <b>{current.assignedRoom.roomnum}</b>

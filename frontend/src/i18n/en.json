@@ -107,7 +107,8 @@
       "housekeepingoptions": {
         "clean": "Clean",
         "dirty": "Dirty",
-        "inspected": "Inspected"
+        "inspected": "Inspected",
+        "in_progress": "In progress"
       },
       "rate": "Rate",
       "currency": "Currency",
@@ -292,10 +293,14 @@
     "roomdetails": "Room details",
     "roomprefs": "Room preferences",
     "availablerooms": "Available rooms",
-    "checkexact": "Check exact availability",
-    "checkloose": "Check loose availability",
+    "checkexact": "exact availability",
+    "checkloose": "loose availability",
     "roomnotsel": "Room not selected",
-    "selectroom": "Select a room"
+    "selectroom": "Select a room",
+    "startd": "Start date: ",
+    "endd": "End date: ",
+    "pricefor": "Price for",
+    "nights": "nights:"
   },
   "checkout": {
     "billing": "Billing",
@@ -421,7 +426,9 @@
     "userupfail": "Failed to update the user",
     "invalidguestinput": "Invalid guest input",
     "invalidinput": "Invalid input",
-    "infofirst": "You need to enter your information first"
+    "infofirst": "You need to enter your information first",
+    "taxescrsucc": "Taxes created/updated successfully",
+    "taxescrfail": "Failed to create/update taxes"
   },
   "messages": {
     "reception": "Reception",
@@ -429,5 +436,12 @@
     "send": "Send",
     "chats": "Chats",
     "selectchat": "Select a chat to start messaging"
+  },
+  "useprio": "Sort by priorities",
+  "taxes": {
+    "manage": "Manage taxes",
+    "touristTaxAd": "Tourist tax (adults)",
+    "touristTaxCh": "Tourist tax (children)",
+    "save": "Save"
   }
 }

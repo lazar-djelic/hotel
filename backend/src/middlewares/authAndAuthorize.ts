@@ -15,7 +15,7 @@ export const authenAndAuthorize =
       return res.status(401).json({ message: "User not found" });
     }
 
-    console.log("User role:", user.role, "Allowed roles:", allowedRoles);
+    // console.log("User role:", user.role, "Allowed roles:", allowedRoles);
 
     if (!allowedRoles.includes(user.role)) {
       return res.status(403).json({ message: "Forbidden" });

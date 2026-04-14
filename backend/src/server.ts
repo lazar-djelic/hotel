@@ -21,6 +21,8 @@ import { Server } from "socket.io";
 import { createServer } from "node:http";
 import { registerChatHandlers } from "./sockets/chatSocket.ts";
 import messagesRoutes from "./routes/messagesRoutes.ts";
+import { startReservedJob } from "./jobs/reserved.job.ts";
+import taxesRoutes from "./routes/taxesRoutes.ts";
 
 dotenv.config();
 
@@ -70,8 +72,10 @@ app.use("/api/amenities", amenityRoutes);
 app.use("/api/amenityreservations", amenityReservationsRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/messages", messagesRoutes);
+app.use("/api/taxes", taxesRoutes);
 
 connectDB().then(() => {
+  startReservedJob();
   startHousekeepingJob();
 
   server.listen(PORT, () => {

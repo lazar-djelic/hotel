@@ -30,7 +30,7 @@ export const editRoom = async ({
 export const fetchFilteredRooms = async (
   parameters: SimpleFindFilteredRoomType,
 ): Promise<RoomStruct[]> => {
-  // console.log(parameters);
+  console.log(parameters);
   const res = await api.post("/reception/find-filtered-rooms", {
     ...parameters,
   });
@@ -40,7 +40,7 @@ export const fetchFilteredRooms = async (
 export const fetchExactFilteredRooms = async (
   parameters: SimpleFindFilteredRoomType,
 ): Promise<RoomStruct[]> => {
-  // console.log(parameters);
+  console.log(parameters);
   const res = await api.post("/reception/find-exact-filtered-rooms", {
     ...parameters,
   });

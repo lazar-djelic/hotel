@@ -38,6 +38,7 @@ export type SimpleRoomResCreateStruct = {
   bedNum: BedOptions;
   adults: number;
   children: number;
+  assignedRoom: RoomStruct | undefined | null;
   smoking?: boolean | undefined;
   accessibility?: boolean | undefined;
   view?: ViewOptions | undefined;
@@ -59,6 +60,7 @@ export type SimpleRoomResCreateReceptionStruct = {
   endDate: Date;
   adults: number;
   children: number;
+  assignedRoom: RoomStruct | undefined | null;
   _id: string;
   createdAt: Date;
   updatedAt: Date;

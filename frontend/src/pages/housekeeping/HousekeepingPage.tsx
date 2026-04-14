@@ -6,14 +6,17 @@ import { useChangeHousekeeping } from "../api/housekeeping/useChangeHousekeeping
 import { formatDate } from "../../lib/utils";
 import i18n from "../../i18n";
 import { useState } from "react";
+import { useHousekeepingRooms } from "../api/housekeeping/useHousekeepingRooms";
 
 const HousekeepingPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { rooms, loading } = useRooms();
+  const { priorityrooms, loadingP } = useHousekeepingRooms();
   const { mutate: changeHousekeeping, isPending } =
     useChangeHousekeeping(navigate);
   const [search, setSearch] = useState("");
+  const [usePrio, setUsePrio] = useState(true);
 
   const filteredRooms = rooms.filter((room) =>
     room.roomnum.toString().includes(search),
@@ -46,15 +49,29 @@ const HousekeepingPage = () => {
 
       {rooms.length > 0 && (
         <>
-          <div className="form-control mb-4">
-            <div className="input-group">
-              <input
-                type="text"
-                placeholder="Search room number..."
-                className="input input-bordered w-full max-w-xs"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+          <div className="flex items-center gap-4 mb-4">
+            <div className="form-control">
+              <div className="input-group">
+                <input
+                  type="text"
+                  placeholder={t("room.search")}
+                  className="input input-bordered w-full max-w-xs"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label cursor-pointer gap-2">
+                <span className="label-text">{t("useprio")}</span>
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={usePrio}
+                  onChange={(e) => setUsePrio(e.target.checked)}
+                />
+              </label>
             </div>
           </div>
 
@@ -69,42 +86,51 @@ const HousekeepingPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredRooms.map((room, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      onClick={() => {}}
-                      className="cursor-pointer transition-all border-l-4
+                {(usePrio ? priorityrooms : filteredRooms).map(
+                  (room, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        onClick={() => {}}
+                        className="cursor-pointer transition-all border-l-4
                border-l-blue-400
                bg-[rgba(96,165,250,0.08)] hover:bg-[rgba(96,165,250,0.12)]"
-                    >
-                      <td className="font-medium">{room.roomnum}</td>
-                      <td className="font-medium">{room.status}</td>
-                      <td>
-                        <select
-                          value={room.housekeeping}
-                          onChange={(e) =>
-                            changeHousekeeping({
-                              id: room._id,
-                              status: e.target.value as any,
-                            })
-                          }
-                          disabled={isPending}
-                          className="select select-bordered select-sm"
-                        >
-                          {housekeepingOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-                      <td>
-                        {formatDate(room.lastcleaned.toString(), i18n.language)}
-                      </td>
-                    </tr>
-                  );
-                })}
+                      >
+                        <td className="font-medium">{room.roomnum}</td>
+                        <td className="font-medium">
+                          {t(`create.room.statusoptions.${room.status}`)}
+                        </td>
+                        <td>
+                          <select
+                            value={room.housekeeping}
+                            onChange={(e) =>
+                              changeHousekeeping({
+                                id: room._id,
+                                status: e.target.value as any,
+                              })
+                            }
+                            disabled={isPending}
+                            className="select select-bordered select-sm"
+                          >
+                            {housekeepingOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {t(
+                                  `create.room.housekeepingoptions.${option.label.toLowerCase()}`,
+                                )}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+                        <td>
+                          {formatDate(
+                            room.lastcleaned.toString(),
+                            i18n.language,
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  },
+                )}
               </tbody>
             </table>
           </div>

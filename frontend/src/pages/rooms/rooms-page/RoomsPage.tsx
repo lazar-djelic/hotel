@@ -6,12 +6,14 @@ import RoomCard from "./RoomCard";
 import InputComp from "../../../components/NumberInputComp";
 import { useState } from "react";
 import { ROUTES } from "../../../config/routes";
+import TaxesModal from "./TaxesModal";
 
 const RoomsPage = () => {
   const { t } = useTranslation();
   const { rooms, loading } = useRooms();
   const [expanded, setExpanded] = useState<boolean | null>(null);
   const [search, setSearch] = useState(0);
+  const [showTaxesModal, setShowTaxesModal] = useState(false);
 
   const filteredRooms = rooms.filter((room) =>
     room.roomnum.toString().includes(search.toString()),
@@ -33,6 +35,12 @@ const RoomsPage = () => {
               alignItems: "center",
             }}
           >
+            <button
+              className="btn btn-outline"
+              onClick={() => setShowTaxesModal(true)}
+            >
+              {t("taxes.manage")}
+            </button>
             <Link to={ROUTES.ADMIN.ROOM} className="btn btn-outline text-lg">
               <PlusIcon className="size-8" />
               {t("create.room.new")}
@@ -94,6 +102,9 @@ const RoomsPage = () => {
           </div>
         )}
       </div>
+      {showTaxesModal && (
+        <TaxesModal onClose={() => setShowTaxesModal(false)} />
+      )}
     </div>
   );
 };

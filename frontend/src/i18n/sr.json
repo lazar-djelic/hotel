@@ -107,7 +107,8 @@
       "housekeepingoptions": {
         "clean": "Čista",
         "dirty": "Prljava",
-        "inspected": "Proverena"
+        "inspected": "Proverena",
+        "in_progress": "U toku"
       },
       "rate": "Cena",
       "currency": "Valuta",
@@ -292,10 +293,14 @@
     "roomdetails": "Detalji sobe",
     "roomprefs": "Preferencije sobe",
     "availablerooms": "Slobodne sobe",
-    "checkexact": "Proverite tačno poklapanje",
-    "checkloose": "Proverite slično poklapanje",
+    "checkexact": "tačno poklapanje",
+    "checkloose": "slično poklapanje",
     "roomnotsel": "Soba nije izabrana",
-    "selectroom": "Izaberite sobu"
+    "selectroom": "Izaberite sobu",
+    "startd": "Početak boravka: ",
+    "endd": "Kraj boravka: ",
+    "pricefor": "Cena za",
+    "nights": "noći:"
   },
   "checkout": {
     "billing": "Naplata",
@@ -421,7 +426,9 @@
     "userupfail": "Greška prilikom izmene korisnika",
     "invalidguestinput": "Nevažeći unos gosta",
     "invalidinput": "Nevažeći unos",
-    "infofirst": "Potrebno je da unesete prvo Vaše informacije"
+    "infofirst": "Potrebno je da unesete prvo Vaše informacije",
+    "taxescrsucc": "Takse uspešno kreirane/izmenjene",
+    "taxescrfail": "Greška prilikom kreiranja/izmene taksi"
   },
   "messages": {
     "reception": "Recepcija",
@@ -429,5 +436,12 @@
     "send": "Pošaljite",
     "chats": "Četovi",
     "selectchat": "Izaberite čet da bi ste kucali poruku"
+  },
+  "useprio": "Sortiraj po prioritetima",
+  "taxes": {
+    "manage": "Upravljanje taksama",
+    "touristTaxAd": "Turistička taksa (odrasli)",
+    "touristTaxCh": "Turistička taksa (deca)",
+    "save": "Sačuvaj"
   }
 }

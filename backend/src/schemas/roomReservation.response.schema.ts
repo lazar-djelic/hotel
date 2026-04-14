@@ -44,6 +44,7 @@ export const roomReservationSimpleSchema = z.object({
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   adults: z.number().default(1),
   children: z.number().default(0),
+  assignedRoom: z.lazy(() => getRoomSchema),
   smoking: z.boolean().optional(),
   accessibility: z.boolean().optional(),
   view: z
@@ -79,6 +80,7 @@ export const roomReservationReceptionSimpleSchema = z.object({
   bedNum: z.enum([BED_OPTIONS.single, BED_OPTIONS.double, BED_OPTIONS.twin]),
   adults: z.number().default(1),
   children: z.number().default(0),
+  assignedRoom: z.lazy(() => getRoomSchema),
   smoking: z.boolean().optional(),
   accessibility: z.boolean().optional(),
   view: z

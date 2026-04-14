@@ -11,7 +11,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
   reservation: z.lazy(() => getRoomReservationSchema).nullable(),
   room: z.lazy(() => getRoomSchema),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable(),
+  checkOut: z.coerce.date(),
   stStatus: z.enum([
     STAY_STATUS.checked_in,
     STAY_STATUS.checked_out,
@@ -44,7 +44,7 @@ export const staySimpleSchema = z.object({
     .transform((val) => val?.toString()),
   room: z.any().transform((val) => val.toString()),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable().optional(),
+  checkOut: z.coerce.date(),
   adults: z.number().optional(),
   children: z.number().optional(),
   notes: z.string().optional(),
@@ -90,7 +90,7 @@ export const getStaySchema: z.ZodType<getStay> = z.object({
     .nullable(),
   room: z.lazy(() => getRoomSchema),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable(),
+  checkOut: z.coerce.date(),
   stStatus: z.enum([
     STAY_STATUS.checked_in,
     STAY_STATUS.checked_out,

@@ -4,9 +4,9 @@ import type { Stay } from "../../types/StayType";
 import { useStays } from "../api/stays/check-out/useStays";
 import { ArrowRightIcon } from "lucide-react";
 import BillingSection from "./BillingSection";
-import { formatDate } from "../../lib/utils";
 import { useCheckOut } from "../api/stays/check-out/useCheckOut";
 import { useNavigate } from "react-router";
+import { formatDate } from "../api/roomReservations/formatDate";
 
 const CheckOutPage = () => {
   const { t, i18n } = useTranslation();
@@ -128,15 +128,10 @@ const CheckOutPage = () => {
                 {t("checkout.children")}: {globalStay.children || 0}
               </p>
               <p>
-                {t("checkout.checkin")}:{" "}
-                {formatDate(
-                  globalStay.checkIn.toLocaleDateString(),
-                  i18n.language,
-                )}
+                {t("checkout.checkin")}: {formatDate(globalStay.checkIn)}
               </p>
               <p>
-                {t("checkout.checkout")}:{" "}
-                {formatDate(new Date().toString(), i18n.language)}
+                {t("checkout.checkout")}: {formatDate(globalStay.checkOut)}
               </p>
             </div>
           </div>

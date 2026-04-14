@@ -3,9 +3,19 @@ import {
   SimpleFindFilteredRoomsRequestSchema,
   type FindFilteredRoomsRequest,
 } from "./types.ts";
-import { ROOM_STATUS } from "../../../utils/enums.ts";
+import {
+  ROOM_STATUS,
+  RESERVATION_STATUS,
+  STAY_STATUS,
+} from "../../../utils/enums.ts";
 import Room from "../../../models/Room.ts";
-import { roomArraySchema } from "../../../schemas/room.response.schema.ts";
+import RoomReservation from "../../../models/RoomReservation.ts";
+import { Stay } from "../../../models/Stay.ts";
+import {
+  getRoomArraySchema,
+  getRoomSchema,
+  roomArraySchema,
+} from "../../../schemas/room.response.schema.ts";
 
 export async function findExactFilteredRooms(
   req: FindFilteredRoomsRequest,
@@ -34,7 +44,7 @@ export async function findExactFilteredRooms(
     const match: any = {
       type: filters.roomType,
       bednum: filters.bedNum,
-      status: ROOM_STATUS.available,
+      status: { $ne: ROOM_STATUS.outofservice },
     };
 
     // Add optional filters ONLY if they are provided
@@ -48,6 +58,72 @@ export async function findExactFilteredRooms(
       {
         $match: match,
       },
+      {
+        $lookup: {
+          from: "room_reservations",
+          localField: "_id",
+          foreignField: "assignedRoom",
+          as: "reservations",
+        },
+      },
+      {
+        $lookup: {
+          from: "stays",
+          localField: "_id",
+          foreignField: "room",
+          as: "stays",
+        },
+      },
+      {
+        $match: {
+          $and: [
+            {
+              $or: [
+                { reservations: { $size: 0 } },
+                {
+                  reservations: {
+                    $not: {
+                      $elemMatch: {
+                        resStatus: { $ne: RESERVATION_STATUS.cancelled },
+                        startDate: { $lt: filters.endDate },
+                        endDate: { $gt: filters.startDate },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+            {
+              $or: [
+                { stays: { $size: 0 } },
+                {
+                  stays: {
+                    $not: {
+                      $elemMatch: {
+                        stStatus: {
+                          $nin: [
+                            STAY_STATUS.checked_out,
+                            STAY_STATUS.cancelled,
+                            STAY_STATUS.no_show,
+                          ],
+                        },
+                        checkIn: { $lt: filters.endDate },
+                        checkOut: { $gt: filters.startDate, $ne: null },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        $project: {
+          reservations: 0,
+          stays: 0,
+        },
+      },
     ];
 
     const rooms = await Room.aggregate(pipeline);
@@ -58,7 +134,7 @@ export async function findExactFilteredRooms(
       });
     }
 
-    const parsed = roomArraySchema.safeParse(rooms);
+    const parsed = getRoomArraySchema.safeParse(rooms);
 
     if (!parsed.success) {
       return res

@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  getRoomArraySchema,
   roomArraySchema,
   type SimpleFindFilteredRoomType,
 } from "../../../../schemas/room.response.schema";
@@ -9,7 +10,7 @@ export const useFindExactFilteredRooms = () => {
   return useMutation({
     mutationFn: async (filters: SimpleFindFilteredRoomType) => {
       const rawRooms = await fetchExactFilteredRooms(filters);
-      const parsed = roomArraySchema.safeParse(rawRooms);
+      const parsed = getRoomArraySchema.safeParse(rawRooms);
       if (!parsed.success) {
         console.error("Invalid room data", parsed.error);
         return [];
