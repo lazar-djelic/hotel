@@ -18,6 +18,7 @@ export async function getAllStays(
       .populate("guest")
       .populate("reservation")
       .populate("room")
+      .populate("extras.extra")
       .sort({ createdAt: 1 })
       .lean();
 

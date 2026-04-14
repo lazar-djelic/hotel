@@ -41,6 +41,9 @@ const RoomsPage = () => {
             >
               {t("taxes.manage")}
             </button>
+            <Link to={ROUTES.ADMIN.EXTRAS} className="btn btn-outline text-lg">
+              {t("create.room.extras")}
+            </Link>
             <Link to={ROUTES.ADMIN.ROOM} className="btn btn-outline text-lg">
               <PlusIcon className="size-8" />
               {t("create.room.new")}

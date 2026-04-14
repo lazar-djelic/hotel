@@ -3,6 +3,12 @@ import type { Guest } from "./Guest.ts";
 import type { RoomReservation } from "./RoomReservationType.ts";
 import type { Room } from "./RoomType.ts";
 
+export type Extra = {
+  nameEng: string;
+  nameSrb: string;
+  price: number;
+};
+
 export type Stay = {
   _id: string;
   guest: Guest;
@@ -16,7 +22,7 @@ export type Stay = {
   rate?: number;
   currency?: CurrType;
   extras?: {
-    type: string;
+    extra: Extra;
     amount: number;
   }[];
   notes: string;

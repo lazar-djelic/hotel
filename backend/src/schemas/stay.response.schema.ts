@@ -5,6 +5,7 @@ import { getRoomSchema, roomSchema } from "./room.response.schema.ts";
 import { CURRENCIES, STAY_STATUS } from "../utils/enums.ts";
 import type { Stay } from "../types/StayType.ts";
 import { getRoomReservationSchema } from "./roomReservation.response.schema.ts";
+import { extraSchema } from "./extra.response.schema.ts";
 
 export const staySchema: z.ZodType<Stay> = z.object({
   _id: z.any().transform((val) => val.toString()),
@@ -25,7 +26,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
   currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]),
   extras: z.array(
     z.object({
-      type: z.string(),
+      extra: extraSchema,
       amount: z.number(),
     }),
   ),
@@ -53,7 +54,7 @@ export const staySimpleSchema = z.object({
   extras: z
     .array(
       z.object({
-        type: z.string(),
+        extra: extraSchema,
         amount: z.number(),
       }),
     )
@@ -84,7 +85,7 @@ export const updateStaySimpleSchema = z.object({
   extras: z
     .array(
       z.object({
-        type: z.string(),
+        extra: extraSchema,
         amount: z.number(),
       }),
     )
@@ -129,7 +130,7 @@ export const getStaySchema: z.ZodType<Stay> = z.object({
   currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]),
   extras: z.array(
     z.object({
-      type: z.string(),
+      extra: extraSchema,
       amount: z.number(),
     }),
   ),

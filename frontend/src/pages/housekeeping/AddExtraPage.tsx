@@ -3,17 +3,20 @@ import { useState, useEffect } from "react";
 import { Fragment } from "react";
 import { useStays } from "../api/stays/check-out/useStays";
 import { useAddExtra } from "../api/stays/addExtra/useAddExtra";
+import { useGetExtras } from "../api/extras/useGetExtras";
 import NumberInputComp from "../../components/NumberInputComp";
-import { EXTRA_OPTIONS } from "../../config/enums";
 import type { Stay } from "../../types/StayType";
 
 const AddExtraPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { stays, loading } = useStays();
+  const { extras } = useGetExtras();
   const [selectedStay, setSelectedStay] = useState<Stay | null>(null);
-  const [extraType, setExtraType] = useState<string>("");
+  const [selectedExtraId, setSelectedExtraId] = useState<string>("");
   const [extraAmount, setExtraAmount] = useState<number>(0);
   const [search, setSearch] = useState("");
+
+  const isSr = i18n.language.startsWith("sr");
 
   const filteredStays = stays.filter((stay) =>
     stay.room.roomnum.toString().includes(search),
@@ -21,7 +24,7 @@ const AddExtraPage = () => {
 
   const { addExtra } = useAddExtra((updatedStay) => {
     setSelectedStay(updatedStay);
-    setExtraType("");
+    setSelectedExtraId("");
     setExtraAmount(0);
     setTimeout(() => {
       (document.getElementById("my_modal_3") as HTMLDialogElement)?.close();
@@ -30,11 +33,11 @@ const AddExtraPage = () => {
   });
 
   const handleAddExtra = () => {
-    if (extraType !== "" && extraAmount > 0 && selectedStay?._id) {
+    if (selectedExtraId !== "" && extraAmount > 0 && selectedStay?._id) {
       addExtra({
         id: selectedStay._id,
         extra: {
-          type: extraType,
+          extra: selectedExtraId,
           amount: extraAmount,
         },
       });
@@ -54,7 +57,7 @@ const AddExtraPage = () => {
 
   const handleModalClose = () => {
     setSelectedStay(null);
-    setExtraType("");
+    setSelectedExtraId("");
     setExtraAmount(0);
   };
 
@@ -83,7 +86,7 @@ const AddExtraPage = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  placeholder="Search room number..."
+                  placeholder={t("extra.searchroom")}
                   className="input input-bordered w-full max-w-xs"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -136,8 +139,12 @@ const AddExtraPage = () => {
                                   key={i}
                                   className="flex justify-between text-sm mb-1"
                                 >
-                                  <span>{extra.type}</span>
-                                  <span>{`${extra.amount} ${stay.currency}`}</span>
+                                  <span>
+                                    {isSr
+                                      ? extra.extra.nameSrb
+                                      : extra.extra.nameEng}
+                                  </span>
+                                  <span>{`${extra.amount} * ${extra.extra.price} = ${extra.amount * extra.extra.price} ${stay.currency}`}</span>
                                 </div>
                               ))}
                             </div>
@@ -162,19 +169,20 @@ const AddExtraPage = () => {
                 <label className="label">
                   <span className="label-text">{t("checkout.extratype")}</span>
                 </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  placeholder={t("checkout.typeorselect")}
-                  value={extraType}
-                  onChange={(e) => setExtraType(e.target.value)}
-                  list="extra-options"
-                />
-                <datalist id="extra-options">
-                  {Object.values(EXTRA_OPTIONS).map((opt) => (
-                    <option key={opt} value={opt} />
+                <select
+                  className="select select-bordered w-full"
+                  value={selectedExtraId}
+                  onChange={(e) => setSelectedExtraId(e.target.value)}
+                >
+                  <option value="" disabled>
+                    {t("extra.select")}
+                  </option>
+                  {extras.map((ex) => (
+                    <option key={ex._id} value={ex._id}>
+                      {isSr ? ex.nameSrb : ex.nameEng}
+                    </option>
                   ))}
-                </datalist>
+                </select>
               </div>
 
               <NumberInputComp

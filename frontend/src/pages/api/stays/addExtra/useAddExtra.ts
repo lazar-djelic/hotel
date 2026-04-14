@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { SimpleExtraStruct } from "../../structs/ExtraStruct";
+import type { SimpleAddExtraStruct } from "../../structs/ExtraStruct";
 import type { Stay } from "../../../../types/StayType";
 import { QUERY_KEYS } from "../../../../config/query-keys";
 import { staySchema } from "../../../../schemas/stay.response.schema";
@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 interface AddExtraParams {
   id: string;
-  extra: SimpleExtraStruct;
+  extra: SimpleAddExtraStruct;
 }
 
 export const useAddExtra = (onSuccess?: (updatedStay: Stay) => void) => {

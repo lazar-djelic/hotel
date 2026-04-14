@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { Request } from "express";
 
 export const AddExtraSimpleSchema = z.object({
-  type: z.string(),
+  extra: z.string(),
   amount: z.number(),
 });
 

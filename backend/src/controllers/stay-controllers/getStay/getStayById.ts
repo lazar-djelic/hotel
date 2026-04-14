@@ -12,7 +12,8 @@ export async function getStayById(
     const stay = await Stay.findById(req.params.id)
       .populate("guest")
       .populate("reservation")
-      .populate("room");
+      .populate("room")
+      .populate("extras.extra");
 
     if (!stay) return res.status(404).json({ message: "Stay not found" });
 

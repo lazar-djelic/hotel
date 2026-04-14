@@ -23,6 +23,7 @@ import { registerChatHandlers } from "./sockets/chatSocket.ts";
 import messagesRoutes from "./routes/messagesRoutes.ts";
 import { startReservedJob } from "./jobs/reserved.job.ts";
 import taxesRoutes from "./routes/taxesRoutes.ts";
+import extrasRoutes from "./routes/extrasRoutes.ts";
 
 dotenv.config();
 
@@ -73,6 +74,7 @@ app.use("/api/amenityreservations", amenityReservationsRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/taxes", taxesRoutes);
+app.use("/api/extras", extrasRoutes);
 
 connectDB().then(() => {
   startReservedJob();

@@ -28,6 +28,7 @@ import HousekeepingPage from "./pages/housekeeping/HousekeepingPage.tsx";
 import AddExtraPage from "./pages/housekeeping/AddExtraPage.tsx";
 import MessagesPageReception from "./pages/messages-page/MessagesPageReception.tsx";
 import MessagesPageGuest from "./pages/messages-page/MessagesPageGuest.tsx";
+import ExtrasPage from "./pages/rooms/rooms-page/ExtrasPage.tsx";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path={ROUTES.ADMIN.ROOMS} element={<RoomsPage />} />
           <Route path={ROUTES.ADMIN.ROOM} element={<RoomPage />} />
           <Route path={`${ROUTES.ADMIN.ROOM}/:id`} element={<RoomPage />} />
+          <Route path={ROUTES.ADMIN.EXTRAS} element={<ExtrasPage />} />
         </Route>
 
         <Route

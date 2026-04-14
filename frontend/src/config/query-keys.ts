@@ -44,4 +44,8 @@ export const QUERY_KEYS = {
   TAXES: {
     TAXES: "taxes",
   },
+  EXTRAS: {
+    EXTRA: "extra",
+    EXTRAS: "extras",
+  },
 };

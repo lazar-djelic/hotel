@@ -17,12 +17,12 @@ export async function addExtra(
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
 
-    const { type, amount } = req.body;
+    const { extra, amount } = req.body;
 
     const updatedStay = await Stay.findByIdAndUpdate(
       req.params.id,
       {
-        $push: { extras: { type, amount } },
+        $push: { extras: { extra, amount } },
       },
       {
         new: true,
@@ -31,6 +31,7 @@ export async function addExtra(
       .populate("guest")
       .populate("reservation")
       .populate("room")
+      .populate("extras.extra")
       .lean();
 
     res.status(200).json(updatedStay);

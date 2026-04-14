@@ -6,6 +6,12 @@ import {
   type StStatus,
 } from "../utils/enums.ts";
 
+export interface IExtra {
+  nameEng: string;
+  nameSrb: string;
+  price: number;
+}
+
 export interface IStay {
   guest: Types.ObjectId;
   reservation?: Types.ObjectId | null;
@@ -18,7 +24,7 @@ export interface IStay {
   rate?: number;
   currency?: CurrType;
   extras?: {
-    type: string;
+    extra: IExtra;
     amount: number;
   }[];
   notes?: string;
@@ -55,7 +61,7 @@ const staySchema = new Schema<IStay>(
     },
     extras: [
       {
-        type: { type: String },
+        extra: { type: Schema.Types.ObjectId, ref: "Extra", required: true },
         amount: Number,
       },
     ],

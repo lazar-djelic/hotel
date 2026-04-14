@@ -11,6 +11,7 @@ export const ROUTES = {
     USERS: "/admin/users",
     ROOMS: "/admin/rooms",
     ROOM: "/admin/room",
+    EXTRAS: "/admin/extras",
   },
   RECEPTION: {
     AM_RES_S: "/reception/amenity-reservations",

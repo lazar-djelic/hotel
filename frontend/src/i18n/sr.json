@@ -81,6 +81,7 @@
       "pets": "Da li su dozvoljeni kućni ljubimci",
       "loadbtn": "Kreiranje...",
       "button": "Kreirajte sobu",
+      "extras": "Dodaci",
       "typeoptions": {
         "standard": "Standardna",
         "deluxe": "Deluks",
@@ -343,6 +344,19 @@
     "nodata": "Osoba još uvek nije unela svoje lične podatke."
   },
   "extras": "Dodaci",
+  "extra": {
+    "extras": "Dodaci",
+    "create": "Kreirajte dodatak",
+    "noextras": "Nema dodatka",
+    "nameEng": "Naziv na Engleskom",
+    "nameSrb": "Naziv na Srpskom",
+    "price": "Cena",
+    "edit": "Izmenite dodatak",
+    "delete": "Obrišite dodatak",
+    "update": "Izmenite dodatak",
+    "select": "Izaberite dodatak",
+    "searchroom": "Pretražite sobu..."
+  },
   "clear": "Očistite",
   "homepage": {
     "slidetext": "Luksuzni boravak",
@@ -428,7 +442,13 @@
     "invalidinput": "Nevažeći unos",
     "infofirst": "Potrebno je da unesete prvo Vaše informacije",
     "taxescrsucc": "Takse uspešno kreirane/izmenjene",
-    "taxescrfail": "Greška prilikom kreiranja/izmene taksi"
+    "taxescrfail": "Greška prilikom kreiranja/izmene taksi",
+    "extracrsuccess": "Dodatak uspešno kreiran",
+    "extracrfailed": "Greška prilikom kreiranja dodatka",
+    "extradelsucc": "Dodatak uspešno obrisan",
+    "extradelfail": "Greška prilikom brisanja dodatka",
+    "extraupsucc": "Dodatak uspešno izmenjen",
+    "extraupfail": "Greška prilikom izmene dodatka"
   },
   "messages": {
     "reception": "Recepcija",

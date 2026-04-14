@@ -1,6 +1,6 @@
 import api from "../../../lib/axios";
 import type { Stay } from "../../../types/StayType";
-import type { SimpleExtraStruct } from "../structs/ExtraStruct";
+import type { SimpleAddExtraStruct } from "../structs/ExtraStruct";
 import type { stayCreateStruct } from "../structs/StayStruct";
 
 export const createStay = async ({
@@ -22,7 +22,7 @@ export const addExtra = async ({
   extra,
 }: {
   id: string;
-  extra: SimpleExtraStruct;
+  extra: SimpleAddExtraStruct;
 }): Promise<Stay> => {
   const res = await api.put(`/stays/addExtra/${id}`, { ...extra });
   return res.data;

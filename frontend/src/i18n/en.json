@@ -81,6 +81,7 @@
       "pets": "Are pets allowed in the room",
       "loadbtn": "Creating...",
       "button": "Create a room",
+      "extras": "Extras",
       "typeoptions": {
         "standard": "Standard",
         "deluxe": "Deluxe",
@@ -343,6 +344,19 @@
     "nodata": "User has not entered personal information yet."
   },
   "extras": "Extras",
+  "extra": {
+    "extras": "Extras",
+    "create": "Create extra",
+    "noextras": "No extras",
+    "nameEng": "Name in English",
+    "nameSrb": "Name in Serbian",
+    "price": "Price",
+    "edit": "Edit extra",
+    "delete": "Delete extra",
+    "update": "Update extra",
+    "select": "Select an extra",
+    "searchroom": "Search room number..."
+  },
   "clear": "Clear",
   "homepage": {
     "slidetext": "Luxury Stay",
@@ -428,7 +442,13 @@
     "invalidinput": "Invalid input",
     "infofirst": "You need to enter your information first",
     "taxescrsucc": "Taxes created/updated successfully",
-    "taxescrfail": "Failed to create/update taxes"
+    "taxescrfail": "Failed to create/update taxes",
+    "extracrsuccess": "Extra created successfully",
+    "extracrfailed": "Failed to create extra",
+    "extradelsucc": "Extra deleted successfully",
+    "extradelfail": "Failed to delete extra",
+    "extraupsucc": "Extra updated successfully",
+    "extraupfail": "Failed to update the extra"
   },
   "messages": {
     "reception": "Reception",

@@ -4,7 +4,7 @@ import type {
   RoomTypes,
   ViewOptions,
 } from "../../../config/enums";
-import type { getRoomStruct, RoomStruct } from "./RoomStruct";
+import type { getRoomStruct } from "./RoomStruct";
 
 export type SimpleStayCreateStruct = {
   fName: string;

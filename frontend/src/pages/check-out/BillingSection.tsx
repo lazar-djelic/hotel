@@ -1,8 +1,8 @@
 import { useState } from "react";
 import NumberInputComp from "../../components/NumberInputComp";
-import { EXTRA_OPTIONS } from "../../config/enums";
 import type { Stay } from "../../types/StayType";
 import { useAddExtra } from "../api/stays/addExtra/useAddExtra";
+import { useGetExtras } from "../api/extras/useGetExtras";
 import { PlusIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -12,14 +12,17 @@ interface BillingProps {
 }
 
 const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
-  const { t } = useTranslation();
-  const [extraType, setExtraType] = useState<string>("");
+  const { t, i18n } = useTranslation();
+  const { extras } = useGetExtras();
+  const [selectedExtraId, setSelectedExtraId] = useState<string>("");
   const [extraAmount, setExtraAmount] = useState<number>(0);
+
+  const isSr = i18n.language.startsWith("sr");
 
   const nights = Math.max(
     1,
     Math.ceil(
-      (new Date().getTime() - new Date(stay.checkIn).getTime()) /
+      (new Date(stay.checkOut).getTime() - new Date(stay.checkIn).getTime()) /
         (1000 * 60 * 60 * 24),
     ),
   );
@@ -27,7 +30,10 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
   const roomTotal = (stay.rate || stay.room.rate) * nights;
 
   const extrasTotal =
-    stay.extras?.reduce((sum: number, e: any) => sum + e.amount, 0) || 0;
+    stay.extras?.reduce(
+      (sum: number, e: any) => sum + e.amount * e.extra.price,
+      0,
+    ) || 0;
 
   const total = roomTotal + extrasTotal;
 
@@ -35,7 +41,7 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
     if (onStayUpdated) {
       onStayUpdated(updatedStay);
     }
-    setExtraType("");
+    setSelectedExtraId("");
     setExtraAmount(0);
     setTimeout(() => {
       (document.getElementById("my_modal_2") as HTMLDialogElement)?.close();
@@ -55,12 +61,12 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
       </div>
 
       <div>
-        <h3 className="font-medium mb-2">{t("checkout.extras")}</h3>
+        <h3 className="font-semibold mb-2">{t("checkout.extras")}</h3>
 
         {stay.extras?.map((e: any, i: number) => (
           <div key={i} className="flex justify-between">
-            <span>{e.type}</span>
-            <span>{`${e.amount} ${stay.currency}`}</span>
+            <span>{isSr ? e.extra.nameSrb : e.extra.nameEng}</span>
+            <span>{`${e.amount} * ${e.extra.price} = ${e.amount * e.extra.price} ${stay.currency}`}</span>
           </div>
         ))}
 
@@ -82,19 +88,20 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
                 <label className="label">
                   <span className="label-text">{t("checkout.extratype")}</span>
                 </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  placeholder={t("checkout.typeorselect")}
-                  value={extraType}
-                  onChange={(e) => setExtraType(e.target.value)}
-                  list="extra-options"
-                />
-                <datalist id="extra-options">
-                  {Object.values(EXTRA_OPTIONS).map((opt) => (
-                    <option key={opt} value={opt} />
+                <select
+                  className="select select-bordered w-full"
+                  value={selectedExtraId}
+                  onChange={(e) => setSelectedExtraId(e.target.value)}
+                >
+                  <option value="" disabled>
+                    {t("extra.select")}
+                  </option>
+                  {extras.map((ex) => (
+                    <option key={ex._id} value={ex._id}>
+                      {isSr ? ex.nameSrb : ex.nameEng}
+                    </option>
                   ))}
-                </datalist>
+                </select>
               </div>
 
               <NumberInputComp
@@ -118,11 +125,11 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  if (extraType !== "" && extraAmount > 0) {
+                  if (selectedExtraId !== "" && extraAmount > 0) {
                     addExtra({
                       id: stay._id,
                       extra: {
-                        type: extraType,
+                        extra: selectedExtraId,
                         amount: extraAmount,
                       },
                     });
