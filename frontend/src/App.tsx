@@ -29,6 +29,9 @@ import AddExtraPage from "./pages/housekeeping/AddExtraPage.tsx";
 import MessagesPageReception from "./pages/messages-page/MessagesPageReception.tsx";
 import MessagesPageGuest from "./pages/messages-page/MessagesPageGuest.tsx";
 import ExtrasPage from "./pages/rooms/rooms-page/ExtrasPage.tsx";
+import CheckoutPage from "./pages/payments/CheckoutPage.tsx";
+import SuccessPage from "./pages/payments/SuccessPage.tsx";
+import CancelPage from "./pages/payments/CancelPage.tsx";
 
 function App() {
   return (
@@ -38,6 +41,22 @@ function App() {
         <Route path={ROUTES.ALL.REGISTER} element={<RegisterPage />} />
         <Route path={ROUTES.ALL.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.ALL.REVIEWS} element={<ReviewsPage />} />
+
+        <Route
+          element={
+            <ProtectedRoute
+              allowedRoles={[
+                USER_ROLE.receptionist,
+                USER_ROLE.admin,
+                USER_ROLE.guest,
+              ]}
+            />
+          }
+        >
+          <Route path={ROUTES.PAYMENT.CHECKOUT} element={<CheckoutPage />} />
+          <Route path={ROUTES.PAYMENT.SUCCESS} element={<SuccessPage />} />
+          <Route path={ROUTES.PAYMENT.CHECKOUT} element={<CancelPage />} />
+        </Route>
 
         <Route
           element={<ProtectedRoute allowedRoles={[USER_ROLE.receptionist]} />}

@@ -61,7 +61,10 @@ const CheckInPage = () => {
     }
   };
 
-  const { mutate: createStay, isPending } = useCreateStay(navigate);
+  const { mutate: createStay, isPending } = useCreateStay(
+    navigate,
+    form.payNow,
+  );
 
   const { searchGuest, isSearching } = useFindGuestStay({
     form,
@@ -161,6 +164,7 @@ const CheckInPage = () => {
                           notes: reservation.guest.notes,
                           adults: reservation.adults,
                           children: reservation.children,
+                          paid: reservation.paid,
                         });
                         setHasRes(true);
                         setIsNewG(false);

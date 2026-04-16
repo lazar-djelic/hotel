@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AMENITY_TYPES } from "../utils/enums.ts";
+import { AMENITY_TYPES, CURRENCIES } from "../utils/enums.ts";
 
 export const amenitySchema = z.object({
   _id: z.any().transform((val) => val.toString()),
@@ -18,6 +18,8 @@ export const amenitySchema = z.object({
   closeTime: z.string(),
   requiresReservation: z.boolean(),
   onePerSlot: z.boolean(),
+  price: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -40,4 +42,6 @@ export const amenitySimpleSchema = z.object({
   closeTime: z.string(),
   requiresReservation: z.boolean(),
   onePerSlot: z.boolean(),
+  price: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
 });

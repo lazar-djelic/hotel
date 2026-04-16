@@ -3,7 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import type { SimpleAmenityStruct } from "../../api/structs/AmenityStruct";
-import { AMENITY_TYPES } from "../../../config/enums";
+import {
+  AMENITY_TYPES,
+  CURRENCIES,
+  type CurrType,
+} from "../../../config/enums";
 import StringInputComp from "../../../components/StringInputComp";
 import SelectComp from "../../../components/SelectComp";
 import NumberInputComp from "../../../components/NumberInputComp";
@@ -37,6 +41,8 @@ const AmenityPage = () => {
     closeTime: "21:00",
     requiresReservation: true,
     onePerSlot: false,
+    price: 0,
+    currency: CURRENCIES.rsd,
   });
 
   useEffect(() => {
@@ -50,6 +56,8 @@ const AmenityPage = () => {
         closeTime: amenity.closeTime,
         requiresReservation: amenity.requiresReservation,
         onePerSlot: amenity.onePerSlot,
+        price: amenity.price,
+        currency: amenity.currency,
       });
     }
   }, [amenity]);
@@ -156,6 +164,29 @@ const AmenityPage = () => {
             onChangeFn={(value) =>
               setFormData((prev) => ({ ...prev, capacity: value }))
             }
+          />
+
+          <NumberInputComp
+            labelText={t("amenity.price")}
+            iValue={formData.price}
+            onChangeFn={(value) =>
+              setFormData((prev) => ({ ...prev, price: value }))
+            }
+          />
+
+          <SelectComp
+            labelText={t("amenity.currency")}
+            sValue={formData.currency}
+            onChangeFn={(value) =>
+              setFormData((prev) => ({
+                ...prev,
+                currency: value as CurrType,
+              }))
+            }
+            options={[
+              { value: CURRENCIES.rsd, label: CURRENCIES.rsd },
+              { value: CURRENCIES.eur, label: CURRENCIES.eur },
+            ]}
           />
 
           <div>

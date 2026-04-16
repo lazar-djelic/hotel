@@ -10,7 +10,7 @@ const AllAmenities = () => {
   const { amenities, loading } = useAmenities();
 
   return (
-    <div className="max-w-6xl mx-auto p-4 mt-8">
+    <div className="max-w-7xl mx-auto p-4 mt-8">
       <div className="mb-16 text-5xl font-semibold">{t("amenity.amenity")}</div>
       <div className="flex gap-2 justify-end mb-8">
         <button
@@ -38,17 +38,36 @@ const AllAmenities = () => {
 
       {amenities.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="table table-lg w-full">
+          <table className="table table-lg table-fixed w-full">
             <thead>
               <tr className="bg-base-300">
-                <th>{t("amenity.name")}</th>
-                <th>{t("amenity.type")}</th>
-                <th>{t("amenity.capacity")}</th>
-                <th>{t("amenity.slotdur")}</th>
-                <th>{t("amenity.opentime")}</th>
-                <th>{t("amenity.closetime")}</th>
-                <th>{t("amenity.resreq")}</th>
-                <th>{t("amenity.oneperslot")}</th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.name")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.type")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.capacity")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.slotdur")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.opentime")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.closetime")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.resreq")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.oneperslot")}
+                </th>
+                <th className="whitespace-normal break-words">
+                  {t("amenity.price")}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -71,6 +90,7 @@ const AllAmenities = () => {
                     <td>{amenity.closeTime}</td>
                     <td>{amenity.requiresReservation ? t("yes") : t("no")}</td>
                     <td>{amenity.onePerSlot ? t("yes") : t("no")}</td>
+                    <td>{amenity.price + " " + amenity.currency}</td>
                   </tr>
                 );
               })}

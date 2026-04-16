@@ -30,6 +30,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
     }),
   ),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
@@ -49,6 +50,16 @@ export const staySimpleSchema = z.object({
   checkOut: z.coerce.date(),
   adults: z.number().optional(),
   children: z.number().optional(),
+  rate: z.number().nullable().optional(),
+  currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]).nullable().optional(),
+  extras: z
+    .array(
+      z.object({
+        extra: extraSchema,
+        amount: z.number(),
+      }),
+    )
+    .optional(),
   notes: z.string().optional(),
   breakfast: z.boolean(),
 });
@@ -111,6 +122,7 @@ export const getStaySchema: z.ZodType<getStay> = z.object({
     }),
   ),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),

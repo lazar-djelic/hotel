@@ -36,4 +36,9 @@ export const ROUTES = {
     HOUSEKEEPING: "/housekeeping",
     ADD_EXTRA: "/add-extra",
   },
+  PAYMENT: {
+    CHECKOUT: "/payments/checkout",
+    SUCCESS: "/payments/success",
+    CANCEL: "/payments/cancel",
+  },
 };

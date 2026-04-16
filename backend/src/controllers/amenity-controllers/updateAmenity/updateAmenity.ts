@@ -26,6 +26,8 @@ export async function updateAmenity(
       closeTime,
       requiresReservation,
       onePerSlot,
+      price,
+      currency,
     } = req.body;
 
     const amenity = new Amenity({
@@ -37,6 +39,8 @@ export async function updateAmenity(
       closeTime,
       requiresReservation,
       onePerSlot,
+      price,
+      currency,
     });
 
     const updatedAmenity = await Amenity.findByIdAndUpdate(
@@ -50,6 +54,8 @@ export async function updateAmenity(
         closeTime,
         requiresReservation,
         onePerSlot,
+        price,
+        currency,
       },
       {
         new: true,

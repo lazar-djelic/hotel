@@ -17,6 +17,7 @@ export interface RoomReservationStruct {
   assignedRoom: RoomStruct;
   resStatus: ResStatus;
   paid: boolean;
+  paidDate?: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -45,6 +46,7 @@ export type SimpleRoomResCreateStruct = {
   view?: ViewOptions | undefined;
   balcony?: boolean | undefined;
   pets?: boolean | undefined;
+  payNow: boolean;
 };
 
 export type SimpleRoomResCreateReceptionStruct = {
@@ -72,6 +74,7 @@ export type SimpleRoomResCreateReceptionStruct = {
   view?: ViewOptions | undefined;
   balcony?: boolean | undefined;
   pets?: boolean | undefined;
+  payNow: boolean;
 };
 
 export interface MyRoomReservationStruct {
@@ -84,6 +87,7 @@ export interface MyRoomReservationStruct {
   assignedRoom?: getRoomStruct | undefined;
   resStatus: ResStatus;
   paid: boolean;
+  paidDate?: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

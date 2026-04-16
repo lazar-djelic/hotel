@@ -6,18 +6,26 @@ import { createGuestAndAmResRec } from "../amenityReservations.api";
 import { ROUTES } from "../../../../config/routes";
 import { useTranslation } from "react-i18next";
 
-export const useCreateGuestAndAmResRec = (navigate: NavigateFunction) => {
+export const useCreateGuestAndAmResRec = (
+  navigate: NavigateFunction,
+  payNow: boolean,
+) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createGuestAndAmResRec,
-    onSuccess: () => {
+    onSuccess: (createdAmres) => {
       toast.success(t("toast.amrescrcucc"));
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.AM_RES.RESERVATIONS],
       });
-      navigate(ROUTES.RECEPTION.AM_RES_S);
+
+      if (payNow)
+        navigate(ROUTES.PAYMENT.CHECKOUT, {
+          state: { amres: createdAmres },
+        });
+      else navigate(ROUTES.RECEPTION.AM_RES_S);
     },
     onError: () => {
       toast.error(t("toast.amrescrfail"));

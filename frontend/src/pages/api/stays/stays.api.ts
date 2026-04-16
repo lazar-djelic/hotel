@@ -7,9 +7,10 @@ export const createStay = async ({
   stay,
 }: {
   stay: stayCreateStruct;
-}): Promise<void> => {
+}): Promise<Stay> => {
   console.log(stay);
-  await api.post(`/stays/`, stay);
+  const res = await api.post(`/stays/`, stay);
+  return res.data;
 };
 
 export const fetchStays = async (): Promise<Stay[]> => {

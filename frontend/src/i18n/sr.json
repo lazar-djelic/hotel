@@ -287,11 +287,14 @@
     "loadbtncr": "Kreiranje...",
     "btnup": "Izmenite dodatnu pogodnost",
     "btncr": "Kreirajte dodatnu pogodnost",
-    "amenity": "Dodatna pogodnost"
+    "amenity": "Dodatna pogodnost",
+    "price": "Cena",
+    "currency": "Valuta"
   },
   "nextpage": "Sledeća strana",
   "previouspage": "Prethodna strana",
   "checkin": {
+    "staydet": "Detalji boravka",
     "checkedin": "Prijavljen/a",
     "roomdetails": "Detalji sobe",
     "roomprefs": "Preferencije sobe",
@@ -304,7 +307,10 @@
     "endd": "Kraj boravka: ",
     "pricefor": "Cena za",
     "nights": "noći:",
-    "breakfast": "Uključen doručak?"
+    "breakfast": "Uključen doručak?",
+    "paymentdet": "Detalji naplate",
+    "payNow": "Platiti odmah?",
+    "paid": "Plaćeno"
   },
   "checkout": {
     "billing": "Naplata",

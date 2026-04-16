@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import SimpleDateInComp from "../../../../components/SimpleDateInComp";
 import { formatDate } from "../../../../lib/utils";
+import CheckboxComp from "../../../../components/CheckboxComp";
 
 const roomToRoomStruct = (room: getRoom): getRoomStruct => {
   return {
@@ -384,6 +385,19 @@ const RoomResComp = ({
                 <option value={"false"}>{t("no")}</option>
               </select>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <CheckboxComp
+              labelText={t("checkin.payNow")}
+              isCheck={current.payNow}
+              onChangeFn={(checked) =>
+                setForm({
+                  ...current,
+                  payNow: checked,
+                })
+              }
+            />
           </div>
         </div>
 

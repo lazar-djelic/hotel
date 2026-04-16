@@ -1,4 +1,4 @@
-import type { AmenityTypes } from "../../../config/enums";
+import type { AmenityTypes, CurrType } from "../../../config/enums";
 
 export interface AmenityStruct {
   _id: string;
@@ -10,6 +10,8 @@ export interface AmenityStruct {
   closeTime: string;
   requiresReservation: boolean;
   onePerSlot: boolean;
+  price: number;
+  currency: CurrType;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,4 +25,6 @@ export type SimpleAmenityStruct = {
   closeTime: string;
   requiresReservation: boolean;
   onePerSlot: boolean;
+  price: number;
+  currency: CurrType;
 };

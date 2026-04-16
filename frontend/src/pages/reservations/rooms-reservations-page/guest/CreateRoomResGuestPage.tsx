@@ -48,7 +48,7 @@ const CreateRoomResGuestPage = () => {
   }, [user, navigate]);
 
   const { mutate: createRoomReservation, isPending: isPendingRoomRes } =
-    useCreateRoomResGuest(navigate);
+    useCreateRoomResGuest(navigate, form.payNow);
 
   if (!user) {
     return (

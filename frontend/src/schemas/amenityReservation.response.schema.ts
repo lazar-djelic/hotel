@@ -1,9 +1,7 @@
 import { z } from "zod";
-import { roomSchema } from "./room.response.schema.ts";
 import { guestSchema } from "./guest.response.schema.ts";
 import { amenitySchema } from "./amenity.response.schema.ts";
 import { AM_RES_STATUS } from "../config/enums.ts";
-import { userSchema, userSimpleSchema } from "./user.response.schema.ts";
 
 export const amenityReservationSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
@@ -21,6 +19,8 @@ export const amenityReservationSchema = z.object({
     AM_RES_STATUS.confirmed,
     AM_RES_STATUS.cancelled,
   ]),
+  paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -84,6 +84,8 @@ export const getAmenityReservationSchema = z.object({
     AM_RES_STATUS.confirmed,
     AM_RES_STATUS.cancelled,
   ]),
+  paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

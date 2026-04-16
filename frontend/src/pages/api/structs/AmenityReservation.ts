@@ -12,6 +12,8 @@ export interface AmenityReservationStruct {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  paid: boolean;
+  paidDate?: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -46,6 +48,7 @@ export type SimpleAmResCreateReceptionStruct = {
   _id: string;
   createdAt: Date;
   updatedAt: Date;
+  payNow: boolean;
 };
 
 export type SimpleAmResCreateStruct = {
@@ -57,6 +60,7 @@ export type SimpleAmResCreateStruct = {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  payNow: boolean;
 };
 
 export interface MyAmenityReservationStruct {
@@ -68,6 +72,8 @@ export interface MyAmenityReservationStruct {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  paid: boolean;
+  paidDate?: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

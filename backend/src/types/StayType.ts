@@ -15,17 +15,18 @@ export type Stay = {
   reservation?: RoomReservation | null;
   room: Room;
   checkIn: Date;
-  checkOut?: Date | null;
+  checkOut: Date;
   stStatus: StStatus;
-  adults?: number;
-  children?: number;
-  rate?: number;
-  currency?: CurrType;
-  extras?: {
+  adults: number;
+  children: number;
+  rate: number;
+  currency: CurrType;
+  extras: {
     extra: Extra;
     amount: number;
   }[];
   paid: boolean;
+  paidDate?: Date | undefined;
   notes: string;
   createdAt: Date;
   updatedAt: Date;

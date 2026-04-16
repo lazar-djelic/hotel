@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import type { SimpleAmResCreateReceptionStruct } from "../../../../api/structs/AmenityReservation";
 import type { AmenitySlotStruct } from "../../../../api/structs/AmenitySlot";
 import type { AmenityStruct } from "../../../../api/structs/AmenityStruct";
+import CheckboxComp from "../../../../../components/CheckboxComp";
 
 interface AmResCompProps {
   amenities: AmenityStruct[];
@@ -242,6 +243,19 @@ const AmResComp = ({
             }
           />
         </div>
+      </div>
+
+      <div className="mt-4">
+        <CheckboxComp
+          labelText={t("checkin.payNow")}
+          isCheck={current.payNow}
+          onChangeFn={(checked) =>
+            setForm({
+              ...current,
+              payNow: checked,
+            })
+          }
+        />
       </div>
 
       <div className="card-actions justify-end mt-16">

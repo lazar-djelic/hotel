@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { getRoomSchema, roomSchema } from "./room.response.schema.ts";
+import { guestSchema } from "./guest.response.schema.ts";
+import { getRoomSchema } from "./room.response.schema.ts";
 import {
   BED_OPTIONS,
   RESERVATION_STATUS,
   ROOM_TYPES,
   VIEW_OPTIONS,
 } from "../utils/enums.ts";
-import { guestSchema } from "./guest.response.schema.ts";
 import type { RoomReservation } from "../types/RoomReservationType.ts";
 
 export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
@@ -26,6 +26,7 @@ export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
     ])
     .default(RESERVATION_STATUS.booked),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -131,6 +132,7 @@ export const getRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
     ])
     .default(RESERVATION_STATUS.booked),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -152,6 +154,7 @@ export const getMyRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
     ])
     .default(RESERVATION_STATUS.booked),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

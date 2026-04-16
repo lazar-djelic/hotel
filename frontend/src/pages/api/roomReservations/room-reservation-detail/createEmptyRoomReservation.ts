@@ -37,6 +37,7 @@ export const createEmptyRoomReservation =
       view: undefined,
       balcony: undefined,
       pets: undefined,
+      payNow: true,
     };
   };
 
@@ -56,5 +57,6 @@ export const createEmptyRoomResGuest = (): SimpleRoomResCreateStruct => {
     view: undefined,
     balcony: undefined,
     pets: undefined,
+    payNow: true,
   };
 };

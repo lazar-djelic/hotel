@@ -41,6 +41,9 @@ const AmenityReservationCard: FC<AmenityReservationCardArgs> = ({
           {t("amenityRes.status")}:{" "}
           {t(`amenityRes.statusEnum.${reservation.status}`)}
         </p>
+        <p className="text-base-content/70">
+          {t("roomres.paid")} {reservation.paid ? t("yes") : t("no")}
+        </p>
       </div>
     </Link>
   );

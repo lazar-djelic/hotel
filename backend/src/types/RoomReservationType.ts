@@ -12,6 +12,7 @@ export type RoomReservation = {
   assignedRoom: Room;
   resStatus: ResStatus;
   paid: boolean;
+  paidDate?: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 };

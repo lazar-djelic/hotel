@@ -6,18 +6,26 @@ import { createRoomResGuest } from "../roomReservations.api";
 import { ROUTES } from "../../../../config/routes";
 import { useTranslation } from "react-i18next";
 
-export const useCreateRoomResGuest = (navigate: NavigateFunction) => {
+export const useCreateRoomResGuest = (
+  navigate: NavigateFunction,
+  payNow: boolean,
+) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createRoomResGuest,
-    onSuccess: () => {
+    onSuccess: (createdRoomres) => {
       toast.success(t("toast.roomrescrsucc"));
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.ROOM_RES.RESERVATIONS],
       });
-      navigate(ROUTES.GUEST.PROFILE);
+
+      if (payNow)
+        navigate(ROUTES.PAYMENT.CHECKOUT, {
+          state: { roomres: createdRoomres },
+        });
+      else navigate(ROUTES.GUEST.PROFILE);
     },
     onError: () => {
       toast.error(t("toast.roomrescrfail"));

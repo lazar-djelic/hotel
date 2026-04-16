@@ -24,6 +24,7 @@ import messagesRoutes from "./routes/messagesRoutes.ts";
 import { startReservedJob } from "./jobs/reserved.job.ts";
 import taxesRoutes from "./routes/taxesRoutes.ts";
 import extrasRoutes from "./routes/extrasRoutes.ts";
+import paymentsRoutes from "./routes/paymentsRoutes.ts";
 
 dotenv.config();
 
@@ -41,7 +42,13 @@ io.on("connection", (socket) => {
 });
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl.includes("/webhook")) {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
 
 app.use(
   session({
@@ -75,6 +82,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/taxes", taxesRoutes);
 app.use("/api/extras", extrasRoutes);
+app.use("/api/payments", paymentsRoutes);
 
 connectDB().then(() => {
   startReservedJob();

@@ -5,7 +5,6 @@ import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs
 import { createEmptyRoomReservation } from "../../../../api/roomReservations/room-reservation-detail/createEmptyRoomReservation";
 import toast from "react-hot-toast";
 import { useFindGuestRoomRes } from "./useFindGuestRoomRes";
-import DoubleCalendar from "../../../DoubleCalendar";
 import NewGuestInputsRecComp from "../../../rooms-reservations-page/reception/create-page/NewGuestInputsRecComp";
 import {
   roomReservationSimpleSchema,
@@ -35,9 +34,6 @@ export const toUtcEndOfDay = (date: Date) =>
 const CreateRoomResRecPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [dateRange, setDateRange] = useState([
-    { startDate: new Date(), endDate: new Date(), key: "selection" },
-  ]);
 
   const [isNew, setIsNew] = useState<boolean>(true);
   const [guestFound, setGuestFound] = useState<boolean>(false);
@@ -53,10 +49,10 @@ const CreateRoomResRecPage = () => {
   }, [isNew]);
 
   const { mutate: createRoomReservation, isPending } =
-    useCreateRoomReservationRec(navigate);
+    useCreateRoomReservationRec(navigate, form.payNow);
 
   const { mutate: createGuestAndRoomReservation, isPending: isPendingGuest } =
-    useCreateGuestAndRoomResRec(navigate);
+    useCreateGuestAndRoomResRec(navigate, form.payNow);
 
   const isPendingG = isNew ? isPendingGuest : isPending;
 

@@ -20,17 +20,19 @@ export const fetchRoomReservations = async (
   return res.data;
 };
 
+type WithoutSomeProperties3 = Omit<SimpleRoomResCreateStruct, "payNow">;
 export const createRoomResRec = async ({
   roomReservation,
 }: {
-  roomReservation: SimpleRoomResCreateStruct;
-}): Promise<void> => {
-  await api.post(`/reception/roomreservations/`, roomReservation);
+  roomReservation: WithoutSomeProperties3;
+}): Promise<RoomReservationStruct> => {
+  const res = await api.post(`/reception/roomreservations/`, roomReservation);
+  return res.data;
 };
 
 type WithoutSomeProperties = Omit<
   SimpleRoomResCreateReceptionStruct,
-  "guest" | "_id" | "createdAt" | "updatedAt"
+  "guest" | "_id" | "createdAt" | "updatedAt" | "payNow"
 >;
 export const createGuestAndRoomResRec = async ({
   roomReservation,
@@ -63,10 +65,12 @@ export const updateRoomReservationReception = async ({
   await api.put(`/reception/updateRoomRes/${id}`, roomReservation);
 };
 
+type WithoutSomeProperties2 = Omit<SimpleRoomResCreateStruct, "payNow">;
 export const createRoomResGuest = async ({
   roomReservation,
 }: {
-  roomReservation: SimpleRoomResCreateStruct;
-}): Promise<void> => {
-  await api.post(`/roomreservations/`, roomReservation);
+  roomReservation: WithoutSomeProperties2;
+}): Promise<RoomReservationStruct> => {
+  const res = await api.post(`/roomreservations/`, roomReservation);
+  return res.data;
 };

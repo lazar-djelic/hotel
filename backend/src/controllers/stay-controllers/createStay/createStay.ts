@@ -42,9 +42,8 @@ export async function createStay(
     }
 
     if (
-      (room.status !== ROOM_STATUS.available &&
-        room.status !== ROOM_STATUS.reserved) ||
-      room.housekeeping !== HOUSEKEEPING_OPTIONS.clean
+      room.status !== ROOM_STATUS.available &&
+      room.status !== ROOM_STATUS.reserved
     ) {
       await session.abortTransaction();
       session.endSession();
@@ -140,9 +139,16 @@ export async function createStay(
         return res.status(404).json({ message: "Breakfast extra not found" });
       }
 
-      const days =
-        (parsed.data.checkOut.getTime() - parsed.data.checkIn.getTime()) /
-        (1000 * 60 * 60 * 24);
+      const checkInMidnight = new Date(parsed.data.checkIn);
+      checkInMidnight.setUTCHours(0, 0, 0, 0);
+
+      const checkOutMidnight = new Date(parsed.data.checkOut);
+      checkOutMidnight.setUTCHours(0, 0, 0, 0);
+
+      const days = Math.floor(
+        (checkOutMidnight.getTime() - checkInMidnight.getTime()) /
+          (1000 * 60 * 60 * 24),
+      );
       extras.push({ extra: breakfastExtra._id, amount: days });
     }
 

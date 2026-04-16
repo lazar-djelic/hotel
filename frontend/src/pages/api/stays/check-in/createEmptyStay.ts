@@ -20,6 +20,7 @@ export const createEmptyStay = (): SimpleStayCreateStruct => {
     assignedRoom: undefined,
     room: undefined,
     resStatus: undefined,
+    paid: false,
     roomReservation: undefined,
     _id: "",
     createdAt: now,
@@ -33,5 +34,6 @@ export const createEmptyStay = (): SimpleStayCreateStruct => {
     balcony: undefined,
     pets: undefined,
     breakfast: true,
+    payNow: true,
   };
 };

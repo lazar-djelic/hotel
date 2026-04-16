@@ -23,6 +23,7 @@ export type SimpleStayCreateStruct = {
   assignedRoom: getRoomStruct | undefined | null;
   room: getRoomStruct | undefined | null;
   resStatus: ResStatus | undefined;
+  paid: boolean;
   roomReservation: string | undefined;
   _id: string;
   createdAt: Date;
@@ -36,6 +37,7 @@ export type SimpleStayCreateStruct = {
   balcony?: boolean | undefined;
   pets?: boolean | undefined;
   breakfast: boolean;
+  payNow: boolean;
 };
 
 export type stayCreateStruct = {
@@ -63,5 +65,6 @@ export type MyStayStruct = {
   rate: number;
   currency: string;
   paid: boolean;
+  paidDate?: Date | undefined;
   notes: string;
 };

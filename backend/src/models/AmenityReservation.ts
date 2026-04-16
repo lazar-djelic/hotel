@@ -9,6 +9,8 @@ export interface IAmenityReservation {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  paid: boolean;
+  paidDate?: Date | undefined;
 }
 
 const amenityReservationSchema = new Schema<IAmenityReservation>(
@@ -32,6 +34,8 @@ const amenityReservationSchema = new Schema<IAmenityReservation>(
       ],
       default: AM_RES_STATUS.booked,
     },
+    paid: { type: Boolean, default: false },
+    paidDate: { type: Date, required: false },
   },
   { timestamps: true },
 );

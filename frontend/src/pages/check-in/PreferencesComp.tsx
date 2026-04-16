@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useFindFilteredRooms } from "../api/rooms/find-filtered-rooms/useFindFilteredRooms";
 import {
   BED_OPTIONS,
+  ROOM_STATUS,
   ROOM_TYPES,
   VIEW_OPTIONS,
   type BedOptions,
@@ -25,6 +26,10 @@ const roomToRoomStruct = (room: getRoom): getRoomStruct => {
     ...room,
     currentStay: room.currentStay || undefined,
   } as getRoomStruct;
+};
+
+const isRoomAvailable = (room: getRoom): boolean => {
+  return room.status === ROOM_STATUS.available;
 };
 
 interface RoomResCompProps {
@@ -93,12 +98,10 @@ const PreferencesComp = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3 className="text-2xl font-semibold mb-4">
-        {t("checkin.roomdetails")}
-      </h3>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-6">
+          <div className="divider mt-8 mb-8">{t("checkin.staydet")}</div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SimpleDateInComp
               labelText={t("checkin.startd")}
@@ -401,6 +404,30 @@ const PreferencesComp = ({
               }
             />
           </div>
+
+          <div className="divider mt-8 mb-8">{t("checkin.paymentdet")}</div>
+
+          {current.paid ? (
+            <div
+              role="alert"
+              className="alert alert-success flex justify-center"
+            >
+              <span className="font-bold text-lg">{t("checkin.paid")}</span>
+            </div>
+          ) : (
+            <div>
+              <CheckboxComp
+                labelText={t("checkin.payNow")}
+                isCheck={current.payNow}
+                onChangeFn={(checked) =>
+                  setForm({
+                    ...current,
+                    payNow: checked,
+                  })
+                }
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col h-full">
@@ -429,7 +456,7 @@ const PreferencesComp = ({
                 }}
               >
                 <option value="">{t("checkin.selectroom")}</option>
-                {erooms.map((room) => (
+                {erooms.filter(isRoomAvailable).map((room) => (
                   <option key={room._id} value={room._id}>
                     {room.roomnum}
                   </option>
@@ -461,7 +488,7 @@ const PreferencesComp = ({
                 }}
               >
                 <option value="">{t("checkin.selectroom")}</option>
-                {rooms.map((room) => (
+                {rooms.filter(isRoomAvailable).map((room) => (
                   <option key={room._id} value={room._id}>
                     {room.roomnum}
                   </option>

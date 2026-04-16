@@ -37,6 +37,10 @@ const roomReservationMongooseSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    paidDate: {
+      type: Date,
+      requred: false,
+    },
   },
   { timestamps: true },
 );

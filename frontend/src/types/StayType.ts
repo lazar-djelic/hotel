@@ -33,6 +33,7 @@ export type Stay = {
     amount: number;
   }[];
   paid: boolean;
+  paidDate?: Date | undefined;
   notes: string;
   createdAt: Date;
   updatedAt: Date;
@@ -55,6 +56,7 @@ export type getStay = {
     amount: number;
   }[];
   paid: boolean;
+  paidDate?: Date | undefined;
   notes: string;
   createdAt: Date;
   updatedAt: Date;

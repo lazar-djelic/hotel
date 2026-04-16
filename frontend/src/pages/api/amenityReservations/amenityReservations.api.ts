@@ -32,8 +32,12 @@ export const createAmenityResRec = async ({
 }: {
   id: string;
   amenityReservation: SimpleAmenityReservationStruct;
-}): Promise<void> => {
-  await api.post(`/reception/amenityreservations/${id}`, amenityReservation);
+}): Promise<AmenityReservationStruct> => {
+  const res = await api.post(
+    `/reception/amenityreservations/${id}`,
+    amenityReservation,
+  );
+  return res.data;
 };
 
 export const createAmResGuest = async ({
@@ -42,13 +46,14 @@ export const createAmResGuest = async ({
 }: {
   id: string;
   amenityReservation: SimpleAmenityReservationStruct;
-}): Promise<void> => {
-  await api.post(`/amenityreservations/${id}`, amenityReservation);
+}): Promise<AmenityReservationStruct> => {
+  const res = await api.post(`/amenityreservations/${id}`, amenityReservation);
+  return res.data;
 };
 
 type WithoutSomeProperties = Omit<
   SimpleAmResCreateReceptionStruct,
-  "date" | "guest" | "_id" | "createdAt" | "updatedAt"
+  "date" | "guest" | "_id" | "createdAt" | "updatedAt" | "payNow"
 >;
 export const createGuestAndAmResRec = async ({
   id,
@@ -56,10 +61,11 @@ export const createGuestAndAmResRec = async ({
 }: {
   id: string;
   amenityReservation: WithoutSomeProperties;
-}): Promise<void> => {
-  await api.post(`/reception/guest-amenityreservations/${id}`, {
+}): Promise<AmenityReservationStruct> => {
+  const res = await api.post(`/reception/guest-amenityreservations/${id}`, {
     ...amenityReservation,
   });
+  return res.data;
 };
 
 export const fetchAmenityReservation = async (

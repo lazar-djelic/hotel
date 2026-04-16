@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { guestSchema } from "./guest.response.schema.ts";
-
 import { getRoomSchema, roomSchema } from "./room.response.schema.ts";
 import { CURRENCIES, STAY_STATUS } from "../utils/enums.ts";
 import type { Stay } from "../types/StayType.ts";
@@ -13,7 +12,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
   reservation: z.lazy(() => getRoomReservationSchema).nullable(),
   room: z.lazy(() => getRoomSchema),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable(),
+  checkOut: z.coerce.date(),
   stStatus: z.enum([
     STAY_STATUS.checked_in,
     STAY_STATUS.checked_out,
@@ -31,6 +30,7 @@ export const staySchema: z.ZodType<Stay> = z.object({
     }),
   ),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
@@ -47,9 +47,9 @@ export const staySimpleSchema = z.object({
     .transform((val) => val?.toString()),
   room: z.any().transform((val) => val.toString()),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable().optional(),
-  adults: z.number().nullable().optional(),
-  children: z.number().nullable().optional(),
+  checkOut: z.coerce.date(),
+  adults: z.number().optional(),
+  children: z.number().optional(),
   rate: z.number().nullable().optional(),
   currency: z.enum([CURRENCIES.rsd, CURRENCIES.eur]).nullable().optional(),
   extras: z
@@ -60,7 +60,8 @@ export const staySimpleSchema = z.object({
       }),
     )
     .optional(),
-  notes: z.string().nullable().optional(),
+  notes: z.string().optional(),
+  breakfast: z.boolean(),
 });
 
 export const updateStaySimpleSchema = z.object({
@@ -72,7 +73,7 @@ export const updateStaySimpleSchema = z.object({
     .transform((val) => val?.toString()),
   room: z.any().transform((val) => val.toString()),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable().optional(),
+  checkOut: z.coerce.date(),
   stStatus: z.enum([
     STAY_STATUS.checked_in,
     STAY_STATUS.checked_out,
@@ -119,7 +120,7 @@ export const getStaySchema: z.ZodType<Stay> = z.object({
     .nullable(),
   room: z.lazy(() => getRoomSchema),
   checkIn: z.coerce.date(),
-  checkOut: z.coerce.date().nullable(),
+  checkOut: z.coerce.date(),
   stStatus: z.enum([
     STAY_STATUS.checked_in,
     STAY_STATUS.checked_out,
@@ -137,6 +138,7 @@ export const getStaySchema: z.ZodType<Stay> = z.object({
     }),
   ),
   paid: z.boolean(),
+  paidDate: z.coerce.date().optional(),
   notes: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),

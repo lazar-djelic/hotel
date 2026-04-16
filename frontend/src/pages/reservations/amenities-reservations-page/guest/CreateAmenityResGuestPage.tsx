@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { ArrowLeftIcon } from "lucide-react";
 import { useCreateAmResGuest } from "../../../api/amenityReservations/amenity-reservation-detail/useCreateAmResGuest";
 import { ROUTES } from "../../../../config/routes";
+import CheckboxComp from "../../../../components/CheckboxComp";
 
 const CreateAmenityResGuestPage = () => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ const CreateAmenityResGuestPage = () => {
   const { slots, loading } = useAmenitySlots(selectedOption, form.date);
 
   const { mutate: createAmenityReservation, isPending: isPendingAmenity } =
-    useCreateAmResGuest(navigate);
+    useCreateAmResGuest(navigate, form.payNow);
 
   if (!user) {
     return (
@@ -331,6 +332,19 @@ const CreateAmenityResGuestPage = () => {
                         }
                       />
                     </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <CheckboxComp
+                      labelText={t("checkin.payNow")}
+                      isCheck={current.payNow}
+                      onChangeFn={(checked) =>
+                        setForm({
+                          ...current,
+                          payNow: checked,
+                        })
+                      }
+                    />
                   </div>
 
                   <div className="card-actions justify-end mt-16">

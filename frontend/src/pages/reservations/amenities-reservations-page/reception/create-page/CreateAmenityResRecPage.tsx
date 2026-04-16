@@ -17,7 +17,6 @@ import { useAmenitySlots } from "../../../../api/amenities/amenity-slots/useAmen
 import AmResComp from "./AmResComp";
 import NewGuestInputsRecComp from "./NewGuestInputsRecComp";
 import { useFindGuestAmRes } from "./useFindGuestAmRes";
-import { ROUTES } from "../../../../../config/routes";
 
 const CreateAmenityResRecPage = () => {
   const { t } = useTranslation();
@@ -55,12 +54,12 @@ const CreateAmenityResRecPage = () => {
   const { slots, loading } = useAmenitySlots(selectedOption, form.date);
 
   const { mutate: createAmenityReservation, isPending: isPendingAmenity } =
-    useCreateAmenityReservationRec(navigate);
+    useCreateAmenityReservationRec(navigate, form.payNow);
 
   const {
     mutate: createGuestAndAmenityReservation,
     isPending: isPendingGuest,
-  } = useCreateGuestAndAmResRec(navigate);
+  } = useCreateGuestAndAmResRec(navigate, form.payNow);
 
   const isPending = isNew ? isPendingGuest : isPendingAmenity;
 
@@ -149,7 +148,7 @@ const CreateAmenityResRecPage = () => {
                       setIsNew={setIsNew}
                     />
 
-                    <div className="flex justify-start mx-auto mt-4">
+                    <div className="flex justify-end mt-4">
                       <button
                         type="button"
                         className="btn btn-secondary mt-4"
@@ -180,7 +179,7 @@ const CreateAmenityResRecPage = () => {
                       isPending={isPending}
                     />
 
-                    <div className="flex justify-end mx-auto mt-4">
+                    <div className="flex justify-start mt-4">
                       <button
                         type="button"
                         className="btn btn-secondary mt-4"
@@ -188,8 +187,8 @@ const CreateAmenityResRecPage = () => {
                           setScreen(1);
                         }}
                       >
-                        {t("previouspage")}
                         <ArrowLeftIcon className="size-5" />
+                        {t("previouspage")}
                       </button>
                     </div>
                   </>

@@ -287,11 +287,14 @@
     "loadbtncr": "Creating...",
     "btnup": "Update amenity",
     "btncr": "Create amenity",
-    "amenity": "Amenity"
+    "amenity": "Amenity",
+    "price": "Price",
+    "currency": "Currency"
   },
   "nextpage": "Next page",
   "previouspage": "Previous page",
   "checkin": {
+    "staydet": "Stay details",
     "checkedin": "Checked in",
     "roomdetails": "Room details",
     "roomprefs": "Room preferences",
@@ -304,7 +307,10 @@
     "endd": "End date: ",
     "pricefor": "Price for",
     "nights": "nights:",
-    "breakfast": "Include breakfast?"
+    "breakfast": "Include breakfast?",
+    "paymentdet": "Payment details",
+    "payNow": "Pay now?",
+    "paid": "Paid"
   },
   "checkout": {
     "billing": "Billing",

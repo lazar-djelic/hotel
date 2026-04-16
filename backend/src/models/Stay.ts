@@ -17,7 +17,7 @@ export interface IStay {
   reservation?: Types.ObjectId | null;
   room: Types.ObjectId;
   checkIn: Date;
-  checkOut?: Date | null;
+  checkOut: Date;
   stStatus: StStatus;
   adults?: number;
   children?: number;
@@ -28,6 +28,7 @@ export interface IStay {
     amount: number;
   }[];
   paid: boolean;
+  paidDate?: Date;
   notes?: string;
 }
 
@@ -41,7 +42,7 @@ const staySchema = new Schema<IStay>(
     },
     room: { type: Schema.Types.ObjectId, ref: "Room", required: true },
     checkIn: { type: Date, required: true },
-    checkOut: { type: Date, default: null },
+    checkOut: { type: Date, requred: true },
     stStatus: {
       type: String,
       enum: [
@@ -69,6 +70,10 @@ const staySchema = new Schema<IStay>(
     paid: {
       type: Boolean,
       default: false,
+    },
+    paidDate: {
+      type: Date,
+      required: false,
     },
     notes: String,
   },

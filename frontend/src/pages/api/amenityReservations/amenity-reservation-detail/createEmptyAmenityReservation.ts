@@ -40,6 +40,7 @@ export const createEmptyAmenityReservation =
       _id: "",
       createdAt: new Date(),
       updatedAt: new Date(),
+      payNow: true,
     };
   };
 
@@ -68,5 +69,6 @@ export const createEmptyAmResGuest = (): SimpleAmResCreateStruct => {
     ),
     numberOfPeople: 1,
     status: "booked",
+    payNow: true,
   };
 };

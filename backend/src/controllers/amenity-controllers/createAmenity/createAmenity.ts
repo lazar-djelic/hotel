@@ -26,6 +26,8 @@ export async function createAmenity(
       closeTime,
       requiresReservation,
       onePerSlot,
+      price,
+      currency,
     } = req.body;
 
     const existingAmenity = await Amenity.findOne({ name, type });
@@ -44,6 +46,8 @@ export async function createAmenity(
       closeTime,
       requiresReservation,
       onePerSlot,
+      price,
+      currency,
     });
     const newAmenity = await amenity.save();
     res.status(200).json(newAmenity);
