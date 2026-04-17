@@ -3,6 +3,7 @@ import { guestSchema } from "./guest.response.schema";
 import { getRoomSchema } from "./room.response.schema";
 import {
   BED_OPTIONS,
+  CURRENCIES,
   RESERVATION_STATUS,
   ROOM_TYPES,
   VIEW_OPTIONS,
@@ -28,8 +29,13 @@ export const roomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
+  rate: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
   paid: z.boolean(),
   paidDate: z.coerce.date().optional(),
+  paymentIntentId: z.string().optional(),
+  checkoutSessionId: z.string().optional(),
+  refunded: z.boolean().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -138,8 +144,13 @@ export const getRoomReservationSchema: z.ZodType<RoomReservation> = z.object({
       RESERVATION_STATUS.cancelled,
     ])
     .default(RESERVATION_STATUS.booked),
+  rate: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
   paid: z.boolean(),
   paidDate: z.coerce.date().optional(),
+  paymentIntentId: z.string().optional(),
+  checkoutSessionId: z.string().optional(),
+  refunded: z.boolean().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -161,8 +172,13 @@ export const getMyRoomReservationSchema: z.ZodType<MyRoomReservation> =
         RESERVATION_STATUS.cancelled,
       ])
       .default(RESERVATION_STATUS.booked),
+    rate: z.number(),
+    currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
     paid: z.boolean(),
     paidDate: z.coerce.date().optional(),
+    paymentIntentId: z.string().optional(),
+    checkoutSessionId: z.string().optional(),
+    refunded: z.boolean().optional(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
   });

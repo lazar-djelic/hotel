@@ -25,6 +25,9 @@ import { startReservedJob } from "./jobs/reserved.job.ts";
 import taxesRoutes from "./routes/taxesRoutes.ts";
 import extrasRoutes from "./routes/extrasRoutes.ts";
 import paymentsRoutes from "./routes/paymentsRoutes.ts";
+import pdfRoutes from "./routes/pdfRoutes.ts";
+import cancelPeriodRoutes from "./routes/cancelPeriodRoutes.ts";
+import cancelReservationsRoutes from "./routes/cancelReservationsRoutes.ts";
 
 dotenv.config();
 
@@ -83,6 +86,9 @@ app.use("/api/messages", messagesRoutes);
 app.use("/api/taxes", taxesRoutes);
 app.use("/api/extras", extrasRoutes);
 app.use("/api/payments", paymentsRoutes);
+app.use("/api/pdf", pdfRoutes);
+app.use("/api/cancel", cancelPeriodRoutes);
+app.use("/api/cancel-res", cancelReservationsRoutes);
 
 connectDB().then(() => {
   startReservedJob();

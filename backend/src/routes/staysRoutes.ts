@@ -69,6 +69,7 @@ router
     authenAndAuthorize<GetStayRequest>([
       USER_ROLE.receptionist,
       USER_ROLE.admin,
+      USER_ROLE.guest,
     ]),
     validateRequest(GetStayRequestSchema),
     getStayById,

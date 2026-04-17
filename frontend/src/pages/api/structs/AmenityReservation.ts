@@ -1,4 +1,4 @@
-import type { AmResStatus } from "../../../config/enums";
+import type { AmResStatus, CurrType } from "../../../config/enums";
 import type { AmenityStruct } from "./AmenityStruct";
 import type { GuestStruct } from "./GuestStruct";
 import type { UserStruct } from "./UserStruct";
@@ -12,8 +12,13 @@ export interface AmenityReservationStruct {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -72,8 +77,13 @@ export interface MyAmenityReservationStruct {
   endTime: Date;
   numberOfPeople: number;
   status: AmResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -5,6 +5,7 @@ import { useAddExtra } from "../api/stays/addExtra/useAddExtra";
 import { useGetExtras } from "../api/extras/useGetExtras";
 import { PlusIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useGetTaxes } from "../api/taxes/useGetTaxes";
 
 interface BillingProps {
   stay: Stay;
@@ -16,6 +17,7 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
   const { extras } = useGetExtras();
   const [selectedExtraId, setSelectedExtraId] = useState<string>("");
   const [extraAmount, setExtraAmount] = useState<number>(0);
+  const { taxes } = useGetTaxes();
 
   const isSr = i18n.language.startsWith("sr");
 
@@ -35,7 +37,15 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
       0,
     ) || 0;
 
-  const total = roomTotal + extrasTotal;
+  const taxAdTotal = taxes
+    ? taxes.touristTaxAd * nights * (stay.adults ?? 1)
+    : 0;
+  const taxChTotal = taxes
+    ? taxes.touristTaxCh * nights * (stay.children ?? 0)
+    : 0;
+  const taxesTotal = taxAdTotal + taxChTotal;
+
+  const total = roomTotal + extrasTotal + taxesTotal;
 
   const { addExtra, loadingUpdate } = useAddExtra((updatedStay) => {
     if (onStayUpdated) {
@@ -146,11 +156,33 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
         </dialog>
       </div>
 
+      <div>
+        <h3 className="font-semibold mb-2">{t("payment.taxes")}</h3>
+        {taxes && taxAdTotal > 0 && (
+          <div className="flex justify-between">
+            <span>
+              {t("payment.touristTaxAd")} ({nights} {t("checkout.nights")} x{" "}
+              {stay.adults ?? 1} {t("checkout.adults")})
+            </span>
+            <span>{`${taxAdTotal.toFixed(2)} ${stay.currency}`}</span>
+          </div>
+        )}
+        {taxes && taxChTotal > 0 && (
+          <div className="flex justify-between">
+            <span>
+              {t("payment.touristTaxCh")} ({nights} {t("checkout.nights")} x{" "}
+              {stay.children ?? 0} {t("checkout.children")})
+            </span>
+            <span>{`${taxChTotal.toFixed(2)} ${stay.currency}`}</span>
+          </div>
+        )}
+      </div>
+
       <div className="divider"></div>
 
       <div className="flex justify-between font-semibold text-lg">
         <span>{t("checkout.total")}</span>
-        <span>{`${total} ${stay.currency}`}</span>
+        <span>{`${total.toFixed(2)} ${stay.currency}`}</span>
       </div>
     </div>
   );

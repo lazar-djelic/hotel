@@ -54,7 +54,7 @@ export async function checkOut(
     await session.commitTransaction();
     session.endSession();
 
-    res.status(200).json({ message: "Check-out completed successfully." });
+    res.status(200).json(stay);
   } catch (error) {
     await session.abortTransaction();
     session.endSession();

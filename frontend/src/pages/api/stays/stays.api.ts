@@ -18,6 +18,11 @@ export const fetchStays = async (): Promise<Stay[]> => {
   return res.data;
 };
 
+export const fetchStay = async (id: string): Promise<Stay> => {
+  const res = await api.get(`/stays/${id}`);
+  return res.data;
+};
+
 export const addExtra = async ({
   id,
   extra,
@@ -35,7 +40,7 @@ export const checkOut = async ({
 }: {
   id: string;
   notes: string;
-}): Promise<void> => {
+}): Promise<Stay> => {
   console.log(id, notes);
   const res = await api.post(`/stays/checkout/${id}`, { notes });
   return res.data;

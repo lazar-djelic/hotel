@@ -141,6 +141,17 @@ const CheckOutPage = () => {
             onStayUpdated={(updatedStay) => setGlobalStay(updatedStay)}
           />
 
+          {globalStay.paid ? (
+            <div
+              role="alert"
+              className="alert alert-success flex justify-center"
+            >
+              <span className="font-bold text-lg">{t("checkin.paid")}</span>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div className="bg-base-200 p-4 rounded-xl">
             <h2 className="font-semibold mb-2">{t("checkout.notes")}</h2>
             <textarea

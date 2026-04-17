@@ -24,7 +24,7 @@ export const createCheckoutSessionAmres = async (
     }
     const amres = parsedamres.data;
 
-    const curr = amres.amenity.currency === CURRENCIES.rsd ? "rsd" : "eur";
+    const curr = amres.currency === CURRENCIES.rsd ? "rsd" : "eur";
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -36,13 +36,13 @@ export const createCheckoutSessionAmres = async (
             product_data: {
               name: amres.amenity.name,
             },
-            unit_amount: amres.amenity.price * 100,
+            unit_amount: amres.rate * 100,
           },
           quantity: 1,
         },
       ],
       success_url: `${process.env.CLIENT_PAYMENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel`,
+      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         type: "amres",
         amresId,

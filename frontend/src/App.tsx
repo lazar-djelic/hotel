@@ -55,7 +55,7 @@ function App() {
         >
           <Route path={ROUTES.PAYMENT.CHECKOUT} element={<CheckoutPage />} />
           <Route path={ROUTES.PAYMENT.SUCCESS} element={<SuccessPage />} />
-          <Route path={ROUTES.PAYMENT.CHECKOUT} element={<CancelPage />} />
+          <Route path={ROUTES.PAYMENT.CANCEL} element={<CancelPage />} />
         </Route>
 
         <Route

@@ -1,5 +1,5 @@
 import type { getRoom } from "./RoomType.ts";
-import type { ResStatus } from "../config/enums";
+import type { CurrType, ResStatus } from "../config/enums";
 
 export type RoomReservation = {
   _id: string;
@@ -10,8 +10,13 @@ export type RoomReservation = {
   children: number;
   assignedRoom: getRoom;
   resStatus: ResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -25,8 +30,13 @@ export type MyRoomReservation = {
   children: number;
   assignedRoom?: getRoom;
   resStatus: ResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 };

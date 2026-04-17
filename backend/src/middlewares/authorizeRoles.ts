@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 
-type Role = "guest" | "admin" | "receptionist" | "housekeeping";
+type Role = "guest" | "admin" | "receptionist" | "staff";
 
 export const authorizeRoles =
   (...allowedRoles: Role[]) =>

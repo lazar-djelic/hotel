@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { RESERVATION_STATUS } from "../utils/enums.ts";
+import { CURRENCIES, RESERVATION_STATUS } from "../utils/enums.ts";
 
 const roomReservationMongooseSchema = new mongoose.Schema(
   {
@@ -33,12 +33,35 @@ const roomReservationMongooseSchema = new mongoose.Schema(
       ],
       default: RESERVATION_STATUS.booked,
     },
+    rate: {
+      type: Number,
+      required: true,
+    },
+    currency: {
+      type: String,
+      enum: [CURRENCIES.eur, CURRENCIES.rsd],
+      requred: true,
+    },
     paid: {
       type: Boolean,
       default: false,
     },
     paidDate: {
       type: Date,
+      requred: false,
+    },
+    paymentIntentId: {
+      type: String,
+      index: true,
+      requred: false,
+    },
+    checkoutSessionId: {
+      type: String,
+      requred: false,
+    },
+    refunded: {
+      type: Boolean,
+      default: false,
       requred: false,
     },
   },

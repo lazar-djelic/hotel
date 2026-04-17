@@ -20,6 +20,14 @@ import { useMyAmRes } from "../api/profile/useMyAmRes";
 import { useMyRoomRes } from "../api/profile/useMyRoomRes";
 import { useMyStays } from "../api/profile/useMyStays";
 import { ROUTES } from "../../config/routes";
+import { CreditCard, FileText, X } from "lucide-react";
+import { usePdfStay } from "../api/pdf/usePdfStay";
+import { usePdfRoomres } from "../api/pdf/usePdfRoomres";
+import { usePdfAmres } from "../api/pdf/usePdfAmres";
+import { useCancelRoomres } from "../api/cancelReservations/useCancelRoomres";
+import { useCancelAmres } from "../api/cancelReservations/useCancelAmres";
+import { AM_RES_STATUS, RESERVATION_STATUS } from "../../config/enums";
+import { useGetCancelPeriod } from "../api/cancelPeriod/useGetCancelPeriod";
 
 const Profile = () => {
   const { t, i18n } = useTranslation();
@@ -29,6 +37,12 @@ const Profile = () => {
   const { amres, loadingAm } = useMyAmRes();
   const { roomres, loadingRoom } = useMyRoomRes();
   const { stays, loadingSt } = useMyStays();
+  const { mutatePdfStay, isPendingPdfStay } = usePdfStay();
+  const { mutatePdfRoomres, isPendingPdfRoomres } = usePdfRoomres();
+  const { mutatePdfAmres, isPendingPdfAmres } = usePdfAmres();
+  const { mutateCancelR } = useCancelRoomres();
+  const { mutateCancelA } = useCancelAmres();
+  const { cancelPeriod } = useGetCancelPeriod();
 
   const [form, setForm] = useState<GuestStruct | null>(null);
   const [selectedAmRes, setSelectedAmRes] = useState<string | null>(null);
@@ -232,6 +246,74 @@ const Profile = () => {
                                 </span>{" "}
                                 {t(`amenityRes.statusEnum.${selected?.status}`)}
                               </p>
+                              <p>
+                                <span className="font-semibold">
+                                  {t("profile.paid")}
+                                </span>{" "}
+                                {selected?.paid ? t("yes") : t("no")}
+                              </p>
+                              {selected?.refunded && (
+                                <p>
+                                  <span className="font-semibold">
+                                    {t("profile.refunded")}
+                                  </span>{" "}
+                                  {selected?.refunded ? t("yes") : t("no")}
+                                </p>
+                              )}
+                              {selected?.status !== AM_RES_STATUS.cancelled && (
+                                <>
+                                  {!selected?.paid && (
+                                    <button
+                                      onClick={() => {
+                                        navigate(ROUTES.PAYMENT.CHECKOUT, {
+                                          state: { amres: selected?._id },
+                                        });
+                                      }}
+                                      className="btn btn-outline text-lg justify-end mt-2"
+                                    >
+                                      <CreditCard className="size-8" />
+                                      {t("pay")}
+                                    </button>
+                                  )}
+                                  {selected?.paid && (
+                                    <button
+                                      onClick={() => {
+                                        mutatePdfAmres(selected._id);
+                                      }}
+                                      className="btn btn-outline text-lg justify-end mt-2"
+                                    >
+                                      <FileText className="size-8" />
+                                      {t("pdf")}
+                                    </button>
+                                  )}
+
+                                  {(() => {
+                                    const startTime = selected?.startTime
+                                      ? new Date(selected.startTime)
+                                      : new Date();
+                                    const cancelDeadlineMs =
+                                      (cancelPeriod?.hours ?? 0) *
+                                      60 *
+                                      60 *
+                                      1000;
+                                    const canCancel =
+                                      new Date().getTime() <=
+                                      startTime.getTime() - cancelDeadlineMs;
+                                    return canCancel ? (
+                                      <button
+                                        onClick={() => {
+                                          if (selected)
+                                            mutateCancelA({ id: selected._id });
+                                        }}
+                                        className="btn btn-outline text-lg justify-end mt-2"
+                                      >
+                                        <X className="size-8" />
+                                        {t("cancelres")}
+                                      </button>
+                                    ) : null;
+                                  })()}
+                                </>
+                              )}
                             </>
                           );
                         })()}
@@ -320,6 +402,62 @@ const Profile = () => {
                                 </span>{" "}
                                 {selected?.paid ? t("yes") : t("no")}
                               </p>
+                              {selected?.refunded && (
+                                <p>
+                                  <span className="font-semibold">
+                                    {t("profile.refunded")}
+                                  </span>{" "}
+                                  {selected?.refunded ? t("yes") : t("no")}
+                                </p>
+                              )}
+                              {!selected?.paid && !selected?.refunded && (
+                                <button
+                                  onClick={() => {
+                                    navigate(ROUTES.PAYMENT.CHECKOUT, {
+                                      state: { roomres: selected?._id },
+                                    });
+                                  }}
+                                  className="btn btn-outline text-lg justify-end mt-2"
+                                >
+                                  <CreditCard className="size-8" />
+                                  {t("pay")}
+                                </button>
+                              )}
+                              {selected?.paid && !selected?.refunded && (
+                                <button
+                                  onClick={() => {
+                                    mutatePdfRoomres(selected._id);
+                                  }}
+                                  className="btn btn-outline text-lg justify-end mt-2"
+                                >
+                                  <FileText className="size-8" />
+                                  {t("pdf")}
+                                </button>
+                              )}
+
+                              {(() => {
+                                const startDate = selected?.startDate
+                                  ? new Date(selected.startDate)
+                                  : new Date();
+                                const cancelDeadlineMs =
+                                  (cancelPeriod?.hours ?? 0) * 60 * 60 * 1000;
+                                const canCancel =
+                                  new Date().getTime() <=
+                                  startDate.getTime() - cancelDeadlineMs;
+                                return selected?.resStatus !==
+                                  RESERVATION_STATUS.cancelled && canCancel ? (
+                                  <button
+                                    onClick={() => {
+                                      if (selected)
+                                        mutateCancelR({ id: selected._id });
+                                    }}
+                                    className="btn btn-outline text-lg justify-end mt-2"
+                                  >
+                                    <X className="size-8" />
+                                    {t("cancelres")}
+                                  </button>
+                                ) : null;
+                              })()}
                             </>
                           );
                         })()}
@@ -403,6 +541,30 @@ const Profile = () => {
                                 </span>{" "}
                                 {selected?.paid ? t("yes") : t("no")}
                               </p>
+                              {!selected?.paid && (
+                                <button
+                                  onClick={() => {
+                                    navigate(ROUTES.PAYMENT.CHECKOUT, {
+                                      state: { stay: selected?._id },
+                                    });
+                                  }}
+                                  className="btn btn-outline text-lg justify-end mt-2"
+                                >
+                                  <CreditCard className="size-8" />
+                                  {t("pay")}
+                                </button>
+                              )}
+                              {selected?.paid && (
+                                <button
+                                  onClick={() => {
+                                    mutatePdfStay(selected._id);
+                                  }}
+                                  className="btn btn-outline text-lg justify-end mt-2"
+                                >
+                                  <FileText className="size-8" />
+                                  {t("pdf")}
+                                </button>
+                              )}
                             </>
                           );
                         })()}

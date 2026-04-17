@@ -7,6 +7,7 @@ import InputComp from "../../../components/NumberInputComp";
 import { useState } from "react";
 import { ROUTES } from "../../../config/routes";
 import TaxesModal from "./TaxesModal";
+import CancelPeriodModal from "./CancelPeriodModal";
 
 const RoomsPage = () => {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ const RoomsPage = () => {
   const [expanded, setExpanded] = useState<boolean | null>(null);
   const [search, setSearch] = useState(0);
   const [showTaxesModal, setShowTaxesModal] = useState(false);
+  const [showCancelPeriodModal, setShowCancelPeriodModal] = useState(false);
 
   const filteredRooms = rooms.filter((room) =>
     room.roomnum.toString().includes(search.toString()),
@@ -40,6 +42,12 @@ const RoomsPage = () => {
               onClick={() => setShowTaxesModal(true)}
             >
               {t("taxes.manage")}
+            </button>
+            <button
+              className="btn btn-outline"
+              onClick={() => setShowCancelPeriodModal(true)}
+            >
+              {t("period.manage")}
             </button>
             <Link to={ROUTES.ADMIN.EXTRAS} className="btn btn-outline text-lg">
               {t("create.room.extras")}
@@ -107,6 +115,9 @@ const RoomsPage = () => {
       </div>
       {showTaxesModal && (
         <TaxesModal onClose={() => setShowTaxesModal(false)} />
+      )}
+      {showCancelPeriodModal && (
+        <CancelPeriodModal onClose={() => setShowCancelPeriodModal(false)} />
       )}
     </div>
   );

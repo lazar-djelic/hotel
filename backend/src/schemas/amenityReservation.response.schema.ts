@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { AM_RES_STATUS, RESERVATION_STATUS } from "../utils/enums.ts";
+import {
+  AM_RES_STATUS,
+  CURRENCIES,
+  RESERVATION_STATUS,
+} from "../utils/enums.ts";
 import { guestSchema } from "./guest.response.schema.ts";
 import { amenitySchema } from "./amenity.response.schema.ts";
 
@@ -19,8 +23,13 @@ export const amenityReservationSchema = z.object({
     AM_RES_STATUS.confirmed,
     AM_RES_STATUS.cancelled,
   ]),
+  rate: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
   paid: z.boolean(),
   paidDate: z.coerce.date().optional(),
+  paymentIntentId: z.string().optional(),
+  checkoutSessionId: z.string().optional(),
+  refunded: z.boolean().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -84,8 +93,13 @@ export const getAmenityReservationSchema = z.object({
     AM_RES_STATUS.confirmed,
     AM_RES_STATUS.cancelled,
   ]),
+  rate: z.number(),
+  currency: z.enum([CURRENCIES.eur, CURRENCIES.rsd]),
   paid: z.boolean(),
   paidDate: z.coerce.date().optional(),
+  paymentIntentId: z.string().optional(),
+  checkoutSessionId: z.string().optional(),
+  refunded: z.boolean().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

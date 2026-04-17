@@ -108,6 +108,8 @@ export const createAmenityReservation = async (
             endTime: end,
             numberOfPeople: numberOfPeople,
             status: AM_RES_STATUS.booked,
+            rate: amenity.price,
+            currency: amenity.currency,
           },
         ],
         { session },

@@ -100,6 +100,8 @@ export async function createGuestAndRoomRes(
       children: req.body.children,
       assignedRoom: availableRoom._id,
       resStatus: RESERVATION_STATUS.booked,
+      rate: availableRoom.rate,
+      currency: availableRoom.currency,
     });
 
     const savedReservation = await reservation.save({ session });

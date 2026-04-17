@@ -1,5 +1,6 @@
 import type {
   BedOptions,
+  CurrType,
   ResStatus,
   RoomTypes,
   ViewOptions,
@@ -16,8 +17,13 @@ export interface RoomReservationStruct {
   children: number;
   assignedRoom: RoomStruct;
   resStatus: ResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -86,8 +92,13 @@ export interface MyRoomReservationStruct {
   children: number;
   assignedRoom?: getRoomStruct | undefined;
   resStatus: ResStatus;
+  rate: number;
+  currency: CurrType;
   paid: boolean;
   paidDate?: Date | undefined;
+  paymentIntentId?: string | undefined;
+  checkoutSessionId?: string | undefined;
+  refunded?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

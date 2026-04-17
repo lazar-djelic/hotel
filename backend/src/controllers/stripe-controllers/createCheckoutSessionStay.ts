@@ -93,7 +93,7 @@ export const createCheckoutSessionStay = async (
         })),
       ],
       success_url: `${process.env.CLIENT_PAYMENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel`,
+      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         type: "stay",
         stayId,

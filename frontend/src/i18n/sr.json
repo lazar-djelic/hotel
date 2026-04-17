@@ -241,7 +241,8 @@
     "selectstay": "Izaberite boravak",
     "checkin": "Datum prijave: ",
     "checkout": "Datum odjave: ",
-    "paid": "Da li je plaćen/a: "
+    "paid": "Da li je plaćen/a: ",
+    "refunded": "Da li je refundirana: "
   },
   "amenityRes": {
     "title": "Rezervacije dodatnih pogodnosti",
@@ -457,7 +458,12 @@
     "extradelsucc": "Dodatak uspešno obrisan",
     "extradelfail": "Greška prilikom brisanja dodatka",
     "extraupsucc": "Dodatak uspešno izmenjen",
-    "extraupfail": "Greška prilikom izmene dodatka"
+    "extraupfail": "Greška prilikom izmene dodatka",
+    "pdffail": "Greška prilikom kreiranja pdf-a",
+    "cancelcrsucc": "Rok za otkazivanje uspešno kreiran/izmenjen",
+    "cancelcrfail": "Greška prilikom kreiranja/izmene roka za otkazivanje",
+    "rescancelsucc": "Rezervacija uspešno otkazana",
+    "rescancelfail": "Greška prilikom otkazivanja rezervacije"
   },
   "messages": {
     "reception": "Recepcija",
@@ -472,5 +478,62 @@
     "touristTaxAd": "Turistička taksa (odrasli)",
     "touristTaxCh": "Turistička taksa (deca)",
     "save": "Sačuvaj"
-  }
+  },
+  "pay": "Platite",
+  "payment": {
+    "stayBill": "Račun za boravak",
+    "reservationBill": "Račun za rezervaciju",
+    "amenityBill": "Račun za rezervaciju pogodnosti",
+    "guest": "Gost",
+    "name": "Ime",
+    "email": "Email",
+    "address": "Adresa",
+    "room": "Soba",
+    "roomNumber": "Broj sobe",
+    "type": "Tip",
+    "bed": "Krevet",
+    "amenity": "Pogodnost",
+    "amenityType": "Tip pogodnosti",
+    "people": "Osobe",
+    "time": "Vreme",
+    "item": "Stavka",
+    "unitPrice": "Cena",
+    "quantity": "Količina",
+    "total": "Ukupno",
+    "touristTaxAd": "Boravišna taksa (odrasli)",
+    "touristTaxCh": "Boravišna taksa (deca)",
+    "night": "noć",
+    "nights": "noći",
+    "paymentStatus": "Status plaćanja",
+    "paid": "Plaćeno",
+    "unpaid": "Nije plaćeno",
+    "paidDate": "Datum",
+    "processing": "Obrađivanje...",
+    "standard": "Standardna",
+    "deluxe": "Deluks",
+    "suite": "Apartman",
+    "penthouse": "Penthaus",
+    "single": "Pojedinačni",
+    "double": "Bračni",
+    "twin": "Dva odvojena kreveta",
+    "conference": "Konferencijska sala",
+    "spa": "Spa",
+    "pool": "Bazen",
+    "restaurant": "Restoran",
+    "gym": "Teretana",
+    "sauna": "Sauna",
+    "paymentSucc": "Plaćanje uspešno",
+    "paymentProc": "Uplata uspešno obrađena",
+    "paymentCanc": "Uplata odbijena",
+    "cancelled": "Odbijeno",
+    "retry": "Pokušajte ponovo",
+    "taxes": "Takse"
+  },
+  "pdf": "Sačuvajte kao pdf",
+  "period": {
+    "manage": "Upravljanje periodom za otkazivanje",
+    "hours": "Broj sati za otkazni rok",
+    "save": "Sačuvaj"
+  },
+  "cancelres": "Otkažite rezervaciju"
 }

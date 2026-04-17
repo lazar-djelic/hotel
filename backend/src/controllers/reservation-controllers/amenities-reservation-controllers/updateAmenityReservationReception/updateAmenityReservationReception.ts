@@ -18,12 +18,9 @@ export async function updateAmenityReservationReception(
         .json({ message: "Validation failed", errors: parsed.error.issues });
     }
 
-    const { amenity, user, guest, startTime, endTime, numberOfPeople, status } =
-      req.body;
+    const { amenity, startTime, endTime, numberOfPeople, status } = req.body;
     const amres = new AmenityReservation({
       amenity,
-      user,
-      guest,
       startTime,
       endTime,
       numberOfPeople,
@@ -34,8 +31,6 @@ export async function updateAmenityReservationReception(
       { _id: req.params.id },
       {
         amenity: amenity,
-        user: user,
-        guest: guest,
         startTime: startTime,
         endTime: endTime,
         numberOfPeople: numberOfPeople,

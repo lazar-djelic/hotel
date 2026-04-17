@@ -36,8 +36,7 @@ export const createCheckoutSessionRoomres = async (
         .json({ message: "Validation failed", errors: parsedtax.error.issues });
     }
 
-    const curr =
-      roomres.assignedRoom.currency === CURRENCIES.rsd ? "rsd" : "eur";
+    const curr = roomres.currency === CURRENCIES.rsd ? "rsd" : "eur";
     const days = Math.floor(
       (roomres.endDate.getTime() - roomres.startDate.getTime()) /
         (1000 * 60 * 60 * 24),
@@ -53,7 +52,7 @@ export const createCheckoutSessionRoomres = async (
             product_data: {
               name: String(roomres.assignedRoom.roomnum),
             },
-            unit_amount: roomres.assignedRoom.rate * 100,
+            unit_amount: roomres.rate * 100,
           },
           quantity: days,
         },
@@ -83,7 +82,7 @@ export const createCheckoutSessionRoomres = async (
           : []),
       ],
       success_url: `${process.env.CLIENT_PAYMENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel`,
+      cancel_url: `${process.env.CLIENT_PAYMENT_URL}/cancel?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         type: "roomres",
         roomresId,

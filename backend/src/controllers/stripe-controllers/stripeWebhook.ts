@@ -23,6 +23,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const session = event.data.object as any;
 
     const type = session.metadata.type;
+    const paymentIntentId = session.payment_intent;
 
     if (type === "roomres") {
       const roomresId = session.metadata.roomresId;
@@ -30,6 +31,8 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       await RoomReservation.findByIdAndUpdate(roomresId, {
         paid: true,
         paidDate: new Date(event.created * 1000),
+        paymentIntentId,
+        checkoutSessionId: session.id,
       });
     }
 
@@ -49,6 +52,28 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         paid: true,
         paidDate: new Date(event.created * 1000),
       });
+    }
+  }
+
+  if (event.type === "charge.refunded") {
+    const charge = event.data.object as any;
+    const paymentIntentId = charge.payment_intent;
+
+    const roomres = await RoomReservation.findOne({ paymentIntentId });
+    if (roomres) {
+      await RoomReservation.findOneAndUpdate(
+        { paymentIntentId },
+        { refunded: true },
+      );
+      return;
+    }
+
+    const amres = await AmenityReservation.findOne({ paymentIntentId });
+    if (amres) {
+      await AmenityReservation.findOneAndUpdate(
+        { paymentIntentId },
+        { refunded: true },
+      );
     }
   }
 

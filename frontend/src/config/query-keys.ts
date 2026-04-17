@@ -48,4 +48,7 @@ export const QUERY_KEYS = {
     EXTRA: "extra",
     EXTRAS: "extras",
   },
+  CANCEL: {
+    PERIOD: "period",
+  },
 };

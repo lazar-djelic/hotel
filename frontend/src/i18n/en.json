@@ -241,7 +241,8 @@
     "selectstay": "Select a stay",
     "checkin": "Check-in: ",
     "checkout": "Check-out: ",
-    "paid": "Is it paid: "
+    "paid": "Is it paid: ",
+    "refunded": "Is it refunded: "
   },
   "amenityRes": {
     "title": "Amenity reservations",
@@ -457,7 +458,12 @@
     "extradelsucc": "Extra deleted successfully",
     "extradelfail": "Failed to delete extra",
     "extraupsucc": "Extra updated successfully",
-    "extraupfail": "Failed to update the extra"
+    "extraupfail": "Failed to update the extra",
+    "pdffail": "Failed to create pdf",
+    "cancelcrsucc": "Cancel period created/updated successfully",
+    "cancelcrfail": "Failed to create/update cancel period",
+    "rescancelsucc": "Reservation successfully cancelled",
+    "rescancelfail": "Failed to cancel the reservation"
   },
   "messages": {
     "reception": "Reception",
@@ -472,5 +478,62 @@
     "touristTaxAd": "Tourist tax (adults)",
     "touristTaxCh": "Tourist tax (children)",
     "save": "Save"
-  }
+  },
+  "pay": "Pay",
+  "payment": {
+    "stayBill": "Stay Bill",
+    "reservationBill": "Reservation Bill",
+    "amenityBill": "Amenity Reservation Bill",
+    "guest": "Guest",
+    "name": "Name",
+    "email": "Email",
+    "address": "Address",
+    "room": "Room",
+    "roomNumber": "Room number",
+    "type": "Type",
+    "bed": "Bed",
+    "amenity": "Amenity",
+    "amenityType": "Amenity type",
+    "people": "People",
+    "time": "Time",
+    "item": "Item",
+    "unitPrice": "Unit Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "touristTaxAd": "Tourist tax (adults)",
+    "touristTaxCh": "Tourist tax (children)",
+    "night": "night",
+    "nights": "nights",
+    "paymentStatus": "Payment status",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "paidDate": "Date",
+    "processing": "Processing...",
+    "standard": "Standard",
+    "deluxe": "Deluxe",
+    "suite": "Suite",
+    "penthouse": "Penthouse",
+    "single": "Single",
+    "double": "Double",
+    "twin": "Twin",
+    "conference": "Conference room",
+    "spa": "Spa",
+    "pool": "Pool",
+    "restaurant": "Restaurant",
+    "gym": "Gym",
+    "sauna": "Sauna",
+    "paymentSucc": "Payment successful",
+    "paymentProc": "Payment has been processed successfully",
+    "paymentCanc": "Payment cancelled",
+    "cancelled": "Cancelled",
+    "retry": "Retry payment",
+    "taxes": "Taxes"
+  },
+  "pdf": "Export to pdf",
+  "period": {
+    "manage": "Manage cancel period",
+    "hours": "Number of hours for cancelation period",
+    "save": "Save"
+  },
+  "cancelres": "Cancel reservation"
 }
