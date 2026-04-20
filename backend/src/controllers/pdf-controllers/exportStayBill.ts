@@ -68,8 +68,15 @@ export const exportStayBill = async (req: Request, res: Response) => {
   const taxes = parsedTaxes.data;
 
   const curr = stay.currency;
+
+  const checkInMidnight = new Date(stay.checkIn);
+  checkInMidnight.setUTCHours(0, 0, 0, 0);
+  const checkOutMidnight = new Date(stay.checkOut);
+  checkOutMidnight.setUTCHours(0, 0, 0, 0);
+
   const days = Math.floor(
-    (stay.checkOut.getTime() - stay.checkIn.getTime()) / (1000 * 60 * 60 * 24),
+    (checkOutMidnight.getTime() - checkInMidnight.getTime()) /
+      (1000 * 60 * 60 * 24),
   );
   const roomTypeTrans = roomTypeTranslations[stay.room.type] ?? {
     srb: stay.room.type,

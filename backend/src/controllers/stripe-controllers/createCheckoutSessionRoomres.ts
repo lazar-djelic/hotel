@@ -37,9 +37,14 @@ export const createCheckoutSessionRoomres = async (
     }
 
     const curr = roomres.currency === CURRENCIES.rsd ? "rsd" : "eur";
+
+    const startMidnight = new Date(roomres.startDate);
+    startMidnight.setUTCHours(0, 0, 0, 0);
+    const endMidnight = new Date(roomres.endDate);
+    endMidnight.setUTCHours(0, 0, 0, 0);
+
     const days = Math.floor(
-      (roomres.endDate.getTime() - roomres.startDate.getTime()) /
-        (1000 * 60 * 60 * 24),
+      (endMidnight.getTime() - startMidnight.getTime()) / (1000 * 60 * 60 * 24),
     );
 
     const session = await stripe.checkout.sessions.create({

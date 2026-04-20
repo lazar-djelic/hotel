@@ -93,11 +93,14 @@ const CancelPage = () => {
   // --- Stay bill ---
   if (stay && sessionData.type === "stay") {
     const curr = stay.currency ?? "RSD";
+    const checkInMid = new Date(stay.checkIn);
+    checkInMid.setUTCHours(0, 0, 0, 0);
+    const checkOutMid = new Date(stay.checkOut);
+    checkOutMid.setUTCHours(0, 0, 0, 0);
     const days = Math.max(
       1,
       Math.floor(
-        (stay.checkOut.getTime() - stay.checkIn.getTime()) /
-          (1000 * 60 * 60 * 24),
+        (checkOutMid.getTime() - checkInMid.getTime()) / (1000 * 60 * 60 * 24),
       ),
     );
     const roomTypeTrans = t(`payment.${stay.room.type}`);
@@ -194,12 +197,14 @@ const CancelPage = () => {
   // --- Room reservation bill ---
   if (roomReservation && sessionData.type === "roomres") {
     const curr = roomReservation.currency;
+    const startMid = new Date(roomReservation.startDate);
+    startMid.setUTCHours(0, 0, 0, 0);
+    const endMid = new Date(roomReservation.endDate);
+    endMid.setUTCHours(0, 0, 0, 0);
     const days = Math.max(
       1,
       Math.floor(
-        (roomReservation.endDate.getTime() -
-          roomReservation.startDate.getTime()) /
-          (1000 * 60 * 60 * 24),
+        (endMid.getTime() - startMid.getTime()) / (1000 * 60 * 60 * 24),
       ),
     );
     const roomTypeTrans = t(`payment.${roomReservation.assignedRoom.type}`);

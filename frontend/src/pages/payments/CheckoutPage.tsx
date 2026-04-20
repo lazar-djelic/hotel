@@ -31,14 +31,14 @@ const CheckoutPage = () => {
   const { taxes } = useGetTaxes();
   const isSr = i18n.language.startsWith("sr");
 
-  const stayId = state?.stay?._id;
+  const stayId = state?.stay?._id ?? state?.stay;
   const { stay, loading: loadingStay } = useStay(stayId);
 
-  const roomresId = state?.roomres?._id;
+  const roomresId = state?.roomres?._id ?? state?.roomres;
   const { roomReservation, loading: loadingRoomres } =
     useRoomReservation(roomresId);
 
-  const amresId = state?.amres?._id;
+  const amresId = state?.amres?._id ?? state?.amres;
   const { amenityReservation, loading: loadingAmres } =
     useFullAmenityReservation(amresId);
 
@@ -60,11 +60,14 @@ const CheckoutPage = () => {
   // --- Stay bill ---
   if (stay) {
     const curr = stay.currency ?? "RSD";
+    const checkInMid = new Date(stay.checkIn);
+    checkInMid.setUTCHours(0, 0, 0, 0);
+    const checkOutMid = new Date(stay.checkOut);
+    checkOutMid.setUTCHours(0, 0, 0, 0);
     const days = Math.max(
       1,
       Math.floor(
-        (stay.checkOut.getTime() - stay.checkIn.getTime()) /
-          (1000 * 60 * 60 * 24),
+        (checkOutMid.getTime() - checkInMid.getTime()) / (1000 * 60 * 60 * 24),
       ),
     );
     const roomTypeTrans = t(`payment.${stay.room.type}`);
@@ -170,12 +173,14 @@ const CheckoutPage = () => {
   // --- Room reservation bill ---
   if (roomReservation) {
     const curr = roomReservation.currency;
+    const startMid = new Date(roomReservation.startDate);
+    startMid.setUTCHours(0, 0, 0, 0);
+    const endMid = new Date(roomReservation.endDate);
+    endMid.setUTCHours(0, 0, 0, 0);
     const days = Math.max(
       1,
       Math.floor(
-        (roomReservation.endDate.getTime() -
-          roomReservation.startDate.getTime()) /
-          (1000 * 60 * 60 * 24),
+        (endMid.getTime() - startMid.getTime()) / (1000 * 60 * 60 * 24),
       ),
     );
     const roomTypeTrans = t(`payment.${roomReservation.assignedRoom.type}`);

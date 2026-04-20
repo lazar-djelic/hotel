@@ -38,8 +38,14 @@ export const createCheckoutSessionStay = async (
     }
 
     const curr = stay.currency === CURRENCIES.rsd ? "rsd" : "eur";
+
+    const checkInMidnight = new Date(stay.checkIn);
+    checkInMidnight.setUTCHours(0, 0, 0, 0);
+    const checkOutMidnight = new Date(stay.checkOut);
+    checkOutMidnight.setUTCHours(0, 0, 0, 0);
+
     const days = Math.floor(
-      (stay.checkOut.getTime() - stay.checkIn.getTime()) /
+      (checkOutMidnight.getTime() - checkInMidnight.getTime()) /
         (1000 * 60 * 60 * 24),
     );
 
