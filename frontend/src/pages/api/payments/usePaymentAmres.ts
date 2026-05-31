@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../lib/axios";
+import api from "../../../lib/axios";
 
-export const usePaymentStay = () => {
+export const usePaymentAmres = () => {
   const { mutate, isPending } = useMutation({
-    mutationFn: async (stayId: string) => {
-      const res = await api.post("/payments/create-checkout-session-stay", {
-        stayId,
+    mutationFn: async (amresId: string) => {
+      const res = await api.post("/payments/create-checkout-session-amres", {
+        amresId,
       });
       return res.data;
     },

@@ -17,8 +17,8 @@ import { useCreateStay } from "../api/stays/check-in/useCreateStay";
 import { RESERVATION_STATUS } from "../../config/enums";
 import type { GuestStruct } from "../api/structs/GuestStruct";
 import { checkData } from "./checkData";
-import { useCreateGuestCheckIn } from "./useCreateGuestCheckIn";
-import { useUpdateGuestCheckIn } from "./useUpdateGuestCheckIn";
+import { useCreateGuestCheckIn } from "../api/stays/check-in/useCreateGuestCheckIn";
+import { useUpdateGuestCheckIn } from "../api/stays/check-in/useUpdateGuestCheckIn";
 
 const CheckInPage = () => {
   const { t } = useTranslation();

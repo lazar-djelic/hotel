@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { QUERY_KEYS } from "../../config/query-keys";
+import { QUERY_KEYS } from "../../../../config/query-keys";
 import {
   guestSchema,
   guestSimpleSchema,
   type guestSimpleSchemaType,
-} from "../../schemas/guest.response.schema";
-import api from "../../lib/axios";
-import type { SimpleStayCreateStruct } from "../api/structs/StayStruct";
-import type { GuestStruct } from "../api/structs/GuestStruct";
+} from "../../../../schemas/guest.response.schema";
+import api from "../../../../lib/axios";
+import type { SimpleStayCreateStruct } from "../../structs/StayStruct";
+import type { GuestStruct } from "../../structs/GuestStruct";
 
 interface UseCreateGuestProps {
   form: SimpleStayCreateStruct;

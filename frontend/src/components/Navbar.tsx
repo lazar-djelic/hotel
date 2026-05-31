@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { useLogout } from "../pages/profile-page/useLogout";
+import { useLogout } from "../pages/api/users/useLogout";
 import { useAuth } from "../context/AuthContext";
 import { USER_ROLE } from "../config/enums";
 import { MenuIcon, MoonIcon, SunIcon } from "lucide-react";
@@ -45,7 +45,7 @@ const Navbar: FC = () => {
   return (
     <div className="navbar sticky top-0 z-50 bg-base-100 shadow-md">
       <h1 className="flex-1 text-3xl font-bold font-mono tracking-tight px-20">
-        <Link to={"/"}>Hotel name</Link>
+        <Link to={"/"}>Sapphire Hotel</Link>
       </h1>
 
       <div className="flex-none">

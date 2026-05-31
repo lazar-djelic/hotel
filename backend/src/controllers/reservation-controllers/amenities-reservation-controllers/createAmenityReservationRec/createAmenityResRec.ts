@@ -118,10 +118,7 @@ export const createAmenityReservation = async (
       await session.commitTransaction();
       session.endSession();
 
-      return res.status(201).json({
-        message: "Reservation created successfully",
-        reservation: reservation[0],
-      });
+      return res.status(201).json(reservation[0]);
     } catch (err) {
       await session.abortTransaction();
       session.endSession();

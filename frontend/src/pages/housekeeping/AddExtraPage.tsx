@@ -123,7 +123,7 @@ const AddExtraPage = () => {
                         <td>{`${stay.guest.fName} ${stay.guest.lName[0]}.`}</td>
                         <td>
                           <span className="font-medium">
-                            {`${stay.checkIn.getUTCDate()}.${stay.checkIn.getUTCMonth()}.${stay.checkIn.getUTCFullYear()}.`}
+                            {`${stay.checkIn.getUTCDate()}.${stay.checkIn.getUTCMonth() + 1}.${stay.checkIn.getUTCFullYear()}.`}
                           </span>
                         </td>
                       </tr>

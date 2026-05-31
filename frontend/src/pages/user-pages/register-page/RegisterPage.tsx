@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import { useNavigate } from "react-router";
-import { useRegister } from "./useRegister";
+import { useRegister } from "../../api/users/useRegister";
 import { useTranslation } from "react-i18next";
 
 const Register: FC = () => {

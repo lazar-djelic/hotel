@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from "react";
 import { Link, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { useLogin } from "./useLogin";
+import { useLogin } from "../../api/users/useLogin";
 import { useAuth } from "../../../context/AuthContext";
 import { ROUTES } from "../../../config/routes";
 

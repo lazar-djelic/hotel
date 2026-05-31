@@ -5,7 +5,7 @@ const Footer: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content mt-auto place-items-center">
+    <footer className="footer p-10 bg-base-200 mt-10 place-items-center">
       <div>
         <span className="footer-title">{t("homepage.fhotel")}</span>
         <p>

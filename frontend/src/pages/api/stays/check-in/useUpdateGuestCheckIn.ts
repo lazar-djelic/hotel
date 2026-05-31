@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editGuest } from "../api/guests/guests.api";
-import { QUERY_KEYS } from "../../config/query-keys";
+import { editGuest } from "../../guests/guests.api";
+import { QUERY_KEYS } from "../../../../config/query-keys";
 import toast from "react-hot-toast";
-import type { SimpleGuestStruct } from "../api/structs/GuestStruct";
+import type { SimpleGuestStruct } from "../../structs/GuestStruct";
 import { useTranslation } from "react-i18next";
 
 export const useUpdateGuestCheckIn = (

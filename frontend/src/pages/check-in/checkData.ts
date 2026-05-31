@@ -44,6 +44,11 @@ export const checkData = (
           action: "create" as const,
           guest: tmpGuest,
         };
+    } else {
+      return {
+        action: "create" as const,
+        guest: tmpGuest,
+      };
     }
   } else {
     if (guest !== undefined) {

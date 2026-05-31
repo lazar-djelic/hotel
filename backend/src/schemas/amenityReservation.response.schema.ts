@@ -80,7 +80,10 @@ export const userAndAmenityResRecSimpleSchema = z.object({
 export const getAmenityReservationSchema = z.object({
   _id: z.any().transform((val) => val.toString()),
   amenity: amenitySchema,
-  user: z.any().transform((val) => val.toString()),
+  user: z
+    .any()
+    .nullable()
+    .transform((val) => val?.toString() || null),
   guest: z
     .any()
     .transform((val) => val.toString())

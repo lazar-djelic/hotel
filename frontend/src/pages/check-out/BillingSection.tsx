@@ -64,10 +64,9 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
 
       <div className="flex justify-between">
         <span>
-          {t("checkout.room")} ({nights} {t("checkout.nights")} x{" "}
-          {stay.rate || stay.room.rate})
+          {t("checkout.room")} ({nights} {t("checkout.nights")})
         </span>
-        <span>{`${roomTotal} ${stay.currency}`}</span>
+        <span>{`${nights} * ${stay.rate || stay.room.rate} = ${roomTotal} ${stay.currency}`}</span>
       </div>
 
       <div>
@@ -164,7 +163,7 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
               {t("payment.touristTaxAd")} ({nights} {t("checkout.nights")} x{" "}
               {stay.adults ?? 1} {t("checkout.adults")})
             </span>
-            <span>{`${taxAdTotal.toFixed(2)} ${stay.currency}`}</span>
+            <span>{`${stay.adults} * ${nights} * ${taxes.touristTaxAd} = ${taxAdTotal.toFixed(2)} ${stay.currency}`}</span>
           </div>
         )}
         {taxes && taxChTotal > 0 && (
@@ -173,7 +172,7 @@ const BillingSection = ({ stay, onStayUpdated }: BillingProps) => {
               {t("payment.touristTaxCh")} ({nights} {t("checkout.nights")} x{" "}
               {stay.children ?? 0} {t("checkout.children")})
             </span>
-            <span>{`${taxChTotal.toFixed(2)} ${stay.currency}`}</span>
+            <span>{`${stay.children} * ${nights} * ${taxes.touristTaxCh} = ${taxChTotal.toFixed(2)} ${stay.currency}`}</span>
           </div>
         )}
       </div>

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 import toast from "react-hot-toast";
-import { findGuest } from "../../../../api/guests/guests.api";
-import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs/RoomReservationStruct";
+import { findGuest } from "../guests/guests.api";
+import type { SimpleRoomResCreateReceptionStruct } from "../structs/RoomReservationStruct";
 
 interface UseFindGuestProps {
   form: SimpleRoomResCreateReceptionStruct;

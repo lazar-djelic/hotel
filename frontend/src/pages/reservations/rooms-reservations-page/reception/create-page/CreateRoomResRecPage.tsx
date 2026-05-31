@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import type { SimpleRoomResCreateReceptionStruct } from "../../../../api/structs/RoomReservationStruct";
 import { createEmptyRoomReservation } from "../../../../api/roomReservations/room-reservation-detail/createEmptyRoomReservation";
 import toast from "react-hot-toast";
-import { useFindGuestRoomRes } from "./useFindGuestRoomRes";
+import { useFindGuestRoomRes } from "../../../../api/roomReservations/useFindGuestRoomRes";
 import NewGuestInputsRecComp from "../../../rooms-reservations-page/reception/create-page/NewGuestInputsRecComp";
 import {
   roomReservationSimpleSchema,

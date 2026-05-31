@@ -1,7 +1,7 @@
 {
   "welcome": "Welcome to the home page",
   "navbar": {
-    "hotelname": "Hotel name",
+    "hotelname": "Sapphire Hotel",
     "reservations": "Reservations",
     "reviews": "Reviews",
     "configuration": "Configuration",
@@ -393,7 +393,7 @@
     "booktitle": "Book Your Stay Today",
     "bookdesc": "Experience comfort, elegance, and exceptional service.",
     "bookbtn": "Reserve Now",
-    "fhotel": "Hotel",
+    "fhotel": "Sapphire Hotel",
     "fhoteldesc": "Luxury & Comfort",
     "faddress": "Address",
     "fworkinghours": "Working Hours",

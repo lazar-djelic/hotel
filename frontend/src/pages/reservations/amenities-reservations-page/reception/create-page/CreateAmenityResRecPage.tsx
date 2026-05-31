@@ -16,7 +16,7 @@ import { useAmenities } from "../../../../api/amenities/all-amenities/useAmeniti
 import { useAmenitySlots } from "../../../../api/amenities/amenity-slots/useAmenitySlots";
 import AmResComp from "./AmResComp";
 import NewGuestInputsRecComp from "./NewGuestInputsRecComp";
-import { useFindGuestAmRes } from "./useFindGuestAmRes";
+import { useFindGuestAmRes } from "../../../../api/amenityReservations/useFindGuestAmRes";
 
 const CreateAmenityResRecPage = () => {
   const { t } = useTranslation();

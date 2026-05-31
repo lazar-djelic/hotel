@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import type { AmenityReservationStruct } from "../api/structs/AmenityReservation";
-import { QUERY_KEYS } from "../../config/query-keys";
-import { fetchAmenityReservation } from "../api/amenityReservations/amenityReservations.api";
-import { amenityReservationSchema } from "../../schemas/amenityReservation.response.schema";
+import type { AmenityReservationStruct } from "../structs/AmenityReservation";
+import { QUERY_KEYS } from "../../../config/query-keys";
+import { fetchAmenityReservation } from "../amenityReservations/amenityReservations.api";
+import { amenityReservationSchema } from "../../../schemas/amenityReservation.response.schema";
 
 export const useFullAmenityReservation = (id: string) => {
   const { data: amenityReservation, isLoading } =

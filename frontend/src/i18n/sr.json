@@ -1,7 +1,7 @@
 {
   "welcome": "Dobro došli",
   "navbar": {
-    "hotelname": "Ime hotela",
+    "hotelname": "Sapphire Hotel",
     "reservations": "Rezervacije",
     "reviews": "Knjiga utisaka",
     "configuration": "Konfiguracija",
@@ -393,7 +393,7 @@
     "booktitle": "Rezervišite Vaš boravak već sada",
     "bookdesc": "Iskusite komfor, eleganciju i vrhunsku uslugu.",
     "bookbtn": "Rezervišite",
-    "fhotel": "Hotel",
+    "fhotel": "Sapphire Hotel",
     "fhoteldesc": "Luksuz i komfor",
     "faddress": "Adresa",
     "fworkinghours": "Radno vreme",

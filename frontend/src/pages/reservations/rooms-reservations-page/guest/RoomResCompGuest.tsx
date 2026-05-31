@@ -74,11 +74,11 @@ const RoomResComp = ({
   };
 
   const getDays = () => {
-    const start = current.startDate;
-    const end = current.endDate;
+    const start = new Date(current.startDate);
+    const end = new Date(current.endDate);
 
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
+    start.setUTCHours(0, 0, 0, 0);
+    end.setUTCHours(0, 0, 0, 0);
 
     return (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
   };

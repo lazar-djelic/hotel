@@ -122,7 +122,7 @@ export const exportRoomresBill = async (req: Request, res: Response) => {
 
       <div class="header">
         <div class="header-left">
-          <h1>Hotel</h1>
+          <h1>Sapphire Hotel</h1>
           <p>Račun za rezervaciju / Reservation Bill</p>
         </div>
         <div class="header-right">

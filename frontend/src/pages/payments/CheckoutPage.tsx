@@ -1,19 +1,19 @@
 import { useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LoaderIcon } from "lucide-react";
-import { usePaymentAmres } from "./usePaymentAmres";
-import { usePaymentRoomres } from "./usePaymentRoomres";
-import { usePaymentStay } from "./usePaymentStay";
+import { usePaymentAmres } from "../api/payments/usePaymentAmres";
+import { usePaymentRoomres } from "../api/payments/usePaymentRoomres";
+import { usePaymentStay } from "../api/payments/usePaymentStay";
 import { useRoomReservation } from "../api/roomReservations/room-reservation-detail/useRoomReservation";
 import { useStay } from "../api/stays/useStay";
 import { useGetTaxes } from "../api/taxes/useGetTaxes";
-import { useFullAmenityReservation } from "./useFullAmenityReservation";
+import { useFullAmenityReservation } from "../api/payments/useFullAmenityReservation";
 
 const fmtDate = (d: Date) =>
   `${String(d.getUTCDate()).padStart(2, "0")}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${d.getUTCFullYear()}.`;
 
 const fmtTime = (d: Date) =>
-  `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  `${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
 
 const fmtMoney = (n: number, curr: string) =>
   `${n.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${curr}`;
