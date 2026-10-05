@@ -1,0 +1,32 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { BrowserRouter } from "react-router";
+import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./i18n";
+import Navbar from "./components/Navbar.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
+import { getSavedTheme, setTheme } from "./config/theme.ts";
+import { getSavedLanguage, setLanguage } from "./config/language.ts";
+import Footer from "./components/Footer.tsx";
+
+const queryClient = new QueryClient();
+setTheme(getSavedTheme());
+setLanguage(getSavedLanguage());
+
+createRoot(document.getElementById("root")!).render(
+  // <StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <App />
+        <Toaster />
+        <Footer />
+      </AuthProvider>
+    </BrowserRouter>
+  </QueryClientProvider>,
+  // </StrictMode>
+);

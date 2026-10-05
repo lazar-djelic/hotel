@@ -1,0 +1,47 @@
+import api from "../../../lib/axios";
+import type { Stay } from "../../../types/StayType";
+import type { SimpleAddExtraStruct } from "../structs/ExtraStruct";
+import type { stayCreateStruct } from "../structs/StayStruct";
+
+export const createStay = async ({
+  stay,
+}: {
+  stay: stayCreateStruct;
+}): Promise<Stay> => {
+  console.log(stay);
+  const res = await api.post(`/stays/`, stay);
+  return res.data;
+};
+
+export const fetchStays = async (): Promise<Stay[]> => {
+  const res = await api.get("/stays");
+  return res.data;
+};
+
+export const fetchStay = async (id: string): Promise<Stay> => {
+  const res = await api.get(`/stays/${id}`);
+  return res.data;
+};
+
+export const addExtra = async ({
+  id,
+  extra,
+}: {
+  id: string;
+  extra: SimpleAddExtraStruct;
+}): Promise<Stay> => {
+  const res = await api.put(`/stays/addExtra/${id}`, { ...extra });
+  return res.data;
+};
+
+export const checkOut = async ({
+  id,
+  notes,
+}: {
+  id: string;
+  notes: string;
+}): Promise<Stay> => {
+  console.log(id, notes);
+  const res = await api.post(`/stays/checkout/${id}`, { notes });
+  return res.data;
+};
